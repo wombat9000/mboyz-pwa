@@ -1,6 +1,6 @@
 <h3>Teilnehmer</h3>
 
-<mat-tab-group class="tabs" [dynamicHeight]="true">
+<mat-tab-group class="participant-tabs" [dynamicHeight]="false">
   <mat-tab label="Bestätigt ({{participating.length}})">
     <mat-list>
       <mat-list-item *ngFor="let participant of participating">
@@ -8,7 +8,7 @@
       </mat-list-item>
     </mat-list>
   </mat-tab>
-  <mat-tab label="Interessiert ({{invited.length}})">
+  <mat-tab label="Offen ({{invited.length}})">
     <mat-list>
       <mat-list-item *ngFor="let participant of invited">
         <h3 matLine> {{participant.name}} </h3>

@@ -1,8 +1,9 @@
-@import '~@angular/material/theming';
-@import '../../../mboyz-theme.scss';
-
 :host {
   display: flex;
   flex-direction: column;
   padding: 10px;
+
+  .participant-tabs {
+    height: 300px;
+  }
 }
