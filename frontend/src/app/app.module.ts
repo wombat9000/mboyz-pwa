@@ -5,11 +5,17 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {MatButtonModule, MatListModule, MatTabsModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule, MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatListModule,
+  MatNativeDateModule,
+  MatTabsModule,
+  MatToolbarModule
+} from '@angular/material';
 import {environment} from '../environments/environment';
 import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
 import {ParticipantsComponent} from './holiday-detail/participants/participants.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +27,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   imports: [
     BrowserAnimationsModule,
     MatButtonModule,
+    MatChipsModule,
+    MatDatepickerModule,
     MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
     MatListModule,
     BrowserModule,
     AppRoutingModule,
