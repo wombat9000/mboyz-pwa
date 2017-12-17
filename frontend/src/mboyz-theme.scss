@@ -1,0 +1,18 @@
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$mboyz-primary: mat-palette($mat-deep-purple, 700);
+$mboyz-accent:  mat-palette($mat-light-green, A400);
+
+// The warn palette is optional (defaults to red).
+$mboyz-warn:    mat-palette($mat-red, A200, A100, A400);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$mboyz-theme: mat-light-theme($mboyz-primary, $mboyz-accent, $mboyz-warn);
+
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($mboyz-theme);
