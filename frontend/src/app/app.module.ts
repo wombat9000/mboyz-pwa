@@ -16,13 +16,15 @@ import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component'
 import {ParticipantsComponent} from './holiday-detail/participants/participants.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MessageBoxComponent } from './holiday-detail/message-box/message-box.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HolidayDetailComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    MessageBoxComponent
   ],
   imports: [
     BrowserAnimationsModule,
