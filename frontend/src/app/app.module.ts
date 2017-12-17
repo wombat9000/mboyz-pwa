@@ -5,15 +5,23 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {MatToolbarModule} from '@angular/material';
+import {MatListModule, MatTabsModule, MatToolbarModule} from '@angular/material';
 import {environment} from '../environments/environment';
+import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
+import {ParticipantsComponent} from './holiday-detail/participants/participants.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HolidayDetailComponent,
+    ParticipantsComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatListModule,
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,

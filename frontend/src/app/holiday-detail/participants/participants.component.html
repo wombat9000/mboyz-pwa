@@ -1,0 +1,29 @@
+<h3>Teilnehmer</h3>
+
+
+
+<mat-tab-group class="tabs" [dynamicHeight]="true">
+  <mat-tab label="Zugesagt">
+    <mat-list>
+      <mat-list-item *ngFor="let participant of participating">
+        <img matListAvatar src="../../../favicon.ico" alt="...">
+        <h3 matLine> {{participant.name}} </h3>
+        <p matLine>
+          zugesagt am 2.12.2017
+        </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+  <mat-tab label="Eingeladen">
+    <mat-list>
+      <mat-list-item *ngFor="let participant of notParticipating">
+        <img matListAvatar src="../../../favicon.ico" alt="...">
+        <h3 matLine> {{participant.name}} </h3>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+
