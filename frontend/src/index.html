@@ -4,9 +4,8 @@
   <meta name="theme-color" content="#673ab7">
   <link rel="manifest" href="manifest.json">
   <meta charset="utf-8">
-  <title>Frontend</title>
+  <title>mboyzmbabes</title>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
@@ -19,8 +18,21 @@
   </app-root>
   <noscript>
     <h3 style="color: #512da8; font-family: Helvetica; margin: 2rem;">
-      Sorry, but app is not available without javascript
+      Sorry, but app is not available without javascript.
     </h3>
   </noscript>
 </body>
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB2GSJvXjGcJVjHR5HQvIvwdsS0Y12wAkE",
+    authDomain: "mboyz-1e2c2.firebaseapp.com",
+    databaseURL: "https://mboyz-1e2c2.firebaseio.com",
+    projectId: "mboyz-1e2c2",
+    storageBucket: "mboyz-1e2c2.appspot.com",
+    messagingSenderId: "563676792074"
+  };
+  firebase.initializeApp(config);
+</script>
 </html>

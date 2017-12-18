@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "mboyz-1e2c2",
+    "staging": "mboyz-staging"
+  }
+}
