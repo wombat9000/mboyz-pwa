@@ -7,16 +7,15 @@ import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {
   MatButtonModule, MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatListModule,
-  MatNativeDateModule,
-  MatTabsModule,
-  MatToolbarModule
+  MatMenuModule, MatNativeDateModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import {environment} from '../environments/environment';
 import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
 import {ParticipantsComponent} from './holiday-detail/participants/participants.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MessageBoxComponent } from './holiday-detail/message-box/message-box.component';
+import {MessageBoxComponent} from './holiday-detail/message-box/message-box.component';
+import {HolidayDetailModule} from './holiday-detail/holiday-detail.module';
 
 
 @NgModule({
@@ -27,9 +26,11 @@ import { MessageBoxComponent } from './holiday-detail/message-box/message-box.co
     MessageBoxComponent
   ],
   imports: [
+    HolidayDetailModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatChipsModule,
+    MatMenuModule,
     MatDatepickerModule,
     MatTabsModule,
     FormsModule,

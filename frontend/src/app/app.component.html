@@ -1,7 +1,11 @@
 <mat-toolbar color="primary">
-  {{ title }}
+  <span routerLink="/">{{ title }}</span>
+  <button mat-button routerLink="/holiday">Holiday Detail</button>
+  <button mat-button [matMenuTriggerFor]="menu">Components</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/components/message-box">Messagebox</button>
+    <button mat-menu-item routerLink="/components/participant-box">Teilnehmerpanel</button>
+  </mat-menu>
 </mat-toolbar>
 
-<app-holiday-detail></app-holiday-detail>
-
-<!--<router-outlet></router-outlet>-->
+<router-outlet></router-outlet>

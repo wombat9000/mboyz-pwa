@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 
 class Participant {
-  constructor(readonly name: string) {}
+  constructor(readonly name: string) {
+  }
 }
 
 
@@ -16,7 +17,8 @@ export class ParticipantsComponent implements OnInit {
   notParticipating = [];
   invited = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.participating.push(new Participant('Sarah'));
@@ -35,9 +37,13 @@ export class ParticipantsComponent implements OnInit {
     this.notParticipating.push(new Participant('Caro'));
     this.notParticipating.push(new Participant('Gereon'));
 
-    [this.participating, this.invited, this.notParticipating].map(it => it.sort(function(a, b){
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
+    [this.participating, this.invited, this.notParticipating].map(it => it.sort(function (a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
       return 0;
     }));
   }

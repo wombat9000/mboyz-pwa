@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MessageBoxComponent } from './message-box.component';
+import {MessageBoxComponent} from './message-box.component';
+import {HolidayDetailModule} from '../holiday-detail.module';
 
 describe('MessageBoxComponent', () => {
   let component: MessageBoxComponent;
@@ -8,9 +9,9 @@ describe('MessageBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageBoxComponent ]
+      imports: [HolidayDetailModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
