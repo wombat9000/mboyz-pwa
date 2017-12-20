@@ -19,12 +19,10 @@ export class MessageBoxComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.messages.push(new Message('Benni', 'hallo ihr omas! ist der glöckner auch am start?', moment('2016-01-01')));
-    this.messages.push(new Message('Sarah', 'selber oma hihi', moment('2016-01-02')));
-    this.messages.push(new Message('Jens', 'ja ich bin am start!', moment('2016-01-03')));
+    this.messages.push(new Message('Bastian Stone', 'Willkommen auf der mboyz Seite!', moment('2016-01-01')));
   }
 
   postMessage(message: string) {
-    this.messages.push(new Message('auth', message, moment('2016-01-02')));
+    this.messages.push(new Message('Max Mustermann', message, moment('2016-01-02')));
   }
 }

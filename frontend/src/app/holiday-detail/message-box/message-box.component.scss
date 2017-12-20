@@ -3,8 +3,8 @@
 
 :host {
   display: block;
-  width: 600px;
   background-color: white;
+  padding: 8px;
 
   mat-list-item {
     height: auto;
@@ -12,5 +12,28 @@
 
   mat-form-field {
     width: 100%;
+  }
+
+  .author {
+    color: mat-color($mboyz-primary);
+    font-weight: bold;
+    margin-right: 6px;
+  }
+
+  .message {
+    color: black;
+  }
+
+  .message-container {
+    padding: 5px;
+    width: 100%;
+    background-color: mat-color($mboyz-accent, 50);
+    flex-direction: column;
+  }
+
+  .info {
+    font-size: 80%;
+    color: lighten(black, 50%);
+    margin-top: 2px;
   }
 }

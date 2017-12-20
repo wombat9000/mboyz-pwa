@@ -1,7 +1,13 @@
-<h3>Nachrichten</h3>
 <mat-list role="list">
   <mat-list-item *ngFor="let message of messages" role="listitem">
-    [{{message.created.format("ddd, hA")}}] {{message.author}}: {{message.message}}
+    <div class="message-container">
+      <div class="body">
+        <span class="author">{{message.author}}</span><span class="message"> {{message.message}}</span>
+      </div>
+      <div class="info">
+        <span>12. Dezember um 21:43</span>
+      </div>
+    </div>
   </mat-list-item>
 </mat-list>
 <mat-form-field>
