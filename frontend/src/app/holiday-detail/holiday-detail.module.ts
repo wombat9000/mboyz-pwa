@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
 
 import {
-  MatButtonModule, MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatListModule,
-  MatMenuModule, MatNativeDateModule, MatTabsModule, MatToolbarModule
+  MatButtonModule,
+  MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatListModule, MatNativeDateModule,
+  MatTabsModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,7 +22,6 @@ import {ParticipantsComponent} from './participants/participants.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatChipsModule,
-    MatMenuModule,
     MatDatepickerModule,
     MatTabsModule,
     FormsModule,
@@ -30,7 +30,6 @@ import {ParticipantsComponent} from './participants/participants.component';
     MatInputModule,
     MatNativeDateModule,
     MatListModule,
-    MatToolbarModule,
   ]
 })
 export class HolidayDetailModule {

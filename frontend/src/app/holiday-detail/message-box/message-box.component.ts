@@ -24,4 +24,7 @@ export class MessageBoxComponent implements OnInit {
     this.messages.push(new Message('Jens', 'ja ich bin am start!', moment('2016-01-03')));
   }
 
+  postMessage(message: string) {
+    this.messages.push(new Message('auth', message, moment('2016-01-02')));
+  }
 }

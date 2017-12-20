@@ -5,5 +5,9 @@
   </mat-list-item>
 </mat-list>
 <mat-form-field>
-  <textarea matInput placeholder="Nachricht schreiben..."></textarea>
+  <input matInput
+         #messageIn
+         (input)="postMessage(messageIn.value)"
+         placeholder="Nachricht schreiben..."/>
 </mat-form-field>
+
