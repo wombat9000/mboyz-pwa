@@ -5,7 +5,7 @@
         <span class="author">{{message.author}}</span><span class="message"> {{message.message}}</span>
       </div>
       <div class="info">
-        <span>12. Dezember um 21:43</span>
+        <span>{{message.created.format('Do MMMM')}} um {{message.created.format('LT')}}</span>
       </div>
     </div>
   </mat-list-item>

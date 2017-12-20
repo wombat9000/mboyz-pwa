@@ -6,6 +6,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
+import moment = require('moment');
 
 describe('MessageBoxComponent', () => {
   let component: MessageBoxComponent;
@@ -29,36 +30,44 @@ describe('MessageBoxComponent', () => {
     });
 
     it('should have input box', () => {
-      let input = debugElement.query(By.css('input'));
+      const input = debugElement.query(By.css('input'));
       expect(input).toBeTruthy();
     });
 
     describe('posting a message', () => {
-      let input;
+      const someMessage = 'someMessage';
 
       beforeEach(async () => {
-        input = debugElement.query(By.css('input'));
+        await sendMessage(someMessage);
       });
 
-      it('should put the new message into the list', async() => {
-        let someMessage = 'someMessage';
-        input.nativeElement.value = someMessage;
-        input.nativeElement.dispatchEvent(new KeyboardEvent("keyup",{
-          "key": "Enter"
-        }));
-        await fixture.detectChanges();
-        await fixture.whenStable();
-
-        let list: DebugElement[] = debugElement.queryAll(By.css('.mat-list-item-content'));
-
-        let find = list
+      it('message should appear in the list', async () => {
+        const message = debugElement.queryAll(By.css('.mat-list-item-content'))
           .map(it => it.nativeElement.textContent)
           .find((it) => it.includes(someMessage));
 
-        expect(find).toContain(someMessage);
+        expect(message).toContain(someMessage);
+      });
+
+      it('message should have a timestamp', () => {
+        const message = debugElement.queryAll(By.css('.mat-list-item-content'))
+          .map(it => it.nativeElement.textContent)
+          .find((it) => it.includes(someMessage));
+
+        const messageInComponent = component.messages.find(it => it.message === someMessage);
+
+        expect(message).toContain(moment().format('Do MMMM'));
       });
     });
   });
 
-
+  async function sendMessage(someMessage: string) {
+    const input = debugElement.query(By.css('input'));
+    input.nativeElement.value = someMessage;
+    input.nativeElement.dispatchEvent(new KeyboardEvent("keyup", {
+      "key": "Enter"
+    }));
+    await fixture.detectChanges();
+    await fixture.whenStable();
+  }
 });

@@ -23,6 +23,6 @@ export class MessageBoxComponent implements OnInit {
   }
 
   postMessage(message: string) {
-    this.messages.push(new Message('Max Mustermann', message, moment('2016-01-02')));
+    this.messages.push(new Message('Max Mustermann', message, moment()));
   }
 }

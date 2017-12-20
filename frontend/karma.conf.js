@@ -24,6 +24,10 @@ module.exports = function (config) {
       environment: 'dev'
     },
     reporters: ['mocha'],
+    mochaReporter: {
+      output: 'full',
+      ignoreSkipped: true
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
