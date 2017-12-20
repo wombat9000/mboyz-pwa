@@ -43,7 +43,9 @@ describe('MessageBoxComponent', () => {
       it('should put the new message into the list', async() => {
         let someMessage = 'someMessage';
         input.nativeElement.value = someMessage;
-        input.nativeElement.dispatchEvent(new Event('input'));
+        input.nativeElement.dispatchEvent(new KeyboardEvent("keyup",{
+          "key": "Enter"
+        }));
         await fixture.detectChanges();
         await fixture.whenStable();
 
