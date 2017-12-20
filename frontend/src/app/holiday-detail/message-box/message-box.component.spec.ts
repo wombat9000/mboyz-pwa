@@ -60,8 +60,8 @@ describe('MessageBoxComponent', () => {
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = someMessage;
     input.nativeElement.dispatchEvent(new Event('input'));
-    input.nativeElement.dispatchEvent(new KeyboardEvent("keyup", {
-      "key": "Enter"
+    input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {
+      'key': 'Enter'
     }));
     fixture.detectChanges();
   }
