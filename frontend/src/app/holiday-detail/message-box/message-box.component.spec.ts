@@ -21,53 +21,48 @@ describe('MessageBoxComponent', () => {
       .compileComponents();
   }));
 
-  describe('initial state', () => {
-    beforeEach(async () => {
-      fixture = TestBed.createComponent(MessageBoxComponent);
-      component = fixture.componentInstance;
-      debugElement = fixture.debugElement;
-      await fixture.detectChanges();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MessageBoxComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    fixture.detectChanges();
+  });
+
+  describe('posting a message', () => {
+    const someMessage = 'someMessage';
+
+    beforeEach(() => {
+      return sendMessage(someMessage);
     });
 
-    it('should have input box', () => {
-      const input = debugElement.query(By.css('input'));
-      expect(input).toBeTruthy();
+    it('message should appear in the list', () => {
+      const message = debugElement.queryAll(By.css('.mat-list-item-content'))
+        .map(it => it.nativeElement.textContent)
+        .find(it => it.includes(someMessage));
+
+      expect(message).toContain(someMessage);
     });
 
-    describe('posting a message', () => {
-      const someMessage = 'someMessage';
+    it('message should have a timestamp', () => {
+      const message = debugElement.queryAll(By.css('.mat-list-item-content'))
+        .map(it => it.nativeElement.textContent)
+        .find(it => it.includes(someMessage));
 
-      beforeEach(async () => {
-        await sendMessage(someMessage);
-      });
+      expect(message).toContain(moment().format('Do MMMM'));
+    });
 
-      it('message should appear in the list', async () => {
-        const message = debugElement.queryAll(By.css('.mat-list-item-content'))
-          .map(it => it.nativeElement.textContent)
-          .find((it) => it.includes(someMessage));
-
-        expect(message).toContain(someMessage);
-      });
-
-      it('message should have a timestamp', () => {
-        const message = debugElement.queryAll(By.css('.mat-list-item-content'))
-          .map(it => it.nativeElement.textContent)
-          .find((it) => it.includes(someMessage));
-
-        const messageInComponent = component.messages.find(it => it.message === someMessage);
-
-        expect(message).toContain(moment().format('Do MMMM'));
-      });
+    it('should clear the input field after the message is sent', () => {
+      expect(component.messageInput).toBe('');
     });
   });
 
-  async function sendMessage(someMessage: string) {
+  function sendMessage(someMessage: string) {
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = someMessage;
+    input.nativeElement.dispatchEvent(new Event('input'));
     input.nativeElement.dispatchEvent(new KeyboardEvent("keyup", {
       "key": "Enter"
     }));
-    await fixture.detectChanges();
-    await fixture.whenStable();
+    fixture.detectChanges();
   }
 });

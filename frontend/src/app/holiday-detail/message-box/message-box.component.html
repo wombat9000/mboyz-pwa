@@ -12,8 +12,8 @@
 </mat-list>
 <mat-form-field>
   <input matInput
-         #messageIn
-         (keyup.enter)="postMessage(messageIn.value)"
+         (keyup.enter)="postMessage()"
+         [(ngModel)]="messageInput"
          placeholder="Nachricht schreiben..."/>
 </mat-form-field>
 

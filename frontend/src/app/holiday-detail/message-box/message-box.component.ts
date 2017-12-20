@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {Moment} from 'moment';
 
 
 export class Message {
-  constructor(readonly author: string, readonly message: string, readonly created: Moment) {}
+  constructor(readonly author: string, readonly message: string, readonly created: Moment) {
+  }
 }
 
 @Component({
@@ -15,14 +16,17 @@ export class Message {
 export class MessageBoxComponent implements OnInit {
 
   messages: Message[] = [];
+  messageInput = '';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.messages.push(new Message('Bastian Stone', 'Willkommen auf der mboyz Seite!', moment('2016-01-01')));
   }
 
-  postMessage(message: string) {
-    this.messages.push(new Message('Max Mustermann', message, moment()));
+  postMessage() {
+    this.messages.push(new Message('Max Mustermann', this.messageInput, moment()));
+    this.messageInput = '';
   }
 }
