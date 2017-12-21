@@ -7,8 +7,9 @@ import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
 import moment = require('moment');
+import {CommentBoxComponent} from './comment-box/comment-box.component';
 
-describe('MessageBoxComponent', () => {
+describe('PostBoxComponent', () => {
   let component: PostBoxComponent;
   let fixture: ComponentFixture<PostBoxComponent>;
   let debugElement: DebugElement;
@@ -16,7 +17,7 @@ describe('MessageBoxComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
-      declarations: [PostBoxComponent]
+      declarations: [PostBoxComponent, CommentBoxComponent]
     })
       .compileComponents();
   }));
@@ -57,7 +58,7 @@ describe('MessageBoxComponent', () => {
   });
 
   function createPost(someMessage: string) {
-    const input = debugElement.query(By.css('input'));
+    const input = debugElement.query(By.css('textarea'));
     input.nativeElement.value = someMessage;
     input.nativeElement.dispatchEvent(new Event('input'));
     input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {

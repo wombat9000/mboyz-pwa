@@ -10,13 +10,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box/post-box.component';
 import {HolidayDetailComponent} from './holiday-detail.component';
 import {ParticipantsComponent} from './participants/participants.component';
+import { CommentBoxComponent } from './post-box/comment-box/comment-box.component';
 
 
 @NgModule({
   declarations: [
     HolidayDetailComponent,
     ParticipantsComponent,
-    PostBoxComponent
+    PostBoxComponent,
+    CommentBoxComponent
   ],
   imports: [
     BrowserAnimationsModule,
