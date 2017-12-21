@@ -37,7 +37,7 @@ describe('PostBoxComponent', () => {
     });
 
     it('post should appear in the list', () => {
-      const post = debugElement.queryAll(By.css('.mat-list-item-content'))
+      const post = debugElement.queryAll(By.css('.message'))
         .map(it => it.nativeElement.textContent)
         .find(it => it.includes(someMessage));
 
@@ -45,11 +45,11 @@ describe('PostBoxComponent', () => {
     });
 
     it('post should have a timestamp', () => {
-      const post = debugElement.queryAll(By.css('.mat-list-item-content'))
-        .map(it => it.nativeElement.textContent)
-        .find(it => it.includes(someMessage));
+      const post = debugElement.queryAll(By.css('.post'))
+        .find(it => it.nativeElement.textContent.includes(someMessage));
+      const renderedDate = post.query(By.css('.created-text')).nativeElement.textContent;
 
-      expect(post).toContain(moment().format('Do MMMM'));
+      expect(renderedDate).toContain(moment().format('Do MMMM'));
     });
 
     it('should clear the input field after the message is sent', () => {

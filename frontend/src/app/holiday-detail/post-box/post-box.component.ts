@@ -33,7 +33,8 @@ export class PostBoxComponent implements OnInit {
     const someComment = new Comment('Sarah Lüken', 'Das hier ist ein Kommentar. Kommentare sind einem Post zugeordnet.', someDate);
     const anotherComment = new Comment('Axel Grünert', 'Kommentare sind auch chronologisch sortiert, Älteste zuerst', laterDate);
     const someComments = [someComment, anotherComment];
-    const someMessage = 'Willkommen auf der mboyz Seite! Das hier ist ein Post. Posts sind chronologisch sortiert, Neuere werden zuerst angezeigt.';
+    const someMessage = 'Willkommen auf der mboyz Seite! Das hier ist ein Post. ' +
+      'Posts sind chronologisch sortiert, Neuere werden zuerst angezeigt.';
     const moi = 'Bastian Stone';
     this.posts.push(new Post(moi, someMessage, someDate, someComments));
   }

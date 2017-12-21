@@ -2,22 +2,10 @@
 @import '../../../../mboyz-theme.scss';
 
 :host {
-
-  //.message {
-  //  font-size: 90%;
-  //  color: black;
-  //}
-  //
-  //.author {
-  //  font-size: 90%;
-  //  color: mat-color($mboyz-primary);
-  //  font-weight: bold;
-  //  margin-right: 3px;
-  //}
+  display: block;
+  background-color: lighten(mat-color($mboyz-accent, 100), 5%);
 
   mat-list-item {
-    background-color: mat-color($mboyz-accent, 100);
-    border-bottom: 1px solid mat-color($mboyz-primary);
     font-size: 90%;
 
     .message-container {
@@ -41,7 +29,6 @@
       margin-top: 2px;
     }
   }
-
 
   mat-form-field {
     width: 100%;
