@@ -1,62 +1,62 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {MessageBoxComponent} from './message-box.component';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
+import {PostBoxComponent} from './post-box.component';
 import moment = require('moment');
 
 describe('MessageBoxComponent', () => {
-  let component: MessageBoxComponent;
-  let fixture: ComponentFixture<MessageBoxComponent>;
+  let component: PostBoxComponent;
+  let fixture: ComponentFixture<PostBoxComponent>;
   let debugElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
-      declarations: [MessageBoxComponent]
+      declarations: [PostBoxComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageBoxComponent);
+    fixture = TestBed.createComponent(PostBoxComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
 
-  describe('posting a message', () => {
+  describe('creating a new post', () => {
     const someMessage = 'someMessage';
 
     beforeEach(() => {
-      return sendMessage(someMessage);
+      return createPost(someMessage);
     });
 
-    it('message should appear in the list', () => {
-      const message = debugElement.queryAll(By.css('.mat-list-item-content'))
+    it('post should appear in the list', () => {
+      const post = debugElement.queryAll(By.css('.mat-list-item-content'))
         .map(it => it.nativeElement.textContent)
         .find(it => it.includes(someMessage));
 
-      expect(message).toContain(someMessage);
+      expect(post).toContain(someMessage);
     });
 
-    it('message should have a timestamp', () => {
-      const message = debugElement.queryAll(By.css('.mat-list-item-content'))
+    it('post should have a timestamp', () => {
+      const post = debugElement.queryAll(By.css('.mat-list-item-content'))
         .map(it => it.nativeElement.textContent)
         .find(it => it.includes(someMessage));
 
-      expect(message).toContain(moment().format('Do MMMM'));
+      expect(post).toContain(moment().format('Do MMMM'));
     });
 
     it('should clear the input field after the message is sent', () => {
-      expect(component.messageInput).toBe('');
+      expect(component.postInput).toBe('');
     });
   });
 
-  function sendMessage(someMessage: string) {
+  function createPost(someMessage: string) {
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = someMessage;
     input.nativeElement.dispatchEvent(new Event('input'));

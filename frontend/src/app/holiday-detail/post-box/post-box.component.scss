@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+@import '../../../mboyz-theme.scss';
+
+:host {
+  display: block;
+  background-color: white;
+  padding: 8px;
+  background-color: mat-color($mboyz-accent, 50);
+
+  mat-list-item {
+    background-color: mat-color($mboyz-accent, 100);
+    border-bottom: 1px solid mat-color($mboyz-primary);
+
+    .message-container {
+      width: 100%;
+      flex-direction: column;
+
+      .message {
+        color: black;
+      }
+
+      .author {
+        color: mat-color($mboyz-primary);
+        font-weight: bold;
+        margin-right: 6px;
+      }
+    }
+
+    .info {
+      font-size: 80%;
+      color: lighten(black, 50%);
+      margin-top: 2px;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .message-input {
+    margin-top: 5px;
+    //border: 1px solid black;
+    //padding: 16px;
+    //background-color: mat-color($mboyz-accent, 100);
+  }
+}

@@ -7,7 +7,7 @@ import {
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MessageBoxComponent} from './message-box/message-box.component';
+import {PostBoxComponent} from './post-box/post-box.component';
 import {HolidayDetailComponent} from './holiday-detail.component';
 import {ParticipantsComponent} from './participants/participants.component';
 
@@ -16,7 +16,7 @@ import {ParticipantsComponent} from './participants/participants.component';
   declarations: [
     HolidayDetailComponent,
     ParticipantsComponent,
-    MessageBoxComponent
+    PostBoxComponent
   ],
   imports: [
     BrowserAnimationsModule,
