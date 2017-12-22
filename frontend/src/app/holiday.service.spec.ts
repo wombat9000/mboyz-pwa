@@ -15,7 +15,7 @@ describe('HolidayService', () => {
 
   describe('create', () => {
     it('should provide the new holiday', () => {
-      const someHoliday = new Holiday('', []);
+      const someHoliday = new Holiday('someId', '', []);
       let holidays = testee.getHolidays();
       expect(holidays).not.toContain(someHoliday);
 
