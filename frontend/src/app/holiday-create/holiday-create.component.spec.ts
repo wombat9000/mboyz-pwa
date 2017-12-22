@@ -59,8 +59,10 @@ describe('HolidayCreateComponent', () => {
     const submitButton = debugElement.query(By.css('button[type="submit"]')).nativeElement;
     click(submitButton);
 
-    const expectedHoliday = new Holiday('Nicer Skiurlaub', []);
+    const expectedHoliday = new Holiday('someId', 'Nicer Skiurlaub', []);
 
-    expect(holidayService.create).toHaveBeenCalledWith(expectedHoliday);
+    const holiday: Holiday = holidayService.create.calls.argsFor(0)[0];
+
+    expect(holiday.name).toBe(expectedHoliday.name);
   });
 });

@@ -39,8 +39,8 @@ describe('HolidayOverviewComponent', () => {
 
   describe('displays holidays', () => {
 
-    const someholiday = new Holiday('first holiday', []);
-    const anotherHoliday = new Holiday('another holiday', []);
+    const someholiday = new Holiday('someId', 'first holiday', []);
+    const anotherHoliday = new Holiday('anotherId', 'another holiday', []);
 
     beforeEach(() => {
       holidayService.getHolidays.and.returnValue([someholiday, anotherHoliday]);

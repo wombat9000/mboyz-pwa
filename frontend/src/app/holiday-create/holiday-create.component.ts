@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Holiday, HolidayService} from '../holiday.service';
+import {v4 as uuid} from 'uuid';
 
 
 class HolidayFormModel {
@@ -7,7 +8,7 @@ class HolidayFormModel {
   }
 
   asHoliday() {
-    return new Holiday(this.name, []);
+    return new Holiday(uuid(), this.name, []);
   }
 }
 
