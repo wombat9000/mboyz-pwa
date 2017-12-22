@@ -13,7 +13,6 @@
   .posts-container {
     .post {
       width: 100%;
-      border: 1px solid mat-color($mboyz-primary, 100);
       background-color: mat-color($mboyz-accent, 100);
       margin-bottom: 10px;
 
@@ -25,7 +24,6 @@
         .author {
           color: mat-color($mboyz-primary);
           font-weight: bold;
-          margin-right: 6px;
         }
 
         .message {

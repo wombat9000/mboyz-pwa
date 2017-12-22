@@ -1,5 +1,5 @@
-<mat-list role="list">
-  <mat-list-item class="responsive-height" *ngFor="let comment of post.comments" role="listitem">
+<div class="comments-container">
+  <div class="comment" *ngFor="let comment of post.comments">
     <div class="message-container">
       <div class="body">
         <span class="author">{{comment.author}}</span><span class="message"> {{comment.comment}}</span>
@@ -8,9 +8,12 @@
         <span>{{comment.created.format('Do MMMM')}} um {{comment.created.format('LT')}}</span>
       </div>
     </div>
-  </mat-list-item>
-</mat-list>
-<mat-form-field class="message-input">
+  </div>
+</div>
+<div class="comment-input">
+  <mat-form-field>
   <textarea matInput
+            matTextareaAutosize
             placeholder="Kommentieren ..."></textarea>
-</mat-form-field>
+  </mat-form-field>
+</div>

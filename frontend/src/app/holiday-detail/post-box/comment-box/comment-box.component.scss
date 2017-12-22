@@ -3,14 +3,16 @@
 
 :host {
   display: block;
-  background-color: lighten(mat-color($mboyz-accent, 100), 5%);
+  background-color: lighten(mat-color($mboyz-primary, 300), 25%);
 
-  mat-list-item {
+  .comment {
+    margin-top: 2px;
     font-size: 90%;
 
     .message-container {
       width: 100%;
       flex-direction: column;
+      padding: 1%;
 
       .message {
         color: black;
@@ -19,7 +21,6 @@
       .author {
         color: mat-color($mboyz-primary);
         font-weight: bold;
-        margin-right: 3px;
       }
     }
 
@@ -30,11 +31,18 @@
     }
   }
 
-  mat-form-field {
-    width: 100%;
-  }
-
-  .message-input {
+  .comment-input {
     margin-top: 5px;
+    background-color: lighten(mat-color($mboyz-primary, 300), 30%);
+    padding-top: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    mat-form-field {
+      width: 100%;
+      label.mat-form-field-label {
+        font-size: 80%;
+      }
+    }
   }
 }

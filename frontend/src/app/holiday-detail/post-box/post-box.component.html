@@ -1,8 +1,8 @@
 <mat-form-field class="message-input">
   <textarea matInput
+            matTextareaAutosize
             (keyup.enter)="submitPost()"
             [(ngModel)]="postInput"
-            rows="1"
             placeholder="Neuer Beitrag ..."></textarea>
 </mat-form-field>
 <div class="posts-container">
