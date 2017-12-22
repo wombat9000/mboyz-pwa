@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {
-  MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
 import {environment} from '../environments/environment';
@@ -27,9 +27,11 @@ import {HolidayService} from './holiday.service';
   imports: [
     HolidayDetailModule,
     MatIconModule,
+    MatGridListModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,

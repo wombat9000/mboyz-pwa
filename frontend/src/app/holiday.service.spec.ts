@@ -16,9 +16,12 @@ describe('HolidayService', () => {
   describe('create', () => {
     it('should provide the new holiday', () => {
       const someHoliday = new Holiday('', []);
+      let holidays = testee.getHolidays();
+      expect(holidays).not.toContain(someHoliday);
+
       testee.create(someHoliday);
-      const holidays = testee.getHolidays();
-      expect(holidays).toEqual([someHoliday]);
+      holidays = testee.getHolidays();
+      expect(holidays).toContain(someHoliday);
     });
   });
 });

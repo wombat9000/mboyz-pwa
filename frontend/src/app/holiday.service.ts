@@ -9,7 +9,11 @@ export class Holiday {
 @Injectable()
 export class HolidayService {
 
-  private holidays: BehaviorSubject<Holiday[]> = new BehaviorSubject([]);
+  private holidays: BehaviorSubject<Holiday[]> = new BehaviorSubject([
+    new Holiday('Skiurlaub 2018', []),
+    new Holiday('Skiurlaub 2017', []),
+    new Holiday('Skiurlaub 2016', [])
+  ]);
 
   constructor() { }
 

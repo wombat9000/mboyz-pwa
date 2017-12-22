@@ -1,4 +1,17 @@
 <button
   class="add-holiday"
   mat-fab
-  (click)="gotoCreate()"><mat-icon>add</mat-icon></button>
+  (click)="gotoCreate()">
+  <mat-icon>add</mat-icon>
+</button>
+
+
+<mat-grid-list cols="2" rowHeight="2:2">
+  <mat-grid-tile *ngFor="let holiday of holidays">
+    <mat-card class="holiday-card">
+      <mat-card-header>
+        <mat-card-title class="holiday-card-title">{{holiday.name}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
