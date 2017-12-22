@@ -1,15 +1,24 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HolidayService } from './holiday.service';
+import {Holiday, HolidayService} from './holiday.service';
 
 describe('HolidayService', () => {
+  let testee: HolidayService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HolidayService]
     });
+
+    testee = TestBed.get(HolidayService);
   });
 
-  it('should be created', inject([HolidayService], (service: HolidayService) => {
-    expect(service).toBeTruthy();
-  }));
+  describe('create', () => {
+    it('should provide the new holiday', () => {
+      const someHoliday = new Holiday('', []);
+      testee.create(someHoliday);
+      const holidays = testee.getHolidays();
+      expect(holidays).toEqual([someHoliday]);
+    });
+  });
 });
