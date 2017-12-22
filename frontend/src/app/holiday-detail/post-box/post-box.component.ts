@@ -39,8 +39,7 @@ export class PostBoxComponent implements OnInit {
     const anotherComment = new Comment('Axel Grünert', 'Kommentare sind auch chronologisch sortiert, Älteste zuerst', laterDate);
     const someComments = [someComment, anotherComment];
     const someMessage = 'Willkommen auf der mboyz Seite! Das hier ist ein Post. ' +
-      'Posts sind chronologisch sortiert, Neuere werden zuerst angezeigt.' +
-      'Expansion panel for comments?';
+      'Posts sind chronologisch sortiert, Neuere werden zuerst angezeigt.';
     const moi = 'Bastian Stone';
     this.posts.push(new Post(moi, someMessage, someDate, someComments));
   }
@@ -54,8 +53,8 @@ export class PostBoxComponent implements OnInit {
 
   private insertPost(post: Post) {
     this.posts.push(post);
-    this.posts.sort((a, b) => {
-      return a.created.isAfter(b.created) ? 0 : 1;
+    this.posts.sort((some, other) => {
+      return some.created.isAfter(other.created) ? 0 : 1;
     });
   }
 }

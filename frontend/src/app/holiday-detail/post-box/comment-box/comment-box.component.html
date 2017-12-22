@@ -1,13 +1,12 @@
 <div class="comments-container">
   <div class="comment" *ngFor="let comment of post.comments">
-    <div class="message-container">
-      <div class="body">
-        <span class="author">{{comment.author}}</span><span class="message"> {{comment.comment}}</span>
+      <div class="comment-body">
+        <span class="author">{{comment.author}}</span>
+        <span class="message">{{comment.comment}}</span>
       </div>
       <div class="info">
-        <span>{{comment.created.format('Do MMMM')}} um {{comment.created.format('LT')}}</span>
+        <span class="created-text">{{comment.created.format('Do MMMM')}} um {{comment.created.format('LT')}}</span>
       </div>
-    </div>
   </div>
 </div>
 <div class="comment-input">
