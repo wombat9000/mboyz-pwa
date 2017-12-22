@@ -1,3 +1,23 @@
-<p>
-  holiday-create works!
-</p>
+<h2>Neuen Urlaub vorschlagen:</h2>
+
+<form class="holiday-form"
+      (ngSubmit)="onSubmit()"
+      #holidayForm="ngForm">
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="holiday.name"
+           name="name"
+           required
+           placeholder="Name">
+  </mat-form-field>
+
+  <button mat-raised-button
+          color="accent"
+          type="submit"
+          name="submit">
+    Yalla
+  </button>
+  <div>
+    <span>Jede Person mit der URL hat Zugang zur Urlaubsplanung und kann diese bearbeiten.</span>
+  </div>
+</form>

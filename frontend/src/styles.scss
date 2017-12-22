@@ -28,6 +28,10 @@ body, input[text], button {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.mb-warn {
+  color: mat-color($mboyz-warn);
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
