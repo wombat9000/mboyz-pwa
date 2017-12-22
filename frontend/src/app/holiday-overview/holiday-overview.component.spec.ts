@@ -39,21 +39,35 @@ describe('HolidayOverviewComponent', () => {
 
   describe('displays holidays', () => {
 
-    const someholiday = new Holiday('someId', 'first holiday', []);
+    const someHoliday = new Holiday('someId', 'first holiday', []);
     const anotherHoliday = new Holiday('anotherId', 'another holiday', []);
 
     beforeEach(() => {
-      holidayService.getHolidays.and.returnValue([someholiday, anotherHoliday]);
+      holidayService.getHolidays.and.returnValue([someHoliday, anotherHoliday]);
       component.ngOnInit();
+      fixture.detectChanges();
     });
 
     it('should display all holidays', () => {
-      fixture.detectChanges();
 
       const cards = debugElement.queryAll(By.css('.holiday-card-title'))
         .map(it => it.nativeElement.textContent);
 
-      expect(cards).toEqual([someholiday.name, anotherHoliday.name]);
+      expect(cards).toEqual([someHoliday.name, anotherHoliday.name]);
+    });
+
+    describe('onClick', () => {
+      it('should take user to holiday detail', () => {
+        const spy = spyOn(router, 'navigateByUrl');
+
+        const someHolidayCard = debugElement.queryAll(By.css('.holiday-card-title'))
+          .find(it => it.nativeElement.textContent === someHoliday.name);
+
+        click(someHolidayCard.nativeElement);
+
+        const destinationURL = spy.calls.first().args[0];
+        expect(destinationURL).toBe(`/holiday/${someHoliday.id}`);
+      });
     });
   });
 

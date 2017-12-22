@@ -32,7 +32,7 @@ describe('HolidayService', () => {
       testee.create(holidayToFind);
 
       const holiday = testee.findById('findMe!');
-      expect(holiday).toBe(holidayToFind)
+      expect(holiday).toBe(holidayToFind);
     });
-  })
+  });
 });

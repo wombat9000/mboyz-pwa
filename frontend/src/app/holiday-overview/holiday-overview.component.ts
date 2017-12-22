@@ -22,4 +22,8 @@ export class HolidayOverviewComponent implements OnInit {
   gotoCreate() {
     return this.router.navigateByUrl('/holiday/create');
   }
+
+  goToDetail(holidayId: string) {
+    return this.router.navigateByUrl(`/holiday/${holidayId}`);
+  }
 }
