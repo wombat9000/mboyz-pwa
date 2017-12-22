@@ -14,7 +14,7 @@
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
     "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
     "build-prod": "ng build --progress=false --prod && npm run prep-pwa",
-    "build-staging": "ng build --progress=false --staging && npm run prep-pwa",
+    "build-staging": "ng build --progress=false --environment=staging && npm run prep-pwa",
     "serve-pwa": "npm run build-pwa && http-server dist -p 8080"
   },
   "private": true,
@@ -33,6 +33,7 @@
     "@angular/service-worker": "^5.1.2",
     "angularfire2": "^5.0.0-rc.4",
     "core-js": "^2.4.1",
+    "firebase": "=4.8.0",
     "hammerjs": "^2.0.8",
     "material-design-icons": "^3.0.1",
     "moment": "^2.20.1",
