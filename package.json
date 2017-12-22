@@ -8,7 +8,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "test-ci": "ng test --browser ChromeHeadless_no_sandbox --watch=false --progress=false --sourcemaps=false",
-    "lint": "ng lint",
+    "lint": "ng lint --type-check",
     "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
