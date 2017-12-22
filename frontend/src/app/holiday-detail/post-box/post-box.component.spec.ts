@@ -6,8 +6,8 @@ import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
-import moment = require('moment');
 import {CommentBoxComponent} from './comment-box/comment-box.component';
+import moment = require('moment');
 
 describe('PostBoxComponent', () => {
   let component: PostBoxComponent;
@@ -33,7 +33,8 @@ describe('PostBoxComponent', () => {
     const someMessage = 'someMessage';
 
     beforeEach(() => {
-      return createPost(someMessage);
+      component.posts = [];
+      createPost(someMessage);
     });
 
     it('post should appear in the list', () => {
@@ -54,6 +55,13 @@ describe('PostBoxComponent', () => {
 
     it('should clear the input field after the message is sent', () => {
       expect(component.postInput).toBe('');
+    });
+
+    it('should show newer posts first', () => {
+      const newMessage = 'newer message';
+      createPost(newMessage);
+      const posts = component.posts.map(it => it.message);
+      expect(posts.indexOf(newMessage)).toBeLessThan(posts.indexOf(someMessage));
     });
   });
 

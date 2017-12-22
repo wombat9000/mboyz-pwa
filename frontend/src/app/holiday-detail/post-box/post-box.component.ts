@@ -4,12 +4,17 @@ import {Moment} from 'moment';
 
 
 export class Post {
-  constructor(readonly author: string, readonly message: string, readonly created: Moment, readonly comments: Comment[]) {
+  constructor(readonly author: string,
+              readonly message: string,
+              readonly created: Moment,
+              readonly comments: Comment[] = []) {
   }
 }
 
 export class Comment {
-  constructor(readonly author: string, readonly comment: string, readonly created: Moment) {
+  constructor(readonly author: string,
+              readonly comment: string,
+              readonly created: Moment) {
   }
 }
 
@@ -41,7 +46,16 @@ export class PostBoxComponent implements OnInit {
   }
 
   submitPost() {
-    this.posts.push(new Post('Max Mustermann', this.postInput, moment(), []));
+    this.insertPost(new Post(
+      'Max Mustermann',
+      this.postInput, moment()));
     this.postInput = '';
+  }
+
+  private insertPost(post: Post) {
+    this.posts.push(post);
+    this.posts.sort((a, b) => {
+      return a.created.isAfter(b.created) ? 0 : 1;
+    });
   }
 }

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ParticipantsComponent} from './participants.component';
 import {HolidayDetailModule} from '../holiday-detail.module';
 
-describe('ParticipantsComponent', () => {
+xdescribe('ParticipantsComponent', () => {
   let component: ParticipantsComponent;
   let fixture: ComponentFixture<ParticipantsComponent>;
 
