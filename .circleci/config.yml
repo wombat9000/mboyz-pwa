@@ -48,7 +48,7 @@ jobs:
       # the current branch
       - run:
           name: Build
-          command: npm run build-pwa
+          command: npm run build-prod
 
       # Cache the dist folder for the deploy job
       - save_cache:

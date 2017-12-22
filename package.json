@@ -12,7 +12,9 @@
     "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
-    "build-pwa": "ng build --progress=false --prod && npm run ngsw-config && npm run ngsw-copy",
+    "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
+    "build-prod": "ng build --progress=false --prod && npm run prep-pwa",
+    "build-staging": "ng build --progress=false --staging && npm run prep-pwa",
     "serve-pwa": "npm run build-pwa && http-server dist -p 8080"
   },
   "private": true,

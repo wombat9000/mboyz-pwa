@@ -6,8 +6,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {
-  MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatMenuModule,
-  MatToolbarModule
+  MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
+  MatMenuModule, MatToolbarModule
 } from '@angular/material';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -16,7 +16,7 @@ import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.comp
 import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HolidayService} from './holiday.service';
-
+import {AngularFireModule} from 'angularfire2';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import {HolidayService} from './holiday.service';
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
+    environment.production ? AngularFireModule.initializeApp(environment.firebase) : [],
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [HolidayService],
