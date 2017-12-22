@@ -24,4 +24,15 @@ describe('HolidayService', () => {
       expect(holidays).toContain(someHoliday);
     });
   });
+
+  describe('find', () => {
+    it('should find holiday by id', () => {
+      const idToFind = 'findMe!';
+      const holidayToFind = new Holiday(idToFind, '', []);
+      testee.create(holidayToFind);
+
+      const holiday = testee.findById('findMe!');
+      expect(holiday).toBe(holidayToFind)
+    });
+  })
 });

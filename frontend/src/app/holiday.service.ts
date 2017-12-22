@@ -29,4 +29,8 @@ export class HolidayService {
   getHolidays(): Holiday[] {
     return this.holidays.getValue();
   }
+
+  findById(id: string): Holiday {
+    return this.getHolidays().find(it => it.id === id);
+  }
 }
