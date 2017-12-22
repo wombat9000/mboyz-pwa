@@ -48,7 +48,7 @@ jobs:
       # the current branch
       - run:
           name: Build
-          command: npm run pwa
+          command: npm run build-pwa
 
       # Cache the dist folder for the deploy job
       - save_cache:
@@ -58,4 +58,4 @@ jobs:
 
       - run:
           name: Deploy Master to Firebase
-          command: ./mboyz/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
