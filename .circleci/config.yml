@@ -1,18 +1,12 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
-  build:
+  npm-cache:
     docker:
       - image: circleci/node:7.10-browsers
 
     working_directory: ~/mboyz
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
@@ -28,47 +22,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Lint the source code
-      - run:
-          name: Lint
-          command: npm run lint
-      # Test the source code
-      - run:
-          name: Test
-          command: npm run test-ci
-
-      # Build project with different configuration based on
-      # the current branch
-      - run:
-          name: Build prod
-          command: npm run build-prod
-
-      # Cache the dist folder for the deploy job
-      - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-              - dist
-
-      - run:
-          name: Deploy to prod
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=prod
-
-  deploy-to-staging:
-    docker:
-      - image: circleci/node:7.10
-
-    working_directory: ~/mboyz
-    steps:
-      - run:
-          name: Build staging
-          command: npm run build-staging
-
-      - run:
-          name: Deploy to staging
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=staging
-
 workflows:
   version: 2
   build_mboyz:
     jobs:
-      - build
+      - npm-cache
