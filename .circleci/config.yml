@@ -9,7 +9,6 @@ jobs:
       - image: circleci/node:7.10-browsers
 
     working_directory: ~/mboyz
-
     steps:
       - checkout
 
@@ -73,6 +72,3 @@ workflows:
   build_mboyz:
     jobs:
       - build
-      - deploy-to-staging:
-          requires:
-            -build
