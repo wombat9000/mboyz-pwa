@@ -28,6 +28,7 @@ jobs:
 
     working_directory: ~/mboyz
     steps:
+      - checkout
       - run:
           name: Lint
           command: npm run lint
@@ -37,4 +38,6 @@ workflows:
   build_mboyz:
     jobs:
       - npm-cache
-      - lint
+      - lint:
+          requires:
+            - npm-cache
