@@ -74,5 +74,5 @@ workflows:
     jobs:
       - build
       - deploy-to-staging:
-        requires:
-        -build
+          requires:
+            -build
