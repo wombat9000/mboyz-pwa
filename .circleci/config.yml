@@ -74,6 +74,26 @@ jobs:
           name: deploy
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=staging
 
+  deploy-prod:
+    docker:
+      - image: circleci/node:7.10
+
+    working_directory: ~/mboyz
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: build
+          command: npm run build-prod
+
+      - run:
+          name: deploy
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=prod
+
 
 workflows:
   version: 2
@@ -90,3 +110,6 @@ workflows:
           requires:
             - lint
             - test
+      - deploy-prod:
+          requires:
+            - deploy-staging
