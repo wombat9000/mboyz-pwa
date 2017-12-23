@@ -6,8 +6,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {
-  MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
-  MatMenuModule, MatToolbarModule
+  MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatToolbarModule
 } from '@angular/material';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -27,7 +27,7 @@ import {AngularFireModule} from 'angularfire2';
   imports: [
     HolidayDetailModule,
     MatIconModule,
-    MatGridListModule,
+    MatListModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,

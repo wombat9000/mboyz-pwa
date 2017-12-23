@@ -6,12 +6,11 @@
 </button>
 
 
-<mat-grid-list cols="2" rowHeight="2:2">
-  <mat-grid-tile *ngFor="let holiday of holidays">
-    <mat-card class="holiday-card" (click)="goToDetail(holiday.id)">
-      <mat-card-header>
-        <mat-card-title class="holiday-card-title">{{holiday.name}}</mat-card-title>
-      </mat-card-header>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<mat-list role="list">
+  <span *ngFor="let holiday of holidays">
+  <mat-list-item role="listitem" class="holiday-item" (click)="goToDetail(holiday.id)">
+    <span class="holiday-name">{{holiday.name}}</span>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+    </span>
+</mat-list>

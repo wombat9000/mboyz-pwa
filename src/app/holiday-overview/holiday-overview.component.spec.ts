@@ -38,7 +38,6 @@ describe('HolidayOverviewComponent', () => {
   });
 
   describe('displays holidays', () => {
-
     const someHoliday = new Holiday('someId', 'first holiday', []);
     const anotherHoliday = new Holiday('anotherId', 'another holiday', []);
 
@@ -49,8 +48,7 @@ describe('HolidayOverviewComponent', () => {
     });
 
     it('should display all holidays', () => {
-
-      const cards = debugElement.queryAll(By.css('.holiday-card-title'))
+      const cards = debugElement.queryAll(By.css('.holiday-name'))
         .map(it => it.nativeElement.textContent);
 
       expect(cards).toEqual([someHoliday.name, anotherHoliday.name]);
@@ -60,7 +58,7 @@ describe('HolidayOverviewComponent', () => {
       it('should take user to holiday detail', () => {
         const spy = spyOn(router, 'navigateByUrl');
 
-        const someHolidayCard = debugElement.queryAll(By.css('.holiday-card-title'))
+        const someHolidayCard = debugElement.queryAll(By.css('.holiday-name'))
           .find(it => it.nativeElement.textContent === someHoliday.name);
 
         click(someHolidayCard.nativeElement);
