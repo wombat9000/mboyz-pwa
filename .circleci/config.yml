@@ -2,7 +2,7 @@ version: 2
 jobs:
   npm-cache:
     docker:
-      - image: circleci/node:7.10-browsers
+      - image: circleci/node:7.10
 
     working_directory: ~/mboyz
     steps:
@@ -24,7 +24,7 @@ jobs:
 
   lint:
     docker:
-      - image: circleci/node:7.10-browsers
+      - image: circleci/node:7.10
 
     working_directory: ~/mboyz
     steps:
@@ -38,11 +38,30 @@ jobs:
           name: Lint
           command: npm run lint
 
+  test:
+    docker:
+      - image: circleci/node:7.10-browsers
+
+    working_directory: ~/mboyz
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Test
+          command: npm run test-ci
+
 workflows:
   version: 2
   build_mboyz:
     jobs:
       - npm-cache
       - lint:
+          requires:
+            - npm-cache
+      - test:
           requires:
             - npm-cache
