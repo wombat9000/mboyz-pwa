@@ -22,8 +22,19 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+  lint:
+    docker:
+      - image: circleci/node:7.10-browsers
+
+    working_directory: ~/mboyz
+    steps:
+      - run:
+          name: Lint
+          command: npm run lint
+
 workflows:
   version: 2
   build_mboyz:
     jobs:
       - npm-cache
+      - lint
