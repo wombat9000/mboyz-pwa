@@ -6,13 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:7.10-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     working_directory: ~/mboyz
 
@@ -57,5 +51,20 @@ jobs:
               - dist
 
       - run:
-          name: Deploy Master to Firebase
+          name: Deploy to prod
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=prod
+
+  deploy-to-staging:
+    docker:
+      - image: circleci/node:7.10
+
+    working_directory: ~/mboyz
+    steps:
+      - run:
+          name: Build dist for staging
+          command: npm run build-staging
+
+      - run:
+          name: Deploy to staging
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=staging
+
