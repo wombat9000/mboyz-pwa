@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-holiday-detail',
@@ -7,12 +6,10 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./holiday-detail.component.scss']
 })
 export class HolidayDetailComponent implements OnInit {
-  anreise = new FormControl(new Date(2018, 2, 17));
-  abreise = new FormControl(new Date(2018, 2, 24));
-
   name = 'Skiurlaub März \'18';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

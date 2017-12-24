@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+@import '../../mboyz-theme.scss';
+
+:host {
+
+  .welcome {
+    padding: 5px;
+  }
+
+  .button-fb {
+    width: 100%;
+    background-color: $fb-blue;
+    color: $fb-white;
+  }
+}

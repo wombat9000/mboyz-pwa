@@ -1,30 +1,5 @@
-<h1>{{name}}</h1><span>markieren fuer benachrichtigungen</span>
-<mat-chip-list>
-  <mat-chip>offene Zahlungen</mat-chip>
-  <mat-chip>gebucht</mat-chip>
-  <mat-chip>Plätze verfügbar (2-5)</mat-chip>
-</mat-chip-list>
-
-<p>
-  <mat-form-field>
-    <input matInput [matDatepicker]="dp1" placeholder="Anreise" disabled [value]="anreise.value">
-    <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-    <mat-datepicker #dp1></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [matDatepicker]="dp2" placeholder="Abreise" disabled [value]="abreise.value">
-    <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-    <mat-datepicker #dp2></mat-datepicker>
-  </mat-form-field>
-</p>
-
-<p>
-  <button mat-raised-button>Teilnehmen</button>
-  <button mat-raised-button>Vielleicht</button>
-  <button mat-raised-button>Absagen</button>
-</p>
+<h1>{{name}}</h1>
 <app-post-box></app-post-box>
-<app-participants></app-participants>
 
 
 
