@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
+import {environment} from '../environments/environment';
 
 
 @Component({
@@ -9,6 +10,7 @@ import * as moment from 'moment';
 })
 export class AppComponent {
   title = 'mboyzmbabes';
+  isStaging = environment.name === 'staging';
 
   constructor() {
     moment.locale('de');

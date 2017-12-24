@@ -4,7 +4,12 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/components/post-box">Pinnwand</button>
     <button mat-menu-item routerLink="/components/participant-box">Teilnehmerpanel</button>
+    <button mat-menu-item routerLink="/login">Login Seite</button>
   </mat-menu>
+  <span class="spacer"></span>
+  <mat-chip-list *ngIf="isStaging">
+    <mat-chip color="accent" selected="true">staging</mat-chip>
+  </mat-chip-list>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

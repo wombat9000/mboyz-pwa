@@ -1,4 +1,5 @@
 export const environment = {
+  name: 'staging',
   production: true,
   firebase: {
     apiKey: 'AIzaSyAAPOOtTDNUlsJ2VsBXcRecEat8RTDX0NU',
