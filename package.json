@@ -15,7 +15,7 @@
     "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
     "build-prod": "ng build --progress=false --prod && npm run prep-pwa",
     "build-staging": "ng build --progress=false --environment=staging && npm run prep-pwa",
-    "serve-pwa": "npm run build-pwa && http-server dist -p 8080"
+    "serve-pwa": "npm run build-staging && http-server dist -p 8080"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +38,7 @@
     "material-design-icons": "^3.0.1",
     "moment": "^2.20.1",
     "normalize.css": "^7.0.0",
-    "rxjs": "^5.5.2",
+    "rxjs": "^5.5.6",
     "uuid": "^3.1.0",
     "zone.js": "^0.8.14"
   },
@@ -60,6 +60,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha-reporter": "^2.2.5",
     "protractor": "~5.1.2",
+    "rxjs-tslint-rules": "^3.3.0",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.5.3"
