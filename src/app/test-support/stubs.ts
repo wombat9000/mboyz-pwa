@@ -1,5 +1,5 @@
-import {HolidayService} from '../holiday.service';
-import {UserRepository} from '../user-repository.service';
+import {HolidayService} from '../holiday/holiday.service';
+import {UserRepository} from '../core/user-repository.service';
 
 export class RouterStub {
   navigateByUrl(url: string) {

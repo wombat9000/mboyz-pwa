@@ -4,8 +4,8 @@ import {HolidayOverviewComponent} from './holiday-overview.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
-import {holidayServiceMock, RouterStub} from '../test-support/stubs';
-import {click} from '../test-support/functions';
+import {holidayServiceMock, RouterStub} from '../../test-support/stubs';
+import {click} from '../../test-support/functions';
 import {Holiday, HolidayService} from '../holiday.service';
 
 describe('HolidayOverviewComponent', () => {

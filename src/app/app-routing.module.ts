@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PostBoxComponent} from './holiday-detail/post-box/post-box.component';
-import {ParticipantsComponent} from './holiday-detail/participants/participants.component';
-import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
-import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
-import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
+import {HolidayOverviewComponent} from './holiday/holiday-overview/holiday-overview.component';
+import {HolidayCreateComponent} from './holiday/holiday-create/holiday-create.component';
 import {LoginComponent} from './login/login.component';
+import {PostBoxComponent} from './holiday/holiday-detail/post-box/post-box.component';
+import {HolidayDetailComponent} from './holiday/holiday-detail/holiday-detail.component';
+import {ParticipantsComponent} from './holiday/holiday-detail/participants/participants.component';
 
 const routes: Routes = [
   {path: '', component: HolidayOverviewComponent},

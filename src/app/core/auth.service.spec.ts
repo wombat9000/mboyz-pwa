@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/from';
 import {Subject} from 'rxjs/Subject';
 import {UserRepository} from './user-repository.service';
-import {userRepositoryMock} from './test-support/stubs';
+import {userRepositoryMock} from '../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 
 describe('AuthService', () => {

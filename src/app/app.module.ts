@@ -11,20 +11,20 @@ import {
 } from '@angular/material';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HolidayDetailModule} from './holiday-detail/holiday-detail.module';
-import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
-import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
+import {HolidayOverviewComponent} from './holiday/holiday-overview/holiday-overview.component';
+import {HolidayCreateComponent} from './holiday/holiday-create/holiday-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HolidayService} from './holiday.service';
+import {HolidayService} from './holiday/holiday.service';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {LoginComponent} from './login/login.component';
-import {AuthService} from './auth.service';
+import {AuthService} from './core/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
-import {UserRepository} from './user-repository.service';
+import {UserRepository} from './core/user-repository.service';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {UserMenuComponent} from './user-menu/user-menu.component';
 import {BgImageDirective} from './bg-image.directive';
+import {HolidayDetailModule} from './holiday/holiday-detail/holiday-detail.module';
 
 
 @NgModule({
