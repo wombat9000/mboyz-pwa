@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Post} from './holiday-detail/post-box/post-box.component';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {v4 as uuid} from 'uuid';
+import {HolidayFirestore} from './holiday-firestore.service';
+import {Observable} from 'rxjs/Observable';
 
 export class Holiday {
   constructor(readonly id: string, readonly name: string, readonly posts: Post[]) {
@@ -11,26 +11,18 @@ export class Holiday {
 @Injectable()
 export class HolidayService {
 
-  private holidays: BehaviorSubject<Holiday[]> = new BehaviorSubject([
-    new Holiday(uuid(), 'Skiurlaub 2018', []),
-    new Holiday(uuid(), 'Skiurlaub 2017', []),
-    new Holiday(uuid(), 'Skiurlaub 2016', [])
-  ]);
-
-  constructor() {
+  constructor(private holidayFS: HolidayFirestore) {
   }
 
-  create(holiday: Holiday) {
-    const nextHolidays = this.getHolidays();
-    nextHolidays.push(holiday);
-    return this.holidays.next(nextHolidays);
+  create(holiday: Holiday): Promise<void> {
+    return this.holidayFS.save(holiday);
   }
 
-  getHolidays(): Holiday[] {
-    return this.holidays.getValue();
+  getHolidays(): Observable<Holiday[]> {
+    return this.holidayFS.holidays;
   }
 
-  findById(id: string): Holiday {
-    return this.getHolidays().find(it => it.id === id);
+  findById(id: string): Observable<Holiday> {
+    return this.holidayFS.observeById(id);
   }
 }

@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 
 import {
-  MatButtonModule, MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatListModule,
-  MatNativeDateModule, MatTabsModule
+  MatButtonModule, MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule,
+  MatListModule, MatNativeDateModule, MatTabsModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -13,6 +13,7 @@ import {CommentBoxComponent} from './holiday-detail/post-box/comment-box/comment
 import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
 import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
 import {HolidayService} from './holiday.service';
+import {HolidayFirestore} from './holiday-firestore.service';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {HolidayService} from './holiday.service';
     MatButtonModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatIconModule,
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -37,7 +39,7 @@ import {HolidayService} from './holiday.service';
     MatNativeDateModule,
     MatListModule,
   ],
-  providers: [HolidayService]
+  providers: [HolidayService, HolidayFirestore]
 })
 export class HolidayModule {
 }

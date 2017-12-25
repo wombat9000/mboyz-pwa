@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Holiday, HolidayService} from '../holiday.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-holiday-overview',
@@ -13,7 +14,7 @@ export class HolidayOverviewComponent implements OnInit {
               private router: Router) {
   }
 
-  holidays: Holiday[] = [];
+  holidays: Observable<Holiday[]>;
 
   ngOnInit() {
     this.holidays = this.holidayService.getHolidays();

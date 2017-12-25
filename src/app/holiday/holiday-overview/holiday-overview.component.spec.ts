@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {holidayServiceMock, RouterStub} from '../../test-support/stubs';
 import {click} from '../../test-support/functions';
 import {Holiday, HolidayService} from '../holiday.service';
+import {Subject} from 'rxjs/Subject';
 
 describe('HolidayOverviewComponent', () => {
   let component: HolidayOverviewComponent;
@@ -15,6 +16,7 @@ describe('HolidayOverviewComponent', () => {
 
   let router;
   let holidayService: jasmine.SpyObj<HolidayService>;
+  let holidayEmmiter: Subject<Holiday[]>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,7 +32,8 @@ describe('HolidayOverviewComponent', () => {
   beforeEach(() => {
     router = TestBed.get(Router);
     holidayService = TestBed.get(HolidayService);
-    holidayService.getHolidays.and.returnValue([]);
+    holidayEmmiter = new Subject<Holiday[]>();
+    holidayService.getHolidays.and.returnValue(holidayEmmiter);
     fixture = TestBed.createComponent(HolidayOverviewComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
@@ -41,9 +44,9 @@ describe('HolidayOverviewComponent', () => {
     const someHoliday = new Holiday('someId', 'first holiday', []);
     const anotherHoliday = new Holiday('anotherId', 'another holiday', []);
 
-    beforeEach(() => {
-      holidayService.getHolidays.and.returnValue([someHoliday, anotherHoliday]);
-      component.ngOnInit();
+    beforeEach(async () => {
+      holidayEmmiter.next([someHoliday, anotherHoliday]);
+      await fixture.whenStable();
       fixture.detectChanges();
     });
 

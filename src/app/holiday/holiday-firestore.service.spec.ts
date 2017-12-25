@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HolidayFirestoreService } from './holiday-firestore.service';
+import { HolidayFirestore } from './holiday-firestore.service';
 
 xdescribe('HolidayFirestoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HolidayFirestoreService]
+      providers: [HolidayFirestore]
     });
   });
 
-  it('should be created', inject([HolidayFirestoreService], (service: HolidayFirestoreService) => {
+  it('should be created', inject([HolidayFirestore], (service: HolidayFirestore) => {
     expect(service).toBeTruthy();
   }));
 });

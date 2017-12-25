@@ -28,6 +28,6 @@ export class HolidayCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.holidayService.create(this.holiday.asHoliday());
+    return this.holidayService.create(this.holiday.asHoliday());
   }
 }

@@ -4,8 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {Holiday} from './holiday.service';
 
+
+interface FSHoliday {
+  id: string;
+  name: string;
+}
+
+
 @Injectable()
-export class HolidayFirestoreService {
+export class HolidayFirestore {
+
 
   holidaysCollection: AngularFirestoreCollection<Holiday>;
   holidays: Observable<Holiday[]>;
@@ -15,11 +23,16 @@ export class HolidayFirestoreService {
     this.holidays = this.holidaysCollection.valueChanges();
   }
 
-  public observeById(holidayId: string): Observable<User> {
-    return this.afs.doc<User>(`holidays/${holidayId}`).valueChanges();
+  public observeById(holidayId: string): Observable<Holiday> {
+    return this.afs.doc<Holiday>(`holidays/${holidayId}`).valueChanges();
   }
 
   public save(holiday: Holiday) {
-    return this.afs.doc(`users/${holiday.id}`).set(holiday);
+    const data = {
+      id: holiday.id,
+      name: holiday.name
+    };
+
+    return this.afs.doc(`holidays/${holiday.id}`).set(data);
   }
 }
