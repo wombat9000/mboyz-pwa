@@ -21,6 +21,7 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {LoginComponent} from './login/login.component';
 import {AuthService} from './auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import {UserRepository} from './user-repository.service';
 
 
 @NgModule({
@@ -52,7 +53,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : [],
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
-  providers: [HolidayService, AuthService],
+  providers: [HolidayService, AuthService, UserRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule {

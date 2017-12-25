@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {Router} from '@angular/router';
 import * as firebase from 'firebase';
+import {UserRepository} from './user-repository.service';
 
 
 export interface User {
@@ -19,14 +18,11 @@ export class AuthService {
   user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore) {
-
+              private userRepository: UserRepository) {
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
-        console.log(`authenticated as ${user.uid}`);
-        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        return userRepository.observeById(user.uid);
       }
-      console.log('Not authenticated');
       return Observable.of(null);
     });
   }
@@ -66,6 +62,6 @@ export class AuthService {
     };
 
     console.log('try writing to db');
-    return this.afs.doc(`users/${user.uid}`).set(data);
+    return this.userRepository.save(data);
   }
 }
