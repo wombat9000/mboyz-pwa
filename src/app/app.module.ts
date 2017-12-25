@@ -11,8 +11,6 @@ import {
 } from '@angular/material';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HolidayOverviewComponent} from './holiday/holiday-overview/holiday-overview.component';
-import {HolidayCreateComponent} from './holiday/holiday-create/holiday-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HolidayService} from './holiday/holiday.service';
 import {AngularFireModule} from 'angularfire2';
@@ -22,16 +20,14 @@ import {AuthService} from './core/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {UserRepository} from './core/user-repository.service';
 import {TopBarComponent} from './top-bar/top-bar.component';
-import {UserMenuComponent} from './user-menu/user-menu.component';
+import {UserMenuComponent} from './top-bar/user-menu/user-menu.component';
 import {BgImageDirective} from './bg-image.directive';
-import {HolidayDetailModule} from './holiday/holiday-detail/holiday-detail.module';
+import {HolidayModule} from './holiday/holiday.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HolidayOverviewComponent,
-    HolidayCreateComponent,
     LoginComponent,
     TopBarComponent,
     UserMenuComponent,
@@ -39,7 +35,7 @@ import {HolidayDetailModule} from './holiday/holiday-detail/holiday-detail.modul
   ],
   // TODO: extract modules
   imports: [
-    HolidayDetailModule,
+    HolidayModule,
     MatIconModule,
     MatChipsModule,
     MatListModule,
@@ -59,7 +55,7 @@ import {HolidayDetailModule} from './holiday/holiday-detail/holiday-detail.modul
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : [],
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
-  providers: [HolidayService, AuthService, UserRepository],
+  providers: [AuthService, UserRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule {

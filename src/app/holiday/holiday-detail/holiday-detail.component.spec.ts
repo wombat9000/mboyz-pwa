@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HolidayDetailComponent} from './holiday-detail.component';
-import {HolidayDetailModule} from './holiday-detail.module';
+import {HolidayModule} from '../holiday.module';
 
 xdescribe('HolidayDetailComponent', () => {
   let component: HolidayDetailComponent;
@@ -9,7 +9,7 @@ xdescribe('HolidayDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HolidayDetailModule]
+      imports: [HolidayModule]
     })
       .compileComponents();
   }));
