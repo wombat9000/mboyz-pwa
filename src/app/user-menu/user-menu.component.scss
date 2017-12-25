@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+@import '../../mboyz-theme.scss';
+
+:host {
+  .user-icon {
+    background-color: mat-color($mboyz-primary);
+    background-size: 60px;
+  }
+}

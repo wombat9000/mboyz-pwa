@@ -45,14 +45,11 @@ export class AuthService {
   private async oAuthLogin(provider) {
     const credential = await this.afAuth.auth.signInWithPopup(provider);
 
-    console.log('updating user data');
     return this.updateUserData(credential);
   }
 
   private updateUserData(credential) {
     const user = credential.user;
-
-    console.log(user.uid);
 
     const data: User = {
       uid: user.uid,
@@ -61,7 +58,6 @@ export class AuthService {
       photoURL: user.photoURL
     };
 
-    console.log('try writing to db');
     return this.userRepository.save(data);
   }
 }

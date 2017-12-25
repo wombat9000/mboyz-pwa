@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
-title = 'mboyzmbabes';
+  title = 'mboyzmbabes';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
-
 }
