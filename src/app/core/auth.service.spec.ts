@@ -5,15 +5,15 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/from';
 import {Subject} from 'rxjs/Subject';
-import {UserRepository} from './user-repository.service';
-import {userRepositoryMock} from '../test-support/stubs';
+import {userFirestoreMock} from '../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
+import {UserFirestore} from './user-firestore.service';
 
 describe('AuthService', () => {
 
   let testee: AuthService;
   let fireAuth;
-  let userRepo: jasmine.SpyObj<UserRepository>;
+  let userRepo: jasmine.SpyObj<UserFirestore>;
 
   const someUser = {
     uid: 'someUID',
@@ -29,13 +29,13 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         {provide: AngularFireAuth, useClass: FireAuthStub},
-        {provide: UserRepository, useValue: userRepositoryMock}
+        {provide: UserFirestore, useValue: userFirestoreMock}
       ]
     });
 
     testee = TestBed.get(AuthService);
     fireAuth = TestBed.get(AngularFireAuth);
-    userRepo = TestBed.get(UserRepository);
+    userRepo = TestBed.get(UserFirestore);
   });
 
   it('current user is null if authState is null', (done) => {

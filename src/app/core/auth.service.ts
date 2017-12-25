@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import {UserRepository} from './user-repository.service';
+import {UserFirestore} from './user-firestore.service';
 
 
 export interface User {
@@ -18,7 +18,7 @@ export class AuthService {
   user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth,
-              private userRepository: UserRepository) {
+              private userRepository: UserFirestore) {
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
         return userRepository.observeById(user.uid);

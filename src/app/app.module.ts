@@ -12,17 +12,16 @@ import {
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HolidayService} from './holiday/holiday.service';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {LoginComponent} from './login/login.component';
 import {AuthService} from './core/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
-import {UserRepository} from './core/user-repository.service';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {UserMenuComponent} from './top-bar/user-menu/user-menu.component';
 import {BgImageDirective} from './bg-image.directive';
 import {HolidayModule} from './holiday/holiday.module';
+import {UserFirestore} from './core/user-firestore.service';
 
 
 @NgModule({
@@ -55,7 +54,7 @@ import {HolidayModule} from './holiday/holiday.module';
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : [],
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
-  providers: [AuthService, UserRepository],
+  providers: [AuthService, UserFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule {

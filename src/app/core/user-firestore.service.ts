@@ -4,7 +4,7 @@ import {User} from './auth.service';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class UserRepository {
+export class UserFirestore {
 
   constructor(private afs: AngularFirestore) { }
 

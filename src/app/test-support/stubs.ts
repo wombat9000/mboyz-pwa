@@ -1,5 +1,5 @@
 import {HolidayService} from '../holiday/holiday.service';
-import {UserRepository} from '../core/user-repository.service';
+import {UserFirestore} from '../core/user-firestore.service';
 
 export class RouterStub {
   navigateByUrl(url: string) {
@@ -12,4 +12,4 @@ export const holidayServiceMock: jasmine.SpyObj<HolidayService> = jasmine.create
 );
 
 
-export const userRepositoryMock: jasmine.SpyObj<UserRepository> = jasmine.createSpyObj('UserRepository', ['observeById', 'save']);
+export const userFirestoreMock: jasmine.SpyObj<UserFirestore> = jasmine.createSpyObj('UserRepository', ['observeById', 'save']);
