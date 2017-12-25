@@ -22,6 +22,7 @@ import {LoginComponent} from './login/login.component';
 import {AuthService} from './auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {UserRepository} from './user-repository.service';
+import { TopBarComponent } from './top-bar/top-bar.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {UserRepository} from './user-repository.service';
     HolidayOverviewComponent,
     HolidayCreateComponent,
     LoginComponent,
+    TopBarComponent,
   ],
   // TODO: extract modules
   imports: [

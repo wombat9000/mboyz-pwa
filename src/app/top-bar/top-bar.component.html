@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+  <button mat-button [matMenuTriggerFor]="menu">Components</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/components/post-box">Pinnwand</button>
+    <button mat-menu-item routerLink="/components/participant-box">Teilnehmerpanel</button>
+    <button mat-menu-item routerLink="/login">Login Seite</button>
+  </mat-menu>
+  <span class="spacer"></span>
+</mat-toolbar>

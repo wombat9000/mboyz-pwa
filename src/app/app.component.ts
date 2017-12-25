@@ -9,7 +9,6 @@ import {environment} from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mboyzmbabes';
   isStaging = environment.name === 'staging';
 
   constructor() {
