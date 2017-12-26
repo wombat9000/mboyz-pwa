@@ -1,5 +1,8 @@
-<h1>{{name}}</h1>
-<app-post-box></app-post-box>
+<div *ngIf="holiday | async as holiday2">
+  <h1>{{holiday2.name}}</h1>
+  <app-post-box></app-post-box>
+</div>
+
 
 
 

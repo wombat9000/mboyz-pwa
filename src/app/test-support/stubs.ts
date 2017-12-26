@@ -8,9 +8,18 @@ export class RouterStub {
   }
 }
 
-export const holidayServiceMock: jasmine.SpyObj<HolidayService> = jasmine.createSpyObj('HolidayService',
-  ['create', 'getHolidays']
-);
+export const holidayServiceMock: jasmine.SpyObj<HolidayService> =
+  jasmine.createSpyObj('HolidayService',
+    {
+      holidayFS: null,
+      create() {
+      },
+      getHolidays() {
+      },
+      findById() {
+      },
+    }
+  );
 
 
 export const userFirestoreMock: jasmine.SpyObj<UserFirestore> = jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
