@@ -23,7 +23,7 @@ describe('AuthService', () => {
 
   class FireAuthStub {
     authState: Subject<User | null> = new Subject();
-    auth = jasmine.createSpyObj('Auth', ['signOut']);
+    auth = jasmine.createSpyObj('Auth', ['signOut', 'signInWithPopup']);
   }
 
   beforeEach(() => {
@@ -75,6 +75,36 @@ describe('AuthService', () => {
 
     it('should redirect to login screen', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    });
+  });
+
+  describe('login with facebook', () => {
+    let router;
+    const user: User = {
+      uid: 'someUid',
+      email: 'someEmail',
+      displayName: 'someName',
+      photoURL: 'someUrl'
+    };
+    const credential = {user: user};
+
+    beforeEach(async () => {
+      router = TestBed.get(Router);
+      fireAuth.authState.next(null);
+      fireAuth.auth.signInWithPopup.and.returnValue(credential);
+      await testee.facebookLogin();
+    });
+
+    it('should sign in with popup', () => {
+      expect(fireAuth.auth.signInWithPopup).toHaveBeenCalled();
+    });
+
+    it('should save user credentials', () => {
+      expect(userRepo.save).toHaveBeenCalledWith(user);
+    });
+
+    it('should route to home', () => {
+      expect(router.navigate).toHaveBeenCalledWith(['/']);
     });
   });
 });

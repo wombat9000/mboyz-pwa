@@ -47,11 +47,11 @@ export class AuthService {
 
   private async oAuthLogin(provider) {
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-
+    this.router.navigate(['/']);
     return this.updateUserData(credential);
   }
 
-  private updateUserData(credential) {
+  private updateUserData(credential): Promise<void> {
     const user = credential.user;
 
     const data: User = {
