@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {UserFirestore} from './user-firestore.service';
+import {Router} from '@angular/router';
 
 
 export interface User {
@@ -18,7 +19,8 @@ export class AuthService {
   user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth,
-              private userRepository: UserFirestore) {
+              private userRepository: UserFirestore,
+              private router: Router) {
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
         return userRepository.observeById(user.uid);
@@ -33,8 +35,9 @@ export class AuthService {
       .map(user => !!user);
   }
 
-  signOut() {
-    return this.afAuth.auth.signOut();
+  async signOut(): Promise<any> {
+    await this.afAuth.auth.signOut();
+    return this.router.navigate(['/login']);
   }
 
   facebookLogin() {
