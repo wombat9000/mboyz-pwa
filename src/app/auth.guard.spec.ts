@@ -2,25 +2,27 @@ import {TestBed} from '@angular/core/testing';
 
 import {AuthGuard} from './auth.guard';
 import {AuthService} from './core/auth.service';
-import {authServiceMock} from './test-support/stubs';
+import {authServiceMock, routerMock} from './test-support/stubs';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 describe('AuthGuard', () => {
   let testee: AuthGuard;
   let authService: jasmine.SpyObj<AuthService>;
+  let router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthGuard,
-        {
-          provide: AuthService,
-          useValue: authServiceMock
-        }
+      providers: [
+        AuthGuard,
+        {provide: AuthService, useValue: authServiceMock},
+        {provide: Router, useValue: routerMock}
       ]
     });
 
     testee = TestBed.get(AuthGuard);
     authService = TestBed.get(AuthService);
+    router = TestBed.get(Router);
   });
 
 
@@ -30,6 +32,7 @@ describe('AuthGuard', () => {
 
     canActivate.subscribe(it => {
       expect(it).toBe(false);
+      expect(router.navigate).toHaveBeenCalledWith(['/login']);
       done();
     });
   });
