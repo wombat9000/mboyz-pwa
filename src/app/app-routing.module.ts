@@ -6,18 +6,20 @@ import {LoginComponent} from './login/login.component';
 import {PostBoxComponent} from './holiday/holiday-detail/post-box/post-box.component';
 import {HolidayDetailComponent} from './holiday/holiday-detail/holiday-detail.component';
 import {ParticipantsComponent} from './holiday/holiday-detail/participants/participants.component';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
-  {path: '', component: HolidayOverviewComponent},
+  {path: '', component: HolidayOverviewComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'holiday/create', component: HolidayCreateComponent},
-  {path: 'holiday/:id', component: HolidayDetailComponent},
-  {path: 'components/post-box', component: PostBoxComponent},
-  {path: 'components/participant-box', component: ParticipantsComponent}
+  {path: 'holiday/create', component: HolidayCreateComponent, canActivate: [AuthGuard]},
+  {path: 'holiday/:id', component: HolidayDetailComponent, canActivate: [AuthGuard]},
+  {path: 'components/post-box', component: PostBoxComponent, canActivate: [AuthGuard]},
+  {path: 'components/participant-box', component: ParticipantsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [AuthGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
