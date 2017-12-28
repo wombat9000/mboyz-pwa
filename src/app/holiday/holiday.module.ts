@@ -14,16 +14,17 @@ import {HolidayCreateComponent} from './holiday-create/holiday-create.component'
 import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
 import {HolidayService} from './holiday.service';
 import {HolidayFirestore} from './holiday-firestore.service';
+import {PostFirestore} from './post-firestore.service';
 
 
 @NgModule({
   declarations: [
-    HolidayDetailComponent,
-    ParticipantsComponent,
-    PostBoxComponent,
     HolidayOverviewComponent,
     HolidayCreateComponent,
-    CommentBoxComponent
+    HolidayDetailComponent,
+    PostBoxComponent,
+    CommentBoxComponent,
+    ParticipantsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -39,7 +40,10 @@ import {HolidayFirestore} from './holiday-firestore.service';
     MatNativeDateModule,
     MatListModule,
   ],
-  providers: [HolidayService, HolidayFirestore]
+  providers: [
+    HolidayService,
+    HolidayFirestore,
+    PostFirestore]
 })
 export class HolidayModule {
 }

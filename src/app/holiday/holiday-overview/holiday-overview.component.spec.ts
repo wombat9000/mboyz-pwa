@@ -41,8 +41,8 @@ describe('HolidayOverviewComponent', () => {
   });
 
   describe('displays holidays', () => {
-    const someHoliday = new Holiday('someId', 'first holiday', []);
-    const anotherHoliday = new Holiday('anotherId', 'another holiday', []);
+    const someHoliday = new Holiday('someId', 'first holiday');
+    const anotherHoliday = new Holiday('anotherId', 'another holiday');
 
     beforeEach(async () => {
       holidayEmmiter.next([someHoliday, anotherHoliday]);

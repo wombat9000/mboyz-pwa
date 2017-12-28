@@ -59,7 +59,7 @@ describe('HolidayCreateComponent', () => {
     const submitButton = debugElement.query(By.css('button[type="submit"]')).nativeElement;
     click(submitButton);
 
-    const expectedHoliday = new Holiday('someId', 'Nicer Skiurlaub', []);
+    const expectedHoliday = new Holiday('someId', 'Nicer Skiurlaub');
 
     const holiday: Holiday = holidayService.create.calls.argsFor(0)[0];
 

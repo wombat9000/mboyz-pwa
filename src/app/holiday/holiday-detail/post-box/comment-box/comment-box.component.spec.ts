@@ -5,8 +5,8 @@ import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/materi
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
-import {Comment, Post} from '../post-box.component';
 import {DebugElement} from '@angular/core';
+import {Comment, Post} from '../../../post-firestore.service';
 import moment = require('moment');
 
 describe('CommentBoxComponent', () => {

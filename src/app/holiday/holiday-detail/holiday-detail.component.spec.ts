@@ -13,7 +13,7 @@ describe('HolidayDetailComponent', () => {
   let fixture: ComponentFixture<HolidayDetailComponent>;
   let holidayService: jasmine.SpyObj<HolidayService>;
 
-  const someHoliday: Holiday = new Holiday('someId', 'someName', []);
+  const someHoliday: Holiday = new Holiday('someId', 'someName');
 
   const snapshot = {
     paramMap: new Map([

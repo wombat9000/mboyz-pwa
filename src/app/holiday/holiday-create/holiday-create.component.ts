@@ -8,7 +8,7 @@ class HolidayFormModel {
   }
 
   asHoliday() {
-    return new Holiday(uuid(), this.name, []);
+    return new Holiday(uuid(), this.name);
   }
 }
 

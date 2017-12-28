@@ -1,6 +1,6 @@
 <div *ngIf="holiday | async as holiday2">
   <h1>{{holiday2.name}}</h1>
-  <app-post-box></app-post-box>
+  <app-post-box [holiday]="holiday2"></app-post-box>
 </div>
 
 

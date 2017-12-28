@@ -1,22 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {Moment} from 'moment';
+import {Holiday} from '../../holiday.service';
+import {Post, PostFirestore} from '../../post-firestore.service';
+import {Observable} from 'rxjs/Observable';
 
-
-export class Post {
-  constructor(readonly author: string,
-              readonly message: string,
-              readonly created: Moment,
-              readonly comments: Comment[] = []) {
-  }
-}
-
-export class Comment {
-  constructor(readonly author: string,
-              readonly comment: string,
-              readonly created: Moment) {
-  }
-}
 
 @Component({
   selector: 'app-post-box',
@@ -25,36 +12,30 @@ export class Comment {
 })
 export class PostBoxComponent implements OnInit {
 
-  posts: Post[] = [];
+  @Input()
+  holiday: Holiday;
+
+  posts: Observable<Post[]>;
+
   postInput = '';
 
-  constructor() {
+  constructor(private postService: PostFirestore) {
   }
 
   ngOnInit() {
-    const someDate = moment('2016-01-01');
-    const laterDate = moment('2016-01-02');
-
-    const someComment = new Comment('Sarah Lüken', 'Das hier ist ein Kommentar. Kommentare sind einem Post zugeordnet.', someDate);
-    const anotherComment = new Comment('Axel Grünert', 'Kommentare sind auch chronologisch sortiert, Älteste zuerst', laterDate);
-    const someComments = [someComment, anotherComment];
-    const someMessage = 'Willkommen auf der mboyz Seite! Das hier ist ein Post. ' +
-      'Posts sind chronologisch sortiert, Neuere werden zuerst angezeigt.';
-    const moi = 'Bastian Stone';
-    this.posts.push(new Post(moi, someMessage, someDate, someComments));
+    this.posts = this.postService.observeByHolidayId(this.holiday.id)
+      .map(it => {
+        return it.sort((some, other) => {
+          return some.created.isAfter(other.created) ? 0 : 1;
+        });
+      });
   }
+
 
   submitPost() {
-    this.insertPost(new Post(
-      'Max Mustermann',
-      this.postInput, moment()));
-    this.postInput = '';
-  }
+    const post = new Post('Max Mustermann', this.postInput, moment());
 
-  private insertPost(post: Post) {
-    this.posts.push(post);
-    this.posts.sort((some, other) => {
-      return some.created.isAfter(other.created) ? 0 : 1;
-    });
+    this.postService.save(this.holiday.id, post);
+    this.postInput = '';
   }
 }

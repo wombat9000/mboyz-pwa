@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Post} from './holiday-detail/post-box/post-box.component';
 import {HolidayFirestore} from './holiday-firestore.service';
 import {Observable} from 'rxjs/Observable';
 
 export class Holiday {
-  constructor(readonly id: string, readonly name: string, readonly posts: Post[]) {
+  constructor(readonly id: string, readonly name: string) {
   }
 }
 
