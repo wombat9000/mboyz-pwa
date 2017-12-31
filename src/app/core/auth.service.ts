@@ -16,7 +16,7 @@ export interface User {
 @Injectable()
 export class AuthService {
 
-  user: Observable<User>;
+  private user: Observable<User> = Observable.of(null);
 
   constructor(private afAuth: AngularFireAuth,
               private userRepository: UserFirestore,
@@ -28,6 +28,12 @@ export class AuthService {
       return Observable.of(null);
     });
   }
+
+  activeUser(): Observable<User> {
+    return this.user
+      .take(1);
+  }
+
 
   isSignedIn(): Observable<boolean> {
     return this.user

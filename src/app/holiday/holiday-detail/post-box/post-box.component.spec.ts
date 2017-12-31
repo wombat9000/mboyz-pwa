@@ -8,9 +8,10 @@ import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
 import {CommentBoxComponent} from './comment-box/comment-box.component';
 import {Post, PostFirestore} from '../../post-firestore.service';
-import {postFirestoreMock} from '../../../test-support/stubs';
+import {authServiceMock, postFirestoreMock} from '../../../test-support/stubs';
 import {Holiday} from '../../holiday.service';
 import {Subject} from 'rxjs/Subject';
+import {AuthService, User} from '../../../core/auth.service';
 import moment = require('moment');
 
 
@@ -20,7 +21,7 @@ describe('PostBoxComponent', () => {
   let debugElement: DebugElement;
   let postFS: jasmine.SpyObj<PostFirestore>;
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
-
+  const userEmitter = new Subject<User>();
   const inputHoliday = new Holiday('someId', 'someName');
 
   beforeEach(async(() => {
@@ -29,6 +30,10 @@ describe('PostBoxComponent', () => {
         {
           provide: PostFirestore,
           useValue: postFirestoreMock
+        },
+        {
+          provide: AuthService,
+          useValue: authServiceMock
         }
       ],
       imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
@@ -40,6 +45,8 @@ describe('PostBoxComponent', () => {
   beforeEach(() => {
     postFS = TestBed.get(PostFirestore);
     postFS.observeByHolidayId.and.returnValue(holidayPostsSubject);
+
+    authServiceMock.activeUser.and.returnValue(userEmitter);
 
     fixture = TestBed.createComponent(PostBoxComponent);
     component = fixture.componentInstance;
@@ -86,22 +93,38 @@ describe('PostBoxComponent', () => {
   describe('creating a new post', () => {
     const someMessage = 'someMessage';
 
+    const someAuthor = {
+      displayName: 'Pinky Floyd',
+      uid: 'bla',
+      email: ''
+    };
+
+    let saveCallArgs: any[];
+    let post: Post;
+
     beforeEach(async () => {
+      userEmitter.next(someAuthor);
+
       createPost(someMessage);
       await fixture.whenStable();
       fixture.detectChanges();
+
+      saveCallArgs = postFS.save.calls.argsFor(0);
+      post = saveCallArgs[1];
     });
 
     it('should persist the new message', () => {
-      const saveCallArgs: any[] = postFS.save.calls.argsFor(0);
-      const post: Post = saveCallArgs[1];
-
       expect(saveCallArgs[0]).toBe(inputHoliday.id);
       expect(post.message).toBe(someMessage);
     });
 
     it('should clear the input field after the message is sent', () => {
       expect(component.postInput).toBe('');
+    });
+
+    it('should use currently logged in users name as someAuthor', () => {
+      expect(saveCallArgs[0]).toBe(inputHoliday.id);
+      expect(post.author).toBe(someAuthor.displayName);
     });
   });
 

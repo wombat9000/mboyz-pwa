@@ -42,15 +42,16 @@ describe('AuthService', () => {
   });
 
   it('current user is null if authState is null', (done) => {
-    testee.user.subscribe(it => {
+    testee.activeUser().subscribe(it => {
       expect(it).toBe(null);
       done();
     });
+
     fireAuth.authState.next(null);
   });
 
   it('current user is updated from auth state', (done) => {
-    testee.user.subscribe(it => {
+    testee.activeUser().subscribe(it => {
       expect(it).toBe(someUser);
       done();
     });

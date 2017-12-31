@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import {Holiday} from '../../holiday.service';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {Observable} from 'rxjs/Observable';
+import {AuthService, User} from '../../../core/auth.service';
 
 
 @Component({
@@ -19,10 +20,15 @@ export class PostBoxComponent implements OnInit {
 
   postInput = '';
 
-  constructor(private postService: PostFirestore) {
+  user: User;
+
+  constructor(private postService: PostFirestore,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
+    this.auth.activeUser().subscribe(it => this.user = it);
+
     this.posts = this.postService.observeByHolidayId(this.holiday.id)
       .map(it => {
         return it.sort((some, other) => {
@@ -33,7 +39,7 @@ export class PostBoxComponent implements OnInit {
 
 
   submitPost() {
-    const post = new Post('Max Mustermann', this.postInput, moment());
+    const post = new Post(this.user.displayName, this.postInput, moment());
 
     this.postService.save(this.holiday.id, post);
     this.postInput = '';
