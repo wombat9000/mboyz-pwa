@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {DebugElement} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
@@ -37,7 +37,8 @@ describe('PostBoxComponent', () => {
         }
       ],
       imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
-      declarations: [PostBoxComponent, CommentBoxComponent]
+      declarations: [PostBoxComponent, CommentBoxComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
@@ -59,34 +60,24 @@ describe('PostBoxComponent', () => {
     const somePost = new Post('someAuthor', 'first message', moment('2016-01-01'), []);
     const moreRecentPost = new Post('someAuthor', 'second message', moment('2016-01-02'), []);
 
-    beforeEach(async () => {
+    let postedMessages: string[];
 
+    beforeEach(async () => {
       holidayPostsSubject.next([somePost, moreRecentPost]);
       await fixture.whenStable();
       fixture.detectChanges();
+
+      postedMessages = debugElement.queryAll(By.css('app-post'))
+        .map(it => it.properties.post.message);
     });
 
     it('posts should appear in the list', () => {
-      const posts = debugElement.queryAll(By.css('.message'))
-        .map(it => it.nativeElement.textContent);
-
-      expect(posts).toContain(somePost.message);
-      expect(posts).toContain(moreRecentPost.message);
-    });
-
-    it('post should have a timestamp', () => {
-      const post = debugElement.queryAll(By.css('.post'))
-        .find(it => it.nativeElement.textContent.includes(somePost.message));
-      const renderedDate = post.query(By.css('.created-text')).nativeElement.textContent;
-
-      expect(renderedDate).toContain(somePost.created.format('Do MMMM'));
+      expect(postedMessages).toContain(somePost.message);
+      expect(postedMessages).toContain(moreRecentPost.message);
     });
 
     it('should show most recent posts first', () => {
-      const posts = debugElement.queryAll(By.css('.message'))
-        .map(it => it.nativeElement.textContent);
-
-      expect(posts.indexOf(moreRecentPost.message)).toBeLessThan(posts.indexOf(somePost.message));
+      expect(postedMessages.indexOf(moreRecentPost.message)).toBeLessThan(postedMessages.indexOf(somePost.message));
     });
   });
 
@@ -95,8 +86,8 @@ describe('PostBoxComponent', () => {
 
     const someAuthor = {
       displayName: 'Pinky Floyd',
-      uid: 'bla',
-      email: ''
+      uid: 'someUid',
+      email: 'someMail'
     };
 
     let saveCallArgs: any[];
@@ -124,7 +115,7 @@ describe('PostBoxComponent', () => {
 
     it('should use currently logged in users name as someAuthor', () => {
       expect(saveCallArgs[0]).toBe(inputHoliday.id);
-      expect(post.author).toBe(someAuthor.displayName);
+      expect(post.authorId).toBe(someAuthor.uid);
     });
   });
 

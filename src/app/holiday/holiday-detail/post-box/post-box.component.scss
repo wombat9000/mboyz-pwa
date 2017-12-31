@@ -15,26 +15,6 @@
       width: 100%;
       background-color: mat-color($mboyz-accent, 100);
       margin-bottom: 10px;
-
-      .post-body {
-        width: 99%;
-        flex-direction: column;
-        padding: 1%;
-
-        .author {
-          color: mat-color($mboyz-primary);
-          font-weight: bold;
-        }
-      }
-
-      .info {
-        margin-top: 2px;
-
-        .created-text {
-          font-size: 80%;
-          color: lighten(black, 50%);
-        }
-      }
     }
   }
 }

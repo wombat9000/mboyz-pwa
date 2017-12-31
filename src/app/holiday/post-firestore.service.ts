@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import {Moment} from 'moment';
 
 export class Post {
-  constructor(readonly author: string,
+  constructor(readonly authorId: string,
               readonly message: string,
               readonly created: Moment,
               readonly comments: Comment[] = []) {
@@ -22,7 +22,7 @@ export class Comment {
 
 export interface AfsPost {
   id: string;
-  author: string;
+  authorId: string;
   message: string;
   created: string;
 }
@@ -38,14 +38,14 @@ export class PostFirestore {
     const observable: Observable<AfsPost[]> = angularFirestoreCollection.valueChanges();
 
     return observable.map(array => {
-      return array.map(rawPost => new Post(rawPost.author, rawPost.message, moment(rawPost.created), []));
+      return array.map(rawPost => new Post(rawPost.authorId, rawPost.message, moment(rawPost.created), []));
     });
   }
 
   public save(holidayId: string, posts: Post) {
-    const data = {
+    const data: AfsPost = {
       id: uuid(),
-      author: posts.author,
+      authorId: posts.authorId,
       message: posts.message,
       created: posts.created.toISOString()
     };

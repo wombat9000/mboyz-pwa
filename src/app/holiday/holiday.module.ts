@@ -15,6 +15,7 @@ import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.comp
 import {HolidayService} from './holiday.service';
 import {HolidayFirestore} from './holiday-firestore.service';
 import {PostFirestore} from './post-firestore.service';
+import {PostComponent} from './holiday-detail/post-box/post/post.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {PostFirestore} from './post-firestore.service';
     HolidayDetailComponent,
     PostBoxComponent,
     CommentBoxComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    PostComponent
   ],
   imports: [
     BrowserAnimationsModule,

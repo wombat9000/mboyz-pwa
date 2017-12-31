@@ -7,15 +7,8 @@
 </mat-form-field>
 <div class="posts-container">
   <div class="post" *ngFor="let post of posts | async">
-    <div class="post-body">
-      <div class="body">
-        <span class="author">{{post.author}}</span>
-        <span class="message">{{post.message}}</span>
-      </div>
-      <div class="info">
-        <span class="created-text">{{post.created.format('Do MMMM')}} um {{post.created.format('LT')}}</span>
-      </div>
-    </div>
+    <app-post [post]="post"></app-post>
+
     <div class="comments">
       <app-comment-box [post]="post"></app-comment-box>
     </div>

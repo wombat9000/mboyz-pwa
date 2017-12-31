@@ -1,0 +1,9 @@
+<div class="post-body" *ngIf="user | async as user2">
+  <div class="body">
+    <span class="author">{{user2.displayName}}</span>
+    <span class="message">{{post.message}}</span>
+  </div>
+  <div class="info">
+    <span class="created-text">{{post.created.format('Do MMMM')}} um {{post.created.format('LT')}}</span>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+@import '../../../../../mboyz-theme.scss';
+
+:host {
+  .post-body {
+    width: 99%;
+    flex-direction: column;
+    padding: 1%;
+
+    .author {
+      color: mat-color($mboyz-primary);
+      font-weight: bold;
+    }
+  }
+
+  .info {
+    margin-top: 2px;
+
+    .created-text {
+      font-size: 80%;
+      color: lighten(black, 50%);
+    }
+  }
+}

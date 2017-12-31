@@ -39,7 +39,7 @@ export class PostBoxComponent implements OnInit {
 
 
   submitPost() {
-    const post = new Post(this.user.displayName, this.postInput, moment());
+    const post = new Post(this.user.uid, this.postInput, moment());
 
     this.postService.save(this.holiday.id, post);
     this.postInput = '';
