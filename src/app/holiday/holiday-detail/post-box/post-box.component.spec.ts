@@ -6,7 +6,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
-import {CommentBoxComponent} from './comment-box/comment-box.component';
+import {CommentBoxComponent} from './post/comment-box/comment-box.component';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {authServiceMock, postFirestoreMock} from '../../../test-support/stubs';
 import {Holiday} from '../../holiday.service';

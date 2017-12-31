@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../../post-firestore.service';
+import {Post} from '../../../../post-firestore.service';
 
 @Component({
   selector: 'app-comment-box',

@@ -7,7 +7,7 @@ import {userFirestoreMock} from '../../../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../core/auth.service';
 import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import moment = require('moment');
 
 describe('PostComponent', () => {
@@ -30,7 +30,8 @@ describe('PostComponent', () => {
           useValue: userFirestoreMock
         }
       ],
-      declarations: [PostComponent]
+      declarations: [PostComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
