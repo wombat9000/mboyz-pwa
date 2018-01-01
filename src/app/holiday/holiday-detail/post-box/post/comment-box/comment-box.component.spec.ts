@@ -1,65 +1,61 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentBoxComponent} from './comment-box.component';
-import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
+import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
+import {CommentFirestore} from './comment-firestore.service';
+import {commentFirestoreMock} from '../../../../../test-support/stubs';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
+import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {Comment, Post} from '../../../../post-firestore.service';
+import {Observable} from 'rxjs/Observable';
 import moment = require('moment');
 
-xdescribe('CommentBoxComponent', () => {
+describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
   let fixture: ComponentFixture<CommentBoxComponent>;
   let debugElement: DebugElement;
+  let commentFirestore: jasmine.SpyObj<CommentFirestore>;
 
-  const someComment = new Comment('someId', 'somePostId', 'author1', 'someComment', moment('2016-01-01'));
-  const anotherComment = new Comment('anotherId', 'somePostId', 'author2', 'anotherComment', moment('2016-01-02'));
-  const parentPost = new Post('', '', '', '', moment('2016-01-01'));
+  const parentPost: Post = new Post('', '', '', '', moment());
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
-      declarations: [CommentBoxComponent]
+      providers: [
+        {provide: CommentFirestore, useValue: commentFirestoreMock}
+      ],
+      declarations: [CommentBoxComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
 
+
   beforeEach(() => {
+    commentFirestore = TestBed.get(CommentFirestore);
     fixture = TestBed.createComponent(CommentBoxComponent);
     component = fixture.componentInstance;
     component.post = parentPost;
     debugElement = fixture.debugElement;
-    fixture.detectChanges();
   });
 
-  describe('displaying existing comments', () => {
+  describe('display comments', () => {
 
-    it('comments should appear in the list', () => {
-      const comments = debugElement.queryAll(By.css('.comment-body .message'))
-        .map(it => it.nativeElement.textContent);
+    const someComment = new Comment('', '', '', '', moment());
 
-      expect(comments).toContain(someComment.text);
-      expect(comments).toContain(anotherComment.text);
+    beforeEach(() => {
+      commentFirestore.observeByPost.and.returnValue(Observable.of([someComment]));
+      fixture.detectChanges();
     });
 
-    it('comments should have a timestamp', () => {
-      const post = debugElement.queryAll(By.css('.comment'))
-        .find(it => it.nativeElement.textContent.includes(someComment.text));
-      const renderedDate = post.query(By.css('.created-text')).nativeElement.textContent;
+    it('fetches comments for post', (done) => {
+      expect(commentFirestore.observeByPost).toHaveBeenCalledWith(parentPost);
 
-      expect(renderedDate).toContain(someComment.created.format('Do MMMM'));
+      component.comments$.subscribe(comments => {
+        expect(comments).toEqual([someComment]);
+        done();
+      });
     });
   });
-
-  function createComment(someMessage: string) {
-    const input = debugElement.query(By.css('textarea'));
-    input.nativeElement.value = someMessage;
-    input.nativeElement.dispatchEvent(new Event('input'));
-    input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {
-      'key': 'Enter'
-    }));
-    fixture.detectChanges();
-  }
 });

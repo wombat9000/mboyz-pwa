@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../../../post-firestore.service';
+import {Comment, Post} from '../../../../post-firestore.service';
+import {CommentFirestore} from './comment-firestore.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-comment-box',
@@ -11,10 +13,12 @@ export class CommentBoxComponent implements OnInit {
   @Input()
   post: Post;
 
-  constructor() {
+  comments$: Observable<Comment[]>;
+
+  constructor(private commentFirestore: CommentFirestore) {
   }
 
   ngOnInit() {
+    this.comments$ = this.commentFirestore.observeByPost(this.post);
   }
-
 }
