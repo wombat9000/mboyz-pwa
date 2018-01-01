@@ -14,13 +14,13 @@ export class PostComponent implements OnInit {
   @Input()
   post: Post;
 
-  user: Observable<User>;
+  user$: Observable<User>;
 
   constructor(private userFS: UserFirestore) {
   }
 
   ngOnInit() {
-    this.user = this.userFS.observeById(this.post.authorId);
+    this.user$ = this.userFS.observeById(this.post.authorId);
   }
 
 }
