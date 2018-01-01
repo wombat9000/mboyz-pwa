@@ -17,6 +17,7 @@ export class Post {
 export class Comment {
   constructor(readonly id: string,
               readonly postId: string,
+              readonly holidayId: string,
               readonly authorId: string,
               readonly text: string,
               readonly created: Moment) {

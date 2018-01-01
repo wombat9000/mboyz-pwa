@@ -7,6 +7,8 @@
   <mat-form-field>
   <textarea matInput
             matTextareaAutosize
+            (keyup.enter)="submitComment()"
+            [(ngModel)]="commentInput"
             placeholder="Kommentieren ..."></textarea>
   </mat-form-field>
 </div>

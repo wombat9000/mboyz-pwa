@@ -25,6 +25,7 @@ describe('CommentComponent', () => {
   const someComment: Comment = {
     id: 'someId',
     postId: 'somePost',
+    holidayId: 'someHolidayId',
     authorId: 'someAuthor',
     text: 'someMessage',
     created: moment(),
