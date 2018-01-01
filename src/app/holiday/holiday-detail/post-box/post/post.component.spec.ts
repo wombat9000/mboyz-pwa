@@ -60,4 +60,10 @@ describe('PostComponent', () => {
 
     expect(renderedDate).toContain(somePost.created.format('Do MMMM'));
   });
+
+  it('should show the comment box', () => {
+    const commentBox = debugElement.query(By.css('app-comment-box'));
+
+    expect(commentBox.properties.post).toBe(somePost);
+  });
 });
