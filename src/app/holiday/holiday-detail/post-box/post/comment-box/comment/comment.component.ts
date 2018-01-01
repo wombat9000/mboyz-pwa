@@ -14,11 +14,11 @@ export class CommentComponent implements OnInit {
   @Input()
   comment: Comment;
 
-  user: Observable<User>;
+  user$: Observable<User>;
 
   constructor(private userFS: UserFirestore) { }
 
   ngOnInit() {
-    this.user = this.userFS.observeById(this.comment.authorId);
+    this.user$ = this.userFS.observeById(this.comment.authorId);
   }
 }

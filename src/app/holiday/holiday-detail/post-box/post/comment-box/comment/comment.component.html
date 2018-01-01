@@ -1,5 +1,5 @@
-<div class="comment-body" *ngIf="user | async as user2">
-  <span class="author">{{user2.displayName}}</span>
+<div class="comment-body" *ngIf="user$ | async as user">
+  <span class="author">{{user.displayName}}</span>
   <span class="message">{{comment.text}}</span>
 </div>
 <div class="info">
