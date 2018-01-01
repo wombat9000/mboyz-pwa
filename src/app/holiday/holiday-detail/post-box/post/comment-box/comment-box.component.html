@@ -1,7 +1,7 @@
 <div class="comments-container">
-  <!--<div class="comment" *ngFor="let comment of comments | async">-->
-    <!--<app-comment [comment]="comment"></app-comment>-->
-  <!--</div>-->
+  <div class="comment" *ngFor="let comment of comments$ | async">
+    <app-comment [comment]="comment"></app-comment>
+  </div>
 </div>
 <div class="comment-input">
   <mat-form-field>

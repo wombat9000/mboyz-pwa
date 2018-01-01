@@ -19,6 +19,11 @@ export class CommentBoxComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.comments$ = this.commentFirestore.observeByPost(this.post);
+    this.comments$ = this.commentFirestore.observeByPost(this.post)
+      .map(it => {
+        return it.sort((some, other) => {
+          return some.created.isAfter(other.created) ? 1 : 0;
+        });
+      });
   }
 }
