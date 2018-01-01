@@ -57,8 +57,8 @@ describe('PostBoxComponent', () => {
   });
 
   describe('displays posts', () => {
-    const somePost = new Post('someAuthor', 'first message', moment('2016-01-01'), []);
-    const moreRecentPost = new Post('someAuthor', 'second message', moment('2016-01-02'), []);
+    const somePost = new Post('someId', 'someAuthor', 'holidayId', 'first message', moment('2016-01-01'));
+    const moreRecentPost = new Post('anotherId', 'someAuthor', 'holidayId', 'second message', moment('2016-01-02'));
 
     let postedMessages: string[];
 
@@ -90,7 +90,6 @@ describe('PostBoxComponent', () => {
       email: 'someMail'
     };
 
-    let saveCallArgs: any[];
     let post: Post;
 
     beforeEach(async () => {
@@ -100,12 +99,10 @@ describe('PostBoxComponent', () => {
       await fixture.whenStable();
       fixture.detectChanges();
 
-      saveCallArgs = postFS.save.calls.argsFor(0);
-      post = saveCallArgs[1];
+      post = postFS.save.calls.argsFor(0)[0];
     });
 
     it('should persist the new message', () => {
-      expect(saveCallArgs[0]).toBe(inputHoliday.id);
       expect(post.message).toBe(someMessage);
     });
 
@@ -114,7 +111,6 @@ describe('PostBoxComponent', () => {
     });
 
     it('should use currently logged in users name as someAuthor', () => {
-      expect(saveCallArgs[0]).toBe(inputHoliday.id);
       expect(post.authorId).toBe(someAuthor.uid);
     });
   });

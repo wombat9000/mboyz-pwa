@@ -6,10 +6,11 @@ import * as moment from 'moment';
 import {Moment} from 'moment';
 
 export class Post {
-  constructor(readonly authorId: string,
+  constructor(readonly id: string,
+              readonly authorId: string,
+              readonly holidayId: string,
               readonly message: string,
-              readonly created: Moment,
-              readonly comments: Comment[] = []) {
+              readonly created: Moment) {
   }
 }
 
@@ -38,19 +39,19 @@ export class PostFirestore {
     const observable: Observable<AfsPost[]> = angularFirestoreCollection.valueChanges();
 
     return observable.map(array => {
-      return array.map(rawPost => new Post(rawPost.authorId, rawPost.message, moment(rawPost.created), []));
+      return array.map(rawPost => new Post(rawPost.id, rawPost.authorId, holidayId, rawPost.message, moment(rawPost.created)));
     });
   }
 
-  public save(holidayId: string, posts: Post) {
+  public save(post: Post) {
     const data: AfsPost = {
       id: uuid(),
-      authorId: posts.authorId,
-      message: posts.message,
-      created: posts.created.toISOString()
+      authorId: post.authorId,
+      message: post.message,
+      created: post.created.toISOString()
     };
 
     console.log('trying to post:', data);
-    return this.afs.doc(`holidays/${holidayId}/posts/${data.id}`).set(data);
+    return this.afs.doc(`holidays/${post.holidayId}/posts/${data.id}`).set(data);
   }
 }

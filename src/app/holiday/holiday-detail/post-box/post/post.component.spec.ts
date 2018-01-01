@@ -35,7 +35,7 @@ describe('PostComponent', () => {
     })
       .compileComponents();
   }));
-  const somePost = new Post('someAuthorId', '', moment());
+  const somePost = new Post('someId', 'someAuthorId', 'holidayId', 'someMessage', moment());
 
   beforeEach(() => {
     userFirestoreMock.observeById.and.returnValue(Observable.of(someUser));
@@ -50,7 +50,7 @@ describe('PostComponent', () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
-    expect(userFirestoreMock.observeById).toHaveBeenCalledWith('someAuthorId');
+    expect(userFirestoreMock.observeById).toHaveBeenCalledWith(somePost.authorId);
     expect(author).toBe(someUser.displayName);
   });
 

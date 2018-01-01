@@ -4,7 +4,7 @@ import {Holiday} from '../../holiday.service';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {AuthService, User} from '../../../core/auth.service';
-
+import {v4 as uuid} from 'uuid';
 
 @Component({
   selector: 'app-post-box',
@@ -39,9 +39,9 @@ export class PostBoxComponent implements OnInit {
 
 
   submitPost() {
-    const post = new Post(this.user.uid, this.postInput, moment());
+    const post = new Post(uuid(), this.user.uid, this.holiday.id, this.postInput, moment());
 
-    this.postService.save(this.holiday.id, post);
+    this.postService.save(post);
     this.postInput = '';
   }
 }
