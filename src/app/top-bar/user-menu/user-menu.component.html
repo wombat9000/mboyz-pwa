@@ -1,4 +1,4 @@
-<div *ngIf="auth.user | async as user">
+<div *ngIf="auth.user$ | async as user">
   <button mat-fab class="user-icon" [appBgImage]="user.photoURL" [matMenuTriggerFor]="userMenu"></button>
   <mat-menu #userMenu="matMenu" yPosition="below" [overlapTrigger]="false">
     <button mat-menu-item (click)="signOut()">Logout</button>

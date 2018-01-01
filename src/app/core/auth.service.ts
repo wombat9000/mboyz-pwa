@@ -16,12 +16,12 @@ export interface User {
 @Injectable()
 export class AuthService {
 
-  private user: Observable<User> = Observable.of(null);
+  user$: Observable<User> = Observable.of(null);
 
   constructor(private afAuth: AngularFireAuth,
               private userRepository: UserFirestore,
               private router: Router) {
-    this.user = this.afAuth.authState.switchMap(user => {
+    this.user$ = this.afAuth.authState.switchMap(user => {
       if (user) {
         return userRepository.observeById(user.uid);
       }
@@ -30,13 +30,13 @@ export class AuthService {
   }
 
   activeUser(): Observable<User> {
-    return this.user
+    return this.user$
       .take(1);
   }
 
 
   isSignedIn(): Observable<boolean> {
-    return this.user
+    return this.user$
       .take(1)
       .map(user => !!user);
   }
