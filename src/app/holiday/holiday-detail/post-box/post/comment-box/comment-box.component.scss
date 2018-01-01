@@ -12,16 +12,7 @@
     flex-direction: column;
     padding: 1%;
 
-    .author {
-      color: mat-color($mboyz-primary);
-      font-weight: bold;
-    }
 
-    .info {
-      font-size: 80%;
-      color: lighten(black, 50%);
-      margin-top: 2px;
-    }
   }
 
   .comment-input {

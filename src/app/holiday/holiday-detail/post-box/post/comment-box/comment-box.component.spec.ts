@@ -14,8 +14,8 @@ xdescribe('CommentBoxComponent', () => {
   let fixture: ComponentFixture<CommentBoxComponent>;
   let debugElement: DebugElement;
 
-  const someComment = new Comment('author1', 'someComment', moment('2016-01-01'));
-  const anotherComment = new Comment('author2', 'anotherComment', moment('2016-01-02'));
+  const someComment = new Comment('someId', 'somePostId', 'author1', 'someComment', moment('2016-01-01'));
+  const anotherComment = new Comment('anotherId', 'somePostId', 'author2', 'anotherComment', moment('2016-01-02'));
   const parentPost = new Post('', '', '', '', moment('2016-01-01'));
 
   beforeEach(async(() => {
@@ -40,13 +40,13 @@ xdescribe('CommentBoxComponent', () => {
       const comments = debugElement.queryAll(By.css('.comment-body .message'))
         .map(it => it.nativeElement.textContent);
 
-      expect(comments).toContain(someComment.comment);
-      expect(comments).toContain(anotherComment.comment);
+      expect(comments).toContain(someComment.text);
+      expect(comments).toContain(anotherComment.text);
     });
 
     it('comments should have a timestamp', () => {
       const post = debugElement.queryAll(By.css('.comment'))
-        .find(it => it.nativeElement.textContent.includes(someComment.comment));
+        .find(it => it.nativeElement.textContent.includes(someComment.text));
       const renderedDate = post.query(By.css('.created-text')).nativeElement.textContent;
 
       expect(renderedDate).toContain(someComment.created.format('Do MMMM'));

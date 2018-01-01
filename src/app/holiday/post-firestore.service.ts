@@ -15,8 +15,10 @@ export class Post {
 }
 
 export class Comment {
-  constructor(readonly author: string,
-              readonly comment: string,
+  constructor(readonly id: string,
+              readonly postId: string,
+              readonly authorId: string,
+              readonly text: string,
               readonly created: Moment) {
   }
 }

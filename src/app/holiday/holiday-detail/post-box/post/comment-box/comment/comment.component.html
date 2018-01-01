@@ -1,3 +1,7 @@
-<p>
-  comment works!
-</p>
+<div class="comment-body" *ngIf="user | async as user2">
+  <span class="author">{{user2.displayName}}</span>
+  <span class="message">{{comment.text}}</span>
+</div>
+<div class="info">
+  <span class="created-text">{{comment.created.format('Do MMMM')}} um {{comment.created.format('LT')}}</span>
+</div>
