@@ -16,7 +16,7 @@ export class PostBoxComponent implements OnInit {
   @Input()
   holiday: Holiday;
 
-  posts: Observable<Post[]>;
+  posts$: Observable<Post[]>;
 
   postInput = '';
 
@@ -29,7 +29,7 @@ export class PostBoxComponent implements OnInit {
   ngOnInit() {
     this.auth.activeUser().subscribe(it => this.user = it);
 
-    this.posts = this.postService.observeByHolidayId(this.holiday.id)
+    this.posts$ = this.postService.observeByHolidayId(this.holiday.id)
       .map(it => {
         return it.sort((some, other) => {
           return some.created.isAfter(other.created) ? 0 : 1;

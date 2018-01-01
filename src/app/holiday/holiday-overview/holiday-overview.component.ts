@@ -14,10 +14,10 @@ export class HolidayOverviewComponent implements OnInit {
               private router: Router) {
   }
 
-  holidays: Observable<Holiday[]>;
+  holidays$: Observable<Holiday[]>;
 
   ngOnInit() {
-    this.holidays = this.holidayService.getHolidays();
+    this.holidays$ = this.holidayService.getHolidays();
   }
 
   gotoCreate() {

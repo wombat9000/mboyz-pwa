@@ -9,7 +9,7 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./holiday-detail.component.scss']
 })
 export class HolidayDetailComponent implements OnInit {
-  holiday: Observable<Holiday>;
+  holiday$: Observable<Holiday>;
 
   constructor(private route: ActivatedRoute,
               private holidayService: HolidayService) {
@@ -17,6 +17,6 @@ export class HolidayDetailComponent implements OnInit {
 
   ngOnInit() {
     const id: string = this.route.snapshot.paramMap.get('id');
-    this.holiday = this.holidayService.findById(id);
+    this.holiday$ = this.holidayService.findById(id);
   }
 }

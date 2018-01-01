@@ -6,7 +6,7 @@
             placeholder="Neuer Beitrag ..."></textarea>
 </mat-form-field>
 <div class="posts-container">
-  <div class="post" *ngFor="let post of posts | async">
+  <div class="post" *ngFor="let post of posts$ | async">
     <app-post [post]="post"></app-post>
   </div>
 </div>

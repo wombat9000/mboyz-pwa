@@ -7,7 +7,7 @@
 
 
 <mat-list role="list">
-  <span *ngFor="let holiday of holidays | async">
+  <span *ngFor="let holiday of holidays$ | async">
     <mat-list-item role="listitem" class="holiday-item" (click)="goToDetail(holiday.id)">
       <span class="holiday-name">{{holiday.name}}</span>
     </mat-list-item>
