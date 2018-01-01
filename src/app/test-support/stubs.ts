@@ -4,6 +4,7 @@ import {HolidayFirestore} from '../holiday/holiday-firestore.service';
 import {AuthService} from '../core/auth.service';
 import {Router} from '@angular/router';
 import {PostFirestore} from '../holiday/post-firestore.service';
+import {CommentFirestore} from '../holiday/holiday-detail/post-box/post/comment-box/comment-firestore.service';
 
 export class RouterStub {
   navigateByUrl(url: string) {
@@ -33,3 +34,4 @@ export const authServiceMock: jasmine.SpyObj<AuthService> = jasmine.createSpyObj
 export const userFirestoreMock: jasmine.SpyObj<UserFirestore> = jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
 export const holidayFirestoreMock: jasmine.SpyObj<HolidayFirestore> = jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save']);
 export const postFirestoreMock: jasmine.SpyObj<PostFirestore> = jasmine.createSpyObj('PostFirestore', ['observeByHolidayId', 'save']);
+export const commentFirestoreMock: jasmine.SpyObj<CommentFirestore> = jasmine.createSpyObj('CommentFirestore', ['observeByPost', 'save']);

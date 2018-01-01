@@ -16,7 +16,8 @@ import {HolidayService} from './holiday.service';
 import {HolidayFirestore} from './holiday-firestore.service';
 import {PostFirestore} from './post-firestore.service';
 import {PostComponent} from './holiday-detail/post-box/post/post.component';
-import { CommentComponent } from './holiday-detail/post-box/post/comment-box/comment/comment.component';
+import {CommentComponent} from './holiday-detail/post-box/post/comment-box/comment/comment.component';
+import {CommentFirestore} from './holiday-detail/post-box/post/comment-box/comment-firestore.service';
 
 
 @NgModule({
@@ -24,10 +25,10 @@ import { CommentComponent } from './holiday-detail/post-box/post/comment-box/com
     HolidayOverviewComponent,
     HolidayCreateComponent,
     HolidayDetailComponent,
-    PostBoxComponent,
-    CommentBoxComponent,
     ParticipantsComponent,
+    PostBoxComponent,
     PostComponent,
+    CommentBoxComponent,
     CommentComponent
   ],
   imports: [
@@ -47,7 +48,8 @@ import { CommentComponent } from './holiday-detail/post-box/post/comment-box/com
   providers: [
     HolidayService,
     HolidayFirestore,
-    PostFirestore]
+    PostFirestore,
+    CommentFirestore]
 })
 export class HolidayModule {
 }
