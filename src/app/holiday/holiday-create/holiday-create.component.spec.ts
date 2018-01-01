@@ -5,10 +5,11 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {Holiday, HolidayService} from '../holiday.service';
 import {click} from '../../test-support/functions';
-import {holidayServiceMock} from '../../test-support/stubs';
+import {holidayServiceMock, routerMock} from '../../test-support/stubs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {Router} from '@angular/router';
 
 describe('HolidayCreateComponent', () => {
   let component: HolidayCreateComponent;
@@ -16,6 +17,7 @@ describe('HolidayCreateComponent', () => {
   let debugElement: DebugElement;
 
   let holidayService: jasmine.SpyObj<HolidayService>;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,10 +29,10 @@ describe('HolidayCreateComponent', () => {
         NoopAnimationsModule,
         MatButtonModule
       ],
-      providers: [{
-        provide: HolidayService,
-        useValue: holidayServiceMock
-      }],
+      providers: [
+        {provide: HolidayService, useValue: holidayServiceMock},
+        {provide: Router, useValue: routerMock}
+      ],
       declarations: [HolidayCreateComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -39,6 +41,7 @@ describe('HolidayCreateComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HolidayCreateComponent);
     holidayService = TestBed.get(HolidayService);
+    router = TestBed.get(Router);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     fixture.detectChanges();
@@ -64,5 +67,18 @@ describe('HolidayCreateComponent', () => {
     const holiday: Holiday = holidayService.create.calls.argsFor(0)[0];
 
     expect(holiday.name).toBe(expectedHoliday.name);
+  });
+
+  it('should redirect to holiday overview after form was submitted', async () => {
+    await fixture.whenStable();
+
+    const nameInput = debugElement.query(By.css('[name="name"]'));
+    nameInput.nativeElement.value = 'Nicer Skiurlaub';
+    nameInput.nativeElement.dispatchEvent(new Event('input'));
+
+    const submitButton = debugElement.query(By.css('button[type="submit"]')).nativeElement;
+    click(submitButton);
+
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 });
