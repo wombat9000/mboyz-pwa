@@ -19,7 +19,7 @@ import {AuthService} from './core/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {UserMenuComponent} from './top-bar/user-menu/user-menu.component';
-import {BgImageDirective} from './bg-image.directive';
+import {BgImageDirective} from './top-bar/user-menu/bg-image.directive';
 import {HolidayModule} from './holiday/holiday.module';
 import {UserFirestore} from './core/user-firestore.service';
 
