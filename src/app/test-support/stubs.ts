@@ -30,7 +30,11 @@ export const holidayServiceMock: jasmine.SpyObj<HolidayService> =
   );
 
 export const routerMock: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
-export const authServiceMock: jasmine.SpyObj<AuthService> = jasmine.createSpyObj('AuthService', ['isSignedIn', 'activeUser']);
+export const authServiceMock: jasmine.SpyObj<AuthService> = jasmine.createSpyObj('AuthService', [
+  'isSignedIn',
+  'activeUser',
+  'facebookLogin'
+]);
 export const userFirestoreMock: jasmine.SpyObj<UserFirestore> = jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
 export const holidayFirestoreMock: jasmine.SpyObj<HolidayFirestore> = jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save']);
 export const postFirestoreMock: jasmine.SpyObj<PostFirestore> = jasmine.createSpyObj('PostFirestore', ['observeByHolidayId', 'save']);
