@@ -61,10 +61,18 @@ describe('CommentComponent', () => {
     expect(author).toBe(someUser.displayName);
   });
 
+  it('should show the text of the comment', async () => {
+    await fixture.whenStable();
+    const message = debugElement.query(By.css('.message')).nativeElement.textContent;
+
+    expect(message).toBe(someComment.text);
+  });
+
   it('post should have a timestamp', async () => {
     await fixture.whenStable();
     const renderedDate = debugElement.query(By.css('.created-text')).nativeElement.textContent;
 
     expect(renderedDate).toContain(someComment.created.format('Do MMMM'));
+    expect(renderedDate).toContain(someComment.created.format('LT'));
   });
 });
