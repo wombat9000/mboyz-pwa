@@ -46,6 +46,13 @@ describe('PostComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should show the message', async() => {
+    await fixture.whenStable();
+    const message = debugElement.query(By.css('.message')).nativeElement.textContent;
+
+    expect(message).toBe(somePost.message);
+  });
+
   it('should show the username for given id', async () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
@@ -59,9 +66,10 @@ describe('PostComponent', () => {
     const renderedDate = debugElement.query(By.css('.created-text')).nativeElement.textContent;
 
     expect(renderedDate).toContain(somePost.created.format('Do MMMM'));
+    expect(renderedDate).toContain(somePost.created.format('LT'));
   });
 
-  it('should show the comment box', () => {
+  it('should render comment box for given post', () => {
     const commentBox = debugElement.query(By.css('app-comment-box'));
 
     expect(commentBox.properties.post).toBe(somePost);
