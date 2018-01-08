@@ -42,6 +42,6 @@ export class PostBoxComponent implements OnInit {
     const post = new Post(uuid(), this.user.uid, this.holiday.id, this.postInput, moment());
 
     this.postService.save(post);
-    this.postInput = '';
+    // this.postInput = '';
   }
 }

@@ -1,43 +1,69 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
-import {CommentBoxComponent} from './post/comment-box/comment-box.component';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {authServiceMock, postFirestoreMock} from '../../../test-support/stubs';
 import {Holiday} from '../../holiday.service';
 import {Subject} from 'rxjs/Subject';
 import {AuthService, User} from '../../../core/auth.service';
+import {Observable} from 'rxjs/Observable';
 import moment = require('moment');
 
+class PostBoxPO {
+  constructor(private fixture: ComponentFixture<PostBoxComponent>, holiday: Holiday) {
+    const component = fixture.componentInstance;
+    component.holiday = holiday;
+  }
 
-describe('PostBoxComponent', () => {
-  let component: PostBoxComponent;
+  // getInput() {
+  //   return this.fixture.componentInstance.holiday
+  // }
+
+  newPostInputField() {
+    const debugElement = this.fixture.debugElement.query(By.css('.message-input'));
+
+
+    console.log(debugElement.nativeElement);
+
+    return debugElement.nativeElement.value;
+  }
+
+  createPost(text: string) {
+    const input = this.fixture.debugElement.query(By.css('textarea'));
+    input.nativeElement.value = text;
+    input.nativeElement.dispatchEvent(new Event('input'));
+    input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {
+      'key': 'Enter'
+    }));
+    this.fixture.detectChanges();
+  }
+}
+
+fdescribe('PostBoxComponent', () => {
+
+  const someAuthor: User = {
+    displayName: 'Pinky Floyd',
+    uid: 'someUid',
+    email: 'someMail'
+  };
+
   let fixture: ComponentFixture<PostBoxComponent>;
   let debugElement: DebugElement;
   let postFS: jasmine.SpyObj<PostFirestore>;
+  let postBoxPO: PostBoxPO;
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
-  const userEmitter = new Subject<User>();
   const inputHoliday = new Holiday('someId', 'someName');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {
-          provide: PostFirestore,
-          useValue: postFirestoreMock
-        },
-        {
-          provide: AuthService,
-          useValue: authServiceMock
-        }
+        {provide: PostFirestore, useValue: postFirestoreMock},
+        {provide: AuthService, useValue: authServiceMock}
       ],
-      imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
-      declarations: [PostBoxComponent, CommentBoxComponent],
+      imports: [FormsModule],
+      declarations: [PostBoxComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -46,12 +72,11 @@ describe('PostBoxComponent', () => {
   beforeEach(() => {
     postFS = TestBed.get(PostFirestore);
     postFS.observeByHolidayId.and.returnValue(holidayPostsSubject);
-
-    authServiceMock.activeUser.and.returnValue(userEmitter);
+    authServiceMock.activeUser.and.returnValue(Observable.of(someAuthor));
 
     fixture = TestBed.createComponent(PostBoxComponent);
-    component = fixture.componentInstance;
-    component.holiday = inputHoliday;
+    postBoxPO = new PostBoxPO(fixture, inputHoliday);
+
     debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -82,20 +107,13 @@ describe('PostBoxComponent', () => {
   });
 
   describe('creating a new post', () => {
-    const someMessage = 'someMessage';
-
-    const someAuthor = {
-      displayName: 'Pinky Floyd',
-      uid: 'someUid',
-      email: 'someMail'
-    };
-
     let post: Post;
 
-    beforeEach(async () => {
-      userEmitter.next(someAuthor);
+    const someMessage = 'someMessage';
 
-      createPost(someMessage);
+    beforeEach(async () => {
+
+      postBoxPO.createPost(someMessage);
       await fixture.whenStable();
       fixture.detectChanges();
 
@@ -107,21 +125,12 @@ describe('PostBoxComponent', () => {
     });
 
     it('should clear the input field after the message is sent', () => {
-      expect(component.postInput).toBe('');
+      const bla: string = postBoxPO.newPostInputField();
+      expect(bla).toBe('');
     });
 
     it('should use currently logged in users name as someAuthor', () => {
       expect(post.authorId).toBe(someAuthor.uid);
     });
   });
-
-  function createPost(someMessage: string) {
-    const input = debugElement.query(By.css('textarea'));
-    input.nativeElement.value = someMessage;
-    input.nativeElement.dispatchEvent(new Event('input'));
-    input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {
-      'key': 'Enter'
-    }));
-    fixture.detectChanges();
-  }
 });
