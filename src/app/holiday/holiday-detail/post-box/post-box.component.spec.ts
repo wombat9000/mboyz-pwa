@@ -17,17 +17,8 @@ class PostBoxPO {
     component.holiday = holiday;
   }
 
-  // getInput() {
-  //   return this.fixture.componentInstance.holiday
-  // }
-
-  newPostInputField() {
-    const debugElement = this.fixture.debugElement.query(By.css('.message-input'));
-
-
-    console.log(debugElement.nativeElement);
-
-    return debugElement.nativeElement.value;
+  postInput() {
+    return this.fixture.debugElement.query(By.css('textarea'));
   }
 
   createPost(text: string) {
@@ -41,7 +32,7 @@ class PostBoxPO {
   }
 }
 
-fdescribe('PostBoxComponent', () => {
+describe('PostBoxComponent', () => {
 
   const someAuthor: User = {
     displayName: 'Pinky Floyd',
@@ -108,11 +99,9 @@ fdescribe('PostBoxComponent', () => {
 
   describe('creating a new post', () => {
     let post: Post;
-
     const someMessage = 'someMessage';
 
     beforeEach(async () => {
-
       postBoxPO.createPost(someMessage);
       await fixture.whenStable();
       fixture.detectChanges();
@@ -125,8 +114,7 @@ fdescribe('PostBoxComponent', () => {
     });
 
     it('should clear the input field after the message is sent', () => {
-      const bla: string = postBoxPO.newPostInputField();
-      expect(bla).toBe('');
+      expect(postBoxPO.postInput().nativeElement.value).toBe('');
     });
 
     it('should use currently logged in users name as someAuthor', () => {
