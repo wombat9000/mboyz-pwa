@@ -6,13 +6,15 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/favicon.ico",
           "/index.html"
         ],
         "versionedFiles": [
           "/*.bundle.css",
           "/*.bundle.js",
           "/*.chunk.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/icon?family=Material+Icons"
         ]
       }
     },

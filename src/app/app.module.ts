@@ -49,7 +49,7 @@ import {UserFirestore} from './core/user-firestore.service';
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : [],
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
