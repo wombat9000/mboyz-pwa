@@ -51,8 +51,8 @@ import {UserFirestore} from './core/user-firestore.service';
     MatToolbarModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    environment.production ? AngularFireModule.initializeApp(environment.firebase) : [],
-    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+    environment.production ? AngularFireModule.initializeApp(environment.firebase) : []
   ],
   providers: [AuthService, UserFirestore],
   bootstrap: [AppComponent]
