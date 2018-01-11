@@ -5,9 +5,9 @@ import {userFirestoreMock} from '../../../../../../test-support/stubs';
 import {UserFirestore} from '../../../../../../core/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../../../core/auth.service';
-import {Comment} from '../../../../../post-firestore.service';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
+import {Comment} from '../comment-firestore.service';
 import moment = require('moment');
 
 describe('CommentComponent', () => {
@@ -28,7 +28,7 @@ describe('CommentComponent', () => {
     holidayId: 'someHolidayId',
     authorId: 'someAuthor',
     text: 'someMessage',
-    created: moment(),
+    created: moment().toISOString(),
   };
 
   beforeEach(async(() => {
@@ -72,7 +72,7 @@ describe('CommentComponent', () => {
     await fixture.whenStable();
     const renderedDate = debugElement.query(By.css('.created-text')).nativeElement.textContent;
 
-    expect(renderedDate).toContain(someComment.created.format('Do MMMM'));
-    expect(renderedDate).toContain(someComment.created.format('LT'));
+    expect(renderedDate).toContain(moment(someComment.created).format('Do MMMM'));
+    expect(renderedDate).toContain(moment(someComment.created).format('LT'));
   });
 });

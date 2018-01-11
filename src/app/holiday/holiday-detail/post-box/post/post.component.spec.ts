@@ -39,7 +39,7 @@ describe('PostComponent', () => {
     id: 'someId',
     authorId: 'someAuthorId',
     holidayId: 'holidayId',
-    message: 'someMessage',
+    text: 'someMessage',
     created: moment().toISOString()
   };
 
@@ -56,7 +56,7 @@ describe('PostComponent', () => {
     await fixture.whenStable();
     const message = debugElement.query(By.css('.message')).nativeElement.textContent;
 
-    expect(message).toBe(somePost.message);
+    expect(message).toBe(somePost.text);
   });
 
   it('should show the username for given id', async () => {

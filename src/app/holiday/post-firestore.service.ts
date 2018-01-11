@@ -1,24 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
-import {Moment} from 'moment';
 
 export interface Post {
   readonly id: string;
-  readonly message: string;
+  readonly text: string;
   readonly holidayId: string;
   readonly authorId: string;
   readonly created: string;
-}
-
-export class Comment {
-  constructor(readonly id: string,
-              readonly postId: string,
-              readonly holidayId: string,
-              readonly authorId: string,
-              readonly text: string,
-              readonly created: Moment) {
-  }
 }
 
 @Injectable()

@@ -76,7 +76,7 @@ describe('PostBoxComponent', () => {
   describe('displays posts', () => {
     const somePost: Post = {
       id: 'someId',
-      message: 'first message',
+      text: 'first message',
       holidayId: 'holidayId',
       authorId: 'someAuthor',
       created: moment('2016-01-01').toISOString()
@@ -84,7 +84,7 @@ describe('PostBoxComponent', () => {
 
     const moreRecentPost: Post = {
       id: 'anotherId',
-      message: 'second message',
+      text: 'second message',
       holidayId: 'holidayId',
       authorId: 'someAuthor',
       created: moment('2016-01-02').toISOString()
@@ -98,16 +98,16 @@ describe('PostBoxComponent', () => {
       fixture.detectChanges();
 
       postedMessages = debugElement.queryAll(By.css('app-post'))
-        .map(it => it.properties.post.message);
+        .map(it => it.properties.post.text);
     });
 
     it('posts should appear in the list', () => {
-      expect(postedMessages).toContain(somePost.message);
-      expect(postedMessages).toContain(moreRecentPost.message);
+      expect(postedMessages).toContain(somePost.text);
+      expect(postedMessages).toContain(moreRecentPost.text);
     });
 
     it('should show most recent posts first', () => {
-      expect(postedMessages.indexOf(moreRecentPost.message)).toBeLessThan(postedMessages.indexOf(somePost.message));
+      expect(postedMessages.indexOf(moreRecentPost.text)).toBeLessThan(postedMessages.indexOf(somePost.text));
     });
   });
 
@@ -124,7 +124,7 @@ describe('PostBoxComponent', () => {
     });
 
     it('should persist the new message', () => {
-      expect(post.message).toBe(someMessage);
+      expect(post.text).toBe(someMessage);
     });
 
     it('should clear the input field after the message is sent', () => {

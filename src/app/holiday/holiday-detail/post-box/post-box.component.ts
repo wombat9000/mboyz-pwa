@@ -51,7 +51,7 @@ export class PostBoxComponent implements OnInit {
   submitPost() {
     const post: Post = {
       id: uuid(),
-      message: this.postInput,
+      text: this.postInput,
       holidayId: this.holiday.id,
       authorId: this.user.uid,
       created: moment().toISOString()

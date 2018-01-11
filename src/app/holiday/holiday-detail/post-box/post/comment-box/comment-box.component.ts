@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Comment, Post} from '../../../../post-firestore.service';
-import {CommentFirestore} from './comment-firestore.service';
+import {Post} from '../../../../post-firestore.service';
+import {Comment, CommentFirestore} from './comment-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {v4 as uuid} from 'uuid';
@@ -31,13 +31,20 @@ export class CommentBoxComponent implements OnInit {
     this.comments$ = this.commentFirestore.observeByPost(this.post)
       .map(it => {
         return it.sort((some, other) => {
-          return some.created.isAfter(other.created) ? 1 : 0;
+          return moment(some.created).isAfter(moment(other.created)) ? 1 : 0;
         });
       });
   }
 
   submitComment() {
-    const comment = new Comment(uuid(), this.post.id, this.post.holidayId, this.user.uid, this.commentInput, moment());
+    const comment: Comment = {
+      id: uuid(),
+      text: this.commentInput,
+      postId: this.post.id,
+      holidayId: this.post.holidayId,
+      authorId: this.user.uid,
+      created: moment().toISOString()
+    };
 
     this.commentFirestore.save(comment);
     this.commentInput = '';

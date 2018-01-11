@@ -2,12 +2,12 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentBoxComponent} from './comment-box.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
-import {CommentFirestore} from './comment-firestore.service';
+import {Comment, CommentFirestore} from './comment-firestore.service';
 import {authServiceMock, commentFirestoreMock} from '../../../../../test-support/stubs';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
-import {Comment, Post} from '../../../../post-firestore.service';
+import {Post} from '../../../../post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {AuthService, User} from '../../../../../core/auth.service';
@@ -22,7 +22,7 @@ describe('CommentBoxComponent', () => {
 
   const parentPost: Post = {
     id: 'somePostId',
-    message: '',
+    text: '',
     holidayId: 'someHolidayId',
     authorId: '',
     created: moment('2016-01-01').toISOString()
@@ -53,8 +53,23 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('display comments', () => {
-    const someComment = new Comment('someId', parentPost.id, '', '', '', moment('2016-01-02'));
-    const moreRecentComment = new Comment('anotherId', parentPost.id, '', '', '', moment('2016-01-03'));
+    const someComment: Comment = {
+      id: 'someId',
+      text: '',
+      postId: parentPost.id,
+      holidayId: '',
+      authorId: '',
+      created: moment('2016-01-02').toISOString()
+    };
+
+    const moreRecentComment: Comment = {
+      id: 'anotherId',
+      text: '',
+      postId: parentPost.id,
+      holidayId: '',
+      authorId: '',
+      created: moment('2016-01-03').toISOString()
+    };
 
     beforeEach(() => {
       commentFirestore.observeByPost.and.returnValue(Observable.of([moreRecentComment, someComment]));
