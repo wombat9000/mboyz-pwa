@@ -9,6 +9,7 @@ import {Holiday} from '../../holiday.service';
 import {Subject} from 'rxjs/Subject';
 import {AuthService, User} from '../../../core/auth.service';
 import {Observable} from 'rxjs/Observable';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import moment = require('moment');
 
 class PostBoxPO {
@@ -53,7 +54,7 @@ describe('PostBoxComponent', () => {
         {provide: PostFirestore, useValue: postFirestoreMock},
         {provide: AuthService, useValue: authServiceMock}
       ],
-      imports: [FormsModule],
+      imports: [FormsModule, NoopAnimationsModule],
       declarations: [PostBoxComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

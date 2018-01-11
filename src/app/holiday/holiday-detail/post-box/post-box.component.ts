@@ -5,11 +5,22 @@ import {Post, PostFirestore} from '../../post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {AuthService, User} from '../../../core/auth.service';
 import {v4 as uuid} from 'uuid';
+import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-post-box',
   templateUrl: './post-box.component.html',
-  styleUrls: ['./post-box.component.scss']
+  styleUrls: ['./post-box.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      transition('void => *', [
+        animate('0.3s ease-in', keyframes([
+          style({opacity: 0}),
+          style({opacity: 1})
+        ]))
+      ])
+    ])
+  ]
 })
 export class PostBoxComponent implements OnInit {
 

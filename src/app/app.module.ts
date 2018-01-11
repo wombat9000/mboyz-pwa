@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
-import {ServiceWorkerModule} from '@angular/service-worker';
 import {
   MatButtonModule, MatCardModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule,
   MatListModule, MatMenuModule, MatToolbarModule
@@ -51,7 +50,7 @@ import {UserFirestore} from './core/user-firestore.service';
     MatToolbarModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+    // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : []
   ],
   providers: [AuthService, UserFirestore],
