@@ -38,10 +38,10 @@ export class PostFirestore {
   }
 
   public observeByHolidayId(holidayId: string): Observable<Post[]> {
-    const angularFirestoreCollection: AngularFirestoreCollection<AfsPost> = this.afs.collection(`holidays/${holidayId}/posts`);
-    const observable: Observable<AfsPost[]> = angularFirestoreCollection.valueChanges();
+    const holidayPostsCollection: AngularFirestoreCollection<AfsPost> = this.afs.collection(`holidays/${holidayId}/posts`);
+    const posts$: Observable<AfsPost[]> = holidayPostsCollection.valueChanges();
 
-    return observable.map(array => {
+    return posts$.map(array => {
       return array.map(rawPost => new Post(rawPost.id, rawPost.authorId, holidayId, rawPost.message, moment(rawPost.created)));
     });
   }
