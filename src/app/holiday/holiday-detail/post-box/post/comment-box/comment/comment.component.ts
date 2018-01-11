@@ -3,7 +3,7 @@ import {UserFirestore} from '../../../../../../core/user-firestore.service';
 import {User} from '../../../../../../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {Comment} from '../comment-firestore.service';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-comment',

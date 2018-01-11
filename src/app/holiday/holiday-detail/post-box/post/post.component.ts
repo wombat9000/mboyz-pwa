@@ -3,7 +3,8 @@ import {Post} from '../../../post-firestore.service';
 import {UserFirestore} from '../../../../core/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../core/auth.service';
-import moment = require('moment');
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-post',
