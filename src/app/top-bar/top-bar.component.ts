@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
-  title = 'mboyzmbabes';
+  title = 'mtravel';
 
   constructor() {
   }

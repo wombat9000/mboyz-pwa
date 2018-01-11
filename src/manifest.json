@@ -1,7 +1,7 @@
 {
-  "name": "mboyz",
-  "short_name": "mboyz",
-  "description": "mboyz webapp",
+  "name": "mtravel",
+  "short_name": "mtravel",
+  "description": "mtravel webapp",
   "icons": [{
     "src": "assets/android-chrome-192x192.png",
     "sizes": "192x192",
