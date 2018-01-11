@@ -74,8 +74,21 @@ describe('PostBoxComponent', () => {
   });
 
   describe('displays posts', () => {
-    const somePost = new Post('someId', 'someAuthor', 'holidayId', 'first message', moment('2016-01-01'));
-    const moreRecentPost = new Post('anotherId', 'someAuthor', 'holidayId', 'second message', moment('2016-01-02'));
+    const somePost: Post = {
+      id: 'someId',
+      message: 'first message',
+      holidayId: 'holidayId',
+      authorId: 'someAuthor',
+      created: moment('2016-01-01').toISOString()
+    };
+
+    const moreRecentPost: Post = {
+      id: 'anotherId',
+      message: 'second message',
+      holidayId: 'holidayId',
+      authorId: 'someAuthor',
+      created: moment('2016-01-02').toISOString()
+    };
 
     let postedMessages: string[];
 

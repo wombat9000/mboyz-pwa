@@ -35,7 +35,13 @@ describe('PostComponent', () => {
     })
       .compileComponents();
   }));
-  const somePost = new Post('someId', 'someAuthorId', 'holidayId', 'someMessage', moment());
+  const somePost: Post = {
+    id: 'someId',
+    authorId: 'someAuthorId',
+    holidayId: 'holidayId',
+    message: 'someMessage',
+    created: moment().toISOString()
+  };
 
   beforeEach(() => {
     userFirestoreMock.observeById.and.returnValue(Observable.of(someUser));
@@ -46,7 +52,7 @@ describe('PostComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should show the message', async() => {
+  it('should show the message', async () => {
     await fixture.whenStable();
     const message = debugElement.query(By.css('.message')).nativeElement.textContent;
 
@@ -65,8 +71,8 @@ describe('PostComponent', () => {
     await fixture.whenStable();
     const renderedDate = debugElement.query(By.css('.created-text')).nativeElement.textContent;
 
-    expect(renderedDate).toContain(somePost.created.format('Do MMMM'));
-    expect(renderedDate).toContain(somePost.created.format('LT'));
+    expect(renderedDate).toContain(moment(somePost.created).format('Do MMMM'));
+    expect(renderedDate).toContain(moment(somePost.created).format('LT'));
   });
 
   it('should render comment box for given post', () => {
@@ -74,4 +80,5 @@ describe('PostComponent', () => {
 
     expect(commentBox.properties.post).toBe(somePost);
   });
-});
+})
+;

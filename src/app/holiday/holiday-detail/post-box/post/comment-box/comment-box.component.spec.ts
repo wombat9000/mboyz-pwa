@@ -20,7 +20,13 @@ describe('CommentBoxComponent', () => {
   let commentFirestore: jasmine.SpyObj<CommentFirestore>;
   let authService: jasmine.SpyObj<AuthService>;
 
-  const parentPost: Post = new Post('somePostId', '', 'someHolidayId', '', moment('2016-01-01'));
+  const parentPost: Post = {
+    id: 'somePostId',
+    message: '',
+    holidayId: 'someHolidayId',
+    authorId: '',
+    created: moment('2016-01-01').toISOString()
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

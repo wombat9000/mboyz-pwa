@@ -4,7 +4,7 @@
     <span class="message">{{post.message}}</span>
   </div>
   <div class="info">
-    <span class="created-text">{{post.created.format('Do MMMM')}} um {{post.created.format('LT')}}</span>
+    <span class="created-text">{{formatDate(post.created)}} um {{formatTime(post.created)}}</span>
   </div>
 </div>
 <div class="comments">

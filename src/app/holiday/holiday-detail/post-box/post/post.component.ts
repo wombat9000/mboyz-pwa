@@ -3,6 +3,7 @@ import {Post} from '../../../post-firestore.service';
 import {UserFirestore} from '../../../../core/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../core/auth.service';
+import moment = require('moment');
 
 @Component({
   selector: 'app-post',
@@ -23,4 +24,11 @@ export class PostComponent implements OnInit {
     this.user$ = this.userFS.observeById(this.post.authorId);
   }
 
+  formatDate(isoString: string): string {
+    return moment(isoString).format('Do MMMM');
+  }
+
+  formatTime(isoString: string): string {
+    return moment(isoString).format('LT');
+  }
 }

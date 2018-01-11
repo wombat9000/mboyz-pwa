@@ -43,14 +43,19 @@ export class PostBoxComponent implements OnInit {
     this.posts$ = this.postService.observeByHolidayId(this.holiday.id)
       .map(it => {
         return it.sort((some, other) => {
-          return some.created.isAfter(other.created) ? 0 : 1;
+          return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
         });
       });
   }
 
-
   submitPost() {
-    const post = new Post(uuid(), this.user.uid, this.holiday.id, this.postInput, moment());
+    const post: Post = {
+      id: uuid(),
+      message: this.postInput,
+      holidayId: this.holiday.id,
+      authorId: this.user.uid,
+      created: moment().toISOString()
+    };
 
     this.postService.save(post);
     this.postInput = '';
