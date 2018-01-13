@@ -18,6 +18,10 @@ import {PostFirestore} from './post-firestore.service';
 import {PostComponent} from './holiday-detail/post-box/post/post.component';
 import {CommentComponent} from './holiday-detail/post-box/post/comment-box/comment/comment.component';
 import {CommentFirestore} from './holiday-detail/post-box/post/comment-box/comment-firestore.service';
+import {StoreModule} from '@ngrx/store';
+import {reducer} from './reducers/holiday.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {HolidayEffects} from './effects/holiday.effects';
 
 
 @NgModule({
@@ -44,6 +48,8 @@ import {CommentFirestore} from './holiday-detail/post-box/post/comment-box/comme
     MatInputModule,
     MatNativeDateModule,
     MatListModule,
+    StoreModule.forFeature('holiday', reducer),
+    EffectsModule.forFeature([HolidayEffects])
   ],
   providers: [
     HolidayService,

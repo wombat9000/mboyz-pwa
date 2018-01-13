@@ -1,13 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {HolidayCreateComponent} from './holiday-create.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {Holiday, HolidayService} from '../holiday.service';
+import {Holiday} from '../holiday.service';
 import {click} from '../../test-support/functions';
-import {holidayServiceMock, routerMock} from '../../test-support/stubs';
+import {routerMock} from '../../test-support/stubs';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromHoliday from '../reducers';
+import {State} from '../reducers/holiday.reducer';
+
 
 class HolidayCreatePO {
   constructor(private fixture: ComponentFixture<HolidayCreateComponent>) {
@@ -31,7 +34,8 @@ describe('HolidayCreateComponent', () => {
   let fixture: ComponentFixture<HolidayCreateComponent>;
   let debugElement: DebugElement;
 
-  let holidayService: jasmine.SpyObj<HolidayService>;
+  let store: jasmine.SpyObj<Store<State>>;
+
   let router: jasmine.SpyObj<Router>;
 
   let holidayCreatePO: HolidayCreatePO;
@@ -39,22 +43,27 @@ describe('HolidayCreateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule
+        FormsModule,
+        StoreModule.forRoot({
+          'holiday': combineReducers(fromHoliday.reducers)
+        }),
       ],
       providers: [
-        {provide: HolidayService, useValue: holidayServiceMock},
         {provide: Router, useValue: routerMock}
       ],
       declarations: [HolidayCreateComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
+
+    store = TestBed.get(Store);
+    spyOn(store, 'dispatch').and.callThrough();
+
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HolidayCreateComponent);
     holidayCreatePO = new HolidayCreatePO(fixture);
 
-    holidayService = TestBed.get(HolidayService);
     router = TestBed.get(Router);
     debugElement = fixture.debugElement;
     fixture.detectChanges();
@@ -74,7 +83,7 @@ describe('HolidayCreateComponent', () => {
 
     it('should create the holiday when submitting the form', () => {
       const expectedHoliday = new Holiday('someId', 'Nicer Skiurlaub');
-      const actualHoliday: Holiday = holidayService.create.calls.argsFor(0)[0];
+      const actualHoliday: Holiday = store.dispatch.calls.argsFor(0)[0].holiday;
 
       expect(actualHoliday.name).toBe(expectedHoliday.name);
     });

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HolidayDetailComponent} from './holiday-detail.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {Holiday, HolidayService} from '../holiday.service';
-import {holidayServiceMock} from '../../test-support/stubs';
+import {holidayServiceMocker} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
@@ -30,7 +30,7 @@ describe('HolidayDetailComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: HolidayService, useValue: holidayServiceMock}
+        {provide: HolidayService, useFactory: holidayServiceMocker}
       ],
       declarations: [HolidayDetailComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

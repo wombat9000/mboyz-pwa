@@ -16,8 +16,8 @@ export class RouterStub {
   }
 }
 
-export const holidayServiceMock: jasmine.SpyObj<HolidayService> =
-  jasmine.createSpyObj('HolidayService',
+export function holidayServiceMocker(): () => jasmine.SpyObj<HolidayService> {
+  return  jasmine.createSpyObj('HolidayService',
     {
       holidayFS: null,
       create() {
@@ -28,6 +28,7 @@ export const holidayServiceMock: jasmine.SpyObj<HolidayService> =
       },
     }
   );
+}
 
 export const routerMock: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
 export const authServiceMock: jasmine.SpyObj<AuthService> = jasmine.createSpyObj('AuthService', [

@@ -1,8 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
-
 import {AppComponent} from './app.component';
 import {
   MatButtonModule, MatCardModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule,
@@ -21,7 +19,9 @@ import {UserMenuComponent} from './top-bar/user-menu/user-menu.component';
 import {BgImageDirective} from './top-bar/user-menu/bg-image.directive';
 import {HolidayModule} from './holiday/holiday.module';
 import {UserFirestore} from './core/user-firestore.service';
-
+import {StoreModule} from '@ngrx/store';
+import {reducers} from './holiday/reducers';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -48,6 +48,8 @@ import {UserFirestore} from './core/user-firestore.service';
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],

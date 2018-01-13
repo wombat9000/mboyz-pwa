@@ -4,7 +4,7 @@ import {HolidayOverviewComponent} from './holiday-overview.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
-import {holidayServiceMock, RouterStub} from '../../test-support/stubs';
+import {holidayServiceMocker, RouterStub} from '../../test-support/stubs';
 import {click} from '../../test-support/functions';
 import {Holiday, HolidayService} from '../holiday.service';
 import {Subject} from 'rxjs/Subject';
@@ -22,7 +22,7 @@ describe('HolidayOverviewComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         {provide: Router, useClass: RouterStub},
-        {provide: HolidayService, useValue: holidayServiceMock},
+        {provide: HolidayService, useFactory: holidayServiceMocker},
       ],
       declarations: [HolidayOverviewComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

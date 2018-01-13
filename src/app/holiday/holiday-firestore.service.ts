@@ -20,7 +20,7 @@ export class HolidayFirestore {
     return this.afs.doc<Holiday>(`holidays/${holidayId}`).valueChanges();
   }
 
-  public save(holiday: Holiday) {
+  public save(holiday: Holiday): Promise<void> {
     const data = {
       id: holiday.id,
       name: holiday.name
