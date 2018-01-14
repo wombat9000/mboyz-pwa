@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import * as actions from '../actions/holiday.actions';
 import * as fromHoliday from '../reducers/holiday.reducer';
 import {Holiday} from '../model/holiday';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-holiday-overview',
@@ -21,7 +22,9 @@ export class HolidayOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.holidays$ = this.store.select(fromHoliday.selectAll);
+    this.holidays$ = this.store.select(fromHoliday.selectAll)
+      .map(this.sortByDate);
+
     this.store.dispatch(new actions.Query());
   }
 
@@ -31,5 +34,11 @@ export class HolidayOverviewComponent implements OnInit {
 
   goToDetail(holidayId: string) {
     return this.router.navigateByUrl(`/holiday/${holidayId}`);
+  }
+
+  private sortByDate(holidays: Holiday[]) {
+    return holidays.sort((some, other) => {
+      return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
+    });
   }
 }

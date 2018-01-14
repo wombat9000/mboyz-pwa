@@ -12,6 +12,7 @@ import * as fromHoliday from '../reducers';
 import {State} from '../reducers/holiday.reducer';
 import * as actions from '../actions/holiday.actions';
 import {Holiday} from '../model/holiday';
+import * as moment from 'moment';
 
 describe('HolidayOverviewComponent', () => {
   let component: HolidayOverviewComponent;
@@ -52,11 +53,11 @@ describe('HolidayOverviewComponent', () => {
   });
 
   describe('displays holidays', () => {
-    const someHoliday = {id: 'someId', name: 'first holiday'};
-    const anotherHoliday = {id: 'anotherId', name: 'another holiday'};
+    const firstHoliday = {id: 'someId', name: 'first created holiday', created: moment('2018-12-01').toISOString()};
+    const moreRecentHoliday = {id: 'anotherId', name: 'more recently created holiday', created: moment('2018-12-02').toISOString()};
 
     beforeEach(async () => {
-      holidayEmitter.next([someHoliday, anotherHoliday]);
+      holidayEmitter.next([firstHoliday, moreRecentHoliday]);
       await fixture.whenStable();
       fixture.detectChanges();
     });
@@ -65,11 +66,11 @@ describe('HolidayOverviewComponent', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new actions.Query());
     });
 
-    it('should display all holidays', () => {
+    it('should display all holidays, sorted by date', () => {
       const cards = debugElement.queryAll(By.css('.holiday-name'))
         .map(it => it.nativeElement.textContent);
 
-      expect(cards).toEqual([someHoliday.name, anotherHoliday.name]);
+      expect(cards).toEqual([moreRecentHoliday.name, firstHoliday.name]);
     });
 
     describe('onClick', () => {
@@ -77,12 +78,12 @@ describe('HolidayOverviewComponent', () => {
         const spy = spyOn(router, 'navigateByUrl');
 
         const someHolidayCard = debugElement.queryAll(By.css('.holiday-name'))
-          .find(it => it.nativeElement.textContent === someHoliday.name);
+          .find(it => it.nativeElement.textContent === firstHoliday.name);
 
         click(someHolidayCard.nativeElement);
 
         const destinationURL = spy.calls.first().args[0];
-        expect(destinationURL).toBe(`/holiday/${someHoliday.id}`);
+        expect(destinationURL).toBe(`/holiday/${firstHoliday.id}`);
       });
     });
   });
