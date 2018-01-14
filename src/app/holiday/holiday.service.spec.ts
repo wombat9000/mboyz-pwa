@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
-import {Holiday, HolidayService} from './holiday.service';
+import {HolidayService} from './holiday.service';
 import {HolidayFirestore} from './holiday-firestore.service';
 import {holidayFirestoreMock} from '../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
@@ -22,7 +22,7 @@ describe('HolidayService', () => {
 
   describe('create', () => {
     it('should save new holiday in firestore', async () => {
-      const someHoliday = new Holiday('someId', '');
+      const someHoliday = {id: 'someId', name: ''};
       await testee.create(someHoliday);
       expect(holidayFirestore.save).toHaveBeenCalledWith(someHoliday);
     });
@@ -30,7 +30,7 @@ describe('HolidayService', () => {
 
   describe('find', () => {
     it('should find holiday by id from firestore', (done) => {
-      const holidayToFind = new Holiday('findMe!', '');
+      const holidayToFind = {id: 'findMe!', name: ''};
       holidayFirestore.observeById.and.returnValue(Observable.of(holidayToFind));
 
       const holiday = testee.findById('findMe!');

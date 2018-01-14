@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Holiday, HolidayService} from '../holiday.service';
+import {HolidayService} from '../holiday.service';
 import {Observable} from 'rxjs/Observable';
+import {Holiday} from '../model/holiday';
 
 @Component({
   selector: 'app-holiday-detail',

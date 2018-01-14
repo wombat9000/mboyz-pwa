@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Holiday} from '../holiday.service';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 
 import * as actions from '../actions/holiday.actions';
 import * as fromHoliday from '../reducers/holiday.reducer';
+import {Holiday} from '../model/holiday';
 
 @Component({
   selector: 'app-holiday-overview',

@@ -5,11 +5,11 @@ import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {authServiceMock, postFirestoreMock} from '../../../test-support/stubs';
-import {Holiday} from '../../holiday.service';
 import {Subject} from 'rxjs/Subject';
 import {AuthService, User} from '../../../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {Holiday} from '../../model/holiday';
 import moment = require('moment');
 
 class PostBoxPO {
@@ -46,7 +46,7 @@ describe('PostBoxComponent', () => {
   let postFS: jasmine.SpyObj<PostFirestore>;
   let postBoxPO: PostBoxPO;
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
-  const inputHoliday = new Holiday('someId', 'someName');
+  const inputHoliday = {id: 'someId', name: 'someName'};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

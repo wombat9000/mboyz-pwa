@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {Holiday} from '../../holiday.service';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {AuthService, User} from '../../../core/auth.service';
 import {v4 as uuid} from 'uuid';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
+import {Holiday} from '../../model/holiday';
 
 @Component({
   selector: 'app-post-box',

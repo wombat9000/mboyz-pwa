@@ -6,12 +6,12 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
 import {RouterStub} from '../../test-support/stubs';
 import {click} from '../../test-support/functions';
-import {Holiday} from '../holiday.service';
 import {Subject} from 'rxjs/Subject';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../reducers';
 import {State} from '../reducers/holiday.reducer';
 import * as actions from '../actions/holiday.actions';
+import {Holiday} from '../model/holiday';
 
 describe('HolidayOverviewComponent', () => {
   let component: HolidayOverviewComponent;
@@ -52,8 +52,8 @@ describe('HolidayOverviewComponent', () => {
   });
 
   describe('displays holidays', () => {
-    const someHoliday = new Holiday('someId', 'first holiday');
-    const anotherHoliday = new Holiday('anotherId', 'another holiday');
+    const someHoliday = {id: 'someId', name: 'first holiday'};
+    const anotherHoliday = {id: 'anotherId', name: 'another holiday'};
 
     beforeEach(async () => {
       holidayEmitter.next([someHoliday, anotherHoliday]);

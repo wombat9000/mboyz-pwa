@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HolidayCreateComponent} from './holiday-create.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {Holiday} from '../holiday.service';
 import {click} from '../../test-support/functions';
 import {routerMock} from '../../test-support/stubs';
 import {FormsModule} from '@angular/forms';
@@ -10,6 +9,7 @@ import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../reducers';
 import {State} from '../reducers/holiday.reducer';
+import {Holiday} from '../model/holiday';
 
 
 class HolidayCreatePO {
@@ -82,7 +82,7 @@ describe('HolidayCreateComponent', () => {
     });
 
     it('should create the holiday when submitting the form', () => {
-      const expectedHoliday = new Holiday('someId', 'Nicer Skiurlaub');
+      const expectedHoliday = {id: 'someId', name: 'Nicer Skiurlaub'};
       const actualHoliday: Holiday = store.dispatch.calls.argsFor(0)[0].holiday;
 
       expect(actualHoliday.name).toBe(expectedHoliday.name);

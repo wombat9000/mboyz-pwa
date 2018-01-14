@@ -2,18 +2,19 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HolidayDetailComponent} from './holiday-detail.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {Holiday, HolidayService} from '../holiday.service';
+import {HolidayService} from '../holiday.service';
 import {holidayServiceMocker} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
+import {Holiday} from '../model/holiday';
 
 describe('HolidayDetailComponent', () => {
   let component: HolidayDetailComponent;
   let fixture: ComponentFixture<HolidayDetailComponent>;
   let holidayService: jasmine.SpyObj<HolidayService>;
 
-  const someHoliday: Holiday = new Holiday('someId', 'someName');
+  const someHoliday: Holiday = {id: 'someId', name: 'someName'};
 
   const snapshot = {
     paramMap: new Map([

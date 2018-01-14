@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
-import {Holiday} from './holiday.service';
+import {Holiday} from './model/holiday';
 
 
 @Injectable()
@@ -25,11 +25,6 @@ export class HolidayFirestore {
   }
 
   public save(holiday: Holiday): Promise<void> {
-    const data = {
-      id: holiday.id,
-      name: holiday.name
-    };
-
-    return this.afs.doc(`holidays/${holiday.id}`).set(data);
+    return this.afs.doc(`holidays/${holiday.id}`).set(holiday);
   }
 }
