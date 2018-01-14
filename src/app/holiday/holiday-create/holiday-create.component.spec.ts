@@ -10,6 +10,7 @@ import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../reducers';
 import {State} from '../reducers/holiday.reducer';
 import {Holiday} from '../model/holiday';
+import * as moment from 'moment';
 
 
 class HolidayCreatePO {
@@ -86,6 +87,8 @@ describe('HolidayCreateComponent', () => {
       const actualHoliday: Holiday = store.dispatch.calls.argsFor(0)[0].holiday;
 
       expect(actualHoliday.name).toBe(expectedHoliday.name);
+      expect(actualHoliday.created).toBeDefined();
+      expect(moment(actualHoliday.created).format('Do MMMM')).toBe(moment().format('Do MMMM'));
     });
 
     it('should redirect to holiday overview after form was submitted', () => {

@@ -5,16 +5,8 @@ import {Store} from '@ngrx/store';
 import * as fromHoliday from '../reducers/holiday.reducer';
 import * as actions from '../actions/holiday.actions';
 import {Holiday} from '../model/holiday';
+import * as moment from 'moment';
 
-
-class HolidayFormModel {
-  constructor(public name: string) {
-  }
-
-  asHoliday(): Holiday {
-    return {id: uuid(), name: this.name};
-  }
-}
 
 @Component({
   selector: 'app-holiday-create',
@@ -23,14 +15,18 @@ class HolidayFormModel {
 })
 export class HolidayCreateComponent {
 
-  holiday = new HolidayFormModel('');
+  holidayFormModel: Holiday = {
+    id: uuid(),
+    name: '',
+    created: moment().toISOString()
+  };
 
   constructor(private store: Store<fromHoliday.State>,
               private router: Router) {
   }
 
   onSubmit() {
-    this.store.dispatch(new actions.Create(this.holiday.asHoliday()));
+    this.store.dispatch(new actions.Create(this.holidayFormModel));
     this.router.navigate(['/']);
   }
 }
