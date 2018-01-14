@@ -22,6 +22,7 @@ import {UserFirestore} from './core/user-firestore.service';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './holiday/reducers';
 import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {EffectsModule} from '@ngrx/effects';
     MatToolbarModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({maxAge: 10}),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
