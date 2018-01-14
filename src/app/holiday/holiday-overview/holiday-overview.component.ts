@@ -36,9 +36,19 @@ export class HolidayOverviewComponent implements OnInit {
     return this.router.navigateByUrl(`/holiday/${holidayId}`);
   }
 
+  formatDate(isoString: string): string {
+    return moment(isoString).format('Do MMMM');
+  }
+
+  formatTime(isoString: string): string {
+    return moment(isoString).format('LT');
+  }
+
   private sortByDate(holidays: Holiday[]) {
-    return holidays.sort((some, other) => {
-      return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
-    });
+    return holidays
+      .filter(it => it.created !== undefined)
+      .sort((some, other) => {
+        return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
+      });
   }
 }

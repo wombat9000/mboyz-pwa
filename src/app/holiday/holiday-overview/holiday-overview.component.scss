@@ -1,7 +1,13 @@
 :host {
   .add-holiday {
+    z-index: 100;
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+
+  .created-text {
+    font-size: 80%;
+    color: lighten(black, 50%);
   }
 }
