@@ -2,7 +2,7 @@ import {Action} from '@ngrx/store';
 import {Holiday} from '../model/holiday';
 
 
-export const QUERY    = '[Holiday] query pizzas';
+export const QUERY    = '[Holiday] query';
 export const ADDED    = '[Holiday] added';
 export const MODIFIED = '[Holiday] modified';
 export const REMOVED  = '[Holiday] removed';
