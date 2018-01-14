@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Holiday, HolidayService} from '../holiday.service';
+import {Holiday} from '../holiday.service';
 import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
+
+import * as actions from '../actions/holiday.actions';
+import * as fromHoliday from '../reducers/holiday.reducer';
 
 @Component({
   selector: 'app-holiday-overview',
@@ -10,14 +14,15 @@ import {Observable} from 'rxjs/Observable';
 })
 export class HolidayOverviewComponent implements OnInit {
 
-  constructor(private holidayService: HolidayService,
+  holidays$: Observable<Holiday[]>;
+
+  constructor(private store: Store<fromHoliday.State>,
               private router: Router) {
   }
 
-  holidays$: Observable<Holiday[]>;
-
   ngOnInit() {
-    this.holidays$ = this.holidayService.getHolidays();
+    this.holidays$ = this.store.select(fromHoliday.selectAll);
+    this.store.dispatch(new actions.Query());
   }
 
   gotoCreate() {

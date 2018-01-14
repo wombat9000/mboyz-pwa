@@ -4,10 +4,14 @@ import {HolidayOverviewComponent} from './holiday-overview.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
-import {holidayServiceMocker, RouterStub} from '../../test-support/stubs';
+import {RouterStub} from '../../test-support/stubs';
 import {click} from '../../test-support/functions';
-import {Holiday, HolidayService} from '../holiday.service';
+import {Holiday} from '../holiday.service';
 import {Subject} from 'rxjs/Subject';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromHoliday from '../reducers';
+import {State} from '../reducers/holiday.reducer';
+import * as actions from '../actions/holiday.actions';
 
 describe('HolidayOverviewComponent', () => {
   let component: HolidayOverviewComponent;
@@ -15,14 +19,18 @@ describe('HolidayOverviewComponent', () => {
   let fixture: ComponentFixture<HolidayOverviewComponent>;
 
   let router;
-  let holidayService: jasmine.SpyObj<HolidayService>;
-  let holidayEmmiter: Subject<Holiday[]>;
+  let holidayEmitter: Subject<Holiday[]>;
+  let store: jasmine.SpyObj<Store<State>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          'holiday': combineReducers(fromHoliday.reducers)
+        })
+      ],
       providers: [
         {provide: Router, useClass: RouterStub},
-        {provide: HolidayService, useFactory: holidayServiceMocker},
       ],
       declarations: [HolidayOverviewComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -31,9 +39,12 @@ describe('HolidayOverviewComponent', () => {
 
   beforeEach(() => {
     router = TestBed.get(Router);
-    holidayService = TestBed.get(HolidayService);
-    holidayEmmiter = new Subject<Holiday[]>();
-    holidayService.getHolidays.and.returnValue(holidayEmmiter);
+    holidayEmitter = new Subject<Holiday[]>();
+
+    store = TestBed.get(Store);
+    spyOn(store, 'select').and.returnValue(holidayEmitter);
+    spyOn(store, 'dispatch');
+
     fixture = TestBed.createComponent(HolidayOverviewComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
@@ -45,9 +56,13 @@ describe('HolidayOverviewComponent', () => {
     const anotherHoliday = new Holiday('anotherId', 'another holiday');
 
     beforeEach(async () => {
-      holidayEmmiter.next([someHoliday, anotherHoliday]);
+      holidayEmitter.next([someHoliday, anotherHoliday]);
       await fixture.whenStable();
       fixture.detectChanges();
+    });
+
+    it('should query for holiday changes', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new actions.Query());
     });
 
     it('should display all holidays', () => {

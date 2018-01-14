@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import * as holidayActions from '../actions/holiday.actions';
 import {Create} from '../actions/holiday.actions';
 import {HolidayService} from '../holiday.service';
+import {Action} from '@ngrx/store';
 
 
 @Injectable()
@@ -12,8 +13,19 @@ export class HolidayEffects {
   @Effect({dispatch: false})
   create$: Observable<void> = this.actions$
     .ofType(holidayActions.CREATE)
-    .switchMap((action) => {
-      return this.holidayService.create((action as Create).holiday);
+    .switchMap((action: Create) => {
+      return this.holidayService.create(action.holiday);
+    });
+
+  @Effect()
+  query$: Observable<Action> = this.actions$.ofType(holidayActions.QUERY)
+    .switchMap(() => this.holidayService.changesToCollection())
+    .mergeMap(action => action)
+    .map(action => {
+      return {
+        type: `[Holiday] ${action.type}`,
+        holiday: {id: action.payload.doc.id, ...action.payload.doc.data()}
+      };
     });
 
   constructor(private actions$: Actions, private holidayService: HolidayService) {

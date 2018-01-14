@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
 import {Holiday} from './holiday.service';
 
 
@@ -9,11 +9,15 @@ export class HolidayFirestore {
 
 
   holidaysCollection: AngularFirestoreCollection<Holiday>;
-  holidays: Observable<Holiday[]>;
+  holidays$: Observable<Holiday[]>;
 
   constructor(private afs: AngularFirestore) {
     this.holidaysCollection = this.afs.collection('holidays');
-    this.holidays = this.holidaysCollection.valueChanges();
+    this.holidays$ = this.holidaysCollection.valueChanges();
+  }
+
+  public observeChanges(): Observable<DocumentChangeAction[]> {
+    return this.afs.collection('holidays').stateChanges();
   }
 
   public observeById(holidayId: string): Observable<Holiday> {
