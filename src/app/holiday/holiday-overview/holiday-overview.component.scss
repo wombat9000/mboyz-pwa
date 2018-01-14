@@ -6,6 +6,10 @@
     right: 10px;
   }
 
+  .holiday-item {
+    flex-direction: column;
+  }
+
   .created-text {
     font-size: 80%;
     color: lighten(black, 50%);
