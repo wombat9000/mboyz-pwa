@@ -1,9 +1,4 @@
 import {NgModule} from '@angular/core';
-
-import {
-  MatButtonModule, MatChipsModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatTabsModule
-} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostBoxComponent} from './holiday-detail/post-box/post-box.component';
@@ -22,6 +17,7 @@ import {reducer} from './reducers/holiday.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {HolidayEffects} from './effects/holiday.effects';
 import {HolidayRoutingModule} from './holiday-routing.module';
+import {AppMaterialModule} from '../common/app-material.module';
 
 
 @NgModule({
@@ -35,19 +31,11 @@ import {HolidayRoutingModule} from './holiday-routing.module';
     CommentComponent
   ],
   imports: [
+    AppMaterialModule,
     HolidayRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatListModule,
     StoreModule.forFeature('holiday', reducer),
     EffectsModule.forFeature([HolidayEffects])
   ],

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
-import {AuthGuard} from '../auth.guard';
+import {AuthGuard} from '../core/auth.guard';
 import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
 import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
 
