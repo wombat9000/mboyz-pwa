@@ -23,6 +23,7 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './holiday/reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {AuthGuard} from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : []
   ],
-  providers: [AuthService, UserFirestore],
+  providers: [AuthService, UserFirestore, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

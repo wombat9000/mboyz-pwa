@@ -8,7 +8,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostBoxComponent} from './holiday-detail/post-box/post-box.component';
 import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
-import {ParticipantsComponent} from './holiday-detail/participants/participants.component';
 import {CommentBoxComponent} from './holiday-detail/post-box/post/comment-box/comment-box.component';
 import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
 import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
@@ -22,6 +21,7 @@ import {StoreModule} from '@ngrx/store';
 import {reducer} from './reducers/holiday.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {HolidayEffects} from './effects/holiday.effects';
+import {HolidayRoutingModule} from './holiday-routing.module';
 
 
 @NgModule({
@@ -29,13 +29,13 @@ import {HolidayEffects} from './effects/holiday.effects';
     HolidayOverviewComponent,
     HolidayCreateComponent,
     HolidayDetailComponent,
-    ParticipantsComponent,
     PostBoxComponent,
     PostComponent,
     CommentBoxComponent,
     CommentComponent
   ],
   imports: [
+    HolidayRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatChipsModule,

@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 describe('AuthGuard', () => {
   let testee: AuthGuard;
   let authService: jasmine.SpyObj<AuthService>;
-  let router;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

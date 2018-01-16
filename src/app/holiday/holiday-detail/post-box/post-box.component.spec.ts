@@ -23,7 +23,7 @@ class PostBoxPO {
   }
 
   createPost(text: string) {
-    const input = this.fixture.debugElement.query(By.css('textarea'));
+    const input = this.postInput();
     input.nativeElement.value = text;
     input.nativeElement.dispatchEvent(new Event('input'));
     input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {

@@ -10,6 +10,7 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class HolidayEffects {
 
+  // TODO: handle failures :)
   @Effect({dispatch: false})
   create$: Observable<void> = this.actions$
     .ofType(holidayActions.CREATE)

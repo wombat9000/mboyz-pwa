@@ -7,7 +7,7 @@ import {routerMock} from '../../test-support/stubs';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../reducers';
+import * as fromHoliday from '../reducers/index';
 import {State} from '../reducers/holiday.reducer';
 import {Holiday} from '../model/holiday';
 import * as moment from 'moment';

@@ -6,7 +6,7 @@ export const QUERY    = '[Holiday] query';
 export const ADDED    = '[Holiday] added';
 export const MODIFIED = '[Holiday] modified';
 export const REMOVED  = '[Holiday] removed';
-export const CREATE  = '[Holiday] created';
+export const CREATE   = '[Holiday] created';
 
 // Initial query
 export class Query implements Action {
