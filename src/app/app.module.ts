@@ -24,6 +24,7 @@ import {reducers} from './holiday/reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AuthGuard} from './auth.guard';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {AuthGuard} from './auth.guard';
   ],
   // TODO: extract modules
   imports: [
+    CoreModule,
     HolidayModule,
     MatIconModule,
     MatChipsModule,
@@ -58,7 +60,6 @@ import {AuthGuard} from './auth.guard';
     // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     environment.production ? AngularFireModule.initializeApp(environment.firebase) : []
   ],
-  providers: [AuthService, UserFirestore, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
