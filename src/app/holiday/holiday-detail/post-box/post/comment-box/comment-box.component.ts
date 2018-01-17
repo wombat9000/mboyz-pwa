@@ -4,7 +4,7 @@ import {Comment, CommentFirestore} from './comment-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {v4 as uuid} from 'uuid';
-import {AuthService, User} from '../../../../../core/auth.service';
+import {AuthService, User} from '../../../../../auth/services/auth.service';
 
 
 @Component({

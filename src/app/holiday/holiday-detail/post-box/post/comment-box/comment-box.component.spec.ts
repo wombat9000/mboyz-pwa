@@ -10,7 +10,7 @@ import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/materi
 import {Post} from '../../../../post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
-import {AuthService, User} from '../../../../../core/auth.service';
+import {AuthService, User} from '../../../../../auth/services/auth.service';
 import moment = require('moment');
 
 describe('CommentBoxComponent', () => {

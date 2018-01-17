@@ -5,7 +5,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/from';
 import {Subject} from 'rxjs/Subject';
-import {routerMock, userFirestoreMock} from '../test-support/stubs';
+import {routerMock, userFirestoreMock} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {UserFirestore} from './user-firestore.service';
 import {Router} from '@angular/router';

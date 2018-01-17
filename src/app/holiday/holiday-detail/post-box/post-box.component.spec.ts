@@ -6,7 +6,7 @@ import {PostBoxComponent} from './post-box.component';
 import {Post, PostFirestore} from '../../post-firestore.service';
 import {authServiceMock, postFirestoreMock} from '../../../test-support/stubs';
 import {Subject} from 'rxjs/Subject';
-import {AuthService, User} from '../../../core/auth.service';
+import {AuthService, User} from '../../../auth/services/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Holiday} from '../../model/holiday';

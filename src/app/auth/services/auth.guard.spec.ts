@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import {AuthGuard} from './auth.guard';
 import {AuthService} from './auth.service';
-import {authServiceMock, routerMock} from '../test-support/stubs';
+import {authServiceMock, routerMock} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 

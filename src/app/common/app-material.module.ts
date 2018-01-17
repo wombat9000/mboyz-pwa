@@ -1,60 +1,43 @@
 import {NgModule} from '@angular/core';
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule,
+  MatCardModule,
   MatChipsModule,
   MatDatepickerModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule,
+  MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
-  MatTabsModule, MatToolbarModule
+  MatTabsModule,
+  MatToolbarModule
 } from '@angular/material';
-import {BrowserModule} from '@angular/platform-browser';
 
+
+const COMPONENTS = [
+  MatButtonModule,
+  MatChipsModule,
+  MatMenuModule,
+  MatInputModule,
+  MatCardModule,
+  MatToolbarModule,
+  MatDatepickerModule,
+  MatIconModule,
+  MatTabsModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatListModule,
+  MatIconModule,
+  MatChipsModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatButtonModule];
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatMenuModule,
-    MatInputModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatListModule,
-    MatIconModule,
-    MatChipsModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatButtonModule],
-  exports: [
-    BrowserModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatMenuModule,
-    MatInputModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatListModule,
-    MatIconModule,
-    MatChipsModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatButtonModule
-  ]
+  imports: COMPONENTS,
+  exports: COMPONENTS
 })
 export class AppMaterialModule {
 }

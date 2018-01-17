@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LoginComponent} from './login.component';
-import {AuthService} from '../core/auth.service';
-import {authServiceMock} from '../test-support/stubs';
+import {AuthService} from '../../services/auth.service';
+import {authServiceMock} from '../../../test-support/stubs';
 import {By} from '@angular/platform-browser';
-import {click} from '../test-support/functions';
+import {click} from '../../../test-support/functions';
 
 
 class LoginPO {
