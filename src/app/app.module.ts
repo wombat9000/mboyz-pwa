@@ -15,9 +15,9 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './holiday/reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {AppMaterialModule} from './common/app-material.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {AuthModule} from './auth/auth.module';
+import {MaterialModule} from './material';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import {AuthModule} from './auth/auth.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppMaterialModule,
+    MaterialModule,
     HolidayModule,
     AuthModule,
     FormsModule,

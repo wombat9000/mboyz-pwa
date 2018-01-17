@@ -3,11 +3,11 @@ import {UserFirestore} from './services/user-firestore.service';
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './services/auth.guard';
 import {LoginComponent} from './components/login/login.component';
-import {AppMaterialModule} from '../common/app-material.module';
+import {MaterialModule} from '../material';
 
 
 @NgModule({
-  imports: [AppMaterialModule],
+  imports: [MaterialModule],
   providers: [UserFirestore, AuthService, AuthGuard],
   declarations: [LoginComponent]
 })

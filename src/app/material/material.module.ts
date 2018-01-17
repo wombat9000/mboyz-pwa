@@ -39,5 +39,5 @@ const COMPONENTS = [
   imports: COMPONENTS,
   exports: COMPONENTS
 })
-export class AppMaterialModule {
+export class MaterialModule {
 }
