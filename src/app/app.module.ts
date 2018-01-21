@@ -41,7 +41,7 @@ import {MaterialModule} from './material';
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
-    environment.production ? AngularFireModule.initializeApp(environment.firebase) : []
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   bootstrap: [AppComponent]
 })
