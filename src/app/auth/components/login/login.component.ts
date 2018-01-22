@@ -1,21 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as fromAuth from '../../reducers/auth.reducer';
+import {FbLogin} from '../../actions/auth.actions';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private auth: AuthService) {
-
-  }
-
-  ngOnInit() {
+  constructor(private store: Store<fromAuth.State>) {
   }
 
   fbLogin() {
-    this.auth.facebookLogin();
+    this.store.dispatch(new FbLogin());
   }
 }

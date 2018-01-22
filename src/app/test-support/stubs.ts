@@ -5,6 +5,7 @@ import {AuthService} from '../auth/services/auth.service';
 import {Router} from '@angular/router';
 import {PostFirestore} from '../holiday/post-firestore.service';
 import {CommentFirestore} from '../holiday/holiday-detail/post-box/post/comment-box/comment-firestore.service';
+import {Store} from '@ngrx/store';
 
 export class RouterStub {
   navigateByUrl(url: string) {
@@ -30,11 +31,14 @@ export function holidayServiceMocker(): () => jasmine.SpyObj<HolidayService> {
   );
 }
 
-export const routerMock: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
-export const authServiceMock: jasmine.SpyObj<AuthService> = jasmine.createSpyObj('AuthService', [
+
+export const storeMocker: <T>() => jasmine.SpyObj<Store<T>> = () => jasmine.createSpyObj('Store', ['dispatch']);
+export const routerMocker: () => jasmine.SpyObj<Router> = () => jasmine.createSpyObj('Router', ['navigate']);
+export const authServiceMocker: () => jasmine.SpyObj<AuthService> = () => jasmine.createSpyObj('AuthService', [
   'isSignedIn',
   'activeUser',
-  'facebookLogin'
+  'facebookLogin',
+  'updateUserData'
 ]);
 export const userFirestoreMock: jasmine.SpyObj<UserFirestore> = jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
 export const holidayFirestoreMock: jasmine.SpyObj<HolidayFirestore> = jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save']);

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CommentBoxComponent} from './comment-box.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Comment, CommentFirestore} from './comment-firestore.service';
-import {authServiceMock, commentFirestoreMock} from '../../../../../test-support/stubs';
+import {authServiceMocker, commentFirestoreMock} from '../../../../../test-support/stubs';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
@@ -20,6 +20,25 @@ describe('CommentBoxComponent', () => {
   let commentFirestore: jasmine.SpyObj<CommentFirestore>;
   let authService: jasmine.SpyObj<AuthService>;
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
+      providers: [
+        {provide: CommentFirestore, useValue: commentFirestoreMock},
+        {provide: AuthService, useFactory: authServiceMocker}
+      ],
+      declarations: [CommentBoxComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+      .compileComponents();
+  }));
+
+  const someAuthor: User = {
+    displayName: 'Pinky Floyd',
+    uid: 'someUid',
+    email: 'someMail'
+  };
+
   const parentPost: Post = {
     id: 'somePostId',
     text: '',
@@ -28,24 +47,13 @@ describe('CommentBoxComponent', () => {
     created: moment('2016-01-01').toISOString()
   };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
-      providers: [
-        {provide: CommentFirestore, useValue: commentFirestoreMock},
-        {provide: AuthService, useValue: authServiceMock}
-      ],
-      declarations: [CommentBoxComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
-  }));
-
   beforeEach(() => {
     commentFirestore = TestBed.get(CommentFirestore);
     commentFirestore.observeByPost.and.returnValue(Observable.of([]));
 
     authService = TestBed.get(AuthService);
+    authService.activeUser.and.returnValue(Observable.of(someAuthor));
+
     fixture = TestBed.createComponent(CommentBoxComponent);
     component = fixture.componentInstance;
     component.post = parentPost;
@@ -96,16 +104,9 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('creating a comment', () => {
-    const someAuthor: User = {
-      displayName: 'Pinky Floyd',
-      uid: 'someUid',
-      email: 'someMail'
-    };
-
     let savedComment;
 
     beforeEach(async () => {
-      authService.activeUser.and.returnValue(Observable.of(someAuthor));
       fixture.detectChanges();
       createComment('new comment');
       savedComment = commentFirestore.save.calls.first().args[0];

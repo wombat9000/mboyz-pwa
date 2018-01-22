@@ -5,7 +5,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/from';
 import {Subject} from 'rxjs/Subject';
-import {routerMock, userFirestoreMock} from '../../test-support/stubs';
+import {routerMocker, userFirestoreMock} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {UserFirestore} from './user-firestore.service';
 import {Router} from '@angular/router';
@@ -32,7 +32,7 @@ describe('AuthService', () => {
         AuthService,
         {provide: AngularFireAuth, useClass: FireAuthStub},
         {provide: UserFirestore, useValue: userFirestoreMock},
-        {provide: Router, useValue: routerMock}
+        {provide: Router, useFactory: routerMocker}
       ]
     });
 
@@ -98,14 +98,6 @@ describe('AuthService', () => {
 
     it('should sign in with popup', () => {
       expect(fireAuth.auth.signInWithPopup).toHaveBeenCalled();
-    });
-
-    it('should save user credentials', () => {
-      expect(userRepo.save).toHaveBeenCalledWith(user);
-    });
-
-    it('should route to home', () => {
-      expect(router.navigate).toHaveBeenCalledWith(['/']);
     });
   });
 });

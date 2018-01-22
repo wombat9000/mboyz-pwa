@@ -34,7 +34,6 @@ export class AuthService {
       .take(1);
   }
 
-
   isSignedIn(): Observable<boolean> {
     return this.user$
       .take(1)
@@ -46,27 +45,20 @@ export class AuthService {
     return this.router.navigate(['/login']);
   }
 
-  facebookLogin() {
+  facebookLogin(): Observable<User> {
     const provider = new firebase.auth.FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 
-  private async oAuthLogin(provider) {
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    this.router.navigate(['/']);
-    return this.updateUserData(credential);
-  }
-
-  private updateUserData(credential): Promise<void> {
-    const user = credential.user;
-
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    };
-
-    return this.userRepository.save(data);
+  private oAuthLogin(provider): Observable<User> {
+    return Observable.fromPromise(this.afAuth.auth.signInWithPopup(provider))
+      .map(credential => {
+        return {
+          uid: credential.user.uid,
+          email: credential.user.email,
+          displayName: credential.user.displayName,
+          photoURL: credential.user.photoURL
+        };
+      });
   }
 }

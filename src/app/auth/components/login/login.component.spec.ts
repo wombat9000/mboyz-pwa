@@ -1,10 +1,12 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LoginComponent} from './login.component';
-import {AuthService} from '../../services/auth.service';
-import {authServiceMock} from '../../../test-support/stubs';
+import {storeMocker} from '../../../test-support/stubs';
 import {By} from '@angular/platform-browser';
 import {click} from '../../../test-support/functions';
+import * as fromAuth from '../../reducers/auth.reducer';
+import {Store} from '@ngrx/store';
+import {FbLogin} from '../../actions/auth.actions';
 
 
 class LoginPO {
@@ -17,13 +19,15 @@ class LoginPO {
 }
 
 describe('LoginComponent', () => {
+
+  let storeMock: jasmine.SpyObj<Store<fromAuth.State>>;
   let fixture: ComponentFixture<LoginComponent>;
   let loginPO: LoginPO;
-  let authService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: AuthService, useValue: authServiceMock}
+      providers: [
+        {provide: Store, useValue: storeMocker<fromAuth.State>()},
       ],
       declarations: [LoginComponent]
     })
@@ -34,12 +38,12 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     loginPO = new LoginPO(fixture);
 
-    authService = TestBed.get(AuthService);
+    storeMock = TestBed.get(Store);
     fixture.detectChanges();
   });
 
   it('should trigger facebook login on click', () => {
     loginPO.clickFBLogin();
-    expect(authService.facebookLogin).toHaveBeenCalled();
+    expect(storeMock.dispatch).toHaveBeenCalledWith(new FbLogin());
   });
 });
