@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {empty} from 'rxjs/observable/empty';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
-import {FbLogin, LoginSuccess} from '../actions/auth.actions';
+import {FbLogin, LoginSuccess, Logout} from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 
 export class TestActions extends Actions {
@@ -75,7 +75,7 @@ describe('AuthEffects', () => {
 
       authService.facebookLogin.and.returnValue(response);
 
-      expect(effects.$fbLogin).toBeObservable(expected);
+      expect(effects.fbLogin$).toBeObservable(expected);
     });
   });
 
@@ -92,10 +92,24 @@ describe('AuthEffects', () => {
       router.navigate.and.returnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
 
-      effects.$loginSuccess.subscribe(() => {
+      effects.loginSuccess$.subscribe(() => {
         expect(afsMock.doc).toHaveBeenCalledWith(`users/${someUser.uid}`);
         expect(afsDocMock.set).toHaveBeenCalledWith(someUser);
         expect(router.navigate).toHaveBeenCalledWith(['/']);
+      });
+    });
+  });
+
+  describe('logout$', () => {
+    beforeEach(() => {
+      const action: Action = new Logout();
+      router.navigate.and.returnValue(Promise.resolve());
+      actions$.stream = hot('-a---', {a: action});
+    });
+
+    it('should redirect to login', () => {
+      effects.logout$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledWith(['/login']);
       });
     });
   });

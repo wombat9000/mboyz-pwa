@@ -13,26 +13,33 @@ export class AuthEffects {
 
   // TODO: handle error case
   @Effect()
-  $fbLogin: Observable<Action> = this.actions$
+  fbLogin$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.FB_LOGIN)
-    .switchMap((action: FbLogin) => {
+    .switchMap(() => {
       return this.authService.facebookLogin();
     })
     .map((it: User) => new LoginSuccess({user: it}));
 
   @Effect({dispatch: false})
-  $loginSuccess: Observable<void> = this.actions$
+  loginSuccess$: Observable<void> = this.actions$
     .ofType(AuthActionTypes.LOGIN_SUCCESS)
     .switchMap((action: LoginSuccess) => {
       const user = action.payload.user;
       const update = this.afs.doc(`users/${user.uid}`).set(user);
       // TODO: what happens when save fails?
-      // TODO: what reasons to we have for save failing?
+      // TODO: what reasons are there for save to fail?
       return Observable.fromPromise(update);
     })
     .do(() => {
       this.router.navigate(['/']);
       return;
+    });
+
+  @Effect({dispatch: false})
+  logout$: Observable<void> = this.actions$
+    .ofType(AuthActionTypes.LOGOUT)
+    .map(() => {
+      this.router.navigate(['/login']);
     });
 
   constructor(private actions$: Actions,
