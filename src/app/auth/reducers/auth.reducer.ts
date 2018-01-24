@@ -15,7 +15,6 @@ export function reducer(state = initialState, action: AuthActions): State {
   switch (action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
-        ...state,
         loggedIn: true,
         user: action.payload.user,
       };

@@ -1,7 +1,7 @@
 import {AuthService, User} from '../services/auth.service';
 import {TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
-import {authServiceMocker, routerMocker} from '../../test-support/stubs';
+import {authServiceMocker, FireAuthStub, routerMocker} from '../../test-support/stubs';
 import {AuthEffects} from './auth.effects';
 import {Actions} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
@@ -10,6 +10,7 @@ import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {FbLogin, LoginSuccess, Logout} from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 export class TestActions extends Actions {
   constructor() {
@@ -30,8 +31,7 @@ describe('AuthEffects', () => {
   let effects: AuthEffects;
   let authService: jasmine.SpyObj<AuthService>;
   let router: jasmine.SpyObj<Router>;
-
-
+  let afsAuthMock: FireAuthStub;
   const afsMock: jasmine.SpyObj<AngularFirestore> = jasmine.createSpyObj('AngularFireStore', ['doc']);
   const afsDocMock: jasmine.SpyObj<AngularFirestoreDocument<User>> =
     jasmine.createSpyObj('AngularFirestoreDocument', ['set']);
@@ -43,6 +43,7 @@ describe('AuthEffects', () => {
         AuthEffects,
         {provide: AuthService, useFactory: authServiceMocker},
         {provide: AngularFirestore, useValue: afsMock},
+        {provide: AngularFireAuth, useClass: FireAuthStub},
         {provide: Router, useFactory: routerMocker},
         {provide: Actions, useFactory: getActions},
       ]
@@ -50,6 +51,7 @@ describe('AuthEffects', () => {
 
     effects = TestBed.get(AuthEffects);
     authService = TestBed.get(AuthService);
+    afsAuthMock = TestBed.get(AngularFireAuth);
     router = TestBed.get(Router);
     actions$ = TestBed.get(Actions);
 
@@ -104,7 +106,14 @@ describe('AuthEffects', () => {
     beforeEach(() => {
       const action: Action = new Logout();
       router.navigate.and.returnValue(Promise.resolve());
+      afsAuthMock.auth.signOut.and.returnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
+    });
+
+    it('should sign out from afs', () => {
+      effects.logout$.subscribe(() => {
+        expect(afsAuthMock.auth.signOut).toHaveBeenCalled();
+      });
     });
 
     it('should redirect to login', () => {
