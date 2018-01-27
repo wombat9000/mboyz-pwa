@@ -1,8 +1,10 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "node_modules/tslint-defocus/dist"
   ],
   "rules": {
+    "defocus": true,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,

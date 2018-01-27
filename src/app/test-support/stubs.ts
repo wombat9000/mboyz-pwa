@@ -9,13 +9,13 @@ import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {HolidayService} from '../holiday/holiday.service';
-import {FirebaseAuth} from '@firebase/auth-types';
+import {FirebaseAuth, User} from '@firebase/auth-types';
 
 
 export class FireAuthStub implements AngularFireAuth {
   app: FirebaseApp = jasmine.createSpyObj('FireBaseApp', ['']);
   auth: jasmine.SpyObj<FirebaseAuth> = jasmine.createSpyObj('FirebaseAuth', ['signOut']);
-  authState: Observable<firebase.User | null>;
+  authState: Observable<User | null>;
   idToken: Observable<string | null>;
 }
 

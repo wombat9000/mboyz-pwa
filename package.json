@@ -68,6 +68,7 @@
     "rxjs-tslint-rules": "^3.6.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
+    "tslint-defocus": "^2.0.3",
     "typescript": "~2.5.3"
   }
 }
