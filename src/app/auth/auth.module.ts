@@ -28,10 +28,10 @@ export class AuthModule {
 
 @NgModule({
   imports: [
-    AuthModule,
     RouterModule.forChild([{path: 'login', component: LoginPageComponent}]),
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([AuthEffects]),
+    AuthModule,
   ],
 })
 export class RootAuthModule {
