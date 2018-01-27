@@ -31,7 +31,7 @@ import {MaterialModule} from './material';
     BrowserAnimationsModule,
     MaterialModule,
     HolidayModule,
-    AuthModule,
+    AuthModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

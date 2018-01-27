@@ -9,7 +9,7 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
-  MatNativeDateModule,
+  MatNativeDateModule, MatProgressSpinnerModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -17,6 +17,7 @@ import {
 
 const COMPONENTS = [
   MatButtonModule,
+  MatProgressSpinnerModule,
   MatChipsModule,
   MatMenuModule,
   MatInputModule,

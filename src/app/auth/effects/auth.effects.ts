@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {AuthService, User} from '../services/auth.service';
 import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
-import {AuthActionTypes, FbLogin, LoginSuccess} from '../actions/auth.actions';
+import {AuthActionTypes, LoginSuccess} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -39,9 +39,8 @@ export class AuthEffects {
   @Effect({dispatch: false})
   logout$: Observable<void> = this.actions$
     .ofType(AuthActionTypes.LOGOUT)
+    .map(() => Observable.fromPromise(this.afsAuth.auth.signOut()))
     .map(() => {
-      return Observable.fromPromise(this.afsAuth.auth.signOut());
-    }).map(() => {
       this.router.navigate(['/login']);
     });
 
