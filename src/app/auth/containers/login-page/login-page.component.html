@@ -2,4 +2,8 @@
   <h2>Hallo!</h2>
   <p>Du musst Dich bei Facebook anmelden, um den Urlaubsplaner zu nutzen.</p>
 </div>
+
+<div *ngIf="pending$ | async">
+  <mat-spinner></mat-spinner>
+</div>
 <button mat-button class="button-fb" (click)="fbLogin()">Mit Facebook verbinden</button>

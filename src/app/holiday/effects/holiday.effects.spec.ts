@@ -32,6 +32,7 @@ describe('Holiday Effects', () => {
   describe('create', () => {
     it('should save holiday with service', () => {
       const action = new Create(someHoliday);
+      holidayService.create.and.returnValue(Promise.resolve());
       actions.next(action);
 
       effects.create$.subscribe(result => {

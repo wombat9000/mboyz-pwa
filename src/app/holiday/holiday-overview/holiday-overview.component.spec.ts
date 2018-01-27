@@ -4,7 +4,7 @@ import {HolidayOverviewComponent} from './holiday-overview.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
-import {RouterStub} from '../../test-support/stubs';
+import {routerMocker} from '../../test-support/stubs';
 import {click} from '../../test-support/functions';
 import {Subject} from 'rxjs/Subject';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
@@ -31,7 +31,7 @@ describe('HolidayOverviewComponent', () => {
         })
       ],
       providers: [
-        {provide: Router, useClass: RouterStub},
+        {provide: Router, useFactory: routerMocker},
       ],
       declarations: [HolidayOverviewComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -54,7 +54,11 @@ describe('HolidayOverviewComponent', () => {
 
   describe('displays holidays', () => {
     const firstHoliday = {id: 'someId', name: 'first created holiday', created: moment('2018-12-01').toISOString()};
-    const moreRecentHoliday = {id: 'anotherId', name: 'more recently created holiday', created: moment('2018-12-02').toISOString()};
+    const moreRecentHoliday = {
+      id: 'anotherId',
+      name: 'more recently created holiday',
+      created: moment('2018-12-02').toISOString()
+    };
 
     beforeEach(async () => {
       holidayEmitter.next([firstHoliday, moreRecentHoliday]);
@@ -75,14 +79,12 @@ describe('HolidayOverviewComponent', () => {
 
     describe('onClick', () => {
       it('should take user to holiday detail', () => {
-        const spy = spyOn(router, 'navigateByUrl');
-
         const someHolidayCard = debugElement.queryAll(By.css('.holiday-name'))
           .find(it => it.nativeElement.textContent === firstHoliday.name);
 
         click(someHolidayCard.nativeElement);
 
-        const destinationURL = spy.calls.first().args[0];
+        const destinationURL = router.navigateByUrl.calls.first().args[0];
         expect(destinationURL).toBe(`/holiday/${firstHoliday.id}`);
       });
     });
@@ -95,12 +97,11 @@ describe('HolidayOverviewComponent', () => {
     });
 
     it('should redirect to create holiday page onclick', () => {
-      const spy = spyOn(router, 'navigateByUrl');
       const addButton = debugElement.query(By.css('.add-holiday'));
 
       click(addButton);
 
-      const destinationURL = spy.calls.first().args[0];
+      const destinationURL = router.navigateByUrl.calls.first().args[0];
       expect(destinationURL).toBe('/holiday/create');
     });
   });

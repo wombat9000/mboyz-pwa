@@ -3,7 +3,7 @@ import {HolidayCreateComponent} from './holiday-create.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {click} from '../../test-support/functions';
-import {routerMock} from '../../test-support/stubs';
+import {routerMocker} from '../../test-support/stubs';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
@@ -50,7 +50,7 @@ describe('HolidayCreateComponent', () => {
         }),
       ],
       providers: [
-        {provide: Router, useValue: routerMock}
+        {provide: Router, useFactory: routerMocker}
       ],
       declarations: [HolidayCreateComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

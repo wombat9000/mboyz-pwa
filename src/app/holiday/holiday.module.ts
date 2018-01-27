@@ -17,7 +17,7 @@ import {reducer} from './reducers/holiday.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {HolidayEffects} from './effects/holiday.effects';
 import {HolidayRoutingModule} from './holiday-routing.module';
-import {AppMaterialModule} from '../common/app-material.module';
+import {MaterialModule} from '../material';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import {AppMaterialModule} from '../common/app-material.module';
     CommentComponent
   ],
   imports: [
-    AppMaterialModule,
+    MaterialModule,
     HolidayRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

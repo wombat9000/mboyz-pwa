@@ -4,9 +4,9 @@ import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
 import {Post, PostFirestore} from '../../post-firestore.service';
-import {authServiceMock, postFirestoreMock} from '../../../test-support/stubs';
+import {authServiceMocker, postFirestoreMock} from '../../../test-support/stubs';
 import {Subject} from 'rxjs/Subject';
-import {AuthService, User} from '../../../core/auth.service';
+import {AuthService, User} from '../../../auth/services/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Holiday} from '../../model/holiday';
@@ -44,6 +44,7 @@ describe('PostBoxComponent', () => {
   let fixture: ComponentFixture<PostBoxComponent>;
   let debugElement: DebugElement;
   let postFS: jasmine.SpyObj<PostFirestore>;
+  let authServiceMock: jasmine.SpyObj<AuthService>;
   let postBoxPO: PostBoxPO;
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
   const inputHoliday = {id: 'someId', name: 'someName'};
@@ -52,7 +53,7 @@ describe('PostBoxComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         {provide: PostFirestore, useValue: postFirestoreMock},
-        {provide: AuthService, useValue: authServiceMock}
+        {provide: AuthService, useFactory: authServiceMocker}
       ],
       imports: [FormsModule, NoopAnimationsModule],
       declarations: [PostBoxComponent],
@@ -63,6 +64,7 @@ describe('PostBoxComponent', () => {
 
   beforeEach(() => {
     postFS = TestBed.get(PostFirestore);
+    authServiceMock = TestBed.get(AuthService);
     postFS.observeByHolidayId.and.returnValue(holidayPostsSubject);
     authServiceMock.activeUser.and.returnValue(Observable.of(someAuthor));
 

@@ -2,9 +2,9 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentComponent} from './comment.component';
 import {userFirestoreMock} from '../../../../../../test-support/stubs';
-import {UserFirestore} from '../../../../../../core/user-firestore.service';
+import {UserFirestore} from '../../../../../../auth/services/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../../../../../core/auth.service';
+import {User} from '../../../../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {Comment} from '../comment-firestore.service';

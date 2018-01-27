@@ -2,10 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PostComponent} from './post.component';
 import {Post} from '../../../post-firestore.service';
-import {UserFirestore} from '../../../../core/user-firestore.service';
+import {UserFirestore} from '../../../../auth/services/user-firestore.service';
 import {userFirestoreMock} from '../../../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../../../core/auth.service';
+import {User} from '../../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import moment = require('moment');
