@@ -20,7 +20,10 @@ export class AuthEffects {
       return this.authService.facebookLogin()
         .switchMap(user => this.userFirestore.save(user).map(() => user))
         .map(user => new LoginSuccess({user: user}))
-        .catch(err => Observable.of(new LoginFailure({error: err.message})));
+        .catch(err => {
+          console.error(err);
+          return Observable.of(new LoginFailure({error: err.message}))
+        });
     });
 
   @Effect({dispatch: false})

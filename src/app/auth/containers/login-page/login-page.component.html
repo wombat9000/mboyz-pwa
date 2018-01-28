@@ -1,4 +1,4 @@
-<div class="welcome">
+<div class="padded">
   <h2>Hallo!</h2>
   <p>Du musst Dich bei Facebook anmelden, um den Urlaubsplaner zu nutzen.</p>
 </div>
@@ -8,7 +8,7 @@
 </div>
 <button mat-button class="button-fb" (click)="fbLogin()">Mit Facebook verbinden</button>
 
-<div class="login-error" *ngIf="error$ | async as error">
+<div class="login-error padded" *ngIf="error$ | async as error">
   <h3>Es ist ein Fehler aufgetreten.</h3>
   <p>{{error}}</p>
 </div>
