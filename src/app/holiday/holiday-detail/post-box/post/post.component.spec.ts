@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PostComponent} from './post.component';
 import {Post} from '../../../post-firestore.service';
 import {UserFirestore} from '../../../../auth/services/user-firestore.service';
-import {userFirestoreMock} from '../../../../test-support/stubs';
+import {userFirestoreMocker} from '../../../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
@@ -14,6 +14,7 @@ describe('PostComponent', () => {
   let component: PostComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<PostComponent>;
+  let userFS: jasmine.SpyObj<UserFirestore>;
 
   const someUser: User = {
     uid: 'someAuthorId',
@@ -24,12 +25,7 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: UserFirestore,
-          useValue: userFirestoreMock
-        }
-      ],
+      providers: [{provide: UserFirestore, useFactory: userFirestoreMocker}],
       declarations: [PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -44,7 +40,8 @@ describe('PostComponent', () => {
   };
 
   beforeEach(() => {
-    userFirestoreMock.observeById.and.returnValue(Observable.of(someUser));
+    userFS = TestBed.get(UserFirestore);
+    userFS.observeById.and.returnValue(Observable.of(someUser));
     fixture = TestBed.createComponent(PostComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
@@ -63,7 +60,7 @@ describe('PostComponent', () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
-    expect(userFirestoreMock.observeById).toHaveBeenCalledWith(somePost.authorId);
+    expect(userFS.observeById).toHaveBeenCalledWith(somePost.authorId);
     expect(author).toBe(someUser.displayName);
   });
 

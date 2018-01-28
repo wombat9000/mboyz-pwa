@@ -1,16 +1,17 @@
 import {AuthService, User} from '../services/auth.service';
 import {TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
-import {authServiceMocker, FireAuthStub, routerMocker} from '../../test-support/stubs';
+import {authServiceMocker, FireAuthStub, routerMocker, userFirestoreMocker} from '../../test-support/stubs';
 import {AuthEffects} from './auth.effects';
 import {Actions} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import {empty} from 'rxjs/observable/empty';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
-import {FbLogin, LoginSuccess, Logout} from '../actions/auth.actions';
+import {FbLogin, LoginFailure, LoginSuccess, Logout} from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {UserFirestore} from '../services/user-firestore.service';
 
 export class TestActions extends Actions {
   constructor() {
@@ -26,10 +27,11 @@ export function getActions() {
   return new TestActions();
 }
 
-describe('AuthEffects', () => {
+describe('Auth Effects', () => {
   let actions$: TestActions;
   let effects: AuthEffects;
   let authService: jasmine.SpyObj<AuthService>;
+  let userFS: jasmine.SpyObj<UserFirestore>;
   let router: jasmine.SpyObj<Router>;
   let afsAuthMock: FireAuthStub;
   const afsMock: jasmine.SpyObj<AngularFirestore> = jasmine.createSpyObj('AngularFireStore', ['doc']);
@@ -41,6 +43,7 @@ describe('AuthEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthEffects,
+        {provide: UserFirestore, useFactory: userFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker},
         {provide: AngularFirestore, useValue: afsMock},
         {provide: AngularFireAuth, useClass: FireAuthStub},
@@ -50,6 +53,7 @@ describe('AuthEffects', () => {
     });
 
     effects = TestBed.get(AuthEffects);
+    userFS = TestBed.get(UserFirestore);
     authService = TestBed.get(AuthService);
     afsAuthMock = TestBed.get(AngularFireAuth);
     router = TestBed.get(Router);
@@ -72,17 +76,41 @@ describe('AuthEffects', () => {
       const completion = new LoginSuccess({user: someUser});
 
       actions$.stream = hot('-a---', {a: action});
-      const response = cold('-a|', {a: someUser});
+      const fbSuccess = cold('-a|', {a: someUser});
+      const saveSuccess = cold('-a|');
+      const expected = cold('---b', {b: completion});
+
+      userFS.save.and.returnValue(saveSuccess);
+      authService.facebookLogin.and.returnValue(fbSuccess);
+      expect(effects.fbLogin$).toBeObservable(expected);
+      expect(userFS.save).toHaveBeenCalledWith(someUser);
+    });
+
+    xit('should return login failure if saving fails', () => {
+      const someUser: User = {
+        uid: '',
+        displayName: '',
+        photoURL: '',
+        email: ''
+      };
+
+      const action: Action = new FbLogin();
+      const completion = new LoginFailure();
+
+      actions$.stream = hot('-a---', {a: action});
+      const fbSuccess = cold('-a|', {a: someUser});
+      const saveFail = cold('-#-');
       const expected = cold('--b', {b: completion});
 
-      authService.facebookLogin.and.returnValue(response);
+      authService.facebookLogin.and.returnValue(fbSuccess);
+      userFS.save.and.returnValue(saveFail);
 
       expect(effects.fbLogin$).toBeObservable(expected);
     });
   });
 
   describe('loginSuccess$', () => {
-    it('should update user data and navigate to root', () => {
+    it('navigate to root', () => {
       const someUser: User = {
         uid: 'someUid',
         displayName: '',
@@ -95,8 +123,6 @@ describe('AuthEffects', () => {
       actions$.stream = hot('-a---', {a: action});
 
       effects.loginSuccess$.subscribe(() => {
-        expect(afsMock.doc).toHaveBeenCalledWith(`users/${someUser.uid}`);
-        expect(afsDocMock.set).toHaveBeenCalledWith(someUser);
         expect(router.navigate).toHaveBeenCalledWith(['/']);
       });
     });

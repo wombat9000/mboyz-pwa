@@ -5,6 +5,7 @@ export enum AuthActionTypes {
   FB_LOGIN =      '[Auth] FbLogin',
   LOGOUT =        '[Auth] Logout',
   LOGIN_SUCCESS = '[Auth] Login Success',
+  LOGIN_FAILURE = '[Auth] Login Failure',
 }
 
 
@@ -17,6 +18,10 @@ export class LoginSuccess implements Action {
   constructor(public payload: { user: User }) {}
 }
 
+export class LoginFailure implements Action {
+  readonly type = AuthActionTypes.LOGIN_FAILURE;
+}
+
 export class Logout implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
@@ -24,4 +29,5 @@ export class Logout implements Action {
 export type AuthActions =
   | FbLogin
   | LoginSuccess
+  | LoginFailure
   | Logout;

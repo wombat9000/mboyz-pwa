@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import * as firebase from 'firebase';
 import {UserFirestore} from './user-firestore.service';
 import {Router} from '@angular/router';
+import * as firebase from 'firebase/app';
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 
 
 export interface User {
@@ -21,21 +22,24 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth,
               private userRepository: UserFirestore,
               private router: Router) {
-    this.user$ = this.afAuth.authState.switchMap(user => {
+  }
+
+  private authedUser(): Observable<User> {
+    return this.afAuth.authState.switchMap(user => {
       if (user) {
-        return userRepository.observeById(user.uid);
+        return this.userRepository.observeById(user.uid);
       }
       return Observable.of(null);
     });
   }
 
   activeUser(): Observable<User> {
-    return this.user$
+    return this.authedUser()
       .take(1);
   }
 
   isSignedIn(): Observable<boolean> {
-    return this.user$
+    return this.authedUser()
       .take(1)
       .map(user => !!user);
   }
@@ -46,7 +50,7 @@ export class AuthService {
   }
 
   facebookLogin(): Observable<User> {
-    const provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 

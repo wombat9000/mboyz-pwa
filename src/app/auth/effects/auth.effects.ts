@@ -7,6 +7,7 @@ import {AuthActionTypes, LoginSuccess} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {UserFirestore} from '../services/user-firestore.service';
 
 
 @Injectable()
@@ -19,21 +20,16 @@ export class AuthEffects {
     .switchMap(() => {
       return this.authService.facebookLogin();
     })
-    .map((it: User) => new LoginSuccess({user: it}));
+    .mergeMap((user: User) => {
+      return this.userFirestore.save(user)
+        .map(it => new LoginSuccess({user: user}));
+    });
 
   @Effect({dispatch: false})
-  loginSuccess$: Observable<void> = this.actions$
+  loginSuccess$: Observable<boolean> = this.actions$
     .ofType(AuthActionTypes.LOGIN_SUCCESS)
-    .switchMap((action: LoginSuccess) => {
-      const user = action.payload.user;
-      const update = this.afs.doc(`users/${user.uid}`).set(user);
-      // TODO: what happens when save fails?
-      // TODO: what reasons are there for save to fail?
-      return Observable.fromPromise(update);
-    })
-    .do(() => {
-      this.router.navigate(['/']);
-      return;
+    .switchMap(() => {
+      return Observable.fromPromise(this.router.navigate(['/']));
     });
 
   @Effect({dispatch: false})
@@ -47,6 +43,7 @@ export class AuthEffects {
   constructor(private actions$: Actions,
               private afs: AngularFirestore,
               private afsAuth: AngularFireAuth,
+              private userFirestore: UserFirestore,
               private authService: AuthService,
               private router: Router) {
   }

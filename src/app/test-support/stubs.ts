@@ -9,13 +9,13 @@ import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {HolidayService} from '../holiday/holiday.service';
-import {FirebaseAuth, User} from '@firebase/auth-types';
+import {FirebaseAuth} from '@firebase/auth-types';
 
 
 export class FireAuthStub implements AngularFireAuth {
   app: FirebaseApp = jasmine.createSpyObj('FireBaseApp', ['']);
-  auth: jasmine.SpyObj<FirebaseAuth> = jasmine.createSpyObj('FirebaseAuth', ['signOut']);
-  authState: Observable<User | null>;
+  auth: jasmine.SpyObj<FirebaseAuth> = jasmine.createSpyObj('FirebaseAuth', ['signOut', 'signInWithPopup']);
+  authState: Observable<any | null>;
   idToken: Observable<string | null>;
 }
 
@@ -31,7 +31,8 @@ export const authServiceMocker: () => jasmine.SpyObj<AuthService> = () => jasmin
   'facebookLogin',
   'updateUserData'
 ]);
-export const userFirestoreMock: jasmine.SpyObj<UserFirestore> = jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
+export const userFirestoreMocker: () => jasmine.SpyObj<UserFirestore> =
+  () => jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
 export const holidayFirestoreMock: jasmine.SpyObj<HolidayFirestore> = jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save']);
 export const postFirestoreMock: jasmine.SpyObj<PostFirestore> = jasmine.createSpyObj('PostFirestore', ['observeByHolidayId', 'save']);
 export const commentFirestoreMock: jasmine.SpyObj<CommentFirestore> = jasmine.createSpyObj('CommentFirestore', ['observeByPost', 'save']);

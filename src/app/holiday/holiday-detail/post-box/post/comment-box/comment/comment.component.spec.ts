@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentComponent} from './comment.component';
-import {userFirestoreMock} from '../../../../../../test-support/stubs';
+import {userFirestoreMocker} from '../../../../../../test-support/stubs';
 import {UserFirestore} from '../../../../../../auth/services/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../../../auth/services/auth.service';
@@ -14,6 +14,7 @@ describe('CommentComponent', () => {
   let component: CommentComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<CommentComponent>;
+  let userFS: jasmine.SpyObj<UserFirestore>;
 
   const someUser: User = {
     uid: 'someAuthorId',
@@ -36,7 +37,7 @@ describe('CommentComponent', () => {
       providers: [
         {
           provide: UserFirestore,
-          useValue: userFirestoreMock
+          useFactory: userFirestoreMocker
         }
       ],
       declarations: [CommentComponent]
@@ -45,7 +46,8 @@ describe('CommentComponent', () => {
   }));
 
   beforeEach(() => {
-    userFirestoreMock.observeById.and.returnValue(Observable.of(someUser));
+    userFS = TestBed.get(UserFirestore);
+    userFS.observeById.and.returnValue(Observable.of(someUser));
     fixture = TestBed.createComponent(CommentComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
@@ -57,7 +59,7 @@ describe('CommentComponent', () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
-    expect(userFirestoreMock.observeById).toHaveBeenCalledWith(someComment.authorId);
+    expect(userFS.observeById).toHaveBeenCalledWith(someComment.authorId);
     expect(author).toBe(someUser.displayName);
   });
 
