@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as fromAuth from '../auth/reducers';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,9 +9,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
+  user$ = this.store.select(fromAuth.getUser);
+
   title = 'mtravel';
 
-  constructor() {
+  constructor(private store: Store<fromAuth.State>) {
   }
 
   ngOnInit() {

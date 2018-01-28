@@ -2,30 +2,54 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {UserMenuComponent} from './user-menu.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {authServiceMocker, storeMocker} from '../../test-support/stubs';
-import * as fromAuth from '../../auth/reducers/auth.reducer';
-import {AuthService} from '../../auth/services/auth.service';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromAuth from '../../auth/reducers';
 import {BgImageDirective} from './bg-image.directive';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {User} from '../../auth/services/auth.service';
+import {By} from '@angular/platform-browser';
+import {click} from '../../test-support/functions';
 import {MatMenuModule} from '@angular/material';
+import {Logout} from '../../auth/actions/auth.actions';
 
 
 class UserMenuPO {
-  constructor(fixture: ComponentFixture<UserMenuComponent>) {
+  constructor(public fixture: ComponentFixture<UserMenuComponent>, user: User) {
+    fixture.componentInstance.user = user;
+    fixture.detectChanges();
+  }
+
+  menuTrigger() {
+    return this.fixture.debugElement.query(By.css('button[data-qa="user-menu-trigger"]'));
+  }
+
+  logoutButton() {
+    return this.fixture.debugElement.query(By.css('button[data-qa="btn-logout"]'));
+  }
+
+  menu() {
+    return this.fixture.debugElement.query(By.css('mat-menu'));
+  }
+
+  openMenu(): UserMenuPO {
+    click(this.menuTrigger());
+    this.fixture.detectChanges();
+    return this;
   }
 }
 
-xdescribe('UserMenuComponent', () => {
-  let fixture: ComponentFixture<UserMenuComponent>;
-  let authService: jasmine.SpyObj<AuthService>;
+describe('User Menu', () => {
+  let store: Store<fromAuth.State>;
+  let userMenu: UserMenuPO;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatMenuModule],
-      providers: [
-        {provide: Store, useValue: storeMocker<fromAuth.State>()},
-        {provide: AuthService, useFactory: authServiceMocker}
-      ],
+      imports: [
+        MatMenuModule,
+        NoopAnimationsModule,
+        StoreModule.forRoot({
+          auth: combineReducers(fromAuth.reducers),
+        })],
       declarations: [UserMenuComponent, BgImageDirective],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -33,16 +57,45 @@ xdescribe('UserMenuComponent', () => {
   }));
 
   beforeEach(() => {
-    authService = TestBed.get(AuthService);
+    store = TestBed.get(Store);
 
-    fixture = TestBed.createComponent(UserMenuComponent);
-    fixture.detectChanges();
+    const someUser: User = {
+      uid: '',
+      email: ''
+    };
+
+    const fixture = TestBed.createComponent(UserMenuComponent);
+    userMenu = new UserMenuPO(fixture, someUser);
   });
 
-  // TODO: introduce userMenuState actions/reducer
-  // describe('user not authenticated', () => {
-  //   beforeEach(() => {
-  //     authService.user$ = Observable.of<User>(null);
-  //   });
-  // });
+  describe('initial menu state', () => {
+    it('should a menu trigger', () => {
+      expect(userMenu.menuTrigger()).toBeTruthy();
+    });
+
+    it('should have a menu', () => {
+      expect(userMenu.menu()).toBeTruthy();
+    });
+
+    it('should be closed', () => {
+      expect(userMenu.logoutButton()).toBe(null);
+    });
+  });
+
+  describe('opening the menu', () => {
+    beforeEach(() => {
+      userMenu.openMenu();
+    });
+
+    it('should show logout button', () => {
+      expect(userMenu.logoutButton()).toBeTruthy();
+    });
+
+    it('should logout on click', () => {
+      spyOn(store, 'dispatch');
+      click(userMenu.logoutButton());
+
+      expect(store.dispatch).toHaveBeenCalledWith(new Logout());
+    });
+  });
 });

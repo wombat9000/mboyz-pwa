@@ -22,7 +22,7 @@ export class AuthEffects {
         .map(user => new LoginSuccess({user: user}))
         .catch(err => {
           console.error(err);
-          return Observable.of(new LoginFailure({error: err.message}))
+          return Observable.of(new LoginFailure({error: err.message}));
         });
     });
 

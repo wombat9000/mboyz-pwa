@@ -1,6 +1,10 @@
-<div *ngIf="auth.user$ | async as user">
-  <button mat-fab class="user-icon" [appBgImage]="user.photoURL" [matMenuTriggerFor]="userMenu"></button>
-  <mat-menu #userMenu="matMenu" yPosition="below" [overlapTrigger]="false">
-    <button mat-menu-item (click)="signOut()">Logout</button>
-  </mat-menu>
-</div>
+<button mat-fab
+        class="user-icon"
+        [appBgImage]="user.photoURL"
+        [matMenuTriggerFor]="userMenu"
+        data-qa="user-menu-trigger"></button>
+<mat-menu #userMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+  <button mat-menu-item (click)="signOut()"
+          data-qa="btn-logout">Logout
+  </button>
+</mat-menu>

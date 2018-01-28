@@ -19,8 +19,19 @@ export const reducers: ActionReducerMap<any> = {
 
 export const selectAuthState = createFeatureSelector<AuthState>('auth');
 
+export const selectAuthStatusState = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.status
+);
+
 export const selectLoginPageState = createSelector(
-  selectAuthState, (state: AuthState) => state.loginPage
+  selectAuthState,
+  (state: AuthState) => state.loginPage
+);
+
+export const getUser = createSelector(
+  selectAuthStatusState,
+  fromAuth.getUser
 );
 
 export const getLoginPagePending = createSelector(

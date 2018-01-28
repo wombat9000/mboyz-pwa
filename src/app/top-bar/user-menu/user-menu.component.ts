@@ -1,20 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../auth/services/auth.service';
+import {Component, Input} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as fromAuth from '../../auth/reducers';
+import {Logout} from '../../auth/actions/auth.actions';
+import {User} from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss']
 })
-export class UserMenuComponent implements OnInit {
+export class UserMenuComponent {
 
-  constructor(public auth: AuthService) {
-  }
+  @Input()
+  user: User;
 
-  ngOnInit() {
+  constructor(private store: Store<fromAuth.State>) {
   }
 
   signOut() {
-    this.auth.signOut();
+    this.store.dispatch(new Logout());
   }
 }
