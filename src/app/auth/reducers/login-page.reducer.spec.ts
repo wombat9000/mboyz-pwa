@@ -1,5 +1,5 @@
 import {reducer} from './login-page.reducer';
-import {FbLogin, LoginSuccess} from '../actions/auth.actions';
+import {FbLogin, LoginFailure, LoginSuccess} from '../actions/auth.actions';
 
 
 describe('LoginPageReducer', () => {
@@ -39,6 +39,17 @@ describe('LoginPageReducer', () => {
       const result = reducer({pending: true}, new LoginSuccess({user: undefined}));
 
       expect(result).toEqual(loginNotPending);
+    });
+  });
+
+  describe('loginFailure', () => {
+    it('state is no longer pending, has error message', () => {
+      const expectedError = 'some message';
+      const errorState = {pending: false, error: expectedError};
+
+      const result = reducer({pending: true}, new LoginFailure({error: expectedError}));
+
+      expect(result).toEqual(errorState);
     });
   });
 });

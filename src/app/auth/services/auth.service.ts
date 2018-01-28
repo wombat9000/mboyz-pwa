@@ -24,15 +24,6 @@ export class AuthService {
               private router: Router) {
   }
 
-  private authedUser(): Observable<User> {
-    return this.afAuth.authState.switchMap(user => {
-      if (user) {
-        return this.userRepository.observeById(user.uid);
-      }
-      return Observable.of(null);
-    });
-  }
-
   activeUser(): Observable<User> {
     return this.authedUser()
       .take(1);
@@ -52,6 +43,15 @@ export class AuthService {
   facebookLogin(): Observable<User> {
     const provider = new FacebookAuthProvider();
     return this.oAuthLogin(provider);
+  }
+
+  private authedUser(): Observable<User> {
+    return this.afAuth.authState.switchMap(user => {
+      if (user) {
+        return this.userRepository.observeById(user.uid);
+      }
+      return Observable.of(null);
+    });
   }
 
   private oAuthLogin(provider): Observable<User> {

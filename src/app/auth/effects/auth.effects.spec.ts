@@ -75,10 +75,10 @@ describe('Auth Effects', () => {
       const action: Action = new FbLogin();
       const completion = new LoginSuccess({user: someUser});
 
-      actions$.stream = hot('-a---', {a: action});
-      const fbSuccess = cold('-a|', {a: someUser});
+      actions$.stream =    hot('-a--', {a: action});
+      const fbSuccess =   cold('-a|', {a: someUser});
       const saveSuccess = cold('-a|');
-      const expected = cold('---b', {b: completion});
+      const expected =    cold('---b', {b: completion});
 
       userFS.save.and.returnValue(saveSuccess);
       authService.facebookLogin.and.returnValue(fbSuccess);
@@ -86,7 +86,22 @@ describe('Auth Effects', () => {
       expect(userFS.save).toHaveBeenCalledWith(someUser);
     });
 
-    xit('should return login failure if saving fails', () => {
+    it('should return login failure if oauth fails', () => {
+      const action: Action = new FbLogin();
+      const completion = new LoginFailure({error: 'someError'});
+
+      const error = {message: 'someError'};
+
+      actions$.stream =  hot('-a--', {a: action});
+      const fbError =   cold('-#|', {}, error);
+      const expected =  cold('--b', {b: completion});
+
+      authService.facebookLogin.and.returnValue(fbError);
+
+      expect(effects.fbLogin$).toBeObservable(expected);
+    });
+
+    it('should return login failure if saving fails', () => {
       const someUser: User = {
         uid: '',
         displayName: '',
@@ -95,12 +110,14 @@ describe('Auth Effects', () => {
       };
 
       const action: Action = new FbLogin();
-      const completion = new LoginFailure();
+      const completion = new LoginFailure({error: 'someError'});
 
-      actions$.stream = hot('-a---', {a: action});
-      const fbSuccess = cold('-a|', {a: someUser});
-      const saveFail = cold('-#-');
-      const expected = cold('--b', {b: completion});
+      const error = {message: 'someError'};
+
+      actions$.stream =  hot('-a---', {a: action});
+      const fbSuccess = cold( '-a|', {a: someUser});
+      const saveFail =  cold( '-#|', {}, error);
+      const expected =  cold('---b', {b: completion});
 
       authService.facebookLogin.and.returnValue(fbSuccess);
       userFS.save.and.returnValue(saveFail);
@@ -110,7 +127,7 @@ describe('Auth Effects', () => {
   });
 
   describe('loginSuccess$', () => {
-    it('navigate to root', () => {
+    it('should navigate to root', () => {
       const someUser: User = {
         uid: 'someUid',
         displayName: '',

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService, User} from '../services/auth.service';
+import {AuthService} from '../services/auth.service';
 import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
-import {AuthActionTypes, LoginSuccess} from '../actions/auth.actions';
+import {AuthActionTypes, LoginFailure, LoginSuccess} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -13,16 +13,14 @@ import {UserFirestore} from '../services/user-firestore.service';
 @Injectable()
 export class AuthEffects {
 
-  // TODO: handle error case
   @Effect()
   fbLogin$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.FB_LOGIN)
     .switchMap(() => {
-      return this.authService.facebookLogin();
-    })
-    .mergeMap((user: User) => {
-      return this.userFirestore.save(user)
-        .map(it => new LoginSuccess({user: user}));
+      return this.authService.facebookLogin()
+        .switchMap(user => this.userFirestore.save(user).map(() => user))
+        .map(user => new LoginSuccess({user: user}))
+        .catch(err => Observable.of(new LoginFailure({error: err.message})));
     });
 
   @Effect({dispatch: false})
