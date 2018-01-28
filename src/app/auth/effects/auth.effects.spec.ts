@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {empty} from 'rxjs/observable/empty';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
-import {FbLogin, LoginFailure, LoginSuccess, Logout} from '../actions/auth.actions';
+import {FbLogin, GetUser, LoginFailure, LoginSuccess, Logout, LogoutSuccess} from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {UserFirestore} from '../services/user-firestore.service';
@@ -63,6 +63,37 @@ describe('Auth Effects', () => {
     afsDocMock.set.and.returnValue(Promise.resolve());
   });
 
+  describe('getUser$', () => {
+    it('should return login success if already authed', () => {
+      const someUser: User = {
+        uid: '',
+        displayName: '',
+        photoURL: '',
+        email: ''
+      };
+
+      afsAuthMock.authState = Observable.of(someUser);
+      const action: Action = new GetUser();
+
+      actions$.stream = hot('-a--', {a: action});
+
+      effects.getUser$.subscribe((it) => {
+        expect(it).toEqual(new LoginSuccess({user: someUser}));
+      });
+    });
+
+    it('should not return login success if not authed', () => {
+      afsAuthMock.authState = Observable.of(null);
+      const action: Action = new GetUser();
+
+      actions$.stream = hot('-a--', {a: action});
+
+      effects.getUser$.subscribe((it) => {
+        expect(it).toEqual(new LogoutSuccess());
+      });
+    });
+  });
+
   describe('fbLogin$', () => {
     it('should return login success if successful', () => {
       const someUser: User = {
@@ -75,10 +106,10 @@ describe('Auth Effects', () => {
       const action: Action = new FbLogin();
       const completion = new LoginSuccess({user: someUser});
 
-      actions$.stream =    hot('-a--', {a: action});
-      const fbSuccess =   cold('-a|', {a: someUser});
+      actions$.stream = hot('-a--', {a: action});
+      const fbSuccess = cold('-a|', {a: someUser});
       const saveSuccess = cold('-a|');
-      const expected =    cold('---b', {b: completion});
+      const expected = cold('---b', {b: completion});
 
       userFS.save.and.returnValue(saveSuccess);
       authService.facebookLogin.and.returnValue(fbSuccess);
@@ -92,9 +123,9 @@ describe('Auth Effects', () => {
 
       const error = {message: 'someError'};
 
-      actions$.stream =  hot('-a--', {a: action});
-      const fbError =   cold('-#|', {}, error);
-      const expected =  cold('--b', {b: completion});
+      actions$.stream = hot('-a--', {a: action});
+      const fbError = cold('-#|', {}, error);
+      const expected = cold('--b', {b: completion});
 
       authService.facebookLogin.and.returnValue(fbError);
 
@@ -114,10 +145,10 @@ describe('Auth Effects', () => {
 
       const error = {message: 'someError'};
 
-      actions$.stream =  hot('-a---', {a: action});
-      const fbSuccess = cold( '-a|', {a: someUser});
-      const saveFail =  cold( '-#|', {}, error);
-      const expected =  cold('---b', {b: completion});
+      actions$.stream = hot('-a---', {a: action});
+      const fbSuccess = cold('-a|', {a: someUser});
+      const saveFail = cold('-#|', {}, error);
+      const expected = cold('---b', {b: completion});
 
       authService.facebookLogin.and.returnValue(fbSuccess);
       userFS.save.and.returnValue(saveFail);
@@ -127,18 +158,20 @@ describe('Auth Effects', () => {
   });
 
   describe('loginSuccess$', () => {
-    it('should navigate to root', () => {
-      const someUser: User = {
-        uid: 'someUid',
-        displayName: '',
-        photoURL: '',
-        email: ''
-      };
+    const someUser: User = {
+      uid: 'someUid',
+      displayName: '',
+      photoURL: '',
+      email: ''
+    };
 
+    beforeEach(() => {
       const action: Action = new LoginSuccess({user: someUser});
       router.navigate.and.returnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
+    });
 
+    it('should navigate to root', () => {
       effects.loginSuccess$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith(['/']);
       });
@@ -148,7 +181,6 @@ describe('Auth Effects', () => {
   describe('logout$', () => {
     beforeEach(() => {
       const action: Action = new Logout();
-      router.navigate.and.returnValue(Promise.resolve());
       afsAuthMock.auth.signOut.and.returnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
     });
@@ -159,8 +191,22 @@ describe('Auth Effects', () => {
       });
     });
 
+    it('should return logout success', () => {
+      effects.logout$.subscribe((it) => {
+        expect(it).toEqual(new LogoutSuccess());
+      });
+    });
+  });
+
+  describe('logoutSuccess$', () => {
+    beforeEach(() => {
+      const action: Action = new LogoutSuccess();
+      router.navigate.and.returnValue(Promise.resolve());
+      actions$.stream = hot('-a---', {a: action});
+    });
+
     it('should redirect to login', () => {
-      effects.logout$.subscribe(() => {
+      effects.logoutSuccess$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
       });
     });

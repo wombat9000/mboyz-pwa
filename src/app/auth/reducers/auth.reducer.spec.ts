@@ -1,4 +1,4 @@
-import {LoginSuccess, Logout} from '../actions/auth.actions';
+import {LoginSuccess, LogoutSuccess} from '../actions/auth.actions';
 import {initialState, reducer} from './auth.reducer';
 
 describe('AuthReducer', () => {
@@ -18,9 +18,9 @@ describe('AuthReducer', () => {
     });
   });
 
-  describe('logout', () => {
+  describe('logout success', () => {
     it('should return initial state', () => {
-      const action = new Logout();
+      const action = new LogoutSuccess();
 
       const state = {
         loggedIn: true,

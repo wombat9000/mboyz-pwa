@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import * as moment from 'moment';
 import {environment} from '../environments/environment';
+import {Store} from '@ngrx/store';
+import * as fromAuth from './auth/reducers';
+import {GetUser} from './auth/actions/auth.actions';
 
 
 @Component({
@@ -11,7 +14,8 @@ import {environment} from '../environments/environment';
 export class AppComponent {
   isStaging = environment.name === 'staging';
 
-  constructor() {
+  constructor(private store: Store<fromAuth.State>) {
+    store.dispatch(new GetUser());
     moment.locale('de');
   }
 }
