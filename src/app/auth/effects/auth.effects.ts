@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
-import {AuthActionTypes, LoginFailure, LoginSuccess, LogoutSuccess} from '../actions/auth.actions';
+import {AuthActionTypes, LoginFailure, LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -28,7 +28,7 @@ export class AuthEffects {
 
         return new LoginSuccess({user: user});
       }
-      return new LogoutSuccess();
+      return new NotAuthenticated();
     });
 
   @Effect()
@@ -52,8 +52,8 @@ export class AuthEffects {
     });
 
   @Effect({dispatch: false})
-  logoutSuccess$: Observable<boolean> = this.actions$
-    .ofType(AuthActionTypes.LOGOUT_SUCCESS)
+  notAuthenticated$: Observable<boolean> = this.actions$
+    .ofType(AuthActionTypes.NOT_AUTHENTICATED)
     .switchMap(() => {
       return Observable.fromPromise(this.router.navigate(['/login']));
     });
@@ -62,7 +62,7 @@ export class AuthEffects {
   logout$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.LOGOUT)
     .map(() => Observable.fromPromise(this.afsAuth.auth.signOut()))
-    .map(() => new LogoutSuccess());
+    .map(() => new NotAuthenticated());
 
 
 

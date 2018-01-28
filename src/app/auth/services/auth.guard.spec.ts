@@ -4,7 +4,7 @@ import {AuthGuard} from './auth.guard';
 import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../reducers';
-import {LoginSuccess, LogoutSuccess} from '../actions/auth.actions';
+import {LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
 import {User} from './auth.service';
 import {routerMocker} from '../../test-support/stubs';
 
@@ -32,13 +32,14 @@ describe('AuthGuard', () => {
   });
 
   it('should not activate when user is not authenticated', (done) => {
-    store.dispatch(new LogoutSuccess());
+    store.dispatch(new NotAuthenticated());
+    spyOn(store, 'dispatch');
 
     const canActivate = testee.canActivate(null, null);
 
     canActivate.subscribe(it => {
       expect(it).toBe(false);
-      expect(router.navigate).toHaveBeenCalledWith(['/login']);
+      expect(store.dispatch).toHaveBeenCalledWith(new NotAuthenticated());
       done();
     });
   });

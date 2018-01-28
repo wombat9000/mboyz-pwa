@@ -20,7 +20,7 @@ export function reducer(state = initialState, action: AuthActions): State {
       };
     }
 
-    case AuthActionTypes.LOGOUT_SUCCESS: {
+    case AuthActionTypes.NOT_AUTHENTICATED: {
       return initialState;
     }
 

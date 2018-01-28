@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {empty} from 'rxjs/observable/empty';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
-import {FbLogin, GetUser, LoginFailure, LoginSuccess, Logout, LogoutSuccess} from '../actions/auth.actions';
+import {FbLogin, GetUser, LoginFailure, LoginSuccess, Logout, NotAuthenticated} from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {UserFirestore} from '../services/user-firestore.service';
@@ -89,7 +89,7 @@ describe('Auth Effects', () => {
       actions$.stream = hot('-a--', {a: action});
 
       effects.getUser$.subscribe((it) => {
-        expect(it).toEqual(new LogoutSuccess());
+        expect(it).toEqual(new NotAuthenticated());
       });
     });
   });
@@ -193,20 +193,20 @@ describe('Auth Effects', () => {
 
     it('should return logout success', () => {
       effects.logout$.subscribe((it) => {
-        expect(it).toEqual(new LogoutSuccess());
+        expect(it).toEqual(new NotAuthenticated());
       });
     });
   });
 
   describe('logoutSuccess$', () => {
     beforeEach(() => {
-      const action: Action = new LogoutSuccess();
+      const action: Action = new NotAuthenticated();
       router.navigate.and.returnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
     });
 
     it('should redirect to login', () => {
-      effects.logoutSuccess$.subscribe(() => {
+      effects.notAuthenticated$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
       });
     });
