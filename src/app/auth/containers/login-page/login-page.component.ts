@@ -13,6 +13,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class LoginPageComponent {
   pending$: Observable<boolean> = this.store.select(fromAuth.getLoginPagePending);
+  error$: Observable<string> = this.store.select(fromAuth.getErrorMessage);
 
   constructor(private store: Store<fromAuth.State>) {
   }

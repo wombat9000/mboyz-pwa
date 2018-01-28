@@ -27,3 +27,8 @@ export const getLoginPagePending = createSelector(
   selectLoginPageState,
   fromLoginPage.getPending
 );
+
+export const getErrorMessage = createSelector(
+  selectLoginPageState,
+  fromLoginPage.getError
+);
