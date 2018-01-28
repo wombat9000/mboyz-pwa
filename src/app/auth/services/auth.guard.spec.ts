@@ -1,32 +1,39 @@
 import {TestBed} from '@angular/core/testing';
 
 import {AuthGuard} from './auth.guard';
-import {AuthService} from './auth.service';
-import {authServiceMocker, routerMocker} from '../../test-support/stubs';
-import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromAuth from '../reducers';
+import {LoginSuccess, LogoutSuccess} from '../actions/auth.actions';
+import {User} from './auth.service';
+import {routerMocker} from '../../test-support/stubs';
 
 describe('AuthGuard', () => {
   let testee: AuthGuard;
-  let authService: jasmine.SpyObj<AuthService>;
+  let store: Store<fromAuth.State>;
   let router: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          auth: combineReducers(fromAuth.reducers),
+        })
+      ],
       providers: [
         AuthGuard,
-        {provide: AuthService, useFactory: authServiceMocker},
         {provide: Router, useFactory: routerMocker}
       ]
     });
 
     testee = TestBed.get(AuthGuard);
-    authService = TestBed.get(AuthService);
+    store = TestBed.get(Store);
     router = TestBed.get(Router);
   });
 
   it('should not activate when user is not authenticated', (done) => {
-    authService.isSignedIn.and.returnValue(Observable.of(false));
+    store.dispatch(new LogoutSuccess());
+
     const canActivate = testee.canActivate(null, null);
 
     canActivate.subscribe(it => {
@@ -37,7 +44,14 @@ describe('AuthGuard', () => {
   });
 
   it('should activate when user is authenticated', (done) => {
-    authService.isSignedIn.and.returnValue(Observable.of(true));
+    const someUser: User = {
+      uid: '',
+      displayName: '',
+      email: ''
+    };
+
+    store.dispatch(new LoginSuccess({user: someUser}));
+
     const canActivate = testee.canActivate(null, null);
 
     canActivate.subscribe(it => {
