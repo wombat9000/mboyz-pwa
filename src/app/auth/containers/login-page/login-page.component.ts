@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 
-import {FbLogin} from '../../actions/auth.actions';
+import {FacebookLogin} from '../../actions/auth.actions';
 import * as fromAuth from '../../reducers';
 import {Observable} from 'rxjs/Observable';
 
@@ -19,6 +19,6 @@ export class LoginPageComponent {
   }
 
   fbLogin() {
-    this.store.dispatch(new FbLogin());
+    this.store.dispatch(new FacebookLogin());
   }
 }

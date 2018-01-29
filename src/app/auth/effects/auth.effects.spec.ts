@@ -8,7 +8,15 @@ import {Observable} from 'rxjs/Observable';
 import {empty} from 'rxjs/observable/empty';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
-import {FbLogin, GetUser, LoginFailure, LoginSuccess, Logout, NotAuthenticated} from '../actions/auth.actions';
+import {
+  Authorise,
+  FacebookLogin,
+  LoginFailure,
+  LoginSuccess,
+  Logout,
+  NotAuthenticated,
+  Unauthorised
+} from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {UserFirestore} from '../services/user-firestore.service';
@@ -63,32 +71,47 @@ describe('Auth Effects', () => {
     afsDocMock.set.and.returnValue(Promise.resolve());
   });
 
-  describe('getUser$', () => {
-    it('should return login success if already authed', () => {
-      const someUser: User = {
-        uid: '',
-        displayName: '',
-        photoURL: '',
-        email: ''
-      };
+  const someUser: User = {
+    uid: '',
+    displayName: '',
+    photoURL: '',
+    email: ''
+  };
 
+  describe('authorise', () => {
+    it('should navigate to authorised url', () => {
+      const someUrl = '/someUrl';
+
+      const action: Action = new Authorise({user: someUser, url: someUrl});
+
+      actions$.stream = hot('-a--', {a: action});
+      router.navigate.and.returnValue(Promise.resolve());
+
+      effects.authorise$.subscribe((it) => {
+        expect(router.navigate).toHaveBeenCalledWith([someUrl]);
+      });
+    });
+  });
+
+  describe('unauthorised$', () => {
+    it('should return authorise if authed', () => {
       afsAuthMock.authState = Observable.of(someUser);
-      const action: Action = new GetUser();
+      const action: Action = new Unauthorised({url: 'someUrl'});
 
       actions$.stream = hot('-a--', {a: action});
 
-      effects.getUser$.subscribe((it) => {
-        expect(it).toEqual(new LoginSuccess({user: someUser}));
+      effects.unauthorised$.subscribe((it) => {
+        expect(it).toEqual(new Authorise({user: someUser, url: 'someUrl'}));
       });
     });
 
-    it('should not return login success if not authed', () => {
+    it('should return notAuthenticated if auth fails', () => {
       afsAuthMock.authState = Observable.of(null);
-      const action: Action = new GetUser();
+      const action: Action = new Unauthorised({url: 'someUrl'});
 
       actions$.stream = hot('-a--', {a: action});
 
-      effects.getUser$.subscribe((it) => {
+      effects.unauthorised$.subscribe((it) => {
         expect(it).toEqual(new NotAuthenticated());
       });
     });
@@ -96,14 +119,7 @@ describe('Auth Effects', () => {
 
   describe('fbLogin$', () => {
     it('should return login success if successful', () => {
-      const someUser: User = {
-        uid: '',
-        displayName: '',
-        photoURL: '',
-        email: ''
-      };
-
-      const action: Action = new FbLogin();
+      const action: Action = new FacebookLogin();
       const completion = new LoginSuccess({user: someUser});
 
       actions$.stream = hot('-a--', {a: action});
@@ -118,7 +134,7 @@ describe('Auth Effects', () => {
     });
 
     it('should return login failure if oauth fails', () => {
-      const action: Action = new FbLogin();
+      const action: Action = new FacebookLogin();
       const completion = new LoginFailure({error: 'someError'});
 
       const error = {message: 'someError'};
@@ -133,14 +149,7 @@ describe('Auth Effects', () => {
     });
 
     it('should return login failure if saving fails', () => {
-      const someUser: User = {
-        uid: '',
-        displayName: '',
-        photoURL: '',
-        email: ''
-      };
-
-      const action: Action = new FbLogin();
+      const action: Action = new FacebookLogin();
       const completion = new LoginFailure({error: 'someError'});
 
       const error = {message: 'someError'};
@@ -158,13 +167,6 @@ describe('Auth Effects', () => {
   });
 
   describe('loginSuccess$', () => {
-    const someUser: User = {
-      uid: 'someUid',
-      displayName: '',
-      photoURL: '',
-      email: ''
-    };
-
     beforeEach(() => {
       const action: Action = new LoginSuccess({user: someUser});
       router.navigate.and.returnValue(Promise.resolve());

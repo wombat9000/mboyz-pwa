@@ -11,8 +11,7 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: AuthActions): State {
   switch (action.type) {
-    case AuthActionTypes.GET_USER:
-    case AuthActionTypes.FB_LOGIN: {
+    case AuthActionTypes.FACEBOOK_LOGIN: {
       return {pending: true};
     }
     case AuthActionTypes.LOGIN_SUCCESS: {

@@ -1,7 +1,23 @@
-import {LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
+import {Authorise, LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
 import {initialState, reducer} from './auth.reducer';
 
 describe('AuthReducer', () => {
+  describe('authorise', () => {
+    it('should set state to the logged in user', () => {
+      const someUser = {uid: 'someId', email: 'someMail'};
+      const action = new Authorise({user: someUser, url: undefined});
+
+      const loggedOut = {
+        loggedIn: false,
+        user: null
+      };
+
+      const result = reducer(loggedOut, action);
+      expect(result.loggedIn).toEqual(true);
+      expect(result.user).toEqual(someUser);
+    });
+  });
+
   describe('login success', () => {
     it('should set state to the logged in user', () => {
       const someUser = {uid: 'someId', email: 'someMail'};

@@ -3,7 +3,14 @@ import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
-import {AuthActionTypes, LoginFailure, LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
+import {
+  AuthActionTypes,
+  Authorise,
+  LoginFailure,
+  LoginSuccess,
+  NotAuthenticated,
+  Unauthorised
+} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -13,27 +20,34 @@ import {UserFirestore} from '../services/user-firestore.service';
 @Injectable()
 export class AuthEffects {
 
-  @Effect()
-  getUser$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.GET_USER)
-    .switchMap(() => this.afsAuth.authState)
-    .map(afUser => {
-      if (afUser) {
-        const user = {
-          uid: afUser.uid,
-          email: afUser.email,
-          photoURL: afUser.photoURL,
-          displayName: afUser.displayName
-        };
+  @Effect({dispatch: false})
+  authorise$: Observable<any> = this.actions$
+    .ofType(AuthActionTypes.AUTHORISE)
+    .switchMap((action: Authorise) => {
+      return Observable.fromPromise(this.router.navigate([action.payload.url]));
+    });
 
-        return new LoginSuccess({user: user});
-      }
-      return new NotAuthenticated();
+  @Effect()
+  unauthorised$: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.UNAUTHORISED)
+    .switchMap((action: Unauthorised) => {
+      return this.afsAuth.authState.map(afUser => {
+        if (afUser) {
+          const user = {
+            uid: afUser.uid,
+            email: afUser.email,
+            photoURL: afUser.photoURL,
+            displayName: afUser.displayName
+          };
+          return new Authorise({user: user, url: action.payload.url});
+        }
+        return new NotAuthenticated();
+      });
     });
 
   @Effect()
   fbLogin$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.FB_LOGIN)
+    .ofType(AuthActionTypes.FACEBOOK_LOGIN)
     .switchMap(() => {
       return this.authService.facebookLogin()
         .switchMap(user => this.userFirestore.save(user).map(() => user))
@@ -63,7 +77,6 @@ export class AuthEffects {
     .ofType(AuthActionTypes.LOGOUT)
     .map(() => Observable.fromPromise(this.afsAuth.auth.signOut()))
     .map(() => new NotAuthenticated());
-
 
 
   constructor(private actions$: Actions,

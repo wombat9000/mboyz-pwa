@@ -3,7 +3,7 @@ import {By} from '@angular/platform-browser';
 import {click} from '../../../test-support/functions';
 import * as fromAuth from '../../reducers';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import {FbLogin, LoginFailure} from '../../actions/auth.actions';
+import {FacebookLogin, LoginFailure} from '../../actions/auth.actions';
 import {LoginPageComponent} from './login-page.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -61,7 +61,7 @@ describe('Login Page', () => {
 
       loginPO.clickFBLogin();
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FbLogin());
+      expect(store.dispatch).toHaveBeenCalledWith(new FacebookLogin());
     });
 
     it('should not show spinner', () => {
@@ -77,7 +77,7 @@ describe('Login Page', () => {
 
   describe('login pending', () => {
     beforeEach(() => {
-      store.dispatch(new FbLogin());
+      store.dispatch(new FacebookLogin());
     });
 
     it('should show spinner', () => {

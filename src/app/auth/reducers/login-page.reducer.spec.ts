@@ -1,5 +1,5 @@
 import {reducer} from './login-page.reducer';
-import {FbLogin, GetUser, LoginFailure, LoginSuccess} from '../actions/auth.actions';
+import {FacebookLogin, LoginFailure, LoginSuccess} from '../actions/auth.actions';
 
 
 describe('LoginPageReducer', () => {
@@ -22,21 +22,11 @@ describe('LoginPageReducer', () => {
     });
   });
 
-  describe('getUser', () => {
-    it('it should go into pending state', () => {
-      const loginPending = {pending: true};
-
-      const result = reducer(undefined, new GetUser());
-
-      expect(result).toEqual(loginPending);
-    });
-  });
-
   describe('fbLogin', () => {
     it('it should go into pending state', () => {
       const loginPending = {pending: true};
 
-      const result = reducer(undefined, new FbLogin());
+      const result = reducer(undefined, new FacebookLogin());
 
       expect(result).toEqual(loginPending);
     });

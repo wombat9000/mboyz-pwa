@@ -2,20 +2,27 @@ import {Action} from '@ngrx/store';
 import {User} from '../services/auth.service';
 
 export enum AuthActionTypes {
-  GET_USER =          '[Auth] Get User',
-  FB_LOGIN =          '[Auth] FbLogin',
-  LOGOUT =            '[Auth] Logout',
+  AUTHORISE = '[Auth] Authorise',
+  UNAUTHORISED = '[Auth] Unauthorised',
+  FACEBOOK_LOGIN = '[Auth] FacebookLogin',
+  LOGOUT = '[Auth] Logout',
   NOT_AUTHENTICATED = '[Auth] Not Authenticated',
-  LOGIN_SUCCESS =     '[Auth] Login Success',
-  LOGIN_FAILURE =     '[Auth] Login Failure',
+  LOGIN_SUCCESS = '[Auth] Login Success',
+  LOGIN_FAILURE = '[Auth] Login Failure',
 }
 
-export class GetUser implements Action {
-  readonly type = AuthActionTypes.GET_USER;
+export class Unauthorised implements Action {
+  readonly type = AuthActionTypes.UNAUTHORISED;
+  constructor(public payload: { url: string }) {}
 }
 
-export class FbLogin implements Action {
-  readonly type = AuthActionTypes.FB_LOGIN;
+export class Authorise implements Action {
+  readonly type = AuthActionTypes.AUTHORISE;
+  constructor(public payload: { user: User, url: string }) {}
+}
+
+export class FacebookLogin implements Action {
+  readonly type = AuthActionTypes.FACEBOOK_LOGIN;
 }
 
 export class LoginSuccess implements Action {
@@ -29,7 +36,7 @@ export class NotAuthenticated implements Action {
 
 export class LoginFailure implements Action {
   readonly type = AuthActionTypes.LOGIN_FAILURE;
-  constructor(public payload: {error: string}) {}
+  constructor(public payload: { error: string }) {}
 }
 
 export class Logout implements Action {
@@ -37,8 +44,9 @@ export class Logout implements Action {
 }
 
 export type AuthActions =
-  | GetUser
-  | FbLogin
+  | Unauthorised
+  | Authorise
+  | FacebookLogin
   | LoginSuccess
   | LoginFailure
   | Logout

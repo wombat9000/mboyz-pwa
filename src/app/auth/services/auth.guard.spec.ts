@@ -1,12 +1,18 @@
 import {TestBed} from '@angular/core/testing';
 
 import {AuthGuard} from './auth.guard';
-import {Router} from '@angular/router';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../reducers';
-import {LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
+import {LoginSuccess, NotAuthenticated, Unauthorised} from '../actions/auth.actions';
 import {User} from './auth.service';
 import {routerMocker} from '../../test-support/stubs';
+
+
+class RouterStateSnapshotStub implements RouterStateSnapshot {
+  url: string;
+  root: ActivatedRouteSnapshot;
+}
 
 describe('AuthGuard', () => {
   let testee: AuthGuard;
@@ -35,11 +41,14 @@ describe('AuthGuard', () => {
     store.dispatch(new NotAuthenticated());
     spyOn(store, 'dispatch');
 
-    const canActivate = testee.canActivate(null, null);
+    const stateSnap = new RouterStateSnapshotStub();
+    stateSnap.url = 'someUrl';
+
+    const canActivate = testee.canActivate(null, stateSnap);
 
     canActivate.subscribe(it => {
       expect(it).toBe(false);
-      expect(store.dispatch).toHaveBeenCalledWith(new NotAuthenticated());
+      expect(store.dispatch).toHaveBeenCalledWith(new Unauthorised({url: 'someUrl'}));
       done();
     });
   });

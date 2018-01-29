@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
-import {NotAuthenticated} from '../actions/auth.actions';
+import {Unauthorised} from '../actions/auth.actions';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       .map(user => !!user)
       .do(auth => {
         if (!auth) {
-          this.store.dispatch(new NotAuthenticated());
+          this.store.dispatch(new Unauthorised({url: state.url}));
         }
       });
   }
