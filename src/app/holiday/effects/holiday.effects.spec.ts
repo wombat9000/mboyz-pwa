@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {HolidayEffects} from './holiday.effects';
-import {HolidayService} from '../holiday.service';
+import {HolidayService} from '../services/holiday.service';
 import {holidayServiceMocker} from '../../test-support/stubs';
 import {Create} from '../actions/holiday.actions';
 import {ReplaySubject} from 'rxjs/ReplaySubject';

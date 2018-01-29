@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import * as holidayActions from '../actions/holiday.actions';
-import {HolidayService} from '../holiday.service';
+import {HolidayService} from '../services/holiday.service';
 import {Action} from '@ngrx/store';
 
 
 @Injectable()
 export class HolidayEffects {
 
-  // TODO: handle failures :)
   @Effect({dispatch: false})
   create$: Observable<void> = this.actions$
     .ofType(holidayActions.CREATE)

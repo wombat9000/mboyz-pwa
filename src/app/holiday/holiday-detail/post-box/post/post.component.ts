@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../../post-firestore.service';
+import {Post} from '../../../services/post-firestore.service';
 import {UserFirestore} from '../../../../auth/services/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../auth/services/auth.service';

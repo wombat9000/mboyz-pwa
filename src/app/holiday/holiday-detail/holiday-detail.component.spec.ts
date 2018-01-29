@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HolidayDetailComponent} from './holiday-detail.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {HolidayService} from '../holiday.service';
+import {HolidayService} from '../services/holiday.service';
 import {holidayServiceMocker} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';

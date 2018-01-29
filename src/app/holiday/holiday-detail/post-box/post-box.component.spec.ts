@@ -3,7 +3,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
-import {Post, PostFirestore} from '../../post-firestore.service';
+import {Post, PostFirestore} from '../../services/post-firestore.service';
 import {authServiceMocker, postFirestoreMock} from '../../../test-support/stubs';
 import {Subject} from 'rxjs/Subject';
 import {AuthService, User} from '../../../auth/services/auth.service';

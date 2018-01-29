@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {User} from '../../../../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {Comment} from '../comment-firestore.service';
+import {Comment} from '../../../../../services/comment-firestore.service';
 import moment = require('moment');
 
 describe('CommentComponent', () => {

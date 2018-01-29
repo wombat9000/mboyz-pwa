@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../../../post-firestore.service';
-import {Comment, CommentFirestore} from './comment-firestore.service';
+import {Post} from '../../../../services/post-firestore.service';
+import {Comment, CommentFirestore} from '../../../../services/comment-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {v4 as uuid} from 'uuid';

@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import {HolidayService} from './holiday.service';
 import {HolidayFirestore} from './holiday-firestore.service';
-import {holidayFirestoreMock} from '../test-support/stubs';
+import {holidayFirestoreMock} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 
 describe('HolidayService', () => {

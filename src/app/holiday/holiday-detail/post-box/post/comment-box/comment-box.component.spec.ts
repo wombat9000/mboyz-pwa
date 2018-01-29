@@ -2,12 +2,12 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentBoxComponent} from './comment-box.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
-import {Comment, CommentFirestore} from './comment-firestore.service';
+import {Comment, CommentFirestore} from '../../../../services/comment-firestore.service';
 import {authServiceMocker, commentFirestoreMock} from '../../../../../test-support/stubs';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
-import {Post} from '../../../../post-firestore.service';
+import {Post} from '../../../../services/post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {AuthService, User} from '../../../../../auth/services/auth.service';

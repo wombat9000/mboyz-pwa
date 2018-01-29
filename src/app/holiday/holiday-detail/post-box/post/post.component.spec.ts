@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PostComponent} from './post.component';
-import {Post} from '../../../post-firestore.service';
+import {Post} from '../../../services/post-firestore.service';
 import {UserFirestore} from '../../../../auth/services/user-firestore.service';
 import {userFirestoreMocker} from '../../../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';

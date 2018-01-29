@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {Post, PostFirestore} from '../../post-firestore.service';
+import {Post, PostFirestore} from '../../services/post-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {AuthService, User} from '../../../auth/services/auth.service';
 import {v4 as uuid} from 'uuid';

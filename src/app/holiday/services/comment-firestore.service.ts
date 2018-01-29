@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Post} from '../../../../post-firestore.service';
+import {Post} from './post-firestore.service';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 
 export interface Comment {

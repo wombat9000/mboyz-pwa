@@ -6,12 +6,12 @@ import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component'
 import {CommentBoxComponent} from './holiday-detail/post-box/post/comment-box/comment-box.component';
 import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
 import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
-import {HolidayService} from './holiday.service';
-import {HolidayFirestore} from './holiday-firestore.service';
-import {PostFirestore} from './post-firestore.service';
+import {HolidayService} from './services/holiday.service';
+import {HolidayFirestore} from './services/holiday-firestore.service';
+import {PostFirestore} from './services/post-firestore.service';
 import {PostComponent} from './holiday-detail/post-box/post/post.component';
 import {CommentComponent} from './holiday-detail/post-box/post/comment-box/comment/comment.component';
-import {CommentFirestore} from './holiday-detail/post-box/post/comment-box/comment-firestore.service';
+import {CommentFirestore} from './services/comment-firestore.service';
 import {StoreModule} from '@ngrx/store';
 import {reducer} from './reducers/holiday.reducer';
 import {EffectsModule} from '@ngrx/effects';

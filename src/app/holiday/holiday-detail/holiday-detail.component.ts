@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {HolidayService} from '../holiday.service';
+import {HolidayService} from '../services/holiday.service';
 import {Observable} from 'rxjs/Observable';
 import {Holiday} from '../model/holiday';
 

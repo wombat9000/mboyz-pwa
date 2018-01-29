@@ -1,14 +1,14 @@
 import {UserFirestore} from '../auth/services/user-firestore.service';
-import {HolidayFirestore} from '../holiday/holiday-firestore.service';
+import {HolidayFirestore} from '../holiday/services/holiday-firestore.service';
 import {AuthService} from '../auth/services/auth.service';
 import {Router} from '@angular/router';
-import {PostFirestore} from '../holiday/post-firestore.service';
-import {CommentFirestore} from '../holiday/holiday-detail/post-box/post/comment-box/comment-firestore.service';
+import {PostFirestore} from '../holiday/services/post-firestore.service';
+import {CommentFirestore} from '../holiday/services/comment-firestore.service';
 import {Store} from '@ngrx/store';
 import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {HolidayService} from '../holiday/holiday.service';
+import {HolidayService} from '../holiday/services/holiday.service';
 import {FirebaseAuth} from '@firebase/auth-types';
 
 
