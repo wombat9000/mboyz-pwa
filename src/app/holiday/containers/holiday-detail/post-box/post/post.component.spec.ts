@@ -1,14 +1,14 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PostComponent} from './post.component';
-import {Post} from '../../../services/post-firestore.service';
-import {UserFirestore} from '../../../../auth/services/user-firestore.service';
-import {userFirestoreMocker} from '../../../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import moment = require('moment');
+import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
+import {User} from '../../../../../auth/services/auth.service';
+import {userFirestoreMocker} from '../../../../../test-support/stubs';
+import {Post} from '../../../../services/post-firestore.service';
 
 describe('PostComponent', () => {
   let component: PostComponent;

@@ -1,23 +1,23 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {HolidayOverviewComponent} from './holiday-overview.component';
+import {HolidayOverviewPageComponent} from './holiday-overview.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
-import {routerMocker} from '../../test-support/stubs';
-import {click} from '../../test-support/functions';
+import {routerMocker} from '../../../test-support/stubs';
+import {click} from '../../../test-support/functions';
 import {Subject} from 'rxjs/Subject';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../reducers';
-import {State} from '../reducers/holiday.reducer';
-import * as actions from '../actions/holiday.actions';
-import {Holiday} from '../model/holiday';
+import * as fromHoliday from '../../reducers/index';
+import {State} from '../../reducers/holiday.reducer';
+import * as actions from '../../actions/holiday.actions';
+import {Holiday} from '../../model/holiday';
 import * as moment from 'moment';
 
 describe('HolidayOverviewComponent', () => {
-  let component: HolidayOverviewComponent;
+  let component: HolidayOverviewPageComponent;
   let debugElement: DebugElement;
-  let fixture: ComponentFixture<HolidayOverviewComponent>;
+  let fixture: ComponentFixture<HolidayOverviewPageComponent>;
 
   let router;
   let holidayEmitter: Subject<Holiday[]>;
@@ -33,7 +33,7 @@ describe('HolidayOverviewComponent', () => {
       providers: [
         {provide: Router, useFactory: routerMocker},
       ],
-      declarations: [HolidayOverviewComponent],
+      declarations: [HolidayOverviewPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
@@ -46,7 +46,7 @@ describe('HolidayOverviewComponent', () => {
     spyOn(store, 'select').and.returnValue(holidayEmitter);
     spyOn(store, 'dispatch');
 
-    fixture = TestBed.createComponent(HolidayOverviewComponent);
+    fixture = TestBed.createComponent(HolidayOverviewPageComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     fixture.detectChanges();

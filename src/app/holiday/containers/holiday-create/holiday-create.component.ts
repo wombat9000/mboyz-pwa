@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import * as fromHoliday from '../reducers/holiday.reducer';
-import * as actions from '../actions/holiday.actions';
-import {Holiday} from '../model/holiday';
+import * as fromHoliday from '../../reducers/holiday.reducer';
+import * as actions from '../../actions/holiday.actions';
+import {Holiday} from '../../model/holiday';
 import * as moment from 'moment';
 
 
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './holiday-create.component.html',
   styleUrls: ['./holiday-create.component.scss']
 })
-export class HolidayCreateComponent {
+export class CreateHolidayPageComponent {
 
   holidayFormModel: Holiday = {
     id: uuid(),

@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {HolidayCreateComponent} from './holiday-create.component';
+import {CreateHolidayPageComponent} from './holiday-create.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {click} from '../../test-support/functions';
-import {routerMocker} from '../../test-support/stubs';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../reducers/index';
-import {State} from '../reducers/holiday.reducer';
-import {Holiday} from '../model/holiday';
+import * as fromHoliday from '../../reducers/index';
+import {State} from '../../reducers/holiday.reducer';
+import {Holiday} from '../../model/holiday';
 import * as moment from 'moment';
+import {click} from '../../../test-support/functions';
+import {routerMocker} from '../../../test-support/stubs';
 
 
 class HolidayCreatePO {
-  constructor(private fixture: ComponentFixture<HolidayCreateComponent>) {
+  constructor(private fixture: ComponentFixture<CreateHolidayPageComponent>) {
   }
 
   fillName(name: string) {
@@ -32,7 +32,7 @@ class HolidayCreatePO {
 }
 
 describe('HolidayCreateComponent', () => {
-  let fixture: ComponentFixture<HolidayCreateComponent>;
+  let fixture: ComponentFixture<CreateHolidayPageComponent>;
   let debugElement: DebugElement;
 
   let store: jasmine.SpyObj<Store<State>>;
@@ -52,7 +52,7 @@ describe('HolidayCreateComponent', () => {
       providers: [
         {provide: Router, useFactory: routerMocker}
       ],
-      declarations: [HolidayCreateComponent],
+      declarations: [CreateHolidayPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
@@ -62,7 +62,7 @@ describe('HolidayCreateComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HolidayCreateComponent);
+    fixture = TestBed.createComponent(CreateHolidayPageComponent);
     holidayCreatePO = new HolidayCreatePO(fixture);
 
     router = TestBed.get(Router);

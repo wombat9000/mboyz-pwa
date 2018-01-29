@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserFirestore} from '../../../../../../auth/services/user-firestore.service';
-import {User} from '../../../../../../auth/services/auth.service';
 import {Observable} from 'rxjs/Observable';
-import {Comment} from '../../../../../services/comment-firestore.service';
 import * as moment from 'moment';
+import {User} from '../../../../../../../auth/services/auth.service';
+import {UserFirestore} from '../../../../../../../auth/services/user-firestore.service';
+import {Comment} from '../../../../../../services/comment-firestore.service';
 
 @Component({
   selector: 'app-comment',

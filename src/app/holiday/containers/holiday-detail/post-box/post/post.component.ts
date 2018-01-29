@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../../services/post-firestore.service';
-import {UserFirestore} from '../../../../auth/services/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../../../auth/services/auth.service';
 import * as moment from 'moment';
+import {Post} from '../../../../services/post-firestore.service';
+import {User} from '../../../../../auth/services/auth.service';
+import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
 
 
 @Component({

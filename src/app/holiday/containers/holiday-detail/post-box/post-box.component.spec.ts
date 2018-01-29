@@ -3,14 +3,14 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PostBoxComponent} from './post-box.component';
-import {Post, PostFirestore} from '../../services/post-firestore.service';
-import {authServiceMocker, postFirestoreMock} from '../../../test-support/stubs';
 import {Subject} from 'rxjs/Subject';
-import {AuthService, User} from '../../../auth/services/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {Holiday} from '../../model/holiday';
 import moment = require('moment');
+import {AuthService, User} from '../../../../auth/services/auth.service';
+import {Post, PostFirestore} from '../../../services/post-firestore.service';
+import {authServiceMocker, postFirestoreMock} from '../../../../test-support/stubs';
+import {Holiday} from '../../../model/holiday';
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<PostBoxComponent>, holiday: Holiday) {

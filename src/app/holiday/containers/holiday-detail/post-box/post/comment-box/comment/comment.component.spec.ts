@@ -1,14 +1,14 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentComponent} from './comment.component';
-import {userFirestoreMocker} from '../../../../../../test-support/stubs';
-import {UserFirestore} from '../../../../../../auth/services/user-firestore.service';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../../../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {Comment} from '../../../../../services/comment-firestore.service';
 import moment = require('moment');
+import {UserFirestore} from '../../../../../../../auth/services/user-firestore.service';
+import {User} from '../../../../../../../auth/services/auth.service';
+import {userFirestoreMocker} from '../../../../../../../test-support/stubs';
+import {Comment} from '../../../../../../services/comment-firestore.service';
 
 describe('CommentComponent', () => {
   let component: CommentComponent;

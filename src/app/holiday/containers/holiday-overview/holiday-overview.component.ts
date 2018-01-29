@@ -3,9 +3,9 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 
-import * as actions from '../actions/holiday.actions';
-import * as fromHoliday from '../reducers/holiday.reducer';
-import {Holiday} from '../model/holiday';
+import * as actions from '../../actions/holiday.actions';
+import * as fromHoliday from '../../reducers/holiday.reducer';
+import {Holiday} from '../../model/holiday';
 import * as moment from 'moment';
 
 @Component({
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './holiday-overview.component.html',
   styleUrls: ['./holiday-overview.component.scss']
 })
-export class HolidayOverviewComponent implements OnInit {
+export class HolidayOverviewPageComponent implements OnInit {
 
   holidays$: Observable<Holiday[]>;
 

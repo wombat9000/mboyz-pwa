@@ -1,17 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {HolidayDetailComponent} from './holiday-detail.component';
+import {HolidayDetailPageComponent} from './holiday-detail.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {HolidayService} from '../services/holiday.service';
-import {holidayServiceMocker} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
-import {Holiday} from '../model/holiday';
+import {HolidayService} from '../../services/holiday.service';
+import {Holiday} from '../../model/holiday';
+import {holidayServiceMocker} from '../../../test-support/stubs';
 
 describe('HolidayDetailComponent', () => {
-  let component: HolidayDetailComponent;
-  let fixture: ComponentFixture<HolidayDetailComponent>;
+  let component: HolidayDetailPageComponent;
+  let fixture: ComponentFixture<HolidayDetailPageComponent>;
   let holidayService: jasmine.SpyObj<HolidayService>;
 
   const someHoliday: Holiday = {id: 'someId', name: 'someName'};
@@ -33,7 +33,7 @@ describe('HolidayDetailComponent', () => {
         {provide: ActivatedRoute, useValue: activatedRoute},
         {provide: HolidayService, useFactory: holidayServiceMocker}
       ],
-      declarations: [HolidayDetailComponent],
+      declarations: [HolidayDetailPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -42,7 +42,7 @@ describe('HolidayDetailComponent', () => {
   beforeEach(async () => {
     holidayService = TestBed.get(HolidayService);
     holidayService.findById.and.returnValue(Observable.of(someHoliday));
-    fixture = TestBed.createComponent(HolidayDetailComponent);
+    fixture = TestBed.createComponent(HolidayDetailPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HolidayOverviewComponent} from './holiday-overview/holiday-overview.component';
 import {AuthGuard} from '../auth/services/auth.guard';
-import {HolidayCreateComponent} from './holiday-create/holiday-create.component';
-import {HolidayDetailComponent} from './holiday-detail/holiday-detail.component';
+import {HolidayOverviewPageComponent} from './containers/holiday-overview/holiday-overview.component';
+import {CreateHolidayPageComponent} from './containers/holiday-create/holiday-create.component';
+import {HolidayDetailPageComponent} from './containers/holiday-detail/holiday-detail.component';
 
 const holidayRoutes: Routes = [
   {
     path: 'holiday', children: [
-      {path: '', component: HolidayOverviewComponent, canActivate: [AuthGuard]},
-      {path: 'create', component: HolidayCreateComponent, canActivate: [AuthGuard]},
-      {path: ':id', component: HolidayDetailComponent, canActivate: [AuthGuard]}
+      {path: '', component: HolidayOverviewPageComponent, canActivate: [AuthGuard]},
+      {path: 'create', component: CreateHolidayPageComponent, canActivate: [AuthGuard]},
+      {path: ':id', component: HolidayDetailPageComponent, canActivate: [AuthGuard]}
     ]
   }
 ];
