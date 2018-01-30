@@ -2,21 +2,16 @@ import {Action} from '@ngrx/store';
 import {Holiday} from '../model/holiday';
 
 
-export const QUERY    = '[Holiday] query';
-export const ADDED    = '[Holiday] added';
-export const MODIFIED = '[Holiday] modified';
-export const REMOVED  = '[Holiday] removed';
-export const CREATE   = '[Holiday] created';
+export const QUERY       = '[Holiday] query';
+export const CREATE      = '[Holiday] created';
+export const AF_ADDED    = '[Holiday] added';
+export const AF_MODIFIED = '[Holiday] modified';
+export const AF_REMOVED  = '[Holiday] removed';
 
 // Initial query
 export class Query implements Action {
   readonly type = QUERY;
   constructor() {}
-}
-// AngularFire2 StateChanges
-export class Added implements Action {
-  readonly type = ADDED;
-  constructor(public holiday: Holiday) {}
 }
 
 export class Create implements Action {
@@ -24,20 +19,25 @@ export class Create implements Action {
   constructor(public holiday: Holiday) {}
 }
 
-export class Modified implements Action {
-  readonly type = MODIFIED;
+// AngularFire2 StateChanges
+export class AfAdded implements Action {
+  readonly type = AF_ADDED;
   constructor(public holiday: Holiday) {}
 }
 
-export class Removed implements Action {
-  readonly type = REMOVED;
+export class AfModified implements Action {
+  readonly type = AF_MODIFIED;
   constructor(public holiday: Holiday) {}
 }
 
+export class AfRemoved implements Action {
+  readonly type = AF_REMOVED;
+  constructor(public holiday: Holiday) {}
+}
 
 export type HolidayActions =
   Create |
   Query |
-  Added |
-  Modified |
-  Removed;
+  AfAdded |
+  AfModified |
+  AfRemoved;

@@ -14,18 +14,17 @@ export function reducer(state: State = initialState,
                         action: actions.HolidayActions) {
 
   switch (action.type) {
-
-    case actions.ADDED:
+    case actions.AF_ADDED:
     case actions.CREATE:
       return holidayAdapter.addOne(action.holiday, state);
 
-    case actions.MODIFIED:
+    case actions.AF_MODIFIED:
       return holidayAdapter.updateOne({
         id: action.holiday.id,
         changes: action.holiday
       }, state);
 
-    case actions.REMOVED:
+    case actions.AF_REMOVED:
       return holidayAdapter.removeOne(action.holiday.id, state);
 
     default:
