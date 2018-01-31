@@ -17,7 +17,7 @@ describe('HolidayOverviewComponent', () => {
   let debugElement: DebugElement;
   let fixture: ComponentFixture<HolidayOverviewPageComponent>;
 
-  let router;
+  let router: jasmine.SpyObj<Router>;
   let store: Store<fromHoliday.State>;
 
   const firstHoliday = {id: 'someId', name: 'first created holiday', created: moment('2018-12-01').toISOString()};
@@ -95,11 +95,15 @@ describe('HolidayOverviewComponent', () => {
       expect(addButton).toBeTruthy();
     });
 
-    it('should redirect to create holiday page onclick', () => {
+    it('should link to create page', () => {
+      const addButton = debugElement.query(By.css('.add-holiday'));
+      expect(addButton.attributes.routerLink).toBe('/holiday/create');
+    });
+
+    xit('should redirect to create holiday page onclick', () => {
       const addButton = debugElement.query(By.css('.add-holiday'));
 
       click(addButton);
-
       const destinationURL = router.navigateByUrl.calls.first().args[0];
       expect(destinationURL).toBe('/holiday/create');
     });

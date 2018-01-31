@@ -28,10 +28,6 @@ export class HolidayOverviewPageComponent implements OnInit {
     this.store.dispatch(new actions.Query());
   }
 
-  gotoCreate() {
-    return this.router.navigateByUrl('/holiday/create');
-  }
-
   goToDetail(holidayId: string) {
     return this.router.navigateByUrl(`/holiday/${holidayId}`);
   }
