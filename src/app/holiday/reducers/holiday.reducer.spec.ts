@@ -1,7 +1,23 @@
 import * as actions from '../actions/holiday.actions';
 import {reducer, State} from './holiday.reducer';
 
-describe('holiday reducer', () => {
+fdescribe('holiday reducer', () => {
+  describe('select', () => {
+    it('should select the given id', () => {
+      const state: State = {
+        selectedId: null,
+        ids: ['anotherId', 'someId'],
+        entities: {someId: null, anotherId: null}
+      };
+
+
+      const action = new actions.Select({id: 'someId'});
+      const result = reducer(state, action);
+
+      expect(result.selectedId).toBe('someId');
+    });
+  });
+
   describe('create', () => {
     it('should add holiday to state', () => {
       const createdHoliday = {

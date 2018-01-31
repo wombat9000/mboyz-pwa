@@ -21,20 +21,31 @@ export function reducer(state: State = initialState,
 
   switch (action.type) {
     case actions.AF_ADDED:
-    case actions.CREATE:
+    case actions.CREATE: {
       return adapter.addOne(action.holiday, state);
+    }
 
-    case actions.AF_MODIFIED:
+    case actions.AF_MODIFIED: {
       return adapter.updateOne({
         id: action.holiday.id,
         changes: action.holiday
       }, state);
+    }
 
-    case actions.AF_REMOVED:
+    case actions.SELECT: {
+      return {
+        ...state,
+        selectedId: action.payload.id
+      }
+    }
+
+    case actions.AF_REMOVED: {
       return adapter.removeOne(action.holiday.id, state);
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }
 
