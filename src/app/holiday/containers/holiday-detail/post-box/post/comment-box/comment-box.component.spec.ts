@@ -1,5 +1,4 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {CommentBoxComponent} from './comment-box.component';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -7,11 +6,12 @@ import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
-import moment = require('moment');
 import {Comment, CommentFirestore} from '../../../../../services/comment-firestore.service';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
 import {authServiceMocker, commentFirestoreMock} from '../../../../../../test-support/stubs';
 import {Post} from '../../../../../services/post-firestore.service';
+import {CommentFieldComponent} from '../../../../../components/comment-field/comment-field.component';
+import moment = require('moment');
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
@@ -27,7 +27,7 @@ describe('CommentBoxComponent', () => {
         {provide: CommentFirestore, useValue: commentFirestoreMock},
         {provide: AuthService, useFactory: authServiceMocker}
       ],
-      declarations: [CommentBoxComponent],
+      declarations: [CommentBoxComponent, CommentFieldComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -114,10 +114,6 @@ describe('CommentBoxComponent', () => {
 
     it('should persist the new message', () => {
       expect(savedComment.text).toBe('new comment');
-    });
-
-    it('should clear the input field after the message is sent', () => {
-      expect(component.commentInput).toBe('');
     });
 
     it('should provide parent postId', () => {

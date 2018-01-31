@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-comment-field',
@@ -7,15 +7,19 @@ import {Component, EventEmitter, Output} from '@angular/core';
     <textarea matInput
               matTextareaAutosize
               [(ngModel)]="value"
-              (keyup.enter)="submitComment.emit($event.target.value)"
+              (keyup.enter)="submit()"
               placeholder="Kommentieren ..."></textarea>
     </mat-form-field>
   `,
   styleUrls: ['./comment-field.component.scss']
 })
 export class CommentFieldComponent {
-
+  value = '';
   @Output()
   submitComment = new EventEmitter<string>();
-  value = '';
+
+  submit() {
+    this.submitComment.emit(this.value);
+    this.value = '';
+  }
 }

@@ -2,6 +2,7 @@
 @import '../../../../mboyz-theme';
 
 :host {
+  display: block;
   margin-top: 5px;
   background-color: lighten(mat-color($mboyz-primary, 300), 30%);
   padding-top: 4px;

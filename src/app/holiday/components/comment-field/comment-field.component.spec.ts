@@ -25,8 +25,10 @@ describe('CommentFieldComponent', () => {
   });
 
   it('produces output when submitting a comment', async (done) => {
-    component.submitComment.subscribe(it => {
+    component.submitComment.subscribe(async(it) => {
+      await fixture.whenStable();
       expect(it).toBe('someComment');
+      expect(component.value).toBe('');
       done();
     });
 
@@ -36,7 +38,5 @@ describe('CommentFieldComponent', () => {
     input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {
       'key': 'Enter'
     }));
-
-    expect(component).toBeTruthy();
   });
 });

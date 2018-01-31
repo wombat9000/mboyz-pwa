@@ -3,12 +3,4 @@
     <app-comment [comment]="comment"></app-comment>
   </div>
 </div>
-<div class="comment-input">
-  <mat-form-field>
-  <textarea matInput
-            matTextareaAutosize
-            (keyup.enter)="submitComment()"
-            [(ngModel)]="commentInput"
-            placeholder="Kommentieren ..."></textarea>
-  </mat-form-field>
-</div>
+<app-comment-field (submitComment)="submitComment($event)"></app-comment-field>

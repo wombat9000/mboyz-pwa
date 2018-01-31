@@ -18,7 +18,6 @@ export class CommentBoxComponent implements OnInit {
   post: Post;
 
   comments$: Observable<Comment[]>;
-  commentInput = '';
   user: MtravelUser;
 
   constructor(private commentFirestore: CommentFirestore,
@@ -36,10 +35,10 @@ export class CommentBoxComponent implements OnInit {
       });
   }
 
-  submitComment() {
+  submitComment(text: string) {
     const comment: Comment = {
       id: uuid(),
-      text: this.commentInput,
+      text: text,
       postId: this.post.id,
       holidayId: this.post.holidayId,
       authorId: this.user.uid,
@@ -47,6 +46,5 @@ export class CommentBoxComponent implements OnInit {
     };
 
     this.commentFirestore.save(comment);
-    this.commentInput = '';
   }
 }
