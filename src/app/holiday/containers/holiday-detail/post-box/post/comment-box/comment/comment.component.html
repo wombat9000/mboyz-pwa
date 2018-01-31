@@ -1,7 +1,0 @@
-<div class="comment-body" *ngIf="user$ | async as user">
-  <span class="author">{{user.displayName}}</span>
-  <span class="message">{{comment.text}}</span>
-</div>
-<div class="info">
-  <span class="created-text">{{formatDate(comment.created)}} um {{formatTime(comment.created)}}</span>
-</div>
