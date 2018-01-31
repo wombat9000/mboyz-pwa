@@ -6,7 +6,7 @@ import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../../auth/reducers';
 import {BgImageDirective} from './bg-image.directive';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {User} from '../../auth/services/auth.service';
+import {MtravelUser} from '../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
 import {click} from '../../test-support/functions';
 import {MatMenuModule} from '@angular/material';
@@ -14,7 +14,7 @@ import {Logout} from '../../auth/actions/auth.actions';
 
 
 class UserMenuPO {
-  constructor(public fixture: ComponentFixture<UserMenuComponent>, user: User) {
+  constructor(public fixture: ComponentFixture<UserMenuComponent>, user: MtravelUser) {
     fixture.componentInstance.user = user;
     fixture.detectChanges();
   }
@@ -59,7 +59,7 @@ describe('User Menu', () => {
   beforeEach(() => {
     store = TestBed.get(Store);
 
-    const someUser: User = {
+    const someUser: MtravelUser = {
       uid: '',
       email: ''
     };

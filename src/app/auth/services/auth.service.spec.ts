@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
-import {AuthService, User} from './auth.service';
+import {AuthService, MtravelUser} from './auth.service';
 import {AngularFireAuth} from 'angularfire2/auth';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/from';
@@ -76,7 +76,7 @@ describe('Auth Service', () => {
 
   describe('login with facebook', () => {
     let router;
-    const user: User = {
+    const user: MtravelUser = {
       uid: 'someUid',
       email: 'someEmail',
       displayName: 'someName',

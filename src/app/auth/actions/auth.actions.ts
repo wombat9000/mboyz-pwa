@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {User} from '../services/auth.service';
+import {MtravelUser} from '../services/auth.service';
 
 export enum AuthActionTypes {
   AUTHORISE = '[Auth] Authorise',
@@ -18,7 +18,7 @@ export class Unauthorised implements Action {
 
 export class Authorise implements Action {
   readonly type = AuthActionTypes.AUTHORISE;
-  constructor(public payload: { user: User, url: string }) {}
+  constructor(public payload: { user: MtravelUser, url: string }) {}
 }
 
 export class FacebookLogin implements Action {
@@ -27,7 +27,7 @@ export class FacebookLogin implements Action {
 
 export class LoginSuccess implements Action {
   readonly type = AuthActionTypes.LOGIN_SUCCESS;
-  constructor(public payload: { user: User }) {}
+  constructor(public payload: { user: MtravelUser }) {}
 }
 
 export class NotAuthenticated implements Action {

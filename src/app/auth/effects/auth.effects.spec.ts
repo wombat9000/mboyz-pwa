@@ -1,4 +1,4 @@
-import {AuthService, User} from '../services/auth.service';
+import {AuthService, MtravelUser} from '../services/auth.service';
 import {TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
 import {authServiceMocker, FireAuthStub, routerMocker, userFirestoreMocker} from '../../test-support/stubs';
@@ -43,7 +43,7 @@ describe('Auth Effects', () => {
   let router: jasmine.SpyObj<Router>;
   let afsAuthMock: FireAuthStub;
   const afsMock: jasmine.SpyObj<AngularFirestore> = jasmine.createSpyObj('AngularFireStore', ['doc']);
-  const afsDocMock: jasmine.SpyObj<AngularFirestoreDocument<User>> =
+  const afsDocMock: jasmine.SpyObj<AngularFirestoreDocument<MtravelUser>> =
     jasmine.createSpyObj('AngularFirestoreDocument', ['set']);
 
 
@@ -71,7 +71,7 @@ describe('Auth Effects', () => {
     afsDocMock.set.and.returnValue(Promise.resolve());
   });
 
-  const someUser: User = {
+  const someUser: MtravelUser = {
     uid: '',
     displayName: '',
     photoURL: '',

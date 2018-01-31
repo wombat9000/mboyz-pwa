@@ -1,9 +1,9 @@
-import {User} from '../services/auth.service';
+import {MtravelUser} from '../services/auth.service';
 import {AuthActions, AuthActionTypes} from '../actions/auth.actions';
 
 export interface State {
   loggedIn: boolean;
-  user: User | null;
+  user: MtravelUser | null;
 }
 
 export const initialState: State = {

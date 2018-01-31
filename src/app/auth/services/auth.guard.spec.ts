@@ -5,7 +5,7 @@ import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/rout
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../reducers';
 import {LoginSuccess, NotAuthenticated, Unauthorised} from '../actions/auth.actions';
-import {User} from './auth.service';
+import {MtravelUser} from './auth.service';
 import {routerMocker} from '../../test-support/stubs';
 
 
@@ -54,7 +54,7 @@ describe('AuthGuard', () => {
   });
 
   it('should activate when user is authenticated', (done) => {
-    const someUser: User = {
+    const someUser: MtravelUser = {
       uid: '',
       displayName: '',
       email: ''

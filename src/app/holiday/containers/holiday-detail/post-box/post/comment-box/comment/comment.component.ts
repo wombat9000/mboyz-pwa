@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
-import {User} from '../../../../../../../auth/services/auth.service';
+import {MtravelUser} from '../../../../../../../auth/services/auth.service';
 import {UserFirestore} from '../../../../../../../auth/services/user-firestore.service';
 import {Comment} from '../../../../../../services/comment-firestore.service';
 
@@ -23,7 +23,7 @@ export class CommentComponent implements OnInit {
   @Input()
   comment: Comment;
 
-  user$: Observable<User>;
+  user$: Observable<MtravelUser>;
 
   constructor(private userFS: UserFirestore) {
   }

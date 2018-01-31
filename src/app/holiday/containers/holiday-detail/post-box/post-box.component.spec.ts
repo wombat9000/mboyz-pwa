@@ -7,7 +7,7 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import moment = require('moment');
-import {AuthService, User} from '../../../../auth/services/auth.service';
+import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
 import {Post, PostFirestore} from '../../../services/post-firestore.service';
 import {authServiceMocker, postFirestoreMock} from '../../../../test-support/stubs';
 import {Holiday} from '../../../model/holiday';
@@ -35,7 +35,7 @@ class PostBoxPO {
 
 describe('PostBoxComponent', () => {
 
-  const someAuthor: User = {
+  const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
     uid: 'someUid',
     email: 'someMail'

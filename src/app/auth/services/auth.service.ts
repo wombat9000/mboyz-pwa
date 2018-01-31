@@ -7,7 +7,7 @@ import * as firebase from 'firebase/app';
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 
 
-export interface User {
+export interface MtravelUser {
   uid: string;
   email: string;
   photoURL?: string;
@@ -17,14 +17,14 @@ export interface User {
 @Injectable()
 export class AuthService {
 
-  user$: Observable<User> = Observable.of(null);
+  user$: Observable<MtravelUser> = Observable.of(null);
 
   constructor(private afAuth: AngularFireAuth,
               private userRepository: UserFirestore,
               private router: Router) {
   }
 
-  activeUser(): Observable<User> {
+  activeUser(): Observable<MtravelUser> {
     return this.authedUser()
       .take(1);
   }
@@ -40,12 +40,12 @@ export class AuthService {
     return this.router.navigate(['/login']);
   }
 
-  facebookLogin(): Observable<User> {
+  facebookLogin(): Observable<MtravelUser> {
     const provider = new FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 
-  private authedUser(): Observable<User> {
+  private authedUser(): Observable<MtravelUser> {
     return this.afAuth.authState.switchMap(user => {
       if (user) {
         return this.userRepository.observeById(user.uid);
@@ -54,7 +54,7 @@ export class AuthService {
     });
   }
 
-  private oAuthLogin(provider): Observable<User> {
+  private oAuthLogin(provider): Observable<MtravelUser> {
     return Observable.fromPromise(this.afAuth.auth.signInWithPopup(provider))
       .map(credential => {
         return {

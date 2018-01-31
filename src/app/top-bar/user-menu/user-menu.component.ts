@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../../auth/reducers';
 import {Logout} from '../../auth/actions/auth.actions';
-import {User} from '../../auth/services/auth.service';
+import {MtravelUser} from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -12,7 +12,7 @@ import {User} from '../../auth/services/auth.service';
 export class UserMenuComponent {
 
   @Input()
-  user: User;
+  user: MtravelUser;
 
   constructor(private store: Store<fromAuth.State>) {
   }

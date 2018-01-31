@@ -9,7 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import moment = require('moment');
 import {Comment, CommentFirestore} from '../../../../../services/comment-firestore.service';
-import {AuthService, User} from '../../../../../../auth/services/auth.service';
+import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
 import {authServiceMocker, commentFirestoreMock} from '../../../../../../test-support/stubs';
 import {Post} from '../../../../../services/post-firestore.service';
 
@@ -33,7 +33,7 @@ describe('CommentBoxComponent', () => {
       .compileComponents();
   }));
 
-  const someAuthor: User = {
+  const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
     uid: 'someUid',
     email: 'someMail'

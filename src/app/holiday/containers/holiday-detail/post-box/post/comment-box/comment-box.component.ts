@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {v4 as uuid} from 'uuid';
 import {Post} from '../../../../../services/post-firestore.service';
-import {AuthService, User} from '../../../../../../auth/services/auth.service';
+import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
 import {Comment, CommentFirestore} from '../../../../../services/comment-firestore.service';
 
 
@@ -19,7 +19,7 @@ export class CommentBoxComponent implements OnInit {
 
   comments$: Observable<Comment[]>;
   commentInput = '';
-  user: User;
+  user: MtravelUser;
 
   constructor(private commentFirestore: CommentFirestore,
               private auth: AuthService) {

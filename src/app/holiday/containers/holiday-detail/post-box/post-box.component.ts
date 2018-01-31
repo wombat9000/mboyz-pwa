@@ -5,7 +5,7 @@ import {v4 as uuid} from 'uuid';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Holiday} from '../../../model/holiday';
 import {Post, PostFirestore} from '../../../services/post-firestore.service';
-import {AuthService, User} from '../../../../auth/services/auth.service';
+import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-post-box',
@@ -31,7 +31,7 @@ export class PostBoxComponent implements OnInit {
 
   postInput = '';
 
-  user: User;
+  user: MtravelUser;
 
   constructor(private postService: PostFirestore,
               private auth: AuthService) {

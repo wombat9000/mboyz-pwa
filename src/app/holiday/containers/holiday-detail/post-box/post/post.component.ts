@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {Post} from '../../../../services/post-firestore.service';
-import {User} from '../../../../../auth/services/auth.service';
+import {MtravelUser} from '../../../../../auth/services/auth.service';
 import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
 
 
@@ -16,7 +16,7 @@ export class PostComponent implements OnInit {
   @Input()
   post: Post;
 
-  user$: Observable<User>;
+  user$: Observable<MtravelUser>;
 
   constructor(private userFS: UserFirestore) {
   }

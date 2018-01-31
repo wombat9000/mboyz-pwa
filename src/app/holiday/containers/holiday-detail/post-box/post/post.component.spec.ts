@@ -6,7 +6,7 @@ import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import moment = require('moment');
 import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
-import {User} from '../../../../../auth/services/auth.service';
+import {MtravelUser} from '../../../../../auth/services/auth.service';
 import {userFirestoreMocker} from '../../../../../test-support/stubs';
 import {Post} from '../../../../services/post-firestore.service';
 
@@ -16,7 +16,7 @@ describe('PostComponent', () => {
   let fixture: ComponentFixture<PostComponent>;
   let userFS: jasmine.SpyObj<UserFirestore>;
 
-  const someUser: User = {
+  const someUser: MtravelUser = {
     uid: 'someAuthorId',
     displayName: 'someDisplayName',
     photoURL: 'somePhotoUrl',

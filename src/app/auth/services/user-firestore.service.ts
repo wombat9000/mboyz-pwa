@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {User} from './auth.service';
+import {MtravelUser} from './auth.service';
 import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 
@@ -10,11 +10,11 @@ export class UserFirestore {
   constructor(private afs: AngularFirestore) {
   }
 
-  public observeById(userId: string): Observable<User> {
-    return this.afs.doc<User>(`users/${userId}`).valueChanges();
+  public observeById(userId: string): Observable<MtravelUser> {
+    return this.afs.doc<MtravelUser>(`users/${userId}`).valueChanges();
   }
 
-  public save(user: User): Observable<void> {
+  public save(user: MtravelUser): Observable<void> {
     const updateUser: Promise<void> = this.afs.doc(`users/${user.uid}`).set(user);
     return Observable.fromPromise(updateUser);
   }
