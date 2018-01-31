@@ -40,6 +40,7 @@ describe('holiday reducer', () => {
       };
 
       const state: State = {
+        selectedId: '',
         ids: ['someId'],
         entities: {someId: modifiedHoliday}
       };
@@ -70,6 +71,7 @@ describe('holiday reducer', () => {
       };
 
       const state: State = {
+        selectedId: '',
         ids: ['someId', 'anotherId'],
         entities: {someId: removedHoliday, anotherId: anotherHoliday}
       };

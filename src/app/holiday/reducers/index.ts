@@ -1,10 +1,29 @@
-import {ActionReducerMap} from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromHolidays from './holiday.reducer';
 
-export interface State {
+
+export interface HolidaysState {
   holidays: fromHolidays.State;
 }
 
-export const reducers: ActionReducerMap<any> = {
-  holiday: fromHolidays.reducer
+export interface State {
+  holidays: HolidaysState;
+}
+
+export const reducers = {
+  holidays: fromHolidays.reducer
 };
+
+export const getHolidaysState = createFeatureSelector<HolidaysState>('holidays');
+
+export const getHolidayEntitiesState = createSelector(
+  getHolidaysState,
+  state => state.holidays
+);
+
+export const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = fromHolidays.adapter.getSelectors(getHolidayEntitiesState);

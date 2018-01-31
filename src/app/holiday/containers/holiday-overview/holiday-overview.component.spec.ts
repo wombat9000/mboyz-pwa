@@ -6,12 +6,10 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
 import {routerMocker} from '../../../test-support/stubs';
 import {click} from '../../../test-support/functions';
-import {Subject} from 'rxjs/Subject';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../../reducers/index';
-import {State} from '../../reducers/holiday.reducer';
+
+import * as fromHoliday from '../../reducers';
 import * as actions from '../../actions/holiday.actions';
-import {Holiday} from '../../model/holiday';
 import * as moment from 'moment';
 
 describe('HolidayOverviewComponent', () => {
@@ -20,14 +18,21 @@ describe('HolidayOverviewComponent', () => {
   let fixture: ComponentFixture<HolidayOverviewPageComponent>;
 
   let router;
-  let holidayEmitter: Subject<Holiday[]>;
-  let store: jasmine.SpyObj<Store<State>>;
+  let store: Store<fromHoliday.State>;
+
+  const firstHoliday = {id: 'someId', name: 'first created holiday', created: moment('2018-12-01').toISOString()};
+  const moreRecentHoliday = {
+    id: 'anotherId',
+    name: 'more recently created holiday',
+    created: moment('2018-12-02').toISOString()
+  };
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          'holiday': combineReducers(fromHoliday.reducers)
+          holidays: combineReducers(fromHoliday.reducers)
         })
       ],
       providers: [
@@ -40,10 +45,11 @@ describe('HolidayOverviewComponent', () => {
 
   beforeEach(() => {
     router = TestBed.get(Router);
-    holidayEmitter = new Subject<Holiday[]>();
-
     store = TestBed.get(Store);
-    spyOn(store, 'select').and.returnValue(holidayEmitter);
+
+    store.dispatch(new actions.Create(firstHoliday));
+    store.dispatch(new actions.Create(moreRecentHoliday));
+
     spyOn(store, 'dispatch');
 
     fixture = TestBed.createComponent(HolidayOverviewPageComponent);
@@ -53,15 +59,8 @@ describe('HolidayOverviewComponent', () => {
   });
 
   describe('displays holidays', () => {
-    const firstHoliday = {id: 'someId', name: 'first created holiday', created: moment('2018-12-01').toISOString()};
-    const moreRecentHoliday = {
-      id: 'anotherId',
-      name: 'more recently created holiday',
-      created: moment('2018-12-02').toISOString()
-    };
-
     beforeEach(async () => {
-      holidayEmitter.next([firstHoliday, moreRecentHoliday]);
+
       await fixture.whenStable();
       fixture.detectChanges();
     });

@@ -8,7 +8,8 @@ import {HolidayFirestore} from './services/holiday-firestore.service';
 import {PostFirestore} from './services/post-firestore.service';
 import {CommentFirestore} from './services/comment-firestore.service';
 import {StoreModule} from '@ngrx/store';
-import {reducer} from './reducers/holiday.reducer';
+import { reducers } from './reducers';
+
 import {EffectsModule} from '@ngrx/effects';
 import {HolidayEffects} from './effects/holiday.effects';
 import {HolidayRoutingModule} from './holiday-routing.module';
@@ -36,7 +37,7 @@ import {CommentComponent} from './containers/holiday-detail/post-box/post/commen
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('holiday', reducer),
+    StoreModule.forFeature('holidays', reducers),
     EffectsModule.forFeature([HolidayEffects])
   ],
   providers: [

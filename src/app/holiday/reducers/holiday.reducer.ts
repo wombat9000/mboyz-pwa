@@ -1,14 +1,20 @@
 import * as actions from '../actions/holiday.actions';
-import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createFeatureSelector} from '@ngrx/store';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Holiday} from '../model/holiday';
 
 
 export interface State extends EntityState<Holiday> {
+  selectedId: string | null;
 }
 
-export const holidayAdapter = createEntityAdapter<Holiday>();
-export const initialState: State = holidayAdapter.getInitialState();
+export const adapter: EntityAdapter<Holiday> = createEntityAdapter<Holiday>({
+  selectId: (holiday: Holiday) => holiday.id,
+  sortComparer: false
+});
+
+export const initialState: State = adapter.getInitialState({
+  selectedId: null
+});
 
 export function reducer(state: State = initialState,
                         action: actions.HolidayActions) {
@@ -16,26 +22,20 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case actions.AF_ADDED:
     case actions.CREATE:
-      return holidayAdapter.addOne(action.holiday, state);
+      return adapter.addOne(action.holiday, state);
 
     case actions.AF_MODIFIED:
-      return holidayAdapter.updateOne({
+      return adapter.updateOne({
         id: action.holiday.id,
         changes: action.holiday
       }, state);
 
     case actions.AF_REMOVED:
-      return holidayAdapter.removeOne(action.holiday.id, state);
+      return adapter.removeOne(action.holiday.id, state);
 
     default:
       return state;
   }
 }
 
-export const getHolidayState = createFeatureSelector<State>('holiday');
-export const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = holidayAdapter.getSelectors(getHolidayState);
+export const getSelectedId = (state: State) => state.selectedId;

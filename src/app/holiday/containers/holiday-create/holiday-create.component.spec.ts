@@ -46,7 +46,7 @@ describe('HolidayCreateComponent', () => {
       imports: [
         FormsModule,
         StoreModule.forRoot({
-          'holiday': combineReducers(fromHoliday.reducers)
+          'holidays': combineReducers(fromHoliday.reducers)
         }),
       ],
       providers: [
