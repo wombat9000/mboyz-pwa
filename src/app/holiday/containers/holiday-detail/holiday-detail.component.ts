@@ -6,7 +6,12 @@ import {HolidayService} from '../../services/holiday.service';
 
 @Component({
   selector: 'app-holiday-detail',
-  templateUrl: './holiday-detail.component.html',
+  template: `
+    <div *ngIf="holiday$ | async as holiday">
+      <h1>{{holiday.name}}</h1>
+      <app-post-box [holiday]="holiday"></app-post-box>
+    </div>
+  `,
   styleUrls: ['./holiday-detail.component.scss']
 })
 export class HolidayDetailPageComponent implements OnInit {

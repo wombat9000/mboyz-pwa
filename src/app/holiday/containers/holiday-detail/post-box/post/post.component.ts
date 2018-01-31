@@ -5,10 +5,22 @@ import {Post} from '../../../../services/post-firestore.service';
 import {MtravelUser} from '../../../../../auth/services/auth.service';
 import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
 
-
 @Component({
   selector: 'app-post',
-  templateUrl: './post.component.html',
+  template: `
+    <div class="post-body" *ngIf="user$ | async as user">
+      <div class="body">
+        <span class="author">{{user.displayName}}</span>
+        <span class="message">{{post.text}}</span>
+      </div>
+      <div class="info">
+        <span class="created-text">{{formatDate(post.created)}} um {{formatTime(post.created)}}</span>
+      </div>
+    </div>
+    <div class="comments">
+      <app-comment-box [post]="post"></app-comment-box>
+    </div>
+  `,
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {

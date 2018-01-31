@@ -9,7 +9,20 @@ import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-post-box',
-  templateUrl: './post-box.component.html',
+  template: `
+    <mat-form-field class="message-input">
+  <textarea matInput
+            matTextareaAutosize
+            (keyup.enter)="submitPost()"
+            [(ngModel)]="postInput"
+            placeholder="Neuer Beitrag ..."></textarea>
+    </mat-form-field>
+    <div class="posts-container">
+      <div class="post" *ngFor="let post of posts$ | async" [@fadeIn]>
+        <app-post [post]="post"></app-post>
+      </div>
+    </div>
+  `,
   styleUrls: ['./post-box.component.scss'],
   animations: [
     trigger('fadeIn', [
