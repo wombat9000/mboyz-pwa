@@ -1,6 +1,0 @@
-<div class="comments-container">
-  <div class="comment" *ngFor="let comment of comments$ | async">
-    <app-comment [comment]="comment"></app-comment>
-  </div>
-</div>
-<app-comment-field (submitComment)="submitComment($event)"></app-comment-field>

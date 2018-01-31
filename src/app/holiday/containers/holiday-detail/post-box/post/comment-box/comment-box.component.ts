@@ -9,7 +9,14 @@ import {Comment, CommentFirestore} from '../../../../../services/comment-firesto
 
 @Component({
   selector: 'app-comment-box',
-  templateUrl: './comment-box.component.html',
+  template: `
+    <div class="comments-container">
+      <div class="comment" *ngFor="let comment of comments$ | async">
+        <app-comment [comment]="comment"></app-comment>
+      </div>
+    </div>
+    <app-comment-field (submitComment)="submitComment($event)"></app-comment-field>
+  `,
   styleUrls: ['./comment-box.component.scss']
 })
 export class CommentBoxComponent implements OnInit {
