@@ -21,9 +21,24 @@ export const getHolidayEntitiesState = createSelector(
   state => state.holidays
 );
 
+export const getSelectedHolidayId = createSelector(
+  getHolidayEntitiesState,
+  fromHolidays.getSelectedId
+);
+
 export const {
   selectIds,
   selectEntities,
   selectAll,
   selectTotal,
 } = fromHolidays.adapter.getSelectors(getHolidayEntitiesState);
+
+export const getSelectedHoliday = createSelector(
+  selectEntities,
+  getSelectedHolidayId,
+  (entities, selectedId) => {
+    console.log('selecting holiday', selectedId);
+    console.log('found:', entities);
+    return selectedId && entities[selectedId];
+  }
+);

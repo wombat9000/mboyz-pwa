@@ -36,7 +36,7 @@ export function reducer(state: State = initialState,
       return {
         ...state,
         selectedId: action.payload.id
-      }
+      };
     }
 
     case actions.AF_REMOVED: {

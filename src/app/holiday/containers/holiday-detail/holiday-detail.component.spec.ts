@@ -5,14 +5,16 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
-import {HolidayService} from '../../services/holiday.service';
 import {Holiday} from '../../model/holiday';
-import {holidayServiceMocker} from '../../../test-support/stubs';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromHoliday from '../../../holiday/reducers';
+import {HolidaysState} from '../../reducers';
+import {Select} from '../../actions/holiday.actions';
 
 describe('HolidayDetailComponent', () => {
   let component: HolidayDetailPageComponent;
   let fixture: ComponentFixture<HolidayDetailPageComponent>;
-  let holidayService: jasmine.SpyObj<HolidayService>;
+  let store: Store<HolidaysState>;
 
   const someHoliday: Holiday = {id: 'someId', name: 'someName'};
 
@@ -29,9 +31,13 @@ describe('HolidayDetailComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          auth: combineReducers(fromHoliday.reducers),
+        })
+      ],
       providers: [
         {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: HolidayService, useFactory: holidayServiceMocker}
       ],
       declarations: [HolidayDetailPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -40,8 +46,10 @@ describe('HolidayDetailComponent', () => {
   }));
 
   beforeEach(async () => {
-    holidayService = TestBed.get(HolidayService);
-    holidayService.findById.and.returnValue(Observable.of(someHoliday));
+    store = TestBed.get(Store);
+    spyOn(store, 'select').and.returnValue(Observable.of(someHoliday));
+    spyOn(store, 'dispatch');
+
     fixture = TestBed.createComponent(HolidayDetailPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -50,7 +58,7 @@ describe('HolidayDetailComponent', () => {
   it('should show the holidays name', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
-    expect(holidayService.findById).toHaveBeenCalledWith(someHoliday.id);
+    expect(store.dispatch).toHaveBeenCalledWith(new Select({id: someHoliday.id}));
 
     const heading = fixture.debugElement.query(By.css('h1')).nativeElement.textContent;
     expect(heading).toBe(someHoliday.name);

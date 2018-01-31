@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Holiday} from '../../model/holiday';
-import {HolidayService} from '../../services/holiday.service';
+import * as fromHoliday from '../../reducers';
+import {Store} from '@ngrx/store';
+import {Select} from '../../actions/holiday.actions';
 
 @Component({
   selector: 'app-holiday-detail',
@@ -17,12 +19,13 @@ import {HolidayService} from '../../services/holiday.service';
 export class HolidayDetailPageComponent implements OnInit {
   holiday$: Observable<Holiday>;
 
-  constructor(private route: ActivatedRoute,
-              private holidayService: HolidayService) {
+  constructor(private store: Store<fromHoliday.State>,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     const id: string = this.route.snapshot.paramMap.get('id');
-    this.holiday$ = this.holidayService.findById(id);
+    this.holiday$ = this.store.select(fromHoliday.getSelectedHoliday);
+    this.store.dispatch(new Select({id: id}));
   }
 }

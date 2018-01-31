@@ -25,7 +25,6 @@ export class HolidayOverviewPageComponent implements OnInit {
     this.holidays$ = this.store.select(fromHoliday.selectAll)
       .map(this.sortByDate);
 
-    this.store.dispatch(new actions.Query());
   }
 
   goToDetail(holidayId: string) {

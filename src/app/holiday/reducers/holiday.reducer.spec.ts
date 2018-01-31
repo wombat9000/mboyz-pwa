@@ -1,7 +1,7 @@
 import * as actions from '../actions/holiday.actions';
 import {reducer, State} from './holiday.reducer';
 
-fdescribe('holiday reducer', () => {
+describe('holiday reducer', () => {
   describe('select', () => {
     it('should select the given id', () => {
       const state: State = {

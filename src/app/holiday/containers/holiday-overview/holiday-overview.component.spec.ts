@@ -50,8 +50,6 @@ describe('HolidayOverviewComponent', () => {
     store.dispatch(new actions.Create(firstHoliday));
     store.dispatch(new actions.Create(moreRecentHoliday));
 
-    spyOn(store, 'dispatch');
-
     fixture = TestBed.createComponent(HolidayOverviewPageComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
@@ -60,13 +58,8 @@ describe('HolidayOverviewComponent', () => {
 
   describe('displays holidays', () => {
     beforeEach(async () => {
-
       await fixture.whenStable();
       fixture.detectChanges();
-    });
-
-    it('should query for holiday changes', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new actions.Query());
     });
 
     it('should display all holidays, sorted by date', () => {
