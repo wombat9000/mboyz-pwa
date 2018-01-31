@@ -19,6 +19,7 @@ import {HolidayDetailPageComponent} from './containers/holiday-detail/holiday-de
 import {PostBoxComponent} from './containers/holiday-detail/post-box/post-box.component';
 import {PostComponent} from './containers/holiday-detail/post-box/post/post.component';
 import {CommentComponent} from './containers/holiday-detail/post-box/post/comment-box/comment/comment.component';
+import { CommentFieldComponent } from './components/comment-field/comment-field.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {CommentComponent} from './containers/holiday-detail/post-box/post/commen
     PostBoxComponent,
     PostComponent,
     CommentBoxComponent,
-    CommentComponent
+    CommentComponent,
+    CommentFieldComponent
   ],
   imports: [
     MaterialModule,
