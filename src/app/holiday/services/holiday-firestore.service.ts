@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
-import {Holiday} from '../model/holiday';
+import {Holiday} from '../models/holiday';
 
 
 @Injectable()

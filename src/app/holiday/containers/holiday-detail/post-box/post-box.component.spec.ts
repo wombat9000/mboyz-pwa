@@ -8,9 +8,10 @@ import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import moment = require('moment');
 import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
-import {Post, PostFirestore} from '../../../services/post-firestore.service';
+import {PostFirestore} from '../../../services/post-firestore.service';
 import {authServiceMocker, postFirestoreMock} from '../../../../test-support/stubs';
-import {Holiday} from '../../../model/holiday';
+import {Holiday} from '../../../models/holiday';
+import {Post} from '../../../models/post';
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<PostBoxComponent>, holiday: Holiday) {

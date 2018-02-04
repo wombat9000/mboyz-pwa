@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 
 import * as actions from '../../actions/holiday.actions';
 import * as fromHoliday from '../../reducers';
-import {Holiday} from '../../model/holiday';
+import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
 
 @Component({

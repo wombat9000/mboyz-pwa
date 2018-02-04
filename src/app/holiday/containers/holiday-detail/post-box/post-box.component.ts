@@ -3,9 +3,10 @@ import * as moment from 'moment';
 import {Observable} from 'rxjs/Observable';
 import {v4 as uuid} from 'uuid';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {Holiday} from '../../../model/holiday';
-import {Post, PostFirestore} from '../../../services/post-firestore.service';
+import {Holiday} from '../../../models/holiday';
+import {PostFirestore} from '../../../services/post-firestore.service';
 import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
+import {Post} from '../../../models/post';
 
 @Component({
   selector: 'app-post-box',

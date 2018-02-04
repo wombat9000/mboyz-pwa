@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {v4 as uuid} from 'uuid';
-import {Post} from '../../../../../services/post-firestore.service';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
-import {Comment, CommentFirestore} from '../../../../../services/comment-firestore.service';
+import {CommentFirestore} from '../../../../../services/comment-firestore.service';
+import {Post} from '../../../../../models/post';
+import {MbComment} from '../../../../../models/comment';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class CommentBoxComponent implements OnInit {
   @Input()
   post: Post;
 
-  comments$: Observable<Comment[]>;
+  comments$: Observable<MbComment[]>;
   user: MtravelUser;
 
   constructor(private commentFirestore: CommentFirestore,
@@ -43,7 +44,7 @@ export class CommentBoxComponent implements OnInit {
   }
 
   submitComment(text: string) {
-    const comment: Comment = {
+    const comment: MbComment = {
       id: uuid(),
       text: text,
       postId: this.post.id,

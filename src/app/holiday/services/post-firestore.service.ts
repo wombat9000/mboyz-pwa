@@ -1,14 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
-
-export interface Post {
-  readonly id: string;
-  readonly text: string;
-  readonly holidayId: string;
-  readonly authorId: string;
-  readonly created: string;
-}
+import {Post} from '../models/post';
 
 @Injectable()
 export class PostFirestore {

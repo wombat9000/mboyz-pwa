@@ -1,6 +1,6 @@
 import * as actions from '../actions/holiday.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Holiday} from '../model/holiday';
+import {Holiday} from '../models/holiday';
 
 
 export interface State extends EntityState<Holiday> {

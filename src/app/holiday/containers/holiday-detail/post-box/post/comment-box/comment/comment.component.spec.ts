@@ -8,7 +8,7 @@ import moment = require('moment');
 import {UserFirestore} from '../../../../../../../auth/services/user-firestore.service';
 import {MtravelUser} from '../../../../../../../auth/services/auth.service';
 import {userFirestoreMocker} from '../../../../../../../test-support/stubs';
-import {Comment} from '../../../../../../services/comment-firestore.service';
+import {MbComment} from '../../../../../../models/comment';
 
 describe('CommentComponent', () => {
   let component: CommentComponent;
@@ -23,7 +23,7 @@ describe('CommentComponent', () => {
     email: 'someEmail'
   };
 
-  const someComment: Comment = {
+  const someComment: MbComment = {
     id: 'someId',
     postId: 'somePost',
     holidayId: 'someHolidayId',

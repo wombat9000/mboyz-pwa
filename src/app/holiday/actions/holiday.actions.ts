@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Holiday} from '../model/holiday';
+import {Holiday} from '../models/holiday';
 
 
 export const QUERY       = '[Holiday] query';

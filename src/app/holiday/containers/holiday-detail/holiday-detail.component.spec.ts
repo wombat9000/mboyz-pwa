@@ -5,7 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
-import {Holiday} from '../../model/holiday';
+import {Holiday} from '../../models/holiday';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../../holiday/reducers';
 import {HolidaysState} from '../../reducers';

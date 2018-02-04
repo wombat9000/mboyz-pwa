@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import {State} from '../../reducers/holiday.reducer';
-import {Holiday} from '../../model/holiday';
+import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
 import {click} from '../../../test-support/functions';
 import {routerMocker} from '../../../test-support/stubs';

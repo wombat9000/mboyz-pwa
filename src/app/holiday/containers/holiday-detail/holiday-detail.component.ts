@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
-import {Holiday} from '../../model/holiday';
+import {Holiday} from '../../models/holiday';
 import * as fromHoliday from '../../reducers';
 import {Store} from '@ngrx/store';
 import {Select} from '../../actions/holiday.actions';

@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/holiday.reducer';
 import * as actions from '../../actions/holiday.actions';
-import {Holiday} from '../../model/holiday';
+import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
 
 

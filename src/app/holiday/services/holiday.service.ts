@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HolidayFirestore} from './holiday-firestore.service';
 import {Observable} from 'rxjs/Observable';
 import {DocumentChangeAction} from 'angularfire2/firestore';
-import {Holiday} from '../model/holiday';
+import {Holiday} from '../models/holiday';
 
 @Injectable()
 export class HolidayService {

@@ -6,12 +6,13 @@ import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
-import {Comment, CommentFirestore} from '../../../../../services/comment-firestore.service';
+import {CommentFirestore} from '../../../../../services/comment-firestore.service';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
 import {authServiceMocker, commentFirestoreMock} from '../../../../../../test-support/stubs';
-import {Post} from '../../../../../services/post-firestore.service';
 import {CommentFieldComponent} from '../../../../../components/comment-field/comment-field.component';
 import moment = require('moment');
+import {Post} from '../../../../../models/post';
+import {MbComment} from '../../../../../models/comment';
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
@@ -61,7 +62,7 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('display comments', () => {
-    const someComment: Comment = {
+    const someComment: MbComment = {
       id: 'someId',
       text: '',
       postId: parentPost.id,
@@ -70,7 +71,7 @@ describe('CommentBoxComponent', () => {
       created: moment('2016-01-02').toISOString()
     };
 
-    const moreRecentComment: Comment = {
+    const moreRecentComment: MbComment = {
       id: 'anotherId',
       text: '',
       postId: parentPost.id,

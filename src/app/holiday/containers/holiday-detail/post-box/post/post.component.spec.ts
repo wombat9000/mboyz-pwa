@@ -8,7 +8,7 @@ import moment = require('moment');
 import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
 import {MtravelUser} from '../../../../../auth/services/auth.service';
 import {userFirestoreMocker} from '../../../../../test-support/stubs';
-import {Post} from '../../../../services/post-firestore.service';
+import {Post} from '../../../../models/post';
 
 describe('PostComponent', () => {
   let component: PostComponent;
