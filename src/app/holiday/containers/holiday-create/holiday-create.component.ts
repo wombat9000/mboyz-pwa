@@ -10,7 +10,33 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-holiday-create',
-  templateUrl: './holiday-create.component.html',
+  template: `
+    <h2>Neuen Urlaub vorschlagen:</h2>
+
+    <form class="holiday-form"
+          (ngSubmit)="onSubmit()"
+          #holidayForm="ngForm">
+      <mat-form-field>
+        <input matInput
+               [(ngModel)]="holidayFormModel.name"
+               name="name"
+               required
+               placeholder="Name">
+      </mat-form-field>
+
+      <p>
+        <button mat-raised-button
+                color="accent"
+                type="submit"
+                name="submit">
+          Urlaub Erstellen
+        </button>
+      </p>
+      <div>
+        <span>Jede Person mit der URL hat Zugang zur Urlaubsplanung und kann diese bearbeiten.</span>
+      </div>
+    </form>
+  `,
   styleUrls: ['./holiday-create.component.scss']
 })
 export class CreateHolidayPageComponent {
