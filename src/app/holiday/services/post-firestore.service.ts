@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {Post} from '../models/post';
 
@@ -10,8 +10,7 @@ export class PostFirestore {
   }
 
   public observeByHolidayId(holidayId: string): Observable<Post[]> {
-    const holidayPostsCollection: AngularFirestoreCollection<Post> = this.afs.collection(`holidays/${holidayId}/posts`);
-    return holidayPostsCollection.valueChanges();
+    return this.afs.collection<Post>(`holidays/${holidayId}/posts`).valueChanges();
   }
 
   public save(post: Post) {
