@@ -1,12 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 import {PostFirestore} from './post-firestore.service';
-import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
 import {AngularFirestoreDocument} from 'angularfire2/firestore/document/document';
 import {Post} from '../models/post';
 import {Observable} from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
-import DocumentChangeType = firebase.firestore.DocumentChangeType;
 import {AngularFirestoreCollection} from 'angularfire2/firestore/collection/collection';
+import DocumentChangeType = firebase.firestore.DocumentChangeType;
 
 
 describe('PostFirestore', () => {
@@ -16,7 +16,7 @@ describe('PostFirestore', () => {
 
   const colRef = jasmine.createSpyObj<AngularFirestoreCollection<Post>>('AngularFirestoreCollection', ['valueChanges', 'stateChanges']);
 
-  const somePost = {
+  const somePost: Post = {
     id: 'someId',
     text: 'some text',
     authorId: 'author1',
@@ -67,7 +67,7 @@ describe('PostFirestore', () => {
 
   it('should observe state changes by holidayId', (done) => {
     const added: DocumentChangeType = 'added';
-    const change = {
+    const change: DocumentChangeAction = {
       type: added,
       payload: null
     };
@@ -75,9 +75,9 @@ describe('PostFirestore', () => {
     colRef.stateChanges.and.returnValue(Observable.of([change]));
     afs.collection.and.returnValue(colRef);
 
-    testee.observeChangesByHolidayId(somePost.holidayId).subscribe(it => {
+    testee.observeChangesByHolidayId(somePost.holidayId).subscribe((it: DocumentChangeAction) => {
       expect(afs.collection).toHaveBeenCalledWith(`holidays/${somePost.holidayId}/posts`);
-      expect(it).toEqual([change]);
+      expect(it).toEqual(change);
       done();
     });
   });
