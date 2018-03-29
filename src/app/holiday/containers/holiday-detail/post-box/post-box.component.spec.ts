@@ -6,12 +6,12 @@ import {PostBoxComponent} from './post-box.component';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import moment = require('moment');
 import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
 import {PostFirestore} from '../../../services/post-firestore.service';
-import {authServiceMocker, postFirestoreMock} from '../../../../test-support/stubs';
+import {authServiceMocker, postFirestoreMocker} from '../../../../test-support/stubs';
 import {Holiday} from '../../../models/holiday';
 import {Post} from '../../../models/post';
+import moment = require('moment');
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<PostBoxComponent>, holiday: Holiday) {
@@ -53,7 +53,7 @@ describe('PostBoxComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: PostFirestore, useValue: postFirestoreMock},
+        {provide: PostFirestore, useFactory: postFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker}
       ],
       imports: [FormsModule, NoopAnimationsModule],

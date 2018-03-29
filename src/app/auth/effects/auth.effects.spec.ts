@@ -1,11 +1,16 @@
 import {AuthService, MtravelUser} from '../services/auth.service';
 import {TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
-import {authServiceMocker, FireAuthStub, routerMocker, userFirestoreMocker} from '../../test-support/stubs';
+import {
+  authServiceMocker,
+  FireAuthStub, getActions,
+  routerMocker,
+  TestActions,
+  userFirestoreMocker
+} from '../../test-support/stubs';
 import {AuthEffects} from './auth.effects';
 import {Actions} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
-import {empty} from 'rxjs/observable/empty';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {
@@ -21,19 +26,6 @@ import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore
 import {AngularFireAuth} from 'angularfire2/auth';
 import {UserFirestore} from '../services/user-firestore.service';
 
-export class TestActions extends Actions {
-  constructor() {
-    super(empty());
-  }
-
-  set stream(source: Observable<any>) {
-    this.source = source;
-  }
-}
-
-export function getActions() {
-  return new TestActions();
-}
 
 describe('Auth Effects', () => {
   let actions$: TestActions;

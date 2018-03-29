@@ -19,7 +19,8 @@ export class PostFirestore {
       .mergeMap(it => it);
   }
 
-  public save(post: Post) {
-    return this.afs.doc(`holidays/${post.holidayId}/posts/${post.id}`).set(post);
+  public save(post: Post): Observable<void> {
+    const success = this.afs.doc(`holidays/${post.holidayId}/posts/${post.id}`).set(post);
+    return Observable.fromPromise(success);
   }
 }
