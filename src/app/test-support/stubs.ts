@@ -36,7 +36,7 @@ export class FireAuthStub implements AngularFireAuth {
 }
 
 export const holidayServiceMocker: () => jasmine.SpyObj<HolidayService> =
-  () => jasmine.createSpyObj('HolidayService', ['create', 'findById']);
+  () => jasmine.createSpyObj('HolidayService', ['create', 'findById', 'changesToCollection']);
 export const storeMocker: <T>() => jasmine.SpyObj<Store<T>> =
   () => jasmine.createSpyObj('Store', ['dispatch', 'select']);
 export const routerMocker: () => jasmine.SpyObj<Router> =

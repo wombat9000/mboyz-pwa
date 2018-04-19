@@ -9,6 +9,7 @@ import {getActions, postFirestoreMocker, TestActions} from '../../test-support/s
 import {DocumentChangeAction} from 'angularfire2/firestore';
 import {Post} from '../models/post';
 import {PostFirestore} from '../services/post-firestore.service';
+import {createChangeAction} from '../../test-support/functions';
 
 describe('PostEffects', () => {
   let effects: PostEffects;
@@ -81,20 +82,3 @@ describe('PostEffects', () => {
     });
   });
 });
-
-function createChangeAction(changeType: DocumentChangeType, post): DocumentChangeAction {
-  const data: DocumentData = {...post};
-  const snapshot = jasmine.createSpyObj('QueryDocumentSnapshot', ['data']);
-  snapshot.data.and.returnValue(data);
-
-  const changePayload: DocumentChange = {
-    type: changeType,
-    doc: snapshot,
-    oldIndex: null,
-    newIndex: null
-  };
-  return {
-    type: changeType,
-    payload: changePayload
-  };
-}
