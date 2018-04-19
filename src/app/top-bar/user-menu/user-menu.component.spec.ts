@@ -13,7 +13,7 @@ import {MatMenuModule} from '@angular/material';
 import {Logout} from '../../auth/actions/auth.actions';
 
 
-class UserMenuPO {
+class UserMenuPageObject {
   constructor(public fixture: ComponentFixture<UserMenuComponent>, user: MtravelUser) {
     fixture.componentInstance.user = user;
     fixture.detectChanges();
@@ -31,7 +31,7 @@ class UserMenuPO {
     return this.fixture.debugElement.query(By.css('mat-menu'));
   }
 
-  openMenu(): UserMenuPO {
+  openMenu(): UserMenuPageObject {
     click(this.menuTrigger());
     this.fixture.detectChanges();
     return this;
@@ -40,7 +40,7 @@ class UserMenuPO {
 
 describe('User Menu', () => {
   let store: Store<fromAuth.State>;
-  let userMenu: UserMenuPO;
+  let userMenu: UserMenuPageObject;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -65,7 +65,7 @@ describe('User Menu', () => {
     };
 
     const fixture = TestBed.createComponent(UserMenuComponent);
-    userMenu = new UserMenuPO(fixture, someUser);
+    userMenu = new UserMenuPageObject(fixture, someUser);
   });
 
   describe('initial menu state', () => {

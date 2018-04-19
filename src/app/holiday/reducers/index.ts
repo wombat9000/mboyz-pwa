@@ -1,12 +1,13 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromHolidays from './holiday.reducer';
+import * as fromRoot from '../../reducers';
 
 
 export interface HolidaysState {
   holidays: fromHolidays.State;
 }
 
-export interface State {
+export interface State extends fromRoot.State {
   holidays: HolidaysState;
 }
 
@@ -37,8 +38,6 @@ export const getSelectedHoliday = createSelector(
   selectEntities,
   getSelectedHolidayId,
   (entities, selectedId) => {
-    console.log('selecting holiday', selectedId);
-    console.log('found:', entities);
     return selectedId && entities[selectedId];
   }
 );
