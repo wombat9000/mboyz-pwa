@@ -2,11 +2,9 @@ import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
-import {DocumentChange, DocumentChangeType, DocumentData} from '@firebase/firestore-types';
 import {AfAdded, Query, Create, CreateSuccess} from '../actions/post.actions';
 import {PostEffects} from './post.effects';
 import {getActions, postFirestoreMocker, TestActions} from '../../test-support/stubs';
-import {DocumentChangeAction} from 'angularfire2/firestore';
 import {Post} from '../models/post';
 import {PostFirestore} from '../services/post-firestore.service';
 import {createChangeAction} from '../../test-support/functions';
@@ -41,13 +39,13 @@ describe('PostEffects', () => {
   describe('query', () => {
     beforeEach(() => {
       const action: Action = new Query({holidayId: 'someHolidayId'});
-      actions$.stream =    hot('-a--', {a: action});
+      actions$.stream = hot('-a--', {a: action});
     });
 
     it('should map state changes into corresponding actions', () => {
       const addedAction: Action = new AfAdded({post: somePost});
-      const postChanges = cold( '-a-', {a: createChangeAction('added', somePost)});
-      const expected =    cold( '--a-', {a: {...addedAction}});
+      const postChanges = cold('-a-', {a: createChangeAction('added', somePost)});
+      const expected = cold('--a-', {a: {...addedAction}});
 
       postFirestore.observeChangesByHolidayId.and.returnValue(postChanges);
 
@@ -59,23 +57,23 @@ describe('PostEffects', () => {
   describe('create', () => {
     beforeEach(() => {
       const action: Action = new Create({post: somePost});
-      actions$.stream =    hot('-a--', {a: action});
+      actions$.stream = hot('-a--', {a: action});
     });
 
     it('should persist the post in firstore and report success', () => {
       const createSuccess: Action = new CreateSuccess();
-      const expected =    cold('-a-', {a: createSuccess});
+      const expected = cold('-a-', {a: createSuccess});
       expect(effects.create$).toBeObservable(expected);
 
       expect(postFirestore.save).toHaveBeenCalledWith(somePost);
     });
 
     it('should report failure on error', () => {
-      const error =    cold( '-#-');
+      const error = cold('-#-');
       postFirestore.save.and.returnValue(error);
 
       const createFail: Action = new CreateSuccess();
-      const expected =    cold('-a-', {a: createFail});
+      const expected = cold('-a-', {a: createFail});
       expect(effects.create$).toBeObservable(expected);
 
       expect(postFirestore.save).toHaveBeenCalledWith(somePost);
