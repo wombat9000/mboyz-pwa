@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import * as postActions from '../actions/post.actions';
-import {Create, CreateSuccess, Query} from '../actions/post.actions';
+import {Create, CreateSuccess} from '../actions/post.actions';
 import {PostFirestore} from '../services/post-firestore.service';
 import {Action} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -18,8 +18,7 @@ export class PostEffects {
 
   @Effect()
   query$: Observable<Action> = this.actions$.ofType(postActions.QUERY)
-    .map((it: Query) => it.payload.holidayId)
-    .switchMap((holidayId) => this.postFirestore.observeChangesByHolidayId(holidayId))
+    .switchMap(() => this.postFirestore.observeChanges())
     .map(action => {
       const data = action.payload.doc.data();
       const post: Post = {

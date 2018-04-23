@@ -47,10 +47,9 @@ describe('PostEffects', () => {
       const postChanges = cold('-a-', {a: createChangeAction('added', somePost)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      postFirestore.observeChangesByHolidayId.and.returnValue(postChanges);
+      postFirestore.observeChanges.and.returnValue(postChanges);
 
       expect(effects.query$).toBeObservable(expected);
-      expect(postFirestore.observeChangesByHolidayId).toHaveBeenCalledWith(somePost.holidayId);
     });
   });
 

@@ -4,9 +4,8 @@ import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
 import {AngularFirestoreDocument} from 'angularfire2/firestore/document/document';
 import {Post} from '../models/post';
 import {Observable} from 'rxjs/Observable';
-import * as firebase from 'firebase/app';
 import {AngularFirestoreCollection} from 'angularfire2/firestore/collection/collection';
-import DocumentChangeType = firebase.firestore.DocumentChangeType;
+import {DocumentChangeType} from '@firebase/firestore-types';
 
 
 describe('PostFirestore', () => {
@@ -65,7 +64,7 @@ describe('PostFirestore', () => {
     });
   });
 
-  it('should observe state changes by holidayId', (done) => {
+  it('should observe state changes', (done) => {
     const added: DocumentChangeType = 'added';
     const change: DocumentChangeAction = {
       type: added,
@@ -75,8 +74,8 @@ describe('PostFirestore', () => {
     colRef.stateChanges.and.returnValue(Observable.of([change]));
     afs.collection.and.returnValue(colRef);
 
-    testee.observeChangesByHolidayId(somePost.holidayId).subscribe((it: DocumentChangeAction) => {
-      expect(afs.collection).toHaveBeenCalledWith(`holidays/${somePost.holidayId}/posts`);
+    testee.observeChanges().subscribe((it: DocumentChangeAction) => {
+      expect(afs.collection).toHaveBeenCalledWith(`posts`);
       expect(it).toEqual(change);
       done();
     });

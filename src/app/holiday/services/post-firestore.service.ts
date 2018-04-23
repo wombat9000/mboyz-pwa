@@ -13,9 +13,8 @@ export class PostFirestore {
     return this.afs.collection<Post>(`holidays/${holidayId}/posts`).valueChanges();
   }
 
-  public observeChangesByHolidayId(holidayId: string): Observable<DocumentChangeAction> {
-    return this.afs.collection<Post>(`holidays/${holidayId}/posts`)
-      .stateChanges()
+  public observeChanges(): Observable<DocumentChangeAction> {
+    return this.afs.collection('posts').stateChanges()
       .mergeMap(it => it);
   }
 
