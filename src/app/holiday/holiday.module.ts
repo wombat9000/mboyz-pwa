@@ -8,7 +8,7 @@ import {HolidayFirestore} from './services/holiday-firestore.service';
 import {PostFirestore} from './services/post-firestore.service';
 import {CommentFirestore} from './services/comment-firestore.service';
 import {StoreModule} from '@ngrx/store';
-import { reducers } from './reducers';
+import {reducers} from './reducers';
 
 import {EffectsModule} from '@ngrx/effects';
 import {HolidayEffects} from './effects/holiday.effects';
@@ -19,7 +19,8 @@ import {HolidayDetailPageComponent} from './containers/holiday-detail/holiday-de
 import {PostBoxComponent} from './containers/holiday-detail/post-box/post-box.component';
 import {PostComponent} from './containers/holiday-detail/post-box/post/post.component';
 import {CommentComponent} from './containers/holiday-detail/post-box/post/comment-box/comment/comment.component';
-import { CommentFieldComponent } from './components/comment-field/comment-field.component';
+import {CommentFieldComponent} from './components/comment-field/comment-field.component';
+import {PostEffects} from './effects/post.effects';
 
 
 @NgModule({
@@ -39,8 +40,8 @@ import { CommentFieldComponent } from './components/comment-field/comment-field.
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('holidays', reducers),
-    EffectsModule.forFeature([HolidayEffects])
+    StoreModule.forFeature('holidayPlanner', reducers),
+    EffectsModule.forFeature([HolidayEffects, PostEffects])
   ],
   providers: [
     HolidayService,

@@ -33,7 +33,7 @@ describe('HolidayDetailComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          holidays: combineReducers(fromHoliday.reducers),
+          holidayPlanner: combineReducers(fromHoliday.reducers),
         })
       ],
       providers: [

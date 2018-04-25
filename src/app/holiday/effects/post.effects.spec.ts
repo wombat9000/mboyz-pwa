@@ -38,7 +38,7 @@ describe('PostEffects', () => {
 
   describe('query', () => {
     beforeEach(() => {
-      const action: Action = new Query({holidayId: 'someHolidayId'});
+      const action: Action = new Query();
       actions$.stream = hot('-a--', {a: action});
     });
 

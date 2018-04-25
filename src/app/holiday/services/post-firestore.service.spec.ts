@@ -45,22 +45,11 @@ describe('PostFirestore', () => {
     });
 
     it('should save to parent holiday document', async () => {
-      expect(afs.doc).toHaveBeenCalledWith(`holidays/${somePost.holidayId}/posts/${somePost.id}`);
+      expect(afs.doc).toHaveBeenCalledWith(`posts/${somePost.id}`);
     });
 
     it('should persist the post', () => {
       expect(docRef.set).toHaveBeenCalledWith(somePost);
-    });
-  });
-
-  it('should observe value changes by holidayId', (done) => {
-    colRef.valueChanges.and.returnValue(Observable.of([somePost]));
-    afs.collection.and.returnValue(colRef);
-
-    testee.observeByHolidayId(somePost.holidayId).subscribe(it => {
-      expect(afs.collection).toHaveBeenCalledWith(`holidays/${somePost.holidayId}/posts`);
-      expect(it).toEqual([somePost]);
-      done();
     });
   });
 

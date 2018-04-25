@@ -11,7 +11,7 @@ export const AF_REMOVED = '[Post] removed';
 export class Query implements Action {
   readonly type = QUERY;
 
-  constructor(public payload: { holidayId: string }) {
+  constructor() {
   }
 }
 

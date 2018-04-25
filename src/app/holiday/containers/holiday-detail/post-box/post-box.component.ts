@@ -7,6 +7,9 @@ import {Holiday} from '../../../models/holiday';
 import {PostFirestore} from '../../../services/post-firestore.service';
 import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
 import {Post} from '../../../models/post';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../../../reducers';
+import * as fromHoliday from '../../../reducers';
 
 @Component({
   selector: 'app-post-box',
@@ -41,25 +44,24 @@ export class PostBoxComponent implements OnInit {
   @Input()
   holiday: Holiday;
 
-  posts$: Observable<Post[]>;
+  posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
+    .map(it => {
+      return it.sort((some, other) => {
+        return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
+      });
+    });
 
   postInput = '';
 
   user: MtravelUser;
 
   constructor(private postService: PostFirestore,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private store: Store<fromRoot.State>) {
   }
 
   ngOnInit() {
     this.auth.activeUser().subscribe(it => this.user = it);
-
-    this.posts$ = this.postService.observeByHolidayId(this.holiday.id)
-      .map(it => {
-        return it.sort((some, other) => {
-          return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
-        });
-      });
   }
 
   submitPost() {

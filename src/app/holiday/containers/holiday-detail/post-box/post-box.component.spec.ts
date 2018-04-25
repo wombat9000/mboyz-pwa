@@ -12,6 +12,9 @@ import {authServiceMocker, postFirestoreMocker} from '../../../../test-support/s
 import {Holiday} from '../../../models/holiday';
 import {Post} from '../../../models/post';
 import moment = require('moment');
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromHoliday from '../../../reducers';
+import {HolidaysState} from '../../../reducers';
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<PostBoxComponent>, holiday: Holiday) {
@@ -47,16 +50,23 @@ describe('PostBoxComponent', () => {
   let postFS: jasmine.SpyObj<PostFirestore>;
   let authServiceMock: jasmine.SpyObj<AuthService>;
   let postBoxPO: PostBoxPO;
+  let store: Store<HolidaysState>;
+
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
   const inputHoliday = {id: 'someId', name: 'someName'};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule, NoopAnimationsModule,
+        StoreModule.forRoot({
+          holidayPlanner: combineReducers(fromHoliday.reducers),
+        })
+      ],
       providers: [
         {provide: PostFirestore, useFactory: postFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker}
       ],
-      imports: [FormsModule, NoopAnimationsModule],
       declarations: [PostBoxComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -66,7 +76,10 @@ describe('PostBoxComponent', () => {
   beforeEach(() => {
     postFS = TestBed.get(PostFirestore);
     authServiceMock = TestBed.get(AuthService);
-    postFS.observeByHolidayId.and.returnValue(holidayPostsSubject);
+    store = TestBed.get(Store);
+
+    spyOn(store, 'select').and.returnValue(holidayPostsSubject);
+
     authServiceMock.activeUser.and.returnValue(Observable.of(someAuthor));
 
     fixture = TestBed.createComponent(PostBoxComponent);
