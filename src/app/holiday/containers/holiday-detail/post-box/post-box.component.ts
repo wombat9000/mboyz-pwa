@@ -10,6 +10,9 @@ import {Post} from '../../../models/post';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../../reducers';
 import * as fromHoliday from '../../../reducers';
+import {Create} from '../../../actions/post.actions';
+
+
 
 @Component({
   selector: 'app-post-box',
@@ -73,7 +76,7 @@ export class PostBoxComponent implements OnInit {
       created: moment().toISOString()
     };
 
-    this.postService.save(post);
+    this.store.dispatch(new Create({post: post}));
     this.postInput = '';
   }
 }

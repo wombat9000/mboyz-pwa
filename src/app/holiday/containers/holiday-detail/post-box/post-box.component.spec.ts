@@ -132,11 +132,13 @@ describe('PostBoxComponent', () => {
     const someMessage = 'someMessage';
 
     beforeEach(async () => {
+      const dispatchSpy = spyOn(store, 'dispatch');
+
       postBoxPO.createPost(someMessage);
       await fixture.whenStable();
       fixture.detectChanges();
 
-      post = postFS.save.calls.argsFor(0)[0];
+      post = dispatchSpy.calls.argsFor(0)[0].payload.post;
     });
 
     it('should persist the new message', () => {
