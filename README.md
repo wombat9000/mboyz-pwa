@@ -1,3 +1,2 @@
 # mboyz-pwa
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/wombat9000/mboyz-pwa.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/wombat9000/mboyz-pwa.svg?style=shield)](https://circleci.com/gh/wombat9000/mboyz-pwa)
