@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
 import {PostFirestore} from '../../../services/post-firestore.service';
-import {authServiceMocker, postFirestoreMocker} from '../../../../test-support/stubs';
+import {authServiceMocker} from '../../../../test-support/stubs';
 import {Holiday} from '../../../models/holiday';
 import {Post} from '../../../models/post';
 import moment = require('moment');
@@ -47,7 +47,6 @@ describe('PostBoxComponent', () => {
 
   let fixture: ComponentFixture<PostBoxComponent>;
   let debugElement: DebugElement;
-  let postFS: jasmine.SpyObj<PostFirestore>;
   let authServiceMock: jasmine.SpyObj<AuthService>;
   let postBoxPO: PostBoxPO;
   let store: Store<HolidaysState>;
@@ -64,7 +63,6 @@ describe('PostBoxComponent', () => {
         })
       ],
       providers: [
-        {provide: PostFirestore, useFactory: postFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker}
       ],
       declarations: [PostBoxComponent],
@@ -74,7 +72,6 @@ describe('PostBoxComponent', () => {
   }));
 
   beforeEach(() => {
-    postFS = TestBed.get(PostFirestore);
     authServiceMock = TestBed.get(AuthService);
     store = TestBed.get(Store);
 

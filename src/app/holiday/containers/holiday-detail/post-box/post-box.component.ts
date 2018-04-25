@@ -58,8 +58,7 @@ export class PostBoxComponent implements OnInit {
 
   user: MtravelUser;
 
-  constructor(private postService: PostFirestore,
-              private auth: AuthService,
+  constructor(private auth: AuthService,
               private store: Store<fromRoot.State>) {
   }
 
