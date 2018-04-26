@@ -7,19 +7,23 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
-import {PostFirestore} from '../../../services/post-firestore.service';
 import {authServiceMocker} from '../../../../test-support/stubs';
 import {Holiday} from '../../../models/holiday';
 import {Post} from '../../../models/post';
-import moment = require('moment');
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../../reducers';
 import {HolidaysState} from '../../../reducers';
+import moment = require('moment');
 
 class PostBoxPO {
-  constructor(private fixture: ComponentFixture<PostBoxComponent>, holiday: Holiday) {
+  constructor(private fixture: ComponentFixture<PostBoxComponent>,
+              holiday: Holiday,
+              activeUser: MtravelUser,
+              posts: Post[]) {
     const component = fixture.componentInstance;
     component.holiday = holiday;
+    component.activeUser = activeUser;
+    component.posts = posts;
   }
 
   postInput() {
@@ -54,6 +58,22 @@ describe('PostBoxComponent', () => {
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
   const inputHoliday = {id: 'someId', name: 'someName'};
 
+  const somePost: Post = {
+    id: 'someId',
+    text: 'first message',
+    holidayId: 'holidayId',
+    authorId: 'someAuthor',
+    created: moment('2016-01-01').toISOString()
+  };
+
+  const moreRecentPost: Post = {
+    id: 'anotherId',
+    text: 'second message',
+    holidayId: 'holidayId',
+    authorId: 'someAuthor',
+    created: moment('2016-01-02').toISOString()
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -80,33 +100,16 @@ describe('PostBoxComponent', () => {
     authServiceMock.activeUser.and.returnValue(Observable.of(someAuthor));
 
     fixture = TestBed.createComponent(PostBoxComponent);
-    postBoxPO = new PostBoxPO(fixture, inputHoliday);
+    postBoxPO = new PostBoxPO(fixture, inputHoliday, someAuthor, [somePost, moreRecentPost]);
 
     debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
 
   describe('displays posts', () => {
-    const somePost: Post = {
-      id: 'someId',
-      text: 'first message',
-      holidayId: 'holidayId',
-      authorId: 'someAuthor',
-      created: moment('2016-01-01').toISOString()
-    };
-
-    const moreRecentPost: Post = {
-      id: 'anotherId',
-      text: 'second message',
-      holidayId: 'holidayId',
-      authorId: 'someAuthor',
-      created: moment('2016-01-02').toISOString()
-    };
-
     let postedMessages: string[];
 
     beforeEach(async () => {
-      holidayPostsSubject.next([somePost, moreRecentPost]);
       await fixture.whenStable();
       fixture.detectChanges();
 
@@ -117,10 +120,6 @@ describe('PostBoxComponent', () => {
     it('posts should appear in the list', () => {
       expect(postedMessages).toContain(somePost.text);
       expect(postedMessages).toContain(moreRecentPost.text);
-    });
-
-    it('should show most recent posts first', () => {
-      expect(postedMessages.indexOf(moreRecentPost.text)).toBeLessThan(postedMessages.indexOf(somePost.text));
     });
   });
 

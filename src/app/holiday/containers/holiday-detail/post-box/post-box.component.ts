@@ -1,17 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
-import {Observable} from 'rxjs/Observable';
 import {v4 as uuid} from 'uuid';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Holiday} from '../../../models/holiday';
-import {PostFirestore} from '../../../services/post-firestore.service';
-import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
+import {MtravelUser} from '../../../../auth/services/auth.service';
 import {Post} from '../../../models/post';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../../reducers';
-import * as fromHoliday from '../../../reducers';
 import {Create} from '../../../actions/post.actions';
-
 
 
 @Component({
@@ -25,7 +21,7 @@ import {Create} from '../../../actions/post.actions';
             placeholder="Neuer Beitrag ..."></textarea>
     </mat-form-field>
     <div class="posts-container">
-      <div class="post" *ngFor="let post of posts$ | async" [@fadeIn]>
+      <div class="post" *ngFor="let post of posts" [@fadeIn]>
         <app-post [post]="post"></app-post>
       </div>
     </div>
@@ -42,28 +38,18 @@ import {Create} from '../../../actions/post.actions';
     ])
   ]
 })
-export class PostBoxComponent implements OnInit {
+export class PostBoxComponent {
 
   @Input()
   holiday: Holiday;
-
-  posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
-    .map(it => {
-      return it.sort((some, other) => {
-        return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
-      });
-    });
+  @Input()
+  activeUser: MtravelUser;
+  @Input()
+  posts: Post[];
 
   postInput = '';
 
-  user: MtravelUser;
-
-  constructor(private auth: AuthService,
-              private store: Store<fromRoot.State>) {
-  }
-
-  ngOnInit() {
-    this.auth.activeUser().subscribe(it => this.user = it);
+  constructor(private store: Store<fromRoot.State>) {
   }
 
   submitPost() {
@@ -71,7 +57,7 @@ export class PostBoxComponent implements OnInit {
       id: uuid(),
       text: this.postInput,
       holidayId: this.holiday.id,
-      authorId: this.user.uid,
+      authorId: this.activeUser.uid,
       created: moment().toISOString()
     };
 
