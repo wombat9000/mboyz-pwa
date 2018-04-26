@@ -4,8 +4,20 @@ import * as fromAuth from '../../../auth/reducers/index';
 
 @Component({
   selector: 'app-top-bar',
-  templateUrl: './top-bar.component.html',
-  styleUrls: ['./top-bar.component.scss']
+  template: `
+    <mat-toolbar color="primary">
+      <span routerLink="/">{{ title }}</span>
+      <span class="spacer"></span>
+      <div *ngIf="user$ | async as user">
+        <app-user-menu [user]="user"></app-user-menu>
+      </div>
+    </mat-toolbar>
+  `,
+  styles: [`
+    .spacer {
+      flex: 1 1 auto;
+    }
+  `]
 })
 export class TopBarComponent implements OnInit {
 

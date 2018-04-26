@@ -1,7 +1,0 @@
-<mat-toolbar color="primary">
-  <span routerLink="/">{{ title }}</span>
-  <span class="spacer"></span>
-  <div *ngIf="user$ | async as user">
-    <app-user-menu [user]="user"></app-user-menu>
-  </div>
-</mat-toolbar>

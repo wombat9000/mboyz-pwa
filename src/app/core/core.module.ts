@@ -5,6 +5,7 @@ import {UserMenuComponent} from './components/user-menu/user-menu.component';
 import {TopBarComponent} from './containers/top-bar/top-bar.component';
 import {RouterModule} from '@angular/router';
 import {MaterialModule} from '../material';
+import {CommonModule} from '@angular/common';
 
 export const COMPONENTS = [
   AppComponent,
@@ -14,7 +15,7 @@ export const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [RouterModule, MaterialModule],
+  imports: [CommonModule, RouterModule, MaterialModule],
   declarations: COMPONENTS,
   exports: COMPONENTS,
 })
