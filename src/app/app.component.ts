@@ -10,7 +10,13 @@ import {Store} from '@ngrx/store';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styles: [`
+    .env-info {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
+  `]
 })
 export class AppComponent implements OnInit {
   isStaging = environment.name === 'staging';
@@ -20,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Application starting up, querying for updates.');
+    console.log('Application starting up, querying for data.');
     this.store.dispatch(new holidayActions.Query());
     this.store.dispatch(new postActions.Query());
   }
