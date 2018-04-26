@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromAuth from '../auth/reducers';
+import * as fromAuth from '../../../auth/reducers/index';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,6 +8,10 @@ import * as fromAuth from '../auth/reducers';
   styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent implements OnInit {
+
+  // TODO: show back button when not on home?
+  // TODO: indicate offline status
+  // TODO: check for updates with service worker
 
   user$ = this.store.select(fromAuth.getUser);
 

@@ -2,9 +2,9 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from './holiday/reducers';
-import {HolidaysState} from './holiday/reducers';
-import * as actions from './holiday/actions/holiday.actions';
+import * as fromHoliday from '../../holiday/reducers';
+import {HolidaysState} from '../../holiday/reducers';
+import * as actions from '../../holiday/actions/holiday.actions';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;

@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromAuth from '../../auth/reducers';
-import {Logout} from '../../auth/actions/auth.actions';
-import {MtravelUser} from '../../auth/services/auth.service';
+import * as fromAuth from '../../../auth/reducers';
+import {Logout} from '../../../auth/actions/auth.actions';
+import {MtravelUser} from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-user-menu',

@@ -1,15 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {environment} from '../environments/environment';
-import * as holidayActions from './holiday/actions/holiday.actions';
-import * as postActions from './holiday/actions/post.actions';
-import * as fromRoot from './reducers';
+import {environment} from '../../../environments/environment';
+import * as holidayActions from '../../holiday/actions/holiday.actions';
+import * as postActions from '../../holiday/actions/post.actions';
+import * as fromRoot from '../../reducers/index';
 import {Store} from '@ngrx/store';
 
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <mat-chip-list class="env-info" *ngIf="isStaging">
+      <mat-chip color="accent" selected="true">staging</mat-chip>
+    </mat-chip-list>
+
+    <app-top-bar></app-top-bar>
+    <router-outlet></router-outlet>
+  `,
   styles: [`
     .env-info {
       position: fixed;

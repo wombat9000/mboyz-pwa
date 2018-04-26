@@ -3,14 +3,14 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {UserMenuComponent} from './user-menu.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromAuth from '../../auth/reducers';
+import * as fromAuth from '../../../auth/reducers/index';
 import {BgImageDirective} from './bg-image.directive';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MtravelUser} from '../../auth/services/auth.service';
+import {MtravelUser} from '../../../auth/services/auth.service';
 import {By} from '@angular/platform-browser';
-import {click} from '../../test-support/functions';
+import {click} from '../../../test-support/functions';
 import {MatMenuModule} from '@angular/material';
-import {Logout} from '../../auth/actions/auth.actions';
+import {Logout} from '../../../auth/actions/auth.actions';
 
 
 class UserMenuPageObject {

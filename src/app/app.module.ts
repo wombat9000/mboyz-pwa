@@ -1,15 +1,12 @@
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
+import {AppComponent} from './core/containers/app.component';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
-import {TopBarComponent} from './top-bar/top-bar.component';
-import {UserMenuComponent} from './top-bar/user-menu/user-menu.component';
-import {BgImageDirective} from './top-bar/user-menu/bg-image.directive';
 import {HolidayModule} from './holiday/holiday.module';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './reducers';
@@ -18,14 +15,10 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {BrowserModule} from '@angular/platform-browser';
 import {AuthModule} from './auth/auth.module';
 import {MaterialModule} from './material';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TopBarComponent,
-    UserMenuComponent,
-    BgImageDirective,
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,6 +30,7 @@ import {MaterialModule} from './material';
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({maxAge: 10}),
     AuthModule.forRoot(),
+    CoreModule.forRoot(),
     HolidayModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
