@@ -53,5 +53,7 @@ export const userFirestoreMocker: () => jasmine.SpyObj<UserFirestore> =
 export const postFirestoreMocker: () => jasmine.SpyObj<PostFirestore> =
   () => jasmine.createSpyObj('PostFirestore', ['observeByHolidayId', 'save', 'observeChanges']);
 
-export const holidayFirestoreMock: jasmine.SpyObj<HolidayFirestore> = jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save']);
+export const holidayFirestoreMocker: () => jasmine.SpyObj<HolidayFirestore> =
+  () => jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save', 'observeChanges']);
+
 export const commentFirestoreMock: jasmine.SpyObj<CommentFirestore> = jasmine.createSpyObj('CommentFirestore', ['observeByPost', 'save']);

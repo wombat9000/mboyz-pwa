@@ -19,6 +19,8 @@ describe('Auth Service', () => {
   const someUser = {
     uid: 'someUID',
     email: 'someEmail',
+    displayName: null,
+    photoURL: null
   };
 
   beforeEach(() => {

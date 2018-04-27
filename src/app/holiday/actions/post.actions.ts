@@ -18,7 +18,7 @@ export class Query implements Action {
 export class Create implements Action {
   readonly type = CREATE;
 
-  constructor(public payload: { post: Post }) {
+  constructor(public readonly payload: { post: Post }) {
   }
 }
 
@@ -32,21 +32,21 @@ export class CreateSuccess implements Action {
 export class AfAdded implements Action {
   readonly type = AF_ADDED;
 
-  constructor(public payload: { post: Post }) {
+  constructor(public readonly payload: { post: Post }) {
   }
 }
 
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
 
-  constructor(public payload: { post: Post }) {
+  constructor(public readonly payload: { post: Post }) {
   }
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
 
-  constructor(public payload: { post: Post }) {
+  constructor(public readonly payload: { post: Post }) {
   }
 }
 

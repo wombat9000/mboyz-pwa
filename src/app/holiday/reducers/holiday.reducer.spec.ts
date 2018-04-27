@@ -22,7 +22,8 @@ describe('holiday reducer', () => {
     it('should add holiday to state', () => {
       const createdHoliday = {
         id: 'someId',
-        name: 'someName'
+        name: 'someName',
+        created: 'someDate'
       };
 
       const action = new actions.Create(createdHoliday);
@@ -37,7 +38,8 @@ describe('holiday reducer', () => {
     it('should add holiday to state', () => {
       const addedHoliday = {
         id: 'someId',
-        name: 'someName'
+        name: 'someName',
+        created: 'someDate'
       };
 
       const action = new actions.AfAdded(addedHoliday);
@@ -52,7 +54,8 @@ describe('holiday reducer', () => {
     it('should modify existing holiday', () => {
       const modifiedHoliday = {
         id: 'someId',
-        name: 'someName'
+        name: 'someName',
+        created: 'someDate'
       };
 
       const state: State = {
@@ -78,12 +81,14 @@ describe('holiday reducer', () => {
     it('should remove existing hoiday', () => {
       const removedHoliday = {
         id: 'someId',
-        name: 'someName'
+        name: 'someName',
+        created: 'someDate'
       };
 
       const anotherHoliday = {
         id: 'anotherId',
-        name: 'anotherName'
+        name: 'anotherName',
+        created: 'someDate'
       };
 
       const state: State = {

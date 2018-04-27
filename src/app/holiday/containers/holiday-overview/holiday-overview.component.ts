@@ -2,15 +2,38 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-
-import * as actions from '../../actions/holiday.actions';
 import * as fromHoliday from '../../reducers';
 import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-holiday-overview',
-  templateUrl: './holiday-overview.component.html',
+  template: `
+    <button
+      class="add-holiday"
+      mat-fab
+      routerLink="/holiday/create">
+      <mat-icon>add</mat-icon>
+    </button>
+
+
+    <mat-list role="list">
+  <span *ngFor="let holiday of holidays$ | async">
+    <mat-list-item role="listitem" (click)="goToDetail(holiday.id)">
+      <div class="holiday-item">
+      <div>
+        <span class="holiday-name">{{holiday.name}}</span>
+      </div>
+
+      <div>
+        <span class="created-text">Erzeugt am {{formatDate(holiday.created)}} um {{formatTime(holiday.created)}}</span>
+      </div>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </span>
+    </mat-list>
+  `,
   styleUrls: ['./holiday-overview.component.scss']
 })
 export class HolidayOverviewPageComponent implements OnInit {

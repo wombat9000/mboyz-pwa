@@ -57,7 +57,8 @@ describe('AuthGuard', () => {
     const someUser: MtravelUser = {
       uid: '',
       displayName: '',
-      email: ''
+      email: '',
+      photoURL: null
     };
 
     store.dispatch(new LoginSuccess({user: someUser}));

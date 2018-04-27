@@ -46,7 +46,8 @@ describe('PostBoxComponent', () => {
   const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
     uid: 'someUid',
-    email: 'someMail'
+    email: 'someMail',
+    photoURL: null
   };
 
   let fixture: ComponentFixture<PostBoxComponent>;
@@ -56,7 +57,11 @@ describe('PostBoxComponent', () => {
   let store: Store<HolidaysState>;
 
   const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
-  const inputHoliday = {id: 'someId', name: 'someName'};
+  const inputHoliday = {
+    id: 'someId',
+    name: 'someName',
+    created: ''
+  };
 
   const somePost: Post = {
     id: 'someId',

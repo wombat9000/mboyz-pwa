@@ -23,7 +23,11 @@ describe('HolidayDetailComponent', () => {
   let fixture: ComponentFixture<HolidayDetailPageComponent>;
   let store: Store<HolidaysState>;
 
-  const someHoliday: Holiday = {id: 'someId', name: 'someName'};
+  const someHoliday: Holiday = {
+    id: 'someId',
+    name: 'someName',
+    created: ''
+  };
 
   const somePost: Post = {
     id: 'someId',
@@ -41,7 +45,10 @@ describe('HolidayDetailComponent', () => {
     created: moment('2016-01-02').toISOString()
   };
   const activeUser: MtravelUser = {
-    uid: 'someUid'
+    uid: 'someUid',
+    email: null,
+    displayName: null,
+    photoURL: null
   };
 
   const snapshot = {

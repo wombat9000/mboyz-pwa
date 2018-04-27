@@ -37,7 +37,8 @@ describe('CommentBoxComponent', () => {
   const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
     uid: 'someUid',
-    email: 'someMail'
+    email: 'someMail',
+    photoURL: null
   };
 
   const parentPost: Post = {

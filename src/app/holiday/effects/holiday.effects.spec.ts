@@ -1,7 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {HolidayEffects} from './holiday.effects';
-import {HolidayService} from '../services/holiday.service';
-import {getActions, holidayServiceMocker, TestActions} from '../../test-support/stubs';
+import {getActions, holidayFirestoreMocker, TestActions} from '../../test-support/stubs';
 import {AfAdded, Create, Query} from '../actions/holiday.actions';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -9,17 +8,19 @@ import {Action} from '@ngrx/store';
 import {cold, hot} from 'jasmine-marbles';
 import {Actions} from '@ngrx/effects';
 import {createChangeAction} from '../../test-support/functions';
+import {HolidayFirestore} from '../services/holiday-firestore.service';
 
 describe('Holiday Effects', () => {
   const actions = new ReplaySubject(1);
 
   let effects: HolidayEffects;
   let actions$: TestActions;
-  let holidayService: jasmine.SpyObj<HolidayService>;
+  let holidayFS: jasmine.SpyObj<HolidayFirestore>;
 
   const someHoliday = {
     id: 'someId',
-    name: 'someName'
+    name: 'someName',
+    created: ''
   };
 
   beforeEach(() => {
@@ -27,7 +28,7 @@ describe('Holiday Effects', () => {
       providers: [
         HolidayEffects,
         provideMockActions(() => actions),
-        {provide: HolidayService, useFactory: holidayServiceMocker},
+        {provide: HolidayFirestore, useFactory: holidayFirestoreMocker},
         {provide: Actions, useFactory: getActions},
       ]
     });
@@ -35,17 +36,17 @@ describe('Holiday Effects', () => {
     actions$ = TestBed.get(Actions);
 
     effects = TestBed.get(HolidayEffects);
-    holidayService = TestBed.get(HolidayService);
+    holidayFS = TestBed.get(HolidayFirestore);
   });
 
   describe('create', () => {
     it('should save holiday with service', () => {
       const action = new Create(someHoliday);
-      holidayService.create.and.returnValue(Promise.resolve());
+      holidayFS.save.and.returnValue(Promise.resolve());
       actions.next(action);
 
-      effects.create$.subscribe(result => {
-        expect(holidayService.create).toHaveBeenCalledWith(someHoliday);
+      effects.create$.subscribe(() => {
+        expect(holidayFS.save).toHaveBeenCalledWith(someHoliday);
       });
     });
   });
@@ -62,7 +63,7 @@ describe('Holiday Effects', () => {
       const addedAction: Action = new AfAdded(someHoliday);
       const expected = cold('--a-', {a: {...addedAction}});
 
-      holidayService.changesToCollection.and.returnValue([holidayChanges]);
+      holidayFS.observeChanges.and.returnValue([holidayChanges]);
 
       expect(effects.query$).toBeObservable(expected);
     });

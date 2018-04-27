@@ -61,7 +61,9 @@ describe('User Menu', () => {
 
     const someUser: MtravelUser = {
       uid: '',
-      email: ''
+      email: '',
+      displayName: null,
+      photoURL: null
     };
 
     const fixture = TestBed.createComponent(UserMenuComponent);

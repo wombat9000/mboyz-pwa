@@ -1,5 +1,5 @@
 export interface Holiday {
-  id: string;
-  name: string;
-  created?: string;
+  readonly id: string;
+  readonly name: string;
+  readonly created: string;
 }

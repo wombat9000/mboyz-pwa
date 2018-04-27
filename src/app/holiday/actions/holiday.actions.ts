@@ -17,28 +17,28 @@ export class Query implements Action {
 
 export class Create implements Action {
   readonly type = CREATE;
-  constructor(public holiday: Holiday) {}
+  constructor(readonly holiday: Holiday) {}
 }
 
 export class Select implements Action {
   readonly type = SELECT;
-  constructor(public payload: { id: string }) {}
+  constructor(readonly payload: { id: string }) {}
 }
 
 // AngularFire2 StateChanges
 export class AfAdded implements Action {
   readonly type = AF_ADDED;
-  constructor(public holiday: Holiday) {}
+  constructor(readonly holiday: Holiday) {}
 }
 
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
-  constructor(public holiday: Holiday) {}
+  constructor(readonly holiday: Partial<Holiday>) {}
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
-  constructor(public holiday: Holiday) {}
+  constructor(readonly holiday: Holiday) {}
 }
 
 export type HolidayActions =
