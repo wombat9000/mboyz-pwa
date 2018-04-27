@@ -9,15 +9,13 @@ import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 
 export interface MtravelUser {
   uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
+  email: string | null;
+  photoURL: string | null;
+  displayName: string | null;
 }
 
 @Injectable()
 export class AuthService {
-
-  user$: Observable<MtravelUser> = Observable.of(null);
 
   constructor(private afAuth: AngularFireAuth,
               private userRepository: UserFirestore,

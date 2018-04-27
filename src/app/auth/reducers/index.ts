@@ -13,7 +13,7 @@ export interface State extends fromRoot.State {
   auth: AuthState;
 }
 
-export const reducers: ActionReducerMap<any> = {
+export const reducers = {
   status: fromAuth.reducer,
   loginPage: fromLoginPage.reducer,
 };

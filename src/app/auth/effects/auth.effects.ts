@@ -24,12 +24,14 @@ export class AuthEffects {
   authorise$: Observable<any> = this.actions$
     .ofType(AuthActionTypes.AUTHORISE)
     .switchMap((action: Authorise) => {
+      console.log(`[AuthFX] Authorised, redirecting to ${action.payload.url}`);
       return Observable.fromPromise(this.router.navigate([action.payload.url]));
     });
 
   @Effect()
   unauthorised$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.UNAUTHORISED)
+    .do(() => console.log('[AuthFX] Unauthorised, attempting to authorise...'))
     .switchMap((action: Unauthorised) => {
       return this.afsAuth.authState.map(afUser => {
         if (afUser) {
@@ -53,7 +55,7 @@ export class AuthEffects {
         .switchMap(user => this.userFirestore.save(user).map(() => user))
         .map(user => new LoginSuccess({user: user}))
         .catch(err => {
-          console.error(err);
+          console.error(`[AuthFX] Login failed: ${err}`);
           return Observable.of(new LoginFailure({error: err.message}));
         });
     });
@@ -61,6 +63,7 @@ export class AuthEffects {
   @Effect({dispatch: false})
   loginSuccess$: Observable<boolean> = this.actions$
     .ofType(AuthActionTypes.LOGIN_SUCCESS)
+    .do(() => console.log('[AuthFX] Login successful, redirecting to home'))
     .switchMap(() => {
       return Observable.fromPromise(this.router.navigate(['/']));
     });
@@ -68,6 +71,7 @@ export class AuthEffects {
   @Effect({dispatch: false})
   notAuthenticated$: Observable<boolean> = this.actions$
     .ofType(AuthActionTypes.NOT_AUTHENTICATED)
+    .do(() => console.log('[AuthFX] Not authenticated, redirecting to /login'))
     .switchMap(() => {
       return Observable.fromPromise(this.router.navigate(['/login']));
     });
@@ -75,6 +79,7 @@ export class AuthEffects {
   @Effect()
   logout$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.LOGOUT)
+    .do(() => console.log('[AuthFX] Login successful, redirecting to home'))
     .map(() => Observable.fromPromise(this.afsAuth.auth.signOut()))
     .map(() => new NotAuthenticated());
 
