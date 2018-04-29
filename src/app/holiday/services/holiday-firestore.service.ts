@@ -1,19 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
+import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
 import {Holiday} from '../models/holiday';
 
 
 @Injectable()
 export class HolidayFirestore {
 
-
-  holidaysCollection: AngularFirestoreCollection<Holiday>;
-  holidays$: Observable<Holiday[]>;
-
   constructor(private afs: AngularFirestore) {
-    this.holidaysCollection = this.afs.collection('holidays');
-    this.holidays$ = this.holidaysCollection.valueChanges();
   }
 
   public observeChanges(): Observable<DocumentChangeAction[]> {

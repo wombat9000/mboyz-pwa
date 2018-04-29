@@ -39,8 +39,7 @@ export class HolidayDetailPageComponent implements OnInit {
       return it.sort((some, other) => {
         return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
       });
-    })
-    .do(console);
+    });
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute) {

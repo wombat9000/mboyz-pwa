@@ -13,6 +13,7 @@ export class CommentEffects {
   @Effect()
   create$: Observable<Action> = this.actions$.ofType(commentActions.CREATE)
     .map((it: commentActions.Create) => this.commentFirestore.save(it.payload.comment))
+    .do(() => console.log('[CommentFX] create success!'))
     .map(() => new commentActions.CreateSuccess());
 
   @Effect()

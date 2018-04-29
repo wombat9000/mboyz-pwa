@@ -6,26 +6,33 @@ import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
-import {CommentFirestore} from '../../../../../services/comment-firestore.service';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
-import {authServiceMocker, commentFirestoreMocker} from '../../../../../../test-support/stubs';
+import {authServiceMocker} from '../../../../../../test-support/stubs';
 import {CommentFieldComponent} from '../../../../../components/comment-field/comment-field.component';
 import {Post} from '../../../../../models/post';
 import {MbComment} from '../../../../../models/comment';
+import * as fromHoliday from '../../../../../reducers';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import moment = require('moment');
+import {HolidaysState} from '../../../../../reducers';
+import * as comment from '../../../../../actions/comment.actions';
+import * as post from '../../../../../actions/post.actions';
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
   let fixture: ComponentFixture<CommentBoxComponent>;
   let debugElement: DebugElement;
-  let commentFirestore: jasmine.SpyObj<CommentFirestore>;
   let authService: jasmine.SpyObj<AuthService>;
+  let store: Store<HolidaysState>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
+      imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule,
+        StoreModule.forRoot({
+          holidayPlanner: combineReducers(fromHoliday.reducers),
+        })
+      ],
       providers: [
-        {provide: CommentFirestore, useFactory: commentFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker}
       ],
       declarations: [CommentBoxComponent, CommentFieldComponent],
@@ -50,8 +57,8 @@ describe('CommentBoxComponent', () => {
   };
 
   beforeEach(() => {
-    commentFirestore = TestBed.get(CommentFirestore);
-    commentFirestore.observeByPost.and.returnValue(Observable.of([]));
+    store = TestBed.get(Store);
+    store.dispatch(new post.Create({post: parentPost}));
 
     authService = TestBed.get(AuthService);
     authService.activeUser.and.returnValue(Observable.of(someAuthor));
@@ -82,13 +89,13 @@ describe('CommentBoxComponent', () => {
     };
 
     beforeEach(() => {
-      commentFirestore.observeByPost.and.returnValue(Observable.of([moreRecentComment, someComment]));
+      store.dispatch(new comment.Create({comment: moreRecentComment}));
+      store.dispatch(new comment.Create({comment: someComment}));
+
       fixture.detectChanges();
     });
 
     it('fetches comments for post', (done) => {
-      expect(commentFirestore.observeByPost).toHaveBeenCalledWith(parentPost);
-
       component.comments$.subscribe(comments => {
         expect(comments).toEqual([someComment, moreRecentComment]);
         done();
@@ -109,9 +116,11 @@ describe('CommentBoxComponent', () => {
     let savedComment;
 
     beforeEach(async () => {
+      const spy = spyOn(store, 'dispatch');
       fixture.detectChanges();
       createComment('new comment');
-      savedComment = commentFirestore.save.calls.first().args[0];
+
+      savedComment = spy.calls.first().args[0].payload.comment;
     });
 
     it('should persist the new message', () => {

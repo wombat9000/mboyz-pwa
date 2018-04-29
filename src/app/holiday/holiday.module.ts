@@ -21,6 +21,7 @@ import {PostComponent} from './containers/holiday-detail/post-box/post/post.comp
 import {CommentComponent} from './containers/holiday-detail/post-box/post/comment-box/comment/comment.component';
 import {CommentFieldComponent} from './components/comment-field/comment-field.component';
 import {PostEffects} from './effects/post.effects';
+import {CommentEffects} from './effects/comment.effects';
 
 
 @NgModule({
@@ -41,13 +42,14 @@ import {PostEffects} from './effects/post.effects';
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forFeature('holidayPlanner', reducers),
-    EffectsModule.forFeature([HolidayEffects, PostEffects])
+    EffectsModule.forFeature([HolidayEffects, PostEffects, CommentEffects])
   ],
   providers: [
     HolidayService,
     HolidayFirestore,
     PostFirestore,
-    CommentFirestore]
+    CommentFirestore
+  ]
 })
 export class HolidayModule {
 }

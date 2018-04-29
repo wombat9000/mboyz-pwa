@@ -3,9 +3,12 @@ import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {v4 as uuid} from 'uuid';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
-import {CommentFirestore} from '../../../../../services/comment-firestore.service';
 import {Post} from '../../../../../models/post';
 import {MbComment} from '../../../../../models/comment';
+import * as fromRoot from '../../../../../../reducers';
+import {Store} from '@ngrx/store';
+import {Create} from '../../../../../actions/comment.actions';
+import * as fromHoliday from '../../../../../reducers';
 
 
 @Component({
@@ -24,18 +27,17 @@ export class CommentBoxComponent implements OnInit {
 
   @Input()
   post: Post;
-
   comments$: Observable<MbComment[]>;
   user: MtravelUser;
 
-  constructor(private commentFirestore: CommentFirestore,
+  constructor(private store: Store<fromRoot.State>,
               private auth: AuthService) {
   }
 
   ngOnInit() {
     this.auth.activeUser().subscribe(it => this.user = it);
 
-    this.comments$ = this.commentFirestore.observeByPost(this.post)
+    this.comments$ = this.store.select(fromHoliday.getCommentsForPostId(this.post.id))
       .map(it => {
         return it.sort((some, other) => {
           return moment(some.created).isAfter(moment(other.created)) ? 1 : 0;
@@ -53,6 +55,6 @@ export class CommentBoxComponent implements OnInit {
       created: moment().toISOString()
     };
 
-    this.commentFirestore.save(comment);
+    this.store.dispatch(new Create({comment: comment}));
   }
 }

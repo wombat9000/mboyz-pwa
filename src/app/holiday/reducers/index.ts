@@ -1,12 +1,15 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromHolidays from './holiday.reducer';
 import * as fromPosts from './posts.reducer';
+import * as fromComments from './comments.reducer';
 import * as fromRoot from '../../reducers';
 import {Post} from '../models/post';
+import {MbComment} from '../models/comment';
 
 export interface HolidaysState {
   holidays: fromHolidays.State;
   posts: fromPosts.State;
+  comments: fromComments.State;
 }
 
 export interface State extends fromRoot.State {
@@ -15,7 +18,8 @@ export interface State extends fromRoot.State {
 
 export const reducers = {
   holidays: fromHolidays.reducer,
-  posts: fromPosts.reducer
+  posts: fromPosts.reducer,
+  comments: fromComments.reducer
 };
 
 export const getHolidayPlannerState = createFeatureSelector<HolidaysState>('holidayPlanner');
@@ -28,6 +32,11 @@ export const getHolidayEntitiesState = createSelector(
 export const getPostEntitiesState = createSelector(
   getHolidayPlannerState,
   (state: HolidaysState) => state.posts
+);
+
+export const getCommentsEntitiesState = createSelector(
+  getHolidayPlannerState,
+  (state: HolidaysState) => state.comments
 );
 
 export const getSelectedHolidayId = createSelector(
@@ -50,8 +59,8 @@ export const getSelectedHoliday = createSelector(
   }
 );
 
-
 export const getAllPosts = fromPosts.adapter.getSelectors(getPostEntitiesState).selectAll;
+export const getAllComments = fromComments.adapter.getSelectors(getCommentsEntitiesState).selectAll;
 
 export const getSelectedPosts = createSelector(
   getSelectedHolidayId,
@@ -60,3 +69,12 @@ export const getSelectedPosts = createSelector(
     return posts.filter(it => it.holidayId === holidayId);
   }
 );
+
+export function getCommentsForPostId(postId: string) {
+  return createSelector(
+    getAllComments,
+    (comments: MbComment[]) => {
+      return comments.filter(comment => comment.postId === postId);
+    }
+  );
+}
