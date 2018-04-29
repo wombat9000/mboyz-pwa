@@ -8,11 +8,11 @@ import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {CommentFirestore} from '../../../../../services/comment-firestore.service';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
-import {authServiceMocker, commentFirestoreMock} from '../../../../../../test-support/stubs';
+import {authServiceMocker, commentFirestoreMocker} from '../../../../../../test-support/stubs';
 import {CommentFieldComponent} from '../../../../../components/comment-field/comment-field.component';
-import moment = require('moment');
 import {Post} from '../../../../../models/post';
 import {MbComment} from '../../../../../models/comment';
+import moment = require('moment');
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
@@ -25,7 +25,7 @@ describe('CommentBoxComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatListModule, MatFormFieldModule, FormsModule, MatInputModule, NoopAnimationsModule],
       providers: [
-        {provide: CommentFirestore, useValue: commentFirestoreMock},
+        {provide: CommentFirestore, useFactory: commentFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker}
       ],
       declarations: [CommentBoxComponent, CommentFieldComponent],
