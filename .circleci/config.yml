@@ -2,7 +2,7 @@ version: 2
 jobs:
   npm-cache:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:9.11.1
 
     working_directory: ~/mboyz
     steps:
@@ -24,7 +24,7 @@ jobs:
 
   lint:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:9.11.1
 
     working_directory: ~/mboyz
     steps:
@@ -40,7 +40,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:7.10-browsers
+      - image: circleci/node:9.11.1-browsers
 
     working_directory: ~/mboyz
     steps:
@@ -56,7 +56,7 @@ jobs:
 
   deploy-staging:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:9.11.1
 
     working_directory: ~/mboyz
     steps:
@@ -76,7 +76,7 @@ jobs:
 
   deploy-prod:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:9.11.1
 
     working_directory: ~/mboyz
     steps:
