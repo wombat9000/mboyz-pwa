@@ -16,7 +16,7 @@ describe('Auth Service', () => {
   let fireAuth: FireAuthStub;
   let userRepo: jasmine.SpyObj<UserFirestore>;
 
-  const someUser = {
+  const someUser: MtravelUser = {
     uid: 'someUID',
     email: 'someEmail',
     displayName: null,
@@ -58,7 +58,7 @@ describe('Auth Service', () => {
   });
 
   describe('signOut', () => {
-    let router;
+    let router: Router;
 
     beforeEach(async () => {
       router = TestBed.get(Router);
@@ -77,7 +77,8 @@ describe('Auth Service', () => {
   });
 
   describe('login with facebook', () => {
-    let router;
+    let router: Router;
+
     const user: MtravelUser = {
       uid: 'someUid',
       email: 'someEmail',

@@ -113,7 +113,7 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('creating a comment', () => {
-    let savedComment;
+    let savedComment: MbComment;
 
     beforeEach(async () => {
       const spy = spyOn(store, 'dispatch');

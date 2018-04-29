@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
-import {v4 as uuid} from 'uuid';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Holiday} from '../../../models/holiday';
 import {MtravelUser} from '../../../../auth/services/auth.service';
@@ -8,6 +7,7 @@ import {Post} from '../../../models/post';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../../reducers';
 import {Create} from '../../../actions/post.actions';
+import uuid = require('uuid');
 
 
 @Component({

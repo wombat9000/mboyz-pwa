@@ -15,7 +15,7 @@ export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClic
   }
 }
 
-export function createChangeAction(changeType: DocumentChangeType, payload): DocumentChangeAction {
+export function createChangeAction(changeType: DocumentChangeType, payload: any): DocumentChangeAction {
   const data: DocumentData = {...payload};
   const snapshot = jasmine.createSpyObj('QueryDocumentSnapshot', ['data']);
   snapshot.data.and.returnValue(data);

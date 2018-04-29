@@ -25,7 +25,7 @@ describe('CommentFieldComponent', () => {
   });
 
   it('produces output when submitting a comment', async (done) => {
-    component.submitComment.subscribe(async(it) => {
+    component.submitComment.subscribe(async (it: string) => {
       await fixture.whenStable();
       expect(it).toBe('someComment');
       expect(component.value).toBe('');

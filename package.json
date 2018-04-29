@@ -34,6 +34,7 @@
     "@ngrx/effects": "^5.2.0",
     "@ngrx/entity": "^5.2.0",
     "@ngrx/store": "^5.2.0",
+    "@types/uuid": "^3.4.3",
     "angularfire2": "=5.0.0-rc.6",
     "core-js": "^2.5.5",
     "firebase": "^4.9.0",

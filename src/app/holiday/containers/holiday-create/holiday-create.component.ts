@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {v4 as uuid} from 'uuid';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/holiday.reducer';
 import * as actions from '../../actions/holiday.actions';
 import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
+import uuid = require('uuid');
 
 
 @Component({

@@ -5,6 +5,7 @@ import {UserFirestore} from './user-firestore.service';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import AuthProvider = firebase.auth.AuthProvider;
 
 
 export interface MtravelUser {
@@ -52,7 +53,7 @@ export class AuthService {
     });
   }
 
-  private oAuthLogin(provider): Observable<MtravelUser> {
+  private oAuthLogin(provider: AuthProvider): Observable<MtravelUser> {
     return Observable.fromPromise(this.afAuth.auth.signInWithPopup(provider))
       .map(credential => {
         return {

@@ -1,5 +1,5 @@
 import {Authorise, LoginSuccess, NotAuthenticated} from '../actions/auth.actions';
-import {initialState, reducer} from './auth.reducer';
+import {initialState, reducer, State} from './auth.reducer';
 import {MtravelUser} from '../services/auth.service';
 
 describe('AuthReducer', () => {
@@ -13,7 +13,7 @@ describe('AuthReducer', () => {
       };
       const action = new Authorise({user: someUser, url: undefined});
 
-      const loggedOut = {
+      const loggedOut: State = {
         loggedIn: false,
         user: null
       };
@@ -26,7 +26,7 @@ describe('AuthReducer', () => {
 
   describe('login success', () => {
     it('should set state to the logged in user', () => {
-      const someUser = {
+      const someUser: MtravelUser = {
         uid: 'someId',
         email: 'someMail',
         photoURL: null,
@@ -34,7 +34,7 @@ describe('AuthReducer', () => {
       };
       const action = new LoginSuccess({user: someUser});
 
-      const loggedOut = {
+      const loggedOut: State = {
         loggedIn: false,
         user: null
       };
@@ -49,7 +49,7 @@ describe('AuthReducer', () => {
     it('should return initial state', () => {
       const action = new NotAuthenticated();
 
-      const state = {
+      const state: State = {
         loggedIn: true,
         user: {
           uid: 'someId',

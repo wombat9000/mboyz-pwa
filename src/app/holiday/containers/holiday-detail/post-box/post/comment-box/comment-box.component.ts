@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
-import {v4 as uuid} from 'uuid';
 import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
 import {Post} from '../../../../../models/post';
 import {MbComment} from '../../../../../models/comment';
@@ -9,6 +8,7 @@ import * as fromRoot from '../../../../../../reducers';
 import {Store} from '@ngrx/store';
 import {Create} from '../../../../../actions/comment.actions';
 import * as fromHoliday from '../../../../../reducers';
+import uuid = require('uuid');
 
 
 @Component({
