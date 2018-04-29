@@ -32,9 +32,9 @@ import * as moment from 'moment';
   `]
 })
 export class HolidayDetailPageComponent implements OnInit {
-  private holiday$: Observable<Holiday> = this.store.select(fromHoliday.getSelectedHoliday).do(console);
-  private activeUser$: Observable<MtravelUser> = this.store.select(fromAuth.getUser);
-  private posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
+  holiday$: Observable<Holiday> = this.store.select(fromHoliday.getSelectedHoliday).do(console);
+  activeUser$: Observable<MtravelUser> = this.store.select(fromAuth.getUser);
+  posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
     .map(it => {
       return it.sort((some, other) => {
         return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;

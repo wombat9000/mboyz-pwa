@@ -18,7 +18,7 @@ import * as moment from 'moment';
           #holidayForm="ngForm">
       <mat-form-field>
         <input matInput
-               [(ngModel)]="holidayFormModel.name"
+               [(ngModel)]="holidayName"
                name="name"
                required
                placeholder="Name">
@@ -41,18 +41,20 @@ import * as moment from 'moment';
 })
 export class CreateHolidayPageComponent {
 
-  holidayFormModel: Holiday = {
-    id: uuid(),
-    name: '',
-    created: moment().toISOString()
-  };
+  holidayName = '';
 
   constructor(private store: Store<fromHoliday.State>,
               private router: Router) {
   }
 
   onSubmit() {
-    this.store.dispatch(new actions.Create(this.holidayFormModel));
+    const newHoliday: Holiday = {
+      id: uuid(),
+      name: this.holidayName,
+      created: moment().toISOString()
+    };
+
+    this.store.dispatch(new actions.Create(newHoliday));
     this.router.navigate(['/']);
   }
 }
