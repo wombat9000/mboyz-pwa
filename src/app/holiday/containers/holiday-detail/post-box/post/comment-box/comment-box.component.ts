@@ -8,7 +8,7 @@ import * as fromRoot from '../../../../../../reducers';
 import {Store} from '@ngrx/store';
 import {Create} from '../../../../../actions/comment.actions';
 import * as fromHoliday from '../../../../../reducers';
-import * as uuid from'uuid'
+import * as uuid from 'uuid';
 
 
 @Component({

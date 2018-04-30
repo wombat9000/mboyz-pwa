@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noImplicitThis": true,
     "noImplicitAny": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
