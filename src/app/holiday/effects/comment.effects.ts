@@ -22,7 +22,7 @@ export class CommentEffects {
     .map(action => {
       const comment = asComment(action.payload.doc.data());
       return {
-        type: `[Comment] ${action.type}`,
+        type: `[Comment Firestore] ${action.type}`,
         payload: {comment: comment}
       };
     });

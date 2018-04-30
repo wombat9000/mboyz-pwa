@@ -22,7 +22,7 @@ export class HolidayEffects {
     .mergeMap(action => action)
     .map(action => {
       return {
-        type: `[Holiday] ${action.type}`,
+        type: `[Holiday Firestore] ${action.type}`,
         holiday: {id: action.payload.doc.id, ...action.payload.doc.data()}
       };
     });

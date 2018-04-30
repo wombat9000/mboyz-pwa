@@ -30,7 +30,7 @@ export class PostEffects {
       };
 
       return {
-        type: `[Post] ${action.type}`,
+        type: `[Post Firestore] ${action.type}`,
         payload: {post: post}
       };
     });

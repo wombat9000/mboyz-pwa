@@ -2,13 +2,13 @@ import {Action} from '@ngrx/store';
 import {Holiday} from '../models/holiday';
 
 
-export const QUERY       = '[Holiday] query';
-export const CREATE      = '[Holiday] create';
-export const SELECT      = '[Holiday] select';
+export const QUERY       = '[Holiday App] query';
+export const CREATE      = '[Holiday Page] create';
+export const SELECT      = '[Holiday Page] select';
 
-export const AF_ADDED    = '[Holiday] added';
-export const AF_MODIFIED = '[Holiday] modified';
-export const AF_REMOVED  = '[Holiday] removed';
+export const AF_ADDED    = '[Holiday Firestore] added';
+export const AF_MODIFIED = '[Holiday Firestore] modified';
+export const AF_REMOVED  = '[Holiday Firestore] removed';
 
 export class Query implements Action {
   readonly type = QUERY;
@@ -25,7 +25,6 @@ export class Select implements Action {
   constructor(readonly payload: { id: string }) {}
 }
 
-// AngularFire2 StateChanges
 export class AfAdded implements Action {
   readonly type = AF_ADDED;
   constructor(readonly holiday: Holiday) {}

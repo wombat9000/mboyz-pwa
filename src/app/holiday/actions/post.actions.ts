@@ -1,12 +1,12 @@
 import {Action} from '@ngrx/store';
 import {Post} from '../models/post';
 
-export const QUERY = '[Post] query';
-export const CREATE = '[Post] create';
-export const CREATE_SUCCESS = '[Post] create success';
-export const AF_ADDED = '[Post] added';
-export const AF_MODIFIED = '[Post] modified';
-export const AF_REMOVED = '[Post] removed';
+export const QUERY = '[Post App] query';
+export const CREATE = '[Post PostboxComponent] create';
+export const CREATE_SUCCESS = '[Post App] create success';
+export const AF_ADDED = '[Post Firestore] added';
+export const AF_MODIFIED = '[Post Firestore] modified';
+export const AF_REMOVED = '[Post Firestore] removed';
 
 export class Query implements Action {
   readonly type = QUERY;
