@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
+import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
 import {MbComment} from '../models/comment';
-import {Post} from '../models/post';
 
 
 @Injectable()
