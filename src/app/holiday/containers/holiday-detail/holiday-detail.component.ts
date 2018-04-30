@@ -32,8 +32,8 @@ import * as moment from 'moment';
   `]
 })
 export class HolidayDetailPageComponent implements OnInit {
-  holiday$: Observable<Holiday> = this.store.select(fromHoliday.getSelectedHoliday).do(console);
-  activeUser$: Observable<MtravelUser> = this.store.select(fromAuth.getUser);
+  holiday$: Observable<Holiday | null> = this.store.select(fromHoliday.getSelectedHoliday).do(console);
+  activeUser$: Observable<MtravelUser | null> = this.store.select(fromAuth.getUser);
   posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
     .map(it => {
       return it.sort((some, other) => {
@@ -46,7 +46,9 @@ export class HolidayDetailPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id: string = this.route.snapshot.paramMap.get('id');
-    this.store.dispatch(new Select({id: id}));
+    const id: string | null = this.route.snapshot.paramMap.get('id');
+    if (id !== null) {
+      this.store.dispatch(new Select({id: id}));
+    }
   }
 }

@@ -14,7 +14,7 @@ export class HolidayFirestore {
     return this.afs.collection('holidays').stateChanges();
   }
 
-  public observeById(holidayId: string): Observable<Holiday> {
+  public observeById(holidayId: string): Observable<Holiday | null> {
     return this.afs.doc<Holiday>(`holidays/${holidayId}`).valueChanges();
   }
 

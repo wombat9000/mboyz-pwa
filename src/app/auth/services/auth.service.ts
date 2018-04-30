@@ -15,6 +15,15 @@ export interface MtravelUser {
   displayName: string | null;
 }
 
+export function newTestUser(id: string = 'someId') {
+  return {
+    uid: id,
+    email: 'someEmail',
+    photoURL: 'somePhoto',
+    displayName: 'someDisplayname'
+  };
+}
+
 @Injectable()
 export class AuthService {
 
@@ -23,7 +32,7 @@ export class AuthService {
               private router: Router) {
   }
 
-  activeUser(): Observable<MtravelUser> {
+  activeUser(): Observable<MtravelUser | null> {
     return this.authedUser()
       .take(1);
   }
@@ -44,7 +53,7 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
-  private authedUser(): Observable<MtravelUser> {
+  private authedUser(): Observable<MtravelUser | null> {
     return this.afAuth.authState.switchMap(user => {
       if (user) {
         return this.userRepository.observeById(user.uid);

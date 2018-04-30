@@ -18,6 +18,12 @@ describe('AuthGuard', () => {
   let testee: AuthGuard;
   let store: Store<fromAuth.State>;
   let router: jasmine.SpyObj<Router>;
+  const activatedRouteSnapshot: jasmine.SpyObj<ActivatedRouteSnapshot> =
+    jasmine.createSpyObj('ActivatedRouteSnapshot', ['']);
+
+  const routerState: jasmine.SpyObj<RouterStateSnapshot> =
+    jasmine.createSpyObj('RouterStateSnapshot', ['']);
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,7 +50,7 @@ describe('AuthGuard', () => {
     const stateSnap = new RouterStateSnapshotStub();
     stateSnap.url = 'someUrl';
 
-    const canActivate = testee.canActivate(null, stateSnap);
+    const canActivate = testee.canActivate(activatedRouteSnapshot, stateSnap);
 
     canActivate.subscribe(it => {
       expect(it).toBe(false);
@@ -63,7 +69,7 @@ describe('AuthGuard', () => {
 
     store.dispatch(new LoginSuccess({user: someUser}));
 
-    const canActivate = testee.canActivate(null, null);
+    const canActivate = testee.canActivate(activatedRouteSnapshot, routerState);
 
     canActivate.subscribe(it => {
       expect(it).toBe(true);

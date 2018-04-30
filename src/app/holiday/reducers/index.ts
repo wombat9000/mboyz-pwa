@@ -55,7 +55,7 @@ export const getSelectedHoliday = createSelector(
   selectEntities,
   getSelectedHolidayId,
   (entities, selectedId: string) => {
-    return selectedId && entities[selectedId];
+    return selectedId ? entities[selectedId] : null;
   }
 );
 

@@ -26,10 +26,13 @@ export function reducer(state: State = initialState,
     }
 
     case actions.AF_MODIFIED: {
-      return adapter.updateOne({
-        id: action.holiday.id,
-        changes: action.holiday
-      }, state);
+      if (action.holiday.id) {
+        return adapter.updateOne({
+          id: action.holiday.id,
+          changes: action.holiday
+        }, state);
+      }
+      return state;
     }
 
     case actions.SELECT: {

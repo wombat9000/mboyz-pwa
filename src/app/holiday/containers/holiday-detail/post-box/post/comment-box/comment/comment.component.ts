@@ -23,7 +23,7 @@ export class CommentComponent implements OnInit {
   @Input()
   comment: MbComment;
 
-  user$: Observable<MtravelUser>;
+  user$: Observable<MtravelUser | null>;
 
   constructor(private userFS: UserFirestore) {
   }

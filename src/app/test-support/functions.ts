@@ -23,8 +23,8 @@ export function createChangeAction(changeType: DocumentChangeType, payload: any)
   const changePayload: DocumentChange = {
     type: changeType,
     doc: snapshot,
-    oldIndex: null,
-    newIndex: null
+    oldIndex: 1,
+    newIndex: 1
   };
   return {
     type: changeType,

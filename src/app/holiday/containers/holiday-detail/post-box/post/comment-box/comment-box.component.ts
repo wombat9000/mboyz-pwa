@@ -28,7 +28,7 @@ export class CommentBoxComponent implements OnInit {
   @Input()
   post: Post;
   comments$: Observable<MbComment[]>;
-  user: MtravelUser;
+  user: MtravelUser | null;
 
   constructor(private store: Store<fromRoot.State>,
               private auth: AuthService) {
@@ -46,15 +46,17 @@ export class CommentBoxComponent implements OnInit {
   }
 
   submitComment(text: string) {
-    const comment: MbComment = {
-      id: uuid(),
-      text: text,
-      postId: this.post.id,
-      holidayId: this.post.holidayId,
-      authorId: this.user.uid,
-      created: moment().toISOString()
-    };
+    if (this.user !== null) {
+      const comment: MbComment = {
+        id: uuid(),
+        text: text,
+        postId: this.post.id,
+        holidayId: this.post.holidayId,
+        authorId: this.user.uid,
+        created: moment().toISOString()
+      };
 
-    this.store.dispatch(new Create({comment: comment}));
+      this.store.dispatch(new Create({comment: comment}));
+    }
   }
 }

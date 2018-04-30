@@ -25,10 +25,13 @@ export function reducer(state: State = initialState,
     }
 
     case actions.AF_MODIFIED: {
-      return adapter.updateOne({
-        id: action.payload.comment.id,
-        changes: action.payload.comment
-      }, state);
+      if (action.payload.comment.id) {
+        return adapter.updateOne({
+          id: action.payload.comment.id,
+          changes: action.payload.comment
+        }, state);
+      }
+      return state;
     }
 
     default: {

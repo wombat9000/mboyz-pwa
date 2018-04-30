@@ -1,15 +1,20 @@
 import * as actions from '../actions/holiday.actions';
 import {reducer, State} from './holiday.reducer';
+import {newTestHoliday} from '../models/holiday';
 
 describe('holiday reducer', () => {
+
+
   describe('select', () => {
     it('should select the given id', () => {
+      const someHoliday = newTestHoliday('someId');
+      const otherHoliday = newTestHoliday('anotherId');
+
       const state: State = {
         selectedId: null,
         ids: ['anotherId', 'someId'],
-        entities: {someId: null, anotherId: null}
+        entities: {someId: someHoliday, anotherId: otherHoliday}
       };
-
 
       const action = new actions.Select({id: 'someId'});
       const result = reducer(state, action);

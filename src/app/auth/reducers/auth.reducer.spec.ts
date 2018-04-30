@@ -11,7 +11,7 @@ describe('AuthReducer', () => {
         photoURL: null,
         displayName: null
       };
-      const action = new Authorise({user: someUser, url: undefined});
+      const action = new Authorise({user: someUser, url: 'someUrl'});
 
       const loggedOut: State = {
         loggedIn: false,

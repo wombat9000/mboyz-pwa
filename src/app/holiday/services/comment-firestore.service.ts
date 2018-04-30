@@ -11,14 +11,6 @@ export class CommentFirestore {
   constructor(private afs: AngularFirestore) {
   }
 
-  // TODO: deprecated
-  observeByPost(post: Post): Observable<MbComment[]> {
-    const angularFirestoreCollection: AngularFirestoreCollection<MbComment> =
-      this.afs.collection(`holidays/${post.holidayId}/posts/${post.id}/comments`);
-
-    return angularFirestoreCollection.valueChanges();
-  }
-
   public observeChangesFrom(path: string): Observable<DocumentChangeAction> {
     return this.afs.collection(path).stateChanges()
       .mergeMap(it => it);

@@ -74,10 +74,13 @@ describe('HolidayOverviewComponent', () => {
         const someHolidayCard = debugElement.queryAll(By.css('.holiday-name'))
           .find(it => it.nativeElement.textContent === firstHoliday.name);
 
-        click(someHolidayCard.nativeElement);
-
-        const destinationURL = router.navigateByUrl.calls.first().args[0];
-        expect(destinationURL).toBe(`/holiday/${firstHoliday.id}`);
+        if (someHolidayCard) {
+          click(someHolidayCard.nativeElement);
+          const destinationURL = router.navigateByUrl.calls.first().args[0];
+          expect(destinationURL).toBe(`/holiday/${firstHoliday.id}`);
+        } else {
+          fail();
+        }
       });
     });
   });

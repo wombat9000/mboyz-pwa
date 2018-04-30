@@ -28,7 +28,7 @@ export class PostComponent implements OnInit {
   @Input()
   post: Post;
 
-  user$: Observable<MtravelUser>;
+  user$: Observable<MtravelUser | null>;
 
   constructor(private userFS: UserFirestore) {
   }

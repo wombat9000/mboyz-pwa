@@ -80,7 +80,7 @@ describe('User Menu', () => {
     });
 
     it('should be closed', () => {
-      expect(userMenu.logoutButton()).toBe(null);
+      expect(userMenu.logoutButton()).toBeNull();
     });
   });
 

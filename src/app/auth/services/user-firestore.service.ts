@@ -10,7 +10,7 @@ export class UserFirestore {
   constructor(private afs: AngularFirestore) {
   }
 
-  public observeById(userId: string): Observable<MtravelUser> {
+  public observeById(userId: string): Observable<MtravelUser | null> {
     return this.afs.doc<MtravelUser>(`users/${userId}`).valueChanges();
   }
 

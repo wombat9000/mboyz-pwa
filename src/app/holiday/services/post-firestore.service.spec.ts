@@ -6,6 +6,7 @@ import {Post} from '../models/post';
 import {Observable} from 'rxjs/Observable';
 import {AngularFirestoreCollection} from 'angularfire2/firestore/collection/collection';
 import {DocumentChangeType} from '@firebase/firestore-types';
+import {createChangeAction} from '../../test-support/functions';
 
 
 describe('PostFirestore', () => {
@@ -55,17 +56,15 @@ describe('PostFirestore', () => {
 
   it('should observe state changes', (done) => {
     const added: DocumentChangeType = 'added';
-    const change: DocumentChangeAction = {
-      type: added,
-      payload: null
-    };
 
-    colRef.stateChanges.and.returnValue(Observable.of([change]));
+    const documentChangeAction = createChangeAction(added, {});
+
+    colRef.stateChanges.and.returnValue(Observable.of([documentChangeAction]));
     afs.collection.and.returnValue(colRef);
 
     testee.observeChanges().subscribe((it: DocumentChangeAction) => {
       expect(afs.collection).toHaveBeenCalledWith(`posts`);
-      expect(it).toEqual(change);
+      expect(it).toEqual(documentChangeAction);
       done();
     });
   });

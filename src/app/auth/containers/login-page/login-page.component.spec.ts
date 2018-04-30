@@ -66,12 +66,12 @@ describe('Login Page', () => {
 
     it('should not show spinner', () => {
       fixture.detectChanges();
-      expect(loginPO.spinner()).toBe(null);
+      expect(loginPO.spinner()).toBeNull();
     });
 
     it('should should not show error', () => {
       fixture.detectChanges();
-      expect(loginPO.errorInfo()).toBe(null);
+      expect(loginPO.errorInfo()).toBeNull();
     });
   });
 
