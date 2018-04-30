@@ -7,7 +7,7 @@ import {Post} from '../../../models/post';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../../reducers';
 import {Create} from '../../../actions/post.actions';
-import uuid = require('uuid');
+import * as uuid from'uuid';
 
 
 @Component({

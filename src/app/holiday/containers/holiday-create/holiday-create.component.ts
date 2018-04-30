@@ -5,7 +5,7 @@ import * as fromHoliday from '../../reducers/holiday.reducer';
 import * as actions from '../../actions/holiday.actions';
 import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
-import uuid = require('uuid');
+import * as uuid from'uuid';
 
 
 @Component({
