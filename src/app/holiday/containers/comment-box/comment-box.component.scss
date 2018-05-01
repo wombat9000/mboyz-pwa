@@ -1,5 +1,5 @@
-@import '~@angular/material/theming';
-@import '../../../../../../../mboyz-theme';
+@import '../../../../../node_modules/@angular/material/theming';
+@import '../../../../mboyz-theme';
 
 :host {
   display: block;

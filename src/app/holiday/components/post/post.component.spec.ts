@@ -5,10 +5,10 @@ import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import moment = require('moment');
-import {UserFirestore} from '../../../../../auth/services/user-firestore.service';
-import {MtravelUser} from '../../../../../auth/services/auth.service';
-import {userFirestoreMocker} from '../../../../../test-support/stubs';
-import {Post} from '../../../../models/post';
+import {UserFirestore} from '../../../auth/services/user-firestore.service';
+import {MtravelUser} from '../../../auth/services/auth.service';
+import {userFirestoreMocker} from '../../../test-support/stubs';
+import {Post} from '../../models/post';
 
 describe('PostComponent', () => {
   let component: PostComponent;

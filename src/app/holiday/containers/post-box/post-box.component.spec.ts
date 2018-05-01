@@ -6,13 +6,13 @@ import {PostBoxComponent} from './post-box.component';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {AuthService, MtravelUser} from '../../../../auth/services/auth.service';
-import {authServiceMocker} from '../../../../test-support/stubs';
-import {Holiday} from '../../../models/holiday';
-import {Post} from '../../../models/post';
+import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
+import {authServiceMocker} from '../../../test-support/stubs';
+import {Holiday} from '../../models/holiday';
+import {Post} from '../../models/post';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../../../reducers';
-import {HolidaysState} from '../../../reducers';
+import * as fromHoliday from '../../reducers/index';
+import {HolidaysState} from '../../reducers/index';
 import moment = require('moment');
 
 class PostBoxPO {

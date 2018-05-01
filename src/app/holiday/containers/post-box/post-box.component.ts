@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {Holiday} from '../../../models/holiday';
-import {MtravelUser} from '../../../../auth/services/auth.service';
-import {Post} from '../../../models/post';
+import {Holiday} from '../../models/holiday';
+import {MtravelUser} from '../../../auth/services/auth.service';
+import {Post} from '../../models/post';
 import {Store} from '@ngrx/store';
-import * as fromRoot from '../../../../reducers';
-import {Create} from '../../../actions/post.actions';
+import * as fromRoot from '../../../reducers/index';
+import {Create} from '../../actions/post.actions';
 import * as uuid from 'uuid';
 
 

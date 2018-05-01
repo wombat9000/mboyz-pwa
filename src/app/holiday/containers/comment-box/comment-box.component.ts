@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
-import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
-import {Post} from '../../../../../models/post';
-import {MbComment} from '../../../../../models/comment';
-import * as fromRoot from '../../../../../../reducers';
+import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
+import {Post} from '../../models/post';
+import {MbComment} from '../../models/comment';
+import * as fromRoot from '../../../reducers/index';
 import {Store} from '@ngrx/store';
-import {Create} from '../../../../../actions/comment.actions';
-import * as fromHoliday from '../../../../../reducers';
+import {Create} from '../../actions/comment.actions';
+import * as fromHoliday from '../../reducers/index';
 import * as uuid from 'uuid';
 
 

@@ -6,17 +6,17 @@ import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
-import {AuthService, MtravelUser} from '../../../../../../auth/services/auth.service';
-import {authServiceMocker} from '../../../../../../test-support/stubs';
-import {CommentFieldComponent} from '../../../../../components/comment-field/comment-field.component';
-import {Post} from '../../../../../models/post';
-import {MbComment} from '../../../../../models/comment';
-import * as fromHoliday from '../../../../../reducers';
+import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
+import {authServiceMocker} from '../../../test-support/stubs';
+import {CommentFieldComponent} from '../../components/comment-field/comment-field.component';
+import {Post} from '../../models/post';
+import {MbComment} from '../../models/comment';
+import * as fromHoliday from '../../reducers/index';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import moment = require('moment');
-import {HolidaysState} from '../../../../../reducers';
-import * as comment from '../../../../../actions/comment.actions';
-import * as post from '../../../../../actions/post.actions';
+import {HolidaysState} from '../../reducers/index';
+import * as comment from '../../actions/comment.actions';
+import * as post from '../../actions/post.actions';
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
