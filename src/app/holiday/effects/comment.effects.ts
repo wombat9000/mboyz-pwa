@@ -6,7 +6,7 @@ import {Action} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {CommentFirestore} from '../services/comment-firestore.service';
 import {asComment} from '../models/comment';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -16,8 +16,7 @@ export class CommentEffects {
   create$: Observable<Action> = this.actions$.pipe(
     ofType(commentActions.CREATE),
     map((it: commentActions.Create) => this.commentFirestore.save(it.payload.comment)),
-    tap(() => console.log('[CommentFX] create success!')),
-    map(() => new commentActions.CreateSuccess())
+    map(() => new commentActions.CreateSuccess()),
   );
 
   @Effect()

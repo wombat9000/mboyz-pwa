@@ -32,7 +32,7 @@ import * as moment from 'moment';
   `]
 })
 export class HolidayDetailPageComponent implements OnInit {
-  holiday$: Observable<Holiday | null> = this.store.select(fromHoliday.getSelectedHoliday).do(console);
+  holiday$: Observable<Holiday | null> = this.store.select(fromHoliday.getSelectedHoliday);
   activeUser$: Observable<MtravelUser | null> = this.store.select(fromAuth.getUser);
   posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
     .map(it => {

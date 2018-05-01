@@ -24,6 +24,12 @@ import {PostEffects} from './effects/post.effects';
 import {CommentEffects} from './effects/comment.effects';
 
 
+const EFFECTS = [
+  HolidayEffects,
+  PostEffects,
+  CommentEffects
+];
+
 @NgModule({
   declarations: [
     HolidayOverviewPageComponent,
@@ -42,7 +48,7 @@ import {CommentEffects} from './effects/comment.effects';
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forFeature('holidayPlanner', reducers),
-    EffectsModule.forFeature([HolidayEffects, PostEffects, CommentEffects])
+    EffectsModule.forFeature(EFFECTS)
   ],
   providers: [
     HolidayService,

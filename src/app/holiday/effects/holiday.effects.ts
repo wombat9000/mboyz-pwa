@@ -4,8 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import * as holidayActions from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
 import {HolidayFirestore} from '../services/holiday-firestore.service';
-import {map, mergeMap, switchMap} from 'rxjs/operators';
-
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class HolidayEffects {
