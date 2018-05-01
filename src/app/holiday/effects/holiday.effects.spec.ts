@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {HolidayEffects} from './holiday.effects';
 import {getActions, holidayFirestoreMocker, TestActions} from '../../test-support/stubs';
-import {AfAdded, Create, Query} from '../actions/holiday.actions';
+import {AfAdded, Create, Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {Action} from '@ngrx/store';
@@ -52,16 +52,28 @@ describe('Holiday Effects', () => {
   });
 
   describe('query', () => {
-    beforeEach(() => {
+    it('should map state changes into corresponding actions', () => {
       const action: Action = new Query();
       actions$.stream = hot('-a--', {a: action});
-    });
-
-    it('should map state changes into corresponding actions', () => {
       const holidayChanges = cold('-a-', {a: createChangeAction('added', someHoliday)});
 
       const addedAction: Action = new AfAdded(someHoliday);
       const expected = cold('--a-', {a: {...addedAction}});
+
+      holidayFS.observeChanges.and.returnValue(holidayChanges);
+
+      expect(effects.query$).toBeObservable(expected);
+    });
+
+    it('should stop querying again', () => {
+      const query: Action = new Query();
+      const queryStop: Action = new QueryStop();
+      actions$.stream = hot('-a-b-', {a: query, b: queryStop});
+      const holidayChanges = cold('-a-a-', {a: createChangeAction('added', someHoliday)});
+
+      const addedAction: Action = new AfAdded(someHoliday);
+      const queryStopped: Action = new QueryStopped();
+      const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
       holidayFS.observeChanges.and.returnValue(holidayChanges);
 

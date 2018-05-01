@@ -8,7 +8,7 @@ import {getActions, postFirestoreMocker, TestActions} from '../../test-support/s
 import {Post} from '../models/post';
 import {PostFirestore} from '../services/post-firestore.service';
 import {createChangeAction} from '../../test-support/functions';
-import {Query} from '../actions/holiday.actions';
+import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 
 describe('PostEffects', () => {
   let effects: PostEffects;
@@ -38,15 +38,30 @@ describe('PostEffects', () => {
   });
 
   describe('query', () => {
-    beforeEach(() => {
+    it('should map state changes into corresponding actions', () => {
       const action: Action = new Query();
       actions$.stream = hot('-a--', {a: action});
-    });
 
-    it('should map state changes into corresponding actions', () => {
       const addedAction: Action = new AfAdded({post: somePost});
       const postChanges = cold('-a-', {a: createChangeAction('added', somePost)});
       const expected = cold('--a-', {a: {...addedAction}});
+
+      postFirestore.observeChanges.and.returnValue(postChanges);
+
+      expect(effects.query$).toBeObservable(expected);
+    });
+
+    it('should stop querying again', () => {
+      const query: Action = new Query();
+      const queryStop: Action = new QueryStop();
+      actions$.stream = hot('-a-b-', {a: query, b: queryStop});
+
+      const addedAction: Action = new AfAdded({post: somePost});
+      const postChanges = cold('-a-a-', {a: createChangeAction('added', somePost)});
+
+      const queryStopped: Action = new QueryStopped();
+
+      const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
       postFirestore.observeChanges.and.returnValue(postChanges);
 

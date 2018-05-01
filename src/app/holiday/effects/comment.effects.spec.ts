@@ -8,7 +8,7 @@ import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
 import {CommentFirestore} from '../services/comment-firestore.service';
 import {MbComment, newTestComment} from '../models/comment';
-import {Query} from '../actions/holiday.actions';
+import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 
 describe('CommentEffects', () => {
   let effects: CommentEffects;
@@ -32,15 +32,28 @@ describe('CommentEffects', () => {
   });
 
   describe('query', () => {
-    beforeEach(() => {
+    it('should map state changes into corresponding actions', () => {
       const action: Action = new Query();
       actions$.stream = hot('-a--', {a: action});
-    });
-
-    it('should map state changes into corresponding actions', () => {
       const addedAction: Action = new AfAdded({comment: someComment});
       const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
       const expected = cold('--a-', {a: {...addedAction}});
+
+      commentFirestore.observeChangesFrom.and.returnValue(commentChanges);
+
+      expect(effects.query$).toBeObservable(expected);
+    });
+
+    it('should stop querying again', () => {
+      const query: Action = new Query();
+      const queryStop: Action = new QueryStop();
+      actions$.stream = hot('-a-b-', {a: query, b: queryStop});
+
+      const addedAction: Action = new AfAdded({comment: someComment});
+      const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
+      const queryStopped: Action = new QueryStopped();
+
+      const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
       commentFirestore.observeChangesFrom.and.returnValue(commentChanges);
 

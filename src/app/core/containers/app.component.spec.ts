@@ -2,9 +2,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../../holiday/reducers';
+import * as fromAuth from '../../auth/reducers';
 import {HolidaysState} from '../../holiday/reducers';
 import * as actions from '../../holiday/actions/holiday.actions';
+import {LoginSuccess, Logout} from '../../auth/actions/auth.actions';
+import {newTestUser} from '../../auth/services/auth.service';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -14,7 +16,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          auth: combineReducers(fromHoliday.reducers),
+          auth: combineReducers(fromAuth.reducers),
         })
       ],
       declarations: [AppComponent],
@@ -24,13 +26,26 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     store = TestBed.get(Store);
-    spyOn(store, 'dispatch');
 
     fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
   });
 
   it('should query for holiday changes', () => {
+    store.dispatch(new LoginSuccess({user: newTestUser()}));
+    spyOn(store, 'dispatch');
+
+    fixture.componentInstance.ngOnInit();
+
     expect(store.dispatch).toHaveBeenCalledWith(new actions.Query());
+  });
+
+  it('should stop querying when logged out', () => {
+    store.dispatch(new Logout());
+    spyOn(store, 'dispatch');
+
+    fixture.componentInstance.ngOnInit();
+
+    expect(store.dispatch).toHaveBeenCalledWith(new actions.QueryStop());
   });
 });
