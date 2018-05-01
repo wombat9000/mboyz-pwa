@@ -28,7 +28,7 @@ import {CoreModule} from './core/core.module';
     AppRoutingModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument({maxAge: 10}),
+    StoreDevtoolsModule.instrument({maxAge: 100}),
     AuthModule.forRoot(),
     CoreModule.forRoot(),
     HolidayModule,
