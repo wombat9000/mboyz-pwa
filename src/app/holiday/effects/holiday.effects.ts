@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Actions, Effect} from '@ngrx/effects';
+import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import * as holidayActions from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
 import {HolidayFirestore} from '../services/holiday-firestore.service';
+import {map, mergeMap, switchMap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -17,15 +18,18 @@ export class HolidayEffects {
     });
 
   @Effect()
-  query$: Observable<Action> = this.actions$.ofType(holidayActions.QUERY)
-    .switchMap(() => this.holidayFS.observeChanges())
-    .mergeMap(action => action)
-    .map(action => {
-      return {
-        type: `[Holiday Firestore] ${action.type}`,
-        holiday: {id: action.payload.doc.id, ...action.payload.doc.data()}
-      };
-    });
+  query$: Observable<Action> = this.actions$
+    .pipe(
+      ofType(holidayActions.QUERY),
+      switchMap(() => this.holidayFS.observeChanges()),
+      map(action => {
+        return {
+          type: `[Holiday Firestore] ${action.type}`,
+          holiday: {id: action.payload.doc.id, ...action.payload.doc.data()}
+        };
+      })
+    );
+
 
   constructor(private actions$: Actions, private holidayFS: HolidayFirestore) {
   }

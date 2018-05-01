@@ -63,7 +63,7 @@ describe('Holiday Effects', () => {
       const addedAction: Action = new AfAdded(someHoliday);
       const expected = cold('--a-', {a: {...addedAction}});
 
-      holidayFS.observeChanges.and.returnValue([holidayChanges]);
+      holidayFS.observeChanges.and.returnValue(holidayChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });

@@ -2,12 +2,13 @@ import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
-import {AfAdded, Query, Create, CreateSuccess} from '../actions/post.actions';
+import {AfAdded, Create, CreateSuccess} from '../actions/post.actions';
 import {PostEffects} from './post.effects';
 import {getActions, postFirestoreMocker, TestActions} from '../../test-support/stubs';
 import {Post} from '../models/post';
 import {PostFirestore} from '../services/post-firestore.service';
 import {createChangeAction} from '../../test-support/functions';
+import {Query} from '../actions/holiday.actions';
 
 describe('PostEffects', () => {
   let effects: PostEffects;

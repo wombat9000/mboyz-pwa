@@ -1,19 +1,12 @@
 import {Action} from '@ngrx/store';
 import {MbComment} from '../models/comment';
 
-export const QUERY          = '[Comment App] query';
 export const CREATE         = '[Comment CommentBox] create';
 export const CREATE_SUCCESS = '[Comment App] create success';
 export const AF_ADDED       = '[Comment Firestore] added';
 export const AF_MODIFIED    = '[Comment Firestore] modified';
 export const AF_REMOVED     = '[Comment Firestore] removed';
 
-export class Query implements Action {
-  readonly type = QUERY;
-
-  constructor() {
-  }
-}
 
 export class Create implements Action {
   readonly type = CREATE;
@@ -52,7 +45,6 @@ export class AfRemoved implements Action {
 
 export type CommentActions =
   Create |
-  Query |
   AfAdded |
   AfModified |
   AfRemoved;

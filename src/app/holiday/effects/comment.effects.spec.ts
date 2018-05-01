@@ -2,12 +2,13 @@ import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
-import {AfAdded, Create, CreateSuccess, Query} from '../actions/comment.actions';
+import {AfAdded, Create, CreateSuccess} from '../actions/comment.actions';
 import {commentFirestoreMocker, getActions, TestActions} from '../../test-support/stubs';
 import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
 import {CommentFirestore} from '../services/comment-firestore.service';
 import {MbComment, newTestComment} from '../models/comment';
+import {Query} from '../actions/holiday.actions';
 
 describe('CommentEffects', () => {
   let effects: CommentEffects;

@@ -16,6 +16,6 @@ export class CommentFirestore {
   }
 
   save(comment: MbComment) {
-    return this.afs.doc(`holidays/${comment.holidayId}/posts/${comment.postId}/comments/${comment.id}`).set(comment);
+    return this.afs.doc(`comments/${comment.id}`).set(comment);
   }
 }

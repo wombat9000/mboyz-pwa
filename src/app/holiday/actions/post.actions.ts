@@ -1,19 +1,11 @@
 import {Action} from '@ngrx/store';
 import {Post} from '../models/post';
 
-export const QUERY = '[Post App] query';
 export const CREATE = '[Post PostboxComponent] create';
 export const CREATE_SUCCESS = '[Post App] create success';
 export const AF_ADDED = '[Post Firestore] added';
 export const AF_MODIFIED = '[Post Firestore] modified';
 export const AF_REMOVED = '[Post Firestore] removed';
-
-export class Query implements Action {
-  readonly type = QUERY;
-
-  constructor() {
-  }
-}
 
 export class Create implements Action {
   readonly type = CREATE;
@@ -52,7 +44,6 @@ export class AfRemoved implements Action {
 
 export type PostActions =
   Create |
-  Query |
   AfAdded |
   AfModified |
   AfRemoved;

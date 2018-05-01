@@ -35,6 +35,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     console.log('Application starting up, querying for data.');
     this.store.dispatch(new holidayActions.Query());
-    this.store.dispatch(new postActions.Query());
   }
 }

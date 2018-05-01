@@ -10,8 +10,8 @@ export class HolidayFirestore {
   constructor(private afs: AngularFirestore) {
   }
 
-  public observeChanges(): Observable<DocumentChangeAction[]> {
-    return this.afs.collection('holidays').stateChanges();
+  public observeChanges(): Observable<DocumentChangeAction> {
+    return this.afs.collection('holidays').stateChanges().mergeMap(action => action);
   }
 
   public observeById(holidayId: string): Observable<Holiday | null> {
