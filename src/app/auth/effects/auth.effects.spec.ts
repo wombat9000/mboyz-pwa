@@ -24,14 +24,14 @@ import {
 } from '../actions/auth.actions';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {UserFirestore} from '../services/user-firestore.service';
+import {UserService} from '../services/user.service';
 
 
 describe('Auth Effects', () => {
   let actions$: TestActions;
   let effects: AuthEffects;
   let authService: jasmine.SpyObj<AuthService>;
-  let userFS: jasmine.SpyObj<UserFirestore>;
+  let userFS: jasmine.SpyObj<UserService>;
   let router: jasmine.SpyObj<Router>;
   let afsAuthMock: FireAuthStub;
   const afsMock: jasmine.SpyObj<AngularFirestore> = jasmine.createSpyObj('AngularFireStore', ['doc']);
@@ -43,7 +43,7 @@ describe('Auth Effects', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthEffects,
-        {provide: UserFirestore, useFactory: userFirestoreMocker},
+        {provide: UserService, useFactory: userFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker},
         {provide: AngularFirestore, useValue: afsMock},
         {provide: AngularFireAuth, useClass: FireAuthStub},
@@ -53,7 +53,7 @@ describe('Auth Effects', () => {
     });
 
     effects = TestBed.get(AuthEffects);
-    userFS = TestBed.get(UserFirestore);
+    userFS = TestBed.get(UserService);
     authService = TestBed.get(AuthService);
     afsAuthMock = TestBed.get(AngularFireAuth);
     router = TestBed.get(Router);

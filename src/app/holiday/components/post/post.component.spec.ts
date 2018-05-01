@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import moment = require('moment');
-import {UserFirestore} from '../../../auth/services/user-firestore.service';
+import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {userFirestoreMocker} from '../../../test-support/stubs';
 import {Post} from '../../models/post';
@@ -14,7 +14,7 @@ describe('PostComponent', () => {
   let component: PostComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<PostComponent>;
-  let userFS: jasmine.SpyObj<UserFirestore>;
+  let userFS: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
     uid: 'someAuthorId',
@@ -25,7 +25,7 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: UserFirestore, useFactory: userFirestoreMocker}],
+      providers: [{provide: UserService, useFactory: userFirestoreMocker}],
       declarations: [PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -40,7 +40,7 @@ describe('PostComponent', () => {
   };
 
   beforeEach(() => {
-    userFS = TestBed.get(UserFirestore);
+    userFS = TestBed.get(UserService);
     userFS.observeById.and.returnValue(Observable.of(someUser));
     fixture = TestBed.createComponent(PostComponent);
     debugElement = fixture.debugElement;

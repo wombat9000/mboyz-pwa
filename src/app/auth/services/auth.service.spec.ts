@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/from';
 import {FireAuthStub, routerMocker, userFirestoreMocker} from '../../test-support/stubs';
 import {Observable} from 'rxjs/Observable';
-import {UserFirestore} from './user-firestore.service';
+import {UserService} from './user.service';
 import {Router} from '@angular/router';
 
 
@@ -14,7 +14,7 @@ describe('Auth Service', () => {
 
   let testee: AuthService;
   let fireAuth: FireAuthStub;
-  let userRepo: jasmine.SpyObj<UserFirestore>;
+  let userRepo: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
     uid: 'someUID',
@@ -28,14 +28,14 @@ describe('Auth Service', () => {
       providers: [
         AuthService,
         {provide: AngularFireAuth, useClass: FireAuthStub},
-        {provide: UserFirestore, useFactory: userFirestoreMocker},
+        {provide: UserService, useFactory: userFirestoreMocker},
         {provide: Router, useFactory: routerMocker}
       ]
     });
 
     testee = TestBed.get(AuthService);
     fireAuth = TestBed.get(AngularFireAuth);
-    userRepo = TestBed.get(UserFirestore);
+    userRepo = TestBed.get(UserService);
   });
 
   it('current user is null if authState is null', (done) => {

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
-import {UserFirestore} from '../../../auth/services/user-firestore.service';
+import {UserService} from '../../../auth/services/user.service';
 import {Post} from '../../models/post';
 
 @Component({
@@ -30,7 +30,7 @@ export class PostComponent implements OnInit {
 
   user$: Observable<MtravelUser | null>;
 
-  constructor(private userFS: UserFirestore) {
+  constructor(private userFS: UserService) {
   }
 
   ngOnInit() {

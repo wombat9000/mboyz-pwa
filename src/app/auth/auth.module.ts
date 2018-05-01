@@ -1,5 +1,5 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {UserFirestore} from './services/user-firestore.service';
+import {UserService} from './services/user.service';
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './services/auth.guard';
 import {MaterialModule} from '../material';
@@ -13,7 +13,7 @@ import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [CommonModule, MaterialModule],
-  providers: [UserFirestore, AuthService, AuthGuard],
+  providers: [UserService, AuthService, AuthGuard],
   declarations: [LoginPageComponent],
   exports: [LoginPageComponent]
 })

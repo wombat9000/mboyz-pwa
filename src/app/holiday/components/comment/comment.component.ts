@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {MbComment} from '../../models/comment';
-import {UserFirestore} from '../../../auth/services/user-firestore.service';
+import {UserService} from '../../../auth/services/user.service';
 
 @Component({
   selector: 'app-comment',
@@ -25,7 +25,7 @@ export class CommentComponent implements OnInit {
 
   user$: Observable<MtravelUser | null>;
 
-  constructor(private userFS: UserFirestore) {
+  constructor(private userFS: UserService) {
   }
 
   get text() {

@@ -1,4 +1,4 @@
-import {UserFirestore} from '../auth/services/user-firestore.service';
+import {UserService} from '../auth/services/user.service';
 import {HolidayFirestore} from '../holiday/services/holiday-firestore.service';
 import {AuthService} from '../auth/services/auth.service';
 import {Router} from '@angular/router';
@@ -47,7 +47,7 @@ export const authServiceMocker: () => jasmine.SpyObj<AuthService> = () => jasmin
   'facebookLogin',
   'updateUserData'
 ]);
-export const userFirestoreMocker: () => jasmine.SpyObj<UserFirestore> =
+export const userFirestoreMocker: () => jasmine.SpyObj<UserService> =
   () => jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
 
 export const postFirestoreMocker: () => jasmine.SpyObj<PostFirestore> =

@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {UserFirestore} from './user-firestore.service';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 import AuthProvider = firebase.auth.AuthProvider;
+import {UserService} from './user.service';
 
 
 export interface MtravelUser {
@@ -28,7 +28,7 @@ export function newTestUser(id: string = 'someId') {
 export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
-              private userRepository: UserFirestore,
+              private userService: UserService,
               private router: Router) {
   }
 
@@ -56,7 +56,7 @@ export class AuthService {
   private authedUser(): Observable<MtravelUser | null> {
     return this.afAuth.authState.switchMap(user => {
       if (user) {
-        return this.userRepository.observeById(user.uid);
+        return this.userService.observeById(user.uid);
       }
       return Observable.of(null);
     });

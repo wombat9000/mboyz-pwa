@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import moment = require('moment');
-import {UserFirestore} from '../../../auth/services/user-firestore.service';
+import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {MbComment} from '../../models/comment';
 import {userFirestoreMocker} from '../../../test-support/stubs';
@@ -14,7 +14,7 @@ describe('CommentComponent', () => {
   let component: CommentComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<CommentComponent>;
-  let userFS: jasmine.SpyObj<UserFirestore>;
+  let userFS: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
     uid: 'someAuthorId',
@@ -36,7 +36,7 @@ describe('CommentComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         {
-          provide: UserFirestore,
+          provide: UserService,
           useFactory: userFirestoreMocker
         }
       ],
@@ -46,7 +46,7 @@ describe('CommentComponent', () => {
   }));
 
   beforeEach(() => {
-    userFS = TestBed.get(UserFirestore);
+    userFS = TestBed.get(UserService);
     userFS.observeById.and.returnValue(Observable.of(someUser));
     fixture = TestBed.createComponent(CommentComponent);
     debugElement = fixture.debugElement;

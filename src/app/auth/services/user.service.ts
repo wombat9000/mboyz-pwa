@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
-export class UserFirestore {
+export class UserService {
 
   constructor(private afs: AngularFirestore) {
   }

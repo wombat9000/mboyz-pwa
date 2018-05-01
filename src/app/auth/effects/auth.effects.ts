@@ -7,8 +7,8 @@ import {AuthActionTypes, Authorise, LoginFailure, LoginSuccess, NotAuthenticated
 import {Action} from '@ngrx/store';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {UserFirestore} from '../services/user-firestore.service';
 import {map, switchMap} from 'rxjs/operators';
+import {UserService} from '../services/user.service';
 
 
 @Injectable()
@@ -80,7 +80,7 @@ export class AuthEffects {
   constructor(private actions$: Actions,
               private afs: AngularFirestore,
               private afsAuth: AngularFireAuth,
-              private userFirestore: UserFirestore,
+              private userFirestore: UserService,
               private authService: AuthService,
               private router: Router) {
   }
