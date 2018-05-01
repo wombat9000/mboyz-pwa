@@ -8,7 +8,6 @@ import {Store} from '@ngrx/store';
 import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {HolidayService} from '../holiday/services/holiday.service';
 import {FirebaseAuth} from '@firebase/auth-types';
 import {Actions} from '@ngrx/effects';
 import {empty} from 'rxjs/observable/empty';
@@ -35,8 +34,6 @@ export class FireAuthStub implements AngularFireAuth {
   idToken: Observable<string | null>;
 }
 
-export const holidayServiceMocker: () => jasmine.SpyObj<HolidayService> =
-  () => jasmine.createSpyObj('HolidayService', ['create', 'findById', 'changesToCollection']);
 export const storeMocker: <T>() => jasmine.SpyObj<Store<T>> =
   () => jasmine.createSpyObj('Store', ['dispatch', 'select']);
 export const routerMocker: () => jasmine.SpyObj<Router> =
