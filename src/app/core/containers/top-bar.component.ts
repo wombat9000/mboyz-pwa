@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromAuth from '../../../auth/reducers/index';
+import * as fromAuth from '../../auth/reducers/index';
 
 @Component({
   selector: 'app-top-bar',
