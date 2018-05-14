@@ -15,7 +15,7 @@
     "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
     "build-prod": "ng build --progress=false --prod && npm run prep-pwa",
     "build-staging": "ng build --progress=false --environment=staging && npm run prep-pwa",
-    "serve-pwa": "npm run build-staging && http-server dist -p 8080"
+    "serve-pwa": "npm run build-staging && node_modules/http-server/bin/http-server dist -p 8080"
   },
   "private": true,
   "dependencies": {
@@ -56,6 +56,7 @@
     "@types/node": "^10.0.1",
     "codelyzer": "^4.1.0",
     "firebase-tools": "^3.17.4",
+    "http-server": "^0.11.1",
     "jasmine-core": "~2.8.0",
     "jasmine-marbles": "^0.2.0",
     "karma": "^2.0.2",
