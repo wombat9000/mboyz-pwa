@@ -5,8 +5,6 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import {AuthActionTypes, Authorise, LoginFailure, LoginSuccess, NotAuthenticated, Unauthorised} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {map, switchMap} from 'rxjs/operators';
 import {UserService} from '../services/user.service';
 
@@ -26,15 +24,9 @@ export class AuthEffects {
   unauthorised$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.UNAUTHORISED),
     switchMap((action: Unauthorised) => {
-      return this.afsAuth.authState.map(afUser => {
+      return this.authService.activeUser().map(afUser => {
         if (afUser) {
-          const user = {
-            uid: afUser.uid,
-            email: afUser.email,
-            photoURL: afUser.photoURL,
-            displayName: afUser.displayName
-          };
-          return new Authorise({user: user, url: action.payload.url});
+          return new Authorise({user: afUser, url: action.payload.url});
         }
         return new NotAuthenticated();
       });
@@ -46,7 +38,7 @@ export class AuthEffects {
     ofType(AuthActionTypes.FACEBOOK_LOGIN),
     switchMap(() => {
       return this.authService.facebookLogin()
-        .switchMap(user => this.userFirestore.save(user).map(() => user))
+        .switchMap(user => this.userService.save(user).map(() => user))
         .map(user => new LoginSuccess({user: user}))
         .catch(err => {
           return Observable.of(new LoginFailure({error: err.message}));
@@ -73,14 +65,12 @@ export class AuthEffects {
   @Effect()
   logout$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.LOGOUT),
-    map(() => Observable.fromPromise(this.afsAuth.auth.signOut())),
+    map(() => Observable.fromPromise(this.authService.signOut())),
     map(() => new NotAuthenticated())
   );
 
   constructor(private actions$: Actions,
-              private afs: AngularFirestore,
-              private afsAuth: AngularFireAuth,
-              private userFirestore: UserService,
+              private userService: UserService,
               private authService: AuthService,
               private router: Router) {
   }

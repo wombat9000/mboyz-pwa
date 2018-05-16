@@ -70,10 +70,6 @@ describe('Auth Service', () => {
     it('should unauthenticate the user', () => {
       expect(fireAuth.auth.signOut).toHaveBeenCalled();
     });
-
-    it('should redirect to login screen', () => {
-      expect(router.navigate).toHaveBeenCalledWith(['/login']);
-    });
   });
 
   describe('login with facebook', () => {

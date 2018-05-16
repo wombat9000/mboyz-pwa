@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 import AuthProvider = firebase.auth.AuthProvider;
@@ -28,8 +27,7 @@ export function newTestUser(id: string = 'someId') {
 export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
-              private userService: UserService,
-              private router: Router) {
+              private userService: UserService) {
   }
 
   activeUser(): Observable<MtravelUser | null> {
@@ -44,12 +42,11 @@ export class AuthService {
   }
 
   async signOut(): Promise<any> {
-    await this.afAuth.auth.signOut();
-    return this.router.navigate(['/login']);
+    return this.afAuth.auth.signOut();
   }
 
   facebookLogin(): Observable<MtravelUser> {
-    const provider = new FacebookAuthProvider();
+    const provider: FacebookAuthProvider = new FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 
@@ -69,7 +66,7 @@ export class AuthService {
           uid: credential.user.uid,
           email: credential.user.email,
           displayName: credential.user.displayName,
-          photoURL: credential.user.photoURL
+          photoURL: credential.user.providerData[0].photoURL
         };
       });
   }

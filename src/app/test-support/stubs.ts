@@ -40,6 +40,7 @@ export const routerMocker: () => jasmine.SpyObj<Router> =
   () => jasmine.createSpyObj('Router', ['navigate', 'navigateByUrl']);
 export const authServiceMocker: () => jasmine.SpyObj<AuthService> = () => jasmine.createSpyObj('AuthService', [
   'isSignedIn',
+  'signOut',
   'activeUser',
   'facebookLogin',
   'updateUserData'

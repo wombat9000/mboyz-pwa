@@ -3,7 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
 import {
   authServiceMocker,
-  FireAuthStub, getActions,
+  getActions,
   routerMocker,
   TestActions,
   userFirestoreMocker
@@ -22,7 +22,6 @@ import {
   NotAuthenticated,
   Unauthorised
 } from '../actions/auth.actions';
-import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {UserService} from '../services/user.service';
 
@@ -33,11 +32,6 @@ describe('Auth Effects', () => {
   let authService: jasmine.SpyObj<AuthService>;
   let userFS: jasmine.SpyObj<UserService>;
   let router: jasmine.SpyObj<Router>;
-  let afsAuthMock: FireAuthStub;
-  const afsMock: jasmine.SpyObj<AngularFirestore> = jasmine.createSpyObj('AngularFireStore', ['doc']);
-  const afsDocMock: jasmine.SpyObj<AngularFirestoreDocument<MtravelUser>> =
-    jasmine.createSpyObj('AngularFirestoreDocument', ['set']);
-
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,8 +39,6 @@ describe('Auth Effects', () => {
         AuthEffects,
         {provide: UserService, useFactory: userFirestoreMocker},
         {provide: AuthService, useFactory: authServiceMocker},
-        {provide: AngularFirestore, useValue: afsMock},
-        {provide: AngularFireAuth, useClass: FireAuthStub},
         {provide: Router, useFactory: routerMocker},
         {provide: Actions, useFactory: getActions},
       ]
@@ -55,12 +47,8 @@ describe('Auth Effects', () => {
     effects = TestBed.get(AuthEffects);
     userFS = TestBed.get(UserService);
     authService = TestBed.get(AuthService);
-    afsAuthMock = TestBed.get(AngularFireAuth);
     router = TestBed.get(Router);
     actions$ = TestBed.get(Actions);
-
-    afsMock.doc.and.returnValue(afsDocMock);
-    afsDocMock.set.and.returnValue(Promise.resolve());
   });
 
   const someUser: MtravelUser = {
@@ -87,7 +75,8 @@ describe('Auth Effects', () => {
 
   describe('unauthorised$', () => {
     it('should return authorise if authed', () => {
-      afsAuthMock.authState = Observable.of(someUser);
+      authService.activeUser.and.returnValue(Observable.of(someUser));
+
       const action: Action = new Unauthorised({url: 'someUrl'});
 
       actions$.stream = hot('-a--', {a: action});
@@ -98,7 +87,8 @@ describe('Auth Effects', () => {
     });
 
     it('should return notAuthenticated if auth fails', () => {
-      afsAuthMock.authState = Observable.of(null);
+      authService.activeUser.and.returnValue(Observable.of(null));
+
       const action: Action = new Unauthorised({url: 'someUrl'});
 
       actions$.stream = hot('-a--', {a: action});
@@ -175,13 +165,13 @@ describe('Auth Effects', () => {
   describe('logout$', () => {
     beforeEach(() => {
       const action: Action = new Logout();
-      afsAuthMock.auth.signOut.and.returnValue(Promise.resolve());
+      authService.signOut.and.returnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
     });
 
     it('should sign out from afs', () => {
       effects.logout$.subscribe(() => {
-        expect(afsAuthMock.auth.signOut).toHaveBeenCalled();
+        expect(authService.signOut).toHaveBeenCalled();
       });
     });
 
