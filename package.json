@@ -14,7 +14,7 @@
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
     "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
     "build-prod": "ng build --progress=false --prod && npm run prep-pwa",
-    "build-staging": "ng build --progress=false --environment=staging && npm run prep-pwa",
+    "build-staging": "ng build --progress=false --configuration=staging && npm run prep-pwa",
     "serve-pwa": "npm run build-staging && node_modules/http-server/bin/http-server dist -p 8080"
   },
   "private": true,
