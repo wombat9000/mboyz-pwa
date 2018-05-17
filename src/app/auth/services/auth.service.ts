@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {AngularFireAuth} from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
-import AuthProvider = firebase.auth.AuthProvider;
 import {UserService} from './user.service';
+import {Observable, of} from 'rxjs/index';
+import {map, take, switchMap} from 'rxjs/internal/operators';
+import {fromPromise} from 'rxjs/internal/observable/fromPromise';
+import {AngularFireAuth} from 'angularfire2/auth';
+import * as firebase from 'firebase';
+import AuthProvider = firebase.auth.AuthProvider;
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 
 
 export interface MtravelUser {
@@ -30,15 +32,17 @@ export class AuthService {
               private userService: UserService) {
   }
 
-  activeUser(): Observable<MtravelUser | null> {
-    return this.authedUser()
-      .take(1);
+  activeUser(): Observable<MtravelUser | undefined> {
+    return this.authedUser().pipe(
+      take(1)
+    );
   }
 
   isSignedIn(): Observable<boolean> {
-    return this.authedUser()
-      .take(1)
-      .map(user => !!user);
+    return this.authedUser().pipe(
+      take(1),
+      map(user => !!user)
+    );
   }
 
   async signOut(): Promise<any> {
@@ -50,24 +54,25 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
-  private authedUser(): Observable<MtravelUser | null> {
-    return this.afAuth.authState.switchMap(user => {
-      if (user) {
-        return this.userService.observeById(user.uid);
-      }
-      return Observable.of(null);
-    });
+  private authedUser(): Observable<MtravelUser | undefined> {
+    return this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user !== null) {
+          return this.userService.observeById(user.uid);
+        }
+        return of(undefined);
+      }));
   }
 
   private oAuthLogin(provider: AuthProvider): Observable<MtravelUser> {
-    return Observable.fromPromise(this.afAuth.auth.signInWithPopup(provider))
-      .map(credential => {
+    return fromPromise(this.afAuth.auth.signInWithPopup(provider)).pipe(
+      map(credential => {
         return {
           uid: credential.user.uid,
           email: credential.user.email,
           displayName: credential.user.displayName,
           photoURL: credential.user.providerData[0].photoURL
         };
-      });
+      }));
   }
 }

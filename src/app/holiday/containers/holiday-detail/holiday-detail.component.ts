@@ -7,9 +7,10 @@ import {Store} from '@ngrx/store';
 import {Select} from '../../actions/holiday.actions';
 import {Holiday} from '../../models/holiday';
 import {MtravelUser} from '../../../auth/services/auth.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Post} from '../../models/post';
 import * as moment from 'moment';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-holiday-detail',
@@ -34,12 +35,12 @@ import * as moment from 'moment';
 export class HolidayDetailPageComponent implements OnInit {
   holiday$: Observable<Holiday | null> = this.store.select(fromHoliday.getSelectedHoliday);
   activeUser$: Observable<MtravelUser | null> = this.store.select(fromAuth.getUser);
-  posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts)
-    .map(it => {
+  posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts).pipe(
+    map(it => {
       return it.sort((some, other) => {
         return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;
       });
-    });
+    }));
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute) {

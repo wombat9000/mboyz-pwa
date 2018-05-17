@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers';
 import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-holiday-overview',
@@ -45,9 +46,9 @@ export class HolidayOverviewPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.holidays$ = this.store.select(fromHoliday.selectAll)
-      .map(this.sortByDate);
-
+    this.holidays$ = this.store.select(fromHoliday.selectAll).pipe(
+      map(this.sortByDate)
+    );
   }
 
   goToDetail(holidayId: string) {

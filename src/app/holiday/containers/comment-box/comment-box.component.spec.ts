@@ -4,7 +4,6 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
 import {authServiceMocker} from '../../../test-support/stubs';
@@ -12,11 +11,12 @@ import {CommentFieldComponent} from '../../components/comment-field/comment-fiel
 import {Post} from '../../models/post';
 import {MbComment} from '../../models/comment';
 import * as fromHoliday from '../../reducers/index';
+import {HolidaysState} from '../../reducers';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import moment = require('moment');
-import {HolidaysState} from '../../reducers/index';
 import * as comment from '../../actions/comment.actions';
 import * as post from '../../actions/post.actions';
+import {of} from 'rxjs';
+import moment = require('moment');
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
@@ -61,7 +61,7 @@ describe('CommentBoxComponent', () => {
     store.dispatch(new post.Create({post: parentPost}));
 
     authService = TestBed.get(AuthService);
-    authService.activeUser.and.returnValue(Observable.of(someAuthor));
+    authService.activeUser.and.returnValue(of(someAuthor));
 
     fixture = TestBed.createComponent(CommentBoxComponent);
     component = fixture.componentInstance;

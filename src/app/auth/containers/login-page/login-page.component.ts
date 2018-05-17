@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 
 import {FacebookLogin} from '../../actions/auth.actions';
 import * as fromAuth from '../../reducers';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 
 @Component({

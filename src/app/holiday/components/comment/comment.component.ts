@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {MbComment} from '../../models/comment';
 import {UserService} from '../../../auth/services/user.service';
+import {Observable} from 'rxjs/index';
 
 @Component({
   selector: 'app-comment',
@@ -23,7 +23,7 @@ export class CommentComponent implements OnInit {
   @Input()
   comment: MbComment;
 
-  user$: Observable<MtravelUser | null>;
+  user$: Observable<MtravelUser | undefined>;
 
   constructor(private userFS: UserService) {
   }

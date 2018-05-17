@@ -10,7 +10,6 @@ import {
 } from '../../test-support/stubs';
 import {AuthEffects} from './auth.effects';
 import {Actions} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
 import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {
@@ -22,8 +21,8 @@ import {
   NotAuthenticated,
   Unauthorised
 } from '../actions/auth.actions';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {UserService} from '../services/user.service';
+import {of} from 'rxjs/index';
 
 
 describe('Auth Effects', () => {
@@ -67,7 +66,7 @@ describe('Auth Effects', () => {
       actions$.stream = hot('-a--', {a: action});
       router.navigate.and.returnValue(Promise.resolve());
 
-      effects.authorise$.subscribe((it) => {
+      effects.authorise$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith([someUrl]);
       });
     });
@@ -75,7 +74,7 @@ describe('Auth Effects', () => {
 
   describe('unauthorised$', () => {
     it('should return authorise if authed', () => {
-      authService.activeUser.and.returnValue(Observable.of(someUser));
+      authService.activeUser.and.returnValue(of(someUser));
 
       const action: Action = new Unauthorised({url: 'someUrl'});
 
@@ -87,7 +86,7 @@ describe('Auth Effects', () => {
     });
 
     it('should return notAuthenticated if auth fails', () => {
-      authService.activeUser.and.returnValue(Observable.of(null));
+      authService.activeUser.and.returnValue(of(null));
 
       const action: Action = new Unauthorised({url: 'someUrl'});
 

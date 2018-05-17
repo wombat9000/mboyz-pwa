@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {UserService} from '../../../auth/services/user.service';
@@ -28,7 +28,7 @@ export class PostComponent implements OnInit {
   @Input()
   post: Post;
 
-  user$: Observable<MtravelUser | null>;
+  user$: Observable<MtravelUser | undefined>;
 
   constructor(private userFS: UserService) {
   }

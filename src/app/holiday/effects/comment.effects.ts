@@ -4,12 +4,11 @@ import * as commentActions from '../actions/comment.actions';
 import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions} from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {CommentFirestore} from '../services/comment-firestore.service';
 import {asComment} from '../models/comment';
 import {map, switchMap} from 'rxjs/operators';
 import {QueryStopped} from '../actions/holiday.actions';
-import {of} from 'rxjs/observable/of';
 
 
 @Injectable()
@@ -35,14 +34,14 @@ export class CommentEffects {
   );
 
   private getObservable(): Observable<Action> {
-    return this.commentFirestore.observeChangesFrom('comments')
-      .map(action => {
+    return this.commentFirestore.observeChangesFrom<Comment>('comments').pipe(
+      map(action => {
         const comment = asComment(action.payload.doc.data());
         return {
           type: `[Comment Firestore] ${action.type}`,
           payload: {comment: comment}
         };
-      });
+      }));
   }
 
   constructor(private actions$: Actions, private commentFirestore: CommentFirestore) {

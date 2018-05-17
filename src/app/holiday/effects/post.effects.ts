@@ -4,12 +4,11 @@ import * as postActions from '../actions/post.actions';
 import {Create, CreateSuccess} from '../actions/post.actions';
 import {PostFirestore} from '../services/post-firestore.service';
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {Post} from '../models/post';
 import {map, switchMap} from 'rxjs/operators';
 import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions, QueryStopped} from '../actions/holiday.actions';
-import {of} from 'rxjs/observable/of';
 
 
 @Injectable()
@@ -38,8 +37,8 @@ export class PostEffects {
   }
 
   private getObservable(): Observable<Action> {
-    return this.postFirestore.observeChanges()
-      .map(action => {
+    return this.postFirestore.observeChanges().pipe(
+      map(action => {
         const data = action.payload.doc.data();
         const post: Post = {
           id: data.id,
@@ -53,6 +52,6 @@ export class PostEffects {
           type: `[Post Firestore] ${action.type}`,
           payload: {post: post}
         };
-      });
+      }));
   }
 }

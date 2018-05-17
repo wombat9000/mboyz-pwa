@@ -1,22 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions, QueryStopped} from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
 import {HolidayFirestore} from '../services/holiday-firestore.service';
-import {switchMap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
+import {switchMap, map} from 'rxjs/operators';
 
 @Injectable()
 export class HolidayEffects {
 
   @Effect({dispatch: false})
-  create$: Observable<void> = this.actions$
-    .ofType(holidayActions.CREATE)
-    .switchMap((action: holidayActions.Create) => {
+  create$: Observable<void> = this.actions$.pipe(
+    ofType(holidayActions.CREATE),
+    switchMap((action: holidayActions.Create) => {
       return this.holidayFS.save(action.holiday);
-    });
+    }));
 
   @Effect()
   query$: Observable<Action> = this.actions$
@@ -35,12 +34,12 @@ export class HolidayEffects {
   }
 
   private consumeUpdates(): Observable<Action> {
-    return this.holidayFS.observeChanges()
-      .map(action => {
+    return this.holidayFS.observeChanges().pipe(
+      map(action => {
         return {
           type: `[Holiday Firestore] ${action.type}`,
           holiday: {id: action.payload.doc.id, ...action.payload.doc.data()}
         };
-      });
+      }));
   }
 }

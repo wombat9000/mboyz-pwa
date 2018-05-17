@@ -2,12 +2,9 @@ import {TestBed} from '@angular/core/testing';
 
 import {AuthService, MtravelUser} from './auth.service';
 import {AngularFireAuth} from 'angularfire2/auth';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/from';
-import {FireAuthStub, routerMocker, userFirestoreMocker} from '../../test-support/stubs';
-import {Observable} from 'rxjs/Observable';
+import {FireAuthStub, userFirestoreMocker} from '../../test-support/stubs';
 import {UserService} from './user.service';
-import {Router} from '@angular/router';
+import {of} from 'rxjs/index';
 
 
 describe('Auth Service', () => {
@@ -28,8 +25,7 @@ describe('Auth Service', () => {
       providers: [
         AuthService,
         {provide: AngularFireAuth, useClass: FireAuthStub},
-        {provide: UserService, useFactory: userFirestoreMocker},
-        {provide: Router, useFactory: routerMocker}
+        {provide: UserService, useFactory: userFirestoreMocker}
       ]
     });
 
@@ -38,18 +34,18 @@ describe('Auth Service', () => {
     userRepo = TestBed.get(UserService);
   });
 
-  it('current user is null if authState is null', (done) => {
-    fireAuth.authState = Observable.of(null);
+  it('current user is undefined if authState is undefined', (done) => {
+    fireAuth.authState = of(null);
 
     testee.activeUser().subscribe(it => {
-      expect(it).toBe(null);
+      expect(it).toBe(undefined);
       done();
     });
   });
 
   it('current user is updated from auth state', (done) => {
-    userRepo.observeById.and.returnValue(Observable.of(someUser));
-    fireAuth.authState = Observable.of(someUser);
+    userRepo.observeById.and.returnValue(of(someUser));
+    fireAuth.authState = of(someUser);
 
     testee.activeUser().subscribe(it => {
       expect(it).toBe(someUser);
@@ -58,12 +54,10 @@ describe('Auth Service', () => {
   });
 
   describe('signOut', () => {
-    let router: Router;
 
     beforeEach(async () => {
-      router = TestBed.get(Router);
-      userRepo.observeById.and.returnValue(Observable.of(someUser));
-      fireAuth.authState = Observable.of(someUser);
+      userRepo.observeById.and.returnValue(of(someUser));
+      fireAuth.authState = of(someUser);
       await testee.signOut();
     });
 
@@ -73,8 +67,6 @@ describe('Auth Service', () => {
   });
 
   describe('login with facebook', () => {
-    let router: Router;
-
     const user: MtravelUser = {
       uid: 'someUid',
       email: 'someEmail',
@@ -84,8 +76,7 @@ describe('Auth Service', () => {
     const credential = {user: user};
 
     beforeEach(async () => {
-      router = TestBed.get(Router);
-      fireAuth.authState = Observable.of(null);
+      fireAuth.authState = of(null);
       fireAuth.auth.signInWithPopup.and.returnValue(credential);
       await testee.facebookLogin();
     });

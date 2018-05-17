@@ -8,14 +8,15 @@ import {Store} from '@ngrx/store';
 import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {FirebaseAuth} from '@firebase/auth-types';
 import {Actions} from '@ngrx/effects';
-import {empty} from 'rxjs/observable/empty';
+import {FirebaseAuth, IdTokenResult, User} from '@firebase/auth-types';
+import {EMPTY} from 'rxjs';
+import {NgZone} from '@angular/core';
 
 
 export class TestActions extends Actions {
   constructor() {
-    super(empty());
+    super(EMPTY);
   }
 
   set stream(source: Observable<any>) {
@@ -27,11 +28,16 @@ export function getActions() {
   return new TestActions();
 }
 
-export class FireAuthStub implements AngularFireAuth {
+export class FireAuthStub extends AngularFireAuth {
+  constructor() {
+    super({}, {}, {}, jasmine.createSpyObj<NgZone>(['runOutsideAngular']));
+  }
   app: FirebaseApp = jasmine.createSpyObj('FireBaseApp', ['']);
   auth: jasmine.SpyObj<FirebaseAuth> = jasmine.createSpyObj('FirebaseAuth', ['signOut', 'signInWithPopup']);
   authState: Observable<any | null>;
   idToken: Observable<string | null>;
+  readonly idTokenResult: Observable<IdTokenResult | null>;
+  readonly user: Observable<User | null>;
 }
 
 export const storeMocker: <T>() => jasmine.SpyObj<Store<T>> =

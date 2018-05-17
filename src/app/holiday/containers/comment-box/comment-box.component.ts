@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import * as moment from 'moment';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
 import {Post} from '../../models/post';
@@ -9,6 +8,8 @@ import {Store} from '@ngrx/store';
 import {Create} from '../../actions/comment.actions';
 import * as fromHoliday from '../../reducers/index';
 import * as uuid from 'uuid';
+import {Observable} from 'rxjs/index';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class CommentBoxComponent implements OnInit {
   @Input()
   post: Post;
   comments$: Observable<MbComment[]>;
-  user: MtravelUser | null;
+  user: MtravelUser | undefined;
 
   constructor(private store: Store<fromRoot.State>,
               private auth: AuthService) {
@@ -37,16 +38,16 @@ export class CommentBoxComponent implements OnInit {
   ngOnInit() {
     this.auth.activeUser().subscribe(it => this.user = it);
 
-    this.comments$ = this.store.select(fromHoliday.getCommentsForPostId(this.post.id))
-      .map(it => {
+    this.comments$ = this.store.select(fromHoliday.getCommentsForPostId(this.post.id)).pipe(
+      map(it => {
         return it.sort((some, other) => {
           return moment(some.created).isAfter(moment(other.created)) ? 1 : 0;
         });
-      });
+      }));
   }
 
   submitComment(text: string) {
-    if (this.user !== null) {
+    if (this.user !== undefined) {
       const comment: MbComment = {
         id: uuid(),
         text: text,

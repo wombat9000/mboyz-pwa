@@ -3,10 +3,10 @@ import {PostFirestore} from './post-firestore.service';
 import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
 import {AngularFirestoreDocument} from 'angularfire2/firestore/document/document';
 import {Post} from '../models/post';
-import {Observable} from 'rxjs/Observable';
 import {AngularFirestoreCollection} from 'angularfire2/firestore/collection/collection';
-import {DocumentChangeType} from '@firebase/firestore-types';
 import {createChangeAction} from '../../test-support/functions';
+import {DocumentChangeType} from '@firebase/firestore-types';
+import {of} from 'rxjs/index';
 
 
 describe('PostFirestore', () => {
@@ -41,6 +41,7 @@ describe('PostFirestore', () => {
     const docRef = jasmine.createSpyObj<AngularFirestoreDocument<Post>>('AngularFirestoreDocument', ['set']);
 
     beforeEach(async () => {
+      docRef.set.and.returnValue(Promise.resolve());
       afs.doc.and.returnValue(docRef);
       await testee.save(somePost);
     });
@@ -59,10 +60,10 @@ describe('PostFirestore', () => {
 
     const documentChangeAction = createChangeAction(added, {});
 
-    colRef.stateChanges.and.returnValue(Observable.of([documentChangeAction]));
+    colRef.stateChanges.and.returnValue(of([documentChangeAction]));
     afs.collection.and.returnValue(colRef);
 
-    testee.observeChanges().subscribe((it: DocumentChangeAction) => {
+    testee.observeChanges().subscribe((it: DocumentChangeAction<any>) => {
       expect(afs.collection).toHaveBeenCalledWith(`posts`);
       expect(it).toEqual(documentChangeAction);
       done();

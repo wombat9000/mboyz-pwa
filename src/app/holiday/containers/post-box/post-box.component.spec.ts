@@ -14,6 +14,7 @@ import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers/index';
 import moment = require('moment');
+import {of} from 'rxjs';
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<PostBoxComponent>,
@@ -102,7 +103,7 @@ describe('PostBoxComponent', () => {
 
     spyOn(store, 'select').and.returnValue(holidayPostsSubject);
 
-    authServiceMock.activeUser.and.returnValue(Observable.of(someAuthor));
+    authServiceMock.activeUser.and.returnValue(of(someAuthor));
 
     fixture = TestBed.createComponent(PostBoxComponent);
     postBoxPO = new PostBoxPO(fixture, inputHoliday, someAuthor, [somePost, moreRecentPost]);

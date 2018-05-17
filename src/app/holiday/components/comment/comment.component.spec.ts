@@ -9,6 +9,7 @@ import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {MbComment} from '../../models/comment';
 import {userFirestoreMocker} from '../../../test-support/stubs';
+import {of} from 'rxjs/index';
 
 describe('CommentComponent', () => {
   let component: CommentComponent;
@@ -47,7 +48,7 @@ describe('CommentComponent', () => {
 
   beforeEach(() => {
     userFS = TestBed.get(UserService);
-    userFS.observeById.and.returnValue(Observable.of(someUser));
+    userFS.observeById.and.returnValue(of(someUser));
     fixture = TestBed.createComponent(CommentComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;

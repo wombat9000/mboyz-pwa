@@ -1,6 +1,6 @@
 import {DebugElement} from '@angular/core';
-import {DocumentChangeAction} from 'angularfire2/firestore';
-import {DocumentChange, DocumentChangeType, DocumentData} from '@firebase/firestore-types';
+import {DocumentChangeAction, DocumentChange} from 'angularfire2/firestore';
+import {DocumentChangeType, DocumentData} from '@firebase/firestore-types';
 
 const ButtonClickEvents = {
   left: {button: 0},
@@ -15,12 +15,12 @@ export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClic
   }
 }
 
-export function createChangeAction(changeType: DocumentChangeType, payload: any): DocumentChangeAction {
-  const data: DocumentData = {...payload};
+export function createChangeAction<T>(changeType: DocumentChangeType, payload: T): DocumentChangeAction<T> {
+  const data: T = payload;
   const snapshot = jasmine.createSpyObj('QueryDocumentSnapshot', ['data']);
   snapshot.data.and.returnValue(data);
 
-  const changePayload: DocumentChange = {
+  const changePayload: DocumentChange<T> = {
     type: changeType,
     doc: snapshot,
     oldIndex: 1,
