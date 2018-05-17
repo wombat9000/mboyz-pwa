@@ -1,12 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../../auth/reducers/index';
+import * as fromRoot from '../../reducers/index';
+import * as fromAppBar from '../reducers/app-bar.reducer';
 
 @Component({
   selector: 'app-top-bar',
   template: `
     <mat-toolbar color="primary">
-      <span routerLink="/">{{ title }}</span>
+      <span routerLink="/">{{ appName }}</span>
+      <span class="spacer"></span>
+      <div>{{ title$ | async }}</div>
       <span class="spacer"></span>
       <div *ngIf="user$ | async as user">
         <app-user-menu [user]="user"></app-user-menu>
@@ -26,10 +30,10 @@ export class TopBarComponent implements OnInit {
   // TODO: check for updates with service worker
 
   user$ = this.store.select(fromAuth.getUser);
+  appName = 'mtravel';
+  title$ = this.store.select(fromRoot.getTitle);
 
-  title = 'mtravel';
-
-  constructor(private store: Store<fromAuth.State>) {
+  constructor(private store: Store<fromRoot.State>) {
   }
 
   ngOnInit() {

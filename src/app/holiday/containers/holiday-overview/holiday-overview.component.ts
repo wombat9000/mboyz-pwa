@@ -6,6 +6,7 @@ import * as fromHoliday from '../../reducers';
 import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
+import {SetTitle} from '../../../core/actions/app-bar.actions';
 
 @Component({
   selector: 'app-holiday-overview',
@@ -49,6 +50,9 @@ export class HolidayOverviewPageComponent implements OnInit {
     this.holidays$ = this.store.select(fromHoliday.selectAll).pipe(
       map(this.sortByDate)
     );
+
+    // TODO:test
+    this.store.dispatch(new SetTitle({newTitle: 'holidays'}));
   }
 
   goToDetail(holidayId: string) {

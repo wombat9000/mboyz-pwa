@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/holiday.reducer';
@@ -6,6 +6,7 @@ import * as actions from '../../actions/holiday.actions';
 import {Holiday} from '../../models/holiday';
 import * as moment from 'moment';
 import * as uuid from 'uuid';
+import {SetTitle} from '../../../core/actions/app-bar.actions';
 
 
 @Component({
@@ -39,12 +40,18 @@ import * as uuid from 'uuid';
   `,
   styleUrls: ['./holiday-create.component.scss']
 })
-export class CreateHolidayPageComponent {
+export class CreateHolidayPageComponent implements OnInit {
+
 
   holidayName = '';
 
   constructor(private store: Store<fromHoliday.State>,
               private router: Router) {
+  }
+
+  ngOnInit(): void {
+    // TODO: test
+    this.store.dispatch(new SetTitle({newTitle: 'create new'}));
   }
 
   onSubmit() {

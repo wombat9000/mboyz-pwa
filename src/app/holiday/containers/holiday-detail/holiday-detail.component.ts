@@ -11,6 +11,7 @@ import {Observable} from 'rxjs';
 import {Post} from '../../models/post';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
+import {SetTitle} from '../../../core/actions/app-bar.actions';
 
 @Component({
   selector: 'app-holiday-detail',
@@ -51,5 +52,8 @@ export class HolidayDetailPageComponent implements OnInit {
     if (id !== null) {
       this.store.dispatch(new Select({id: id}));
     }
+
+    // TODO: test
+    this.store.dispatch(new SetTitle({newTitle: 'overview'}));
   }
 }

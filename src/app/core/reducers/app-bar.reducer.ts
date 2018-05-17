@@ -21,3 +21,5 @@ export function reducer(state: State = initialState,
     }
   }
 }
+
+export const getTitle = (state: State) => state.title;
