@@ -1,7 +1,7 @@
 import {AppBarActions, SET_TITLE} from '../actions/app-bar.actions';
 
 export interface State {
-  title: string
+  title: string;
 }
 
 export const initialState: State = {

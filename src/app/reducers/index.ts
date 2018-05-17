@@ -2,7 +2,7 @@ import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/sto
 import * as fromAppBar from '../core/reducers/app-bar.reducer';
 
 export interface State {
-  appBar: fromAppBar.State
+  appBar: fromAppBar.State;
 }
 
 export const reducers: ActionReducerMap<State> = {

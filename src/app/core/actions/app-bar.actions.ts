@@ -11,7 +11,7 @@ export class SetTitle implements Action {
 }
 
 export type AppBarActions =
-  SetTitle
+  SetTitle;
 
 
 
