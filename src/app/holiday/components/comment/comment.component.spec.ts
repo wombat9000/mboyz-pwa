@@ -56,12 +56,12 @@ describe('CommentComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should show the username for given id', async () => {
+  it('should show the username for given id with space', async () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
     expect(userFS.observeById).toHaveBeenCalledWith(someComment.authorId);
-    expect(author).toBe(someUser.displayName);
+    expect(author).toBe(someUser.displayName + ' ');
   });
 
   it('should show the text of the comment', async () => {

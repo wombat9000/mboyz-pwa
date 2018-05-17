@@ -10,7 +10,7 @@ import {Post} from '../../models/post';
   template: `
     <div class="post-body" *ngIf="user$ | async as user">
       <div class="body">
-        <span class="author">{{user.displayName}}</span>
+        <span class="author">{{user.displayName}} </span>
         <span class="message">{{post.text}}</span>
       </div>
       <div class="info">

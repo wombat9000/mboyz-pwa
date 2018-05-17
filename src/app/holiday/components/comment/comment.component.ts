@@ -9,7 +9,7 @@ import {Observable} from 'rxjs/index';
   selector: 'app-comment',
   template: `
     <div class="comment-body" *ngIf="user$ | async as user">
-      <span class="author">{{user.displayName}}</span>
+      <span class="author">{{user.displayName}} </span>
       <span class="message">{{text}}</span>
     </div>
     <div class="info">

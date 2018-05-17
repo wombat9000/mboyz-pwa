@@ -56,12 +56,12 @@ describe('PostComponent', () => {
     expect(message).toBe(somePost.text);
   });
 
-  it('should show the username for given id', async () => {
+  it('should show the username for given id with space', async () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
     expect(userFS.observeById).toHaveBeenCalledWith(somePost.authorId);
-    expect(author).toBe(someUser.displayName);
+    expect(author).toBe(someUser.displayName + ' ');
   });
 
   it('post should have a timestamp', async () => {
