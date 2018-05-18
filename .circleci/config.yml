@@ -107,9 +107,11 @@ workflows:
           requires:
             - npm-cache
       - deploy-staging:
+          type: approval
           requires:
             - lint
             - test
       - deploy-prod:
+          type: approval
           requires:
             - deploy-staging
