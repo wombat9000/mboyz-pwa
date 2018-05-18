@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../../auth/reducers/index';
 import * as fromRoot from '../../reducers/index';
-import * as fromAppBar from '../reducers/app-bar.reducer';
 
 @Component({
   selector: 'app-top-bar',
