@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserService} from './user.service';
 import {Observable, of} from 'rxjs/index';
-import {map, take, switchMap} from 'rxjs/internal/operators';
+import {map, take, switchMap} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';

@@ -9,7 +9,7 @@ import * as fromRoot from '../../reducers/index';
     <mat-toolbar color="primary">
       <span routerLink="/">{{ appName }}</span>
       <span class="spacer"></span>
-      <div>{{ title$ | async }}</div>
+      <div class="page-title">{{ title$ | async }}</div>
       <span class="spacer"></span>
       <div *ngIf="user$ | async as user">
         <app-user-menu [user]="user"></app-user-menu>

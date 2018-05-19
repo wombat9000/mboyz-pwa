@@ -16,6 +16,7 @@ import * as uuid from 'uuid';
     <mat-form-field class="message-input">
   <textarea matInput
             matTextareaAutosize
+            data-qa="post-input"
             (keyup.enter)="submitPost()"
             [(ngModel)]="postInput"
             placeholder="Neuer Beitrag ..."></textarea>

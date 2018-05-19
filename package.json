@@ -15,7 +15,9 @@
     "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
     "build-prod": "ng build --progress=false --prod && npm run prep-pwa",
     "build-staging": "ng build --progress=false --configuration=staging && npm run prep-pwa",
-    "serve-pwa": "npm run build-staging && node_modules/http-server/bin/http-server dist -p 8080"
+    "serve-pwa": "npm run build-staging && node_modules/http-server/bin/http-server dist -p 8080",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -56,11 +58,13 @@
     "@angular/cli": "6.0.3",
     "@angular/compiler-cli": "6.0.2",
     "@angular/language-service": "6.0.2",
+    "@bahmutov/add-typescript-to-cypress": "^2.0.0",
     "@ngrx/store-devtools": "^6.0.0-beta.3",
     "@types/jasmine": "^2.8.7",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^10.1.0",
     "codelyzer": "^4.1.0",
+    "cypress": "^2.1.0",
     "firebase-tools": "^3.17.4",
     "http-server": "^0.11.1",
     "jasmine-core": "~2.8.0",

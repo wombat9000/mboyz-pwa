@@ -32,9 +32,9 @@ import {CoreModule} from './core/core.module';
     AuthModule.forRoot(),
     CoreModule.forRoot(),
     HolidayModule,
-    AngularFirestoreModule.enablePersistence(),
+    environment.production ? AngularFirestoreModule.enablePersistence() : AngularFirestoreModule,
+    // AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    // environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     AngularFireModule.initializeApp(environment.firebase)
   ],
   bootstrap: [AppComponent]

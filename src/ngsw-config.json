@@ -10,9 +10,6 @@
           "/*.bundle.css",
           "/*.bundle.js",
           "/*.chunk.js"
-        ],
-        "urls": [
-          "https://fonts.googleapis.com/icon?family=Material+Icons"
         ]
       }
     },
