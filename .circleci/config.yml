@@ -68,7 +68,7 @@ jobs:
           - v2-dependencies-
       - run:
           name: Run e2e tests
-          command: npm run cy:run
+          command: npm run cy:ci
 
   deploy-staging:
     docker:

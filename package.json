@@ -17,7 +17,8 @@
     "build-staging": "ng build --progress=false --configuration=staging && npm run prep-pwa",
     "serve-pwa": "npm run build-staging && node_modules/http-server/bin/http-server dist -p 8080",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "cy:ci": "cypress run --env ci=true"
   },
   "private": true,
   "dependencies": {

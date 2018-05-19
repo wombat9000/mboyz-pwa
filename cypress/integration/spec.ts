@@ -14,9 +14,17 @@ firebase.initializeApp({
 describe('Holiday planner', () => {
   before(() => {
     // TODO: should this be in the test suite?
-    cy.exec('firebase -P staging firestore:delete /holidays -r -y');
-    cy.exec('firebase -P staging firestore:delete /posts -r -y');
-    cy.exec('firebase -P staging firestore:delete /comments -r -y');
+
+    if (Cypress.env('ci') === true) {
+      const token = Cypress.env('FIREBASE_TOKEN');
+      cy.exec(`firebase --token=${token} --project=staging firestore:delete /holidays -r -y`);
+      cy.exec(`firebase --token=${token} --project=staging firestore:delete /posts -r -y`);
+      cy.exec(`firebase --token=${token} --project=staging firestore:delete /comments -r -y`);
+    } else {
+      cy.exec('firebase -P staging firestore:delete /holidays -r -y');
+      cy.exec('firebase -P staging firestore:delete /posts -r -y');
+      cy.exec('firebase -P staging firestore:delete /comments -r -y');
+    }
 
     // TODO: extract credentials into env variables
     const firestore = firebase.firestore();
