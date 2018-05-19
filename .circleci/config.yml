@@ -54,6 +54,22 @@ jobs:
           name: Test
           command: npm run test-ci
 
+  e2e:
+    docker:
+      - image: circleci/node:9.11.1-browsers
+
+    working_directory: ~/mboyz
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v2-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v2-dependencies-
+      - run:
+          name: Run e2e tests
+          command: npm run cy:run
+
   deploy-staging:
     docker:
       - image: circleci/node:9.11.1
@@ -94,7 +110,6 @@ jobs:
           name: deploy
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=prod
 
-
 workflows:
   version: 2
   build_mboyz:
@@ -106,11 +121,16 @@ workflows:
       - test:
           requires:
             - npm-cache
+      - e2e:
+          requires:
+            - npm-cache
+            - test
       - deploy-staging:
           type: approval
           requires:
             - lint
             - test
+            - e2e
       - deploy-prod:
           type: approval
           requires:
