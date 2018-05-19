@@ -52,7 +52,7 @@ jobs:
           - v2-dependencies-
       - run:
           name: Test
-          command: npm run test-ci
+          command: npm run ci:test
 
   e2e:
     docker:
@@ -68,10 +68,7 @@ jobs:
           - v2-dependencies-
       - run:
           name: Run e2e tests
-          command: |
-            npm run start &
-            wait-on http://localhost:4200
-            npm run cy:ci
+          command: npm run ci:e2e
 
   deploy-staging:
     docker:

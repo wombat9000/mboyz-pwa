@@ -5,11 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
     "test": "ng test --source-map=false",
-    "test-ci": "ng test --browser ChromeHeadless_no_sandbox --watch=false --progress=false --source-map=false",
     "lint": "ng lint frontend --type-check",
-    "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
     "prep-pwa": "npm run ngsw-config && npm run ngsw-copy",
@@ -18,7 +15,10 @@
     "serve-pwa": "npm run build-staging && node_modules/http-server/bin/http-server dist -p 8080",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:ci": "cypress run --env ci=true"
+    "cy:ci": "cypress run --env ci=true",
+    "ci:test": "ng test --browser ChromeHeadless_no_sandbox --watch=false --progress=false --source-map=false",
+    "ci:serve": "ng build && http-server dist -p 4200",
+    "ci:e2e": "start-server-and-test ci:serve http://localhost:4200 cy:ci"
   },
   "private": true,
   "dependencies": {
@@ -79,6 +79,7 @@
     "karma-mocha-reporter": "^2.2.5",
     "protractor": "^5.3.0",
     "rxjs-tslint-rules": "^3.17.0",
+    "start-server-and-test": "^1.4.1",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "tslint-defocus": "^2.0.3",
