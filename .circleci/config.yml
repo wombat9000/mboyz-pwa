@@ -68,7 +68,10 @@ jobs:
           - v2-dependencies-
       - run:
           name: Run e2e tests
-          command: npm run cy:ci
+          command: |
+            npm run start &
+            wait-on http://localhost:4200
+            npm run cy:ci
 
   deploy-staging:
     docker:
