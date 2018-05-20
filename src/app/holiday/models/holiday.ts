@@ -1,7 +1,7 @@
 import {now} from 'moment';
+import {DbRecord} from './DbRecord';
 
-export interface Holiday {
-  readonly id: string;
+export interface Holiday extends DbRecord {
   readonly name: string;
   readonly created: string;
 }
