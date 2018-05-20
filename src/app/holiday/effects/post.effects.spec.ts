@@ -4,16 +4,17 @@ import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
 import {AfAdded, Create, CreateSuccess} from '../actions/post.actions';
 import {PostEffects} from './post.effects';
-import {getActions, postFirestoreMocker, TestActions} from '../../test-support/stubs';
+import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {Post} from '../models/post';
 import {PostFirestore} from '../services/post-firestore.service';
 import {createChangeAction} from '../../test-support/functions';
 import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
+import {FirestoreService} from '../services/firestore.service';
 
 describe('PostEffects', () => {
   let effects: PostEffects;
   let actions$: TestActions;
-  let postFirestore: jasmine.SpyObj<PostFirestore>;
+  let firestore: jasmine.SpyObj<FirestoreService>;
 
   const somePost: Post = {
     id: 'someId',
@@ -27,14 +28,14 @@ describe('PostEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         PostEffects,
-        {provide: PostFirestore, useFactory: postFirestoreMocker},
+        {provide: FirestoreService, useFactory: firestoreServiceMocker},
         {provide: Actions, useFactory: getActions},
       ]
     });
 
     effects = TestBed.get(PostEffects);
     actions$ = TestBed.get(Actions);
-    postFirestore = TestBed.get(PostFirestore);
+    firestore = TestBed.get(FirestoreService);
   });
 
   describe('query', () => {
@@ -46,9 +47,10 @@ describe('PostEffects', () => {
       const postChanges = cold('-a-', {a: createChangeAction('added', somePost)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      postFirestore.observeChanges.and.returnValue(postChanges);
+      firestore.observeUpdates.and.returnValue(postChanges);
 
       expect(effects.query$).toBeObservable(expected);
+      expect(firestore.observeUpdates).toHaveBeenCalledWith('posts');
     });
 
     it('should stop querying again', () => {
@@ -63,7 +65,7 @@ describe('PostEffects', () => {
 
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      postFirestore.observeChanges.and.returnValue(postChanges);
+      firestore.observeUpdates.and.returnValue(postChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -80,18 +82,18 @@ describe('PostEffects', () => {
       const expected = cold('-a-', {a: createSuccess});
       expect(effects.create$).toBeObservable(expected);
 
-      expect(postFirestore.save).toHaveBeenCalledWith(somePost);
+      expect(firestore.save).toHaveBeenCalledWith('posts', somePost);
     });
 
     it('should report failure on error', () => {
       const error = cold('-#-');
-      postFirestore.save.and.returnValue(error);
+      firestore.save.and.returnValue(error);
 
       const createFail: Action = new CreateSuccess();
       const expected = cold('-a-', {a: createFail});
       expect(effects.create$).toBeObservable(expected);
 
-      expect(postFirestore.save).toHaveBeenCalledWith(somePost);
+      expect(firestore.save).toHaveBeenCalledWith('posts', somePost);
     });
   });
 });

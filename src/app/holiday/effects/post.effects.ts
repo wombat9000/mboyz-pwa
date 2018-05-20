@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as postActions from '../actions/post.actions';
 import {Create, CreateSuccess} from '../actions/post.actions';
-import {PostFirestore} from '../services/post-firestore.service';
 import {Action} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
 import {Post} from '../models/post';
 import {map, switchMap} from 'rxjs/operators';
 import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions, QueryStopped} from '../actions/holiday.actions';
+import {FirestoreService} from '../services/firestore.service';
 
 
 @Injectable()
@@ -17,7 +17,7 @@ export class PostEffects {
   @Effect()
   create$: Observable<Action> = this.actions$.pipe(
     ofType(postActions.CREATE),
-    map((it: Create) => this.postFirestore.save(it.payload.post)),
+    map((it: Create) => this.firestore.save('posts', it.payload.post)),
     map(() => new CreateSuccess())
   );
 
@@ -33,11 +33,11 @@ export class PostEffects {
     }),
   );
 
-  constructor(private actions$: Actions, private postFirestore: PostFirestore) {
+  constructor(private actions$: Actions, private firestore: FirestoreService) {
   }
 
   private getObservable(): Observable<Action> {
-    return this.postFirestore.observeChanges().pipe(
+    return this.firestore.observeUpdates<Post>('posts').pipe(
       map(action => {
         const data = action.payload.doc.data();
         const post: Post = {
