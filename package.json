@@ -17,7 +17,7 @@
     "cy:run": "cypress run",
     "cy:ci": "cypress run --env ci=true",
     "ci:test": "ng test --browser ChromeHeadless_no_sandbox --watch=false --progress=false --source-map=false",
-    "ci:serve": "ng build && angular-http-server --path dist -p 4200",
+    "ci:serve": "ng build --progress=false && angular-http-server --path dist -p 4200",
     "ci:e2e": "start-server-and-test ci:serve http://localhost:4200 cy:ci"
   },
   "private": true,
