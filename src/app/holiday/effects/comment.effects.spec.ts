@@ -2,18 +2,19 @@ import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
-import {AfAdded, Create, CreateSuccess} from '../actions/comment.actions';
+import {AfAdded, Create} from '../actions/comment.actions';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
 import {MbComment, newTestComment} from '../models/comment';
 import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {FirestoreService} from '../services/firestore.service';
+import {PersistRecord} from '../../core/actions/firestore.actions';
 
 describe('CommentEffects', () => {
   let effects: CommentEffects;
   let actions$: TestActions;
-  let commentFirestore: jasmine.SpyObj<FirestoreService>;
+  let firestoreService: jasmine.SpyObj<FirestoreService>;
 
   const someComment: MbComment = newTestComment('someId');
 
@@ -28,7 +29,7 @@ describe('CommentEffects', () => {
 
     effects = TestBed.get(CommentEffects);
     actions$ = TestBed.get(Actions);
-    commentFirestore = TestBed.get(FirestoreService);
+    firestoreService = TestBed.get(FirestoreService);
   });
 
   describe('query', () => {
@@ -39,7 +40,7 @@ describe('CommentEffects', () => {
       const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      commentFirestore.observeUpdates.and.returnValue(commentChanges);
+      firestoreService.observeUpdates.and.returnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -55,7 +56,7 @@ describe('CommentEffects', () => {
 
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      commentFirestore.observeUpdates.and.returnValue(commentChanges);
+      firestoreService.observeUpdates.and.returnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -68,22 +69,9 @@ describe('CommentEffects', () => {
     });
 
     it('should persist the comment in firstore and report success', () => {
-      const createSuccess: Action = new CreateSuccess();
-      const expected = cold('-a-', {a: createSuccess});
+      const persistComment: Action = new PersistRecord({docPath: 'comments', record: someComment});
+      const expected = cold('-a-', {a: persistComment});
       expect(effects.create$).toBeObservable(expected);
-
-      expect(commentFirestore.save).toHaveBeenCalledWith('comments', someComment);
-    });
-
-    it('should report failure on error', () => {
-      const error = cold('-#-');
-      commentFirestore.save.and.returnValue(error);
-
-      const createFail: Action = new CreateSuccess();
-      const expected = cold('-a-', {a: createFail});
-      expect(effects.create$).toBeObservable(expected);
-
-      expect(commentFirestore.save).toHaveBeenCalledWith('comments', someComment);
     });
   });
 });

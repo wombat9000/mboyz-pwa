@@ -6,7 +6,6 @@ import {AfAdded, Create, CreateSuccess} from '../actions/post.actions';
 import {PostEffects} from './post.effects';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {Post} from '../models/post';
-import {PostFirestore} from '../services/post-firestore.service';
 import {createChangeAction} from '../../test-support/functions';
 import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {FirestoreService} from '../services/firestore.service';
