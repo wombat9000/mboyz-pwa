@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CommentFirestore } from './comment-firestore.service';
+import { FirestoreService } from './comment-firestore.service';
 
-xdescribe('CommentFirestore', () => {
+xdescribe('FirestoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CommentFirestore]
+      providers: [FirestoreService]
     });
   });
 
-  it('should be created', inject([CommentFirestore], (service: CommentFirestore) => {
+  it('should be created', inject([FirestoreService], (service: FirestoreService) => {
     expect(service).toBeTruthy();
   }));
 });

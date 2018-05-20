@@ -1,5 +1,6 @@
-export interface MbComment {
-  readonly id: string;
+import {DbRecord} from './DbRecord';
+
+export interface MbComment extends DbRecord {
   readonly text: string;
   readonly postId: string;
   readonly holidayId: string;

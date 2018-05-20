@@ -3,7 +3,7 @@ import {HolidayFirestore} from '../holiday/services/holiday-firestore.service';
 import {AuthService} from '../auth/services/auth.service';
 import {Router} from '@angular/router';
 import {PostFirestore} from '../holiday/services/post-firestore.service';
-import {CommentFirestore} from '../holiday/services/comment-firestore.service';
+import {FirestoreService} from '../holiday/services/comment-firestore.service';
 import {Store} from '@ngrx/store';
 import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
@@ -60,5 +60,5 @@ export const postFirestoreMocker: () => jasmine.SpyObj<PostFirestore> =
 export const holidayFirestoreMocker: () => jasmine.SpyObj<HolidayFirestore> =
   () => jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save', 'observeChanges']);
 
-export const commentFirestoreMocker: () => jasmine.SpyObj<CommentFirestore> =
-  () => jasmine.createSpyObj('CommentFirestore', ['save', 'observeChangesFrom']);
+export const firestoreServiceMocker: () => jasmine.SpyObj<FirestoreService> =
+  () => jasmine.createSpyObj('CommentFirestore', ['save', 'observeUpdates']);

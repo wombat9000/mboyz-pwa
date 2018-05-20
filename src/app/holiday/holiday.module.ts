@@ -5,7 +5,7 @@ import {CreateHolidayPageComponent} from './containers/holiday-create/holiday-cr
 import {HolidayOverviewPageComponent} from './containers/holiday-overview/holiday-overview.component';
 import {HolidayFirestore} from './services/holiday-firestore.service';
 import {PostFirestore} from './services/post-firestore.service';
-import {CommentFirestore} from './services/comment-firestore.service';
+import {FirestoreService} from './services/comment-firestore.service';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './reducers';
 
@@ -52,7 +52,7 @@ const EFFECTS = [
   providers: [
     HolidayFirestore,
     PostFirestore,
-    CommentFirestore
+    FirestoreService
   ]
 })
 export class HolidayModule {

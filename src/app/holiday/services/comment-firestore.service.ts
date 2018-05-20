@@ -1,22 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
-import {MbComment} from '../models/comment';
 import {mergeMap} from 'rxjs/operators';
+import {DbRecord} from '../models/DbRecord';
 
 
 @Injectable()
-export class CommentFirestore {
+export class FirestoreService {
 
   constructor(private afs: AngularFirestore) {
   }
 
-  public observeChangesFrom<T>(path: string): Observable<DocumentChangeAction<T>> {
+  public observeUpdates<T>(path: string): Observable<DocumentChangeAction<T>> {
     return this.afs.collection<T>(path).stateChanges().pipe(
       mergeMap(it => it));
   }
 
-  save(comment: MbComment) {
-    return this.afs.doc(`comments/${comment.id}`).set(comment);
+  save(docPath: string, record: DbRecord) {
+    return this.afs.doc(`${docPath}/${record.id}`).set(record);
   }
 }

@@ -5,7 +5,7 @@ import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions} from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
-import {CommentFirestore} from '../services/comment-firestore.service';
+import {FirestoreService} from '../services/comment-firestore.service';
 import {asComment} from '../models/comment';
 import {map, switchMap} from 'rxjs/operators';
 import {QueryStopped} from '../actions/holiday.actions';
@@ -17,7 +17,7 @@ export class CommentEffects {
   @Effect()
   create$: Observable<Action> = this.actions$.pipe(
     ofType(commentActions.CREATE),
-    map((it: commentActions.Create) => this.commentFirestore.save(it.payload.comment)),
+    map((it: commentActions.Create) => this.firestoreService.save('comments', it.payload.comment)),
     map(() => new commentActions.CreateSuccess()),
   );
 
@@ -34,7 +34,7 @@ export class CommentEffects {
   );
 
   private getObservable(): Observable<Action> {
-    return this.commentFirestore.observeChangesFrom<Comment>('comments').pipe(
+    return this.firestoreService.observeUpdates<Comment>('comments').pipe(
       map(action => {
         const comment = asComment(action.payload.doc.data());
         return {
@@ -44,6 +44,6 @@ export class CommentEffects {
       }));
   }
 
-  constructor(private actions$: Actions, private commentFirestore: CommentFirestore) {
+  constructor(private actions$: Actions, private firestoreService: FirestoreService) {
   }
 }

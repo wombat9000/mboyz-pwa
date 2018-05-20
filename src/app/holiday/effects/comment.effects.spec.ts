@@ -3,17 +3,17 @@ import {Action} from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
 import {AfAdded, Create, CreateSuccess} from '../actions/comment.actions';
-import {commentFirestoreMocker, getActions, TestActions} from '../../test-support/stubs';
+import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
-import {CommentFirestore} from '../services/comment-firestore.service';
+import {FirestoreService} from '../services/comment-firestore.service';
 import {MbComment, newTestComment} from '../models/comment';
 import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 
 describe('CommentEffects', () => {
   let effects: CommentEffects;
   let actions$: TestActions;
-  let commentFirestore: jasmine.SpyObj<CommentFirestore>;
+  let commentFirestore: jasmine.SpyObj<FirestoreService>;
 
   const someComment: MbComment = newTestComment('someId');
 
@@ -21,14 +21,14 @@ describe('CommentEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         CommentEffects,
-        {provide: CommentFirestore, useFactory: commentFirestoreMocker},
+        {provide: FirestoreService, useFactory: firestoreServiceMocker},
         {provide: Actions, useFactory: getActions},
       ]
     });
 
     effects = TestBed.get(CommentEffects);
     actions$ = TestBed.get(Actions);
-    commentFirestore = TestBed.get(CommentFirestore);
+    commentFirestore = TestBed.get(FirestoreService);
   });
 
   describe('query', () => {
@@ -39,7 +39,7 @@ describe('CommentEffects', () => {
       const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      commentFirestore.observeChangesFrom.and.returnValue(commentChanges);
+      commentFirestore.observeUpdates.and.returnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -55,7 +55,7 @@ describe('CommentEffects', () => {
 
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      commentFirestore.observeChangesFrom.and.returnValue(commentChanges);
+      commentFirestore.observeUpdates.and.returnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -72,7 +72,7 @@ describe('CommentEffects', () => {
       const expected = cold('-a-', {a: createSuccess});
       expect(effects.create$).toBeObservable(expected);
 
-      expect(commentFirestore.save).toHaveBeenCalledWith(someComment);
+      expect(commentFirestore.save).toHaveBeenCalledWith('comments', someComment);
     });
 
     it('should report failure on error', () => {
@@ -83,7 +83,7 @@ describe('CommentEffects', () => {
       const expected = cold('-a-', {a: createFail});
       expect(effects.create$).toBeObservable(expected);
 
-      expect(commentFirestore.save).toHaveBeenCalledWith(someComment);
+      expect(commentFirestore.save).toHaveBeenCalledWith('comments', someComment);
     });
   });
 });
