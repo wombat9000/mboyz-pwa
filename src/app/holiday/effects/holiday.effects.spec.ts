@@ -8,7 +8,7 @@ import {Action} from '@ngrx/store';
 import {cold, hot} from 'jasmine-marbles';
 import {Actions} from '@ngrx/effects';
 import {createChangeAction} from '../../test-support/functions';
-import {FirestoreService} from '../services/comment-firestore.service';
+import {FirestoreService} from '../services/firestore.service';
 
 describe('Holiday Effects', () => {
   const actions = new ReplaySubject(1);

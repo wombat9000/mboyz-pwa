@@ -1,3 +1,3 @@
 export interface DbRecord {
-  readonly id: string
+  readonly id: string;
 }

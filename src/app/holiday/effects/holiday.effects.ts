@@ -5,8 +5,8 @@ import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions, QueryStopped} from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
 import {map, switchMap} from 'rxjs/operators';
-import {FirestoreService} from '../services/comment-firestore.service';
 import {Holiday} from '../models/holiday';
+import {FirestoreService} from '../services/firestore.service';
 
 @Injectable()
 export class HolidayEffects {

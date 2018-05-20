@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
+import {FirestoreService} from './firestore.service';
 
-import { FirestoreService } from './comment-firestore.service';
 
 xdescribe('FirestoreService', () => {
   beforeEach(() => {

@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CreateHolidayPageComponent} from './containers/holiday-create/holiday-create.component';
 import {HolidayOverviewPageComponent} from './containers/holiday-overview/holiday-overview.component';
 import {PostFirestore} from './services/post-firestore.service';
-import {FirestoreService} from './services/comment-firestore.service';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './reducers';
 
@@ -20,6 +19,7 @@ import {CommentComponent} from './components/comment/comment.component';
 import {CommentFieldComponent} from './components/comment-field/comment-field.component';
 import {PostEffects} from './effects/post.effects';
 import {CommentEffects} from './effects/comment.effects';
+import {FirestoreService} from './services/firestore.service';
 
 
 const EFFECTS = [

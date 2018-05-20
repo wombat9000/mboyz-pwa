@@ -5,10 +5,10 @@ import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions} from '../actions/holiday.actions';
 import {Action} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
-import {FirestoreService} from '../services/comment-firestore.service';
 import {asComment} from '../models/comment';
 import {map, switchMap} from 'rxjs/operators';
 import {QueryStopped} from '../actions/holiday.actions';
+import {FirestoreService} from '../services/firestore.service';
 
 
 @Injectable()

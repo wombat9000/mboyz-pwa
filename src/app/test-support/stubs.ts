@@ -2,7 +2,6 @@ import {UserService} from '../auth/services/user.service';
 import {AuthService} from '../auth/services/auth.service';
 import {Router} from '@angular/router';
 import {PostFirestore} from '../holiday/services/post-firestore.service';
-import {FirestoreService} from '../holiday/services/comment-firestore.service';
 import {Store} from '@ngrx/store';
 import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
@@ -11,6 +10,7 @@ import {Actions} from '@ngrx/effects';
 import {FirebaseAuth, IdTokenResult, User} from '@firebase/auth-types';
 import {EMPTY} from 'rxjs';
 import {NgZone} from '@angular/core';
+import {FirestoreService} from '../holiday/services/firestore.service';
 
 
 export class TestActions extends Actions {
