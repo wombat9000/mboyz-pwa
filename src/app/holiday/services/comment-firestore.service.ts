@@ -16,7 +16,7 @@ export class FirestoreService {
       mergeMap(it => it));
   }
 
-  save(docPath: string, record: DbRecord) {
+  save(docPath: string, record: DbRecord): Promise<void> {
     return this.afs.doc(`${docPath}/${record.id}`).set(record);
   }
 }

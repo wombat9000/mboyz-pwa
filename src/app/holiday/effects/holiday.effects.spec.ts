@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {HolidayEffects} from './holiday.effects';
-import {getActions, holidayFirestoreMocker, TestActions} from '../../test-support/stubs';
+import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {AfAdded, Create, Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -8,14 +8,14 @@ import {Action} from '@ngrx/store';
 import {cold, hot} from 'jasmine-marbles';
 import {Actions} from '@ngrx/effects';
 import {createChangeAction} from '../../test-support/functions';
-import {HolidayFirestore} from '../services/holiday-firestore.service';
+import {FirestoreService} from '../services/comment-firestore.service';
 
 describe('Holiday Effects', () => {
   const actions = new ReplaySubject(1);
 
   let effects: HolidayEffects;
   let actions$: TestActions;
-  let holidayFS: jasmine.SpyObj<HolidayFirestore>;
+  let firestoreService: jasmine.SpyObj<FirestoreService>;
 
   const someHoliday = {
     id: 'someId',
@@ -28,7 +28,7 @@ describe('Holiday Effects', () => {
       providers: [
         HolidayEffects,
         provideMockActions(() => actions),
-        {provide: HolidayFirestore, useFactory: holidayFirestoreMocker},
+        {provide: FirestoreService, useFactory: firestoreServiceMocker},
         {provide: Actions, useFactory: getActions},
       ]
     });
@@ -36,17 +36,17 @@ describe('Holiday Effects', () => {
     actions$ = TestBed.get(Actions);
 
     effects = TestBed.get(HolidayEffects);
-    holidayFS = TestBed.get(HolidayFirestore);
+    firestoreService = TestBed.get(FirestoreService);
   });
 
   describe('create', () => {
     it('should save holiday with service', () => {
       const action = new Create(someHoliday);
-      holidayFS.save.and.returnValue(Promise.resolve());
+      firestoreService.save.and.returnValue(Promise.resolve());
       actions.next(action);
 
       effects.create$.subscribe(() => {
-        expect(holidayFS.save).toHaveBeenCalledWith(someHoliday);
+        expect(firestoreService.save).toHaveBeenCalledWith('holidays', someHoliday);
       });
     });
   });
@@ -60,9 +60,10 @@ describe('Holiday Effects', () => {
       const addedAction: Action = new AfAdded(someHoliday);
       const expected = cold('--a-', {a: {...addedAction}});
 
-      holidayFS.observeChanges.and.returnValue(holidayChanges);
+      firestoreService.observeUpdates.and.returnValue(holidayChanges);
 
       expect(effects.query$).toBeObservable(expected);
+      expect(firestoreService.observeUpdates).toHaveBeenCalledWith('holidays');
     });
 
     it('should stop querying again', () => {
@@ -75,7 +76,7 @@ describe('Holiday Effects', () => {
       const queryStopped: Action = new QueryStopped();
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      holidayFS.observeChanges.and.returnValue(holidayChanges);
+      firestoreService.observeUpdates.and.returnValue(holidayChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });

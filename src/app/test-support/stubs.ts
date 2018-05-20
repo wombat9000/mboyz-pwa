@@ -1,5 +1,4 @@
 import {UserService} from '../auth/services/user.service';
-import {HolidayFirestore} from '../holiday/services/holiday-firestore.service';
 import {AuthService} from '../auth/services/auth.service';
 import {Router} from '@angular/router';
 import {PostFirestore} from '../holiday/services/post-firestore.service';
@@ -56,9 +55,6 @@ export const userFirestoreMocker: () => jasmine.SpyObj<UserService> =
 
 export const postFirestoreMocker: () => jasmine.SpyObj<PostFirestore> =
   () => jasmine.createSpyObj('PostFirestore', ['observeByHolidayId', 'save', 'observeChanges']);
-
-export const holidayFirestoreMocker: () => jasmine.SpyObj<HolidayFirestore> =
-  () => jasmine.createSpyObj('HolidayFirestore', ['observeById', 'save', 'observeChanges']);
 
 export const firestoreServiceMocker: () => jasmine.SpyObj<FirestoreService> =
   () => jasmine.createSpyObj('CommentFirestore', ['save', 'observeUpdates']);

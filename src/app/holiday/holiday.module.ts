@@ -3,7 +3,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CreateHolidayPageComponent} from './containers/holiday-create/holiday-create.component';
 import {HolidayOverviewPageComponent} from './containers/holiday-overview/holiday-overview.component';
-import {HolidayFirestore} from './services/holiday-firestore.service';
 import {PostFirestore} from './services/post-firestore.service';
 import {FirestoreService} from './services/comment-firestore.service';
 import {StoreModule} from '@ngrx/store';
@@ -50,7 +49,6 @@ const EFFECTS = [
     EffectsModule.forFeature(EFFECTS)
   ],
   providers: [
-    HolidayFirestore,
     PostFirestore,
     FirestoreService
   ]
