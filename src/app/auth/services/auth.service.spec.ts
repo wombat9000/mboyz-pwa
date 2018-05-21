@@ -14,7 +14,7 @@ describe('Auth Service', () => {
   let userRepo: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
-    uid: 'someUID',
+    id: 'someUID',
     email: 'someEmail',
     displayName: null,
     photoURL: null
@@ -68,7 +68,7 @@ describe('Auth Service', () => {
 
   describe('login with facebook', () => {
     const user: MtravelUser = {
-      uid: 'someUid',
+      id: 'someUid',
       email: 'someEmail',
       displayName: 'someName',
       photoURL: 'someUrl'

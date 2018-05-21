@@ -1,6 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromHolidays from './holiday.reducer';
 import * as fromPosts from './posts.reducer';
+import * as fromUsers from './users.reducer';
 import * as fromComments from './comments.reducer';
 import * as fromRoot from '../../reducers';
 import {Post} from '../models/post';
@@ -10,6 +11,7 @@ export interface HolidaysState {
   holidays: fromHolidays.State;
   posts: fromPosts.State;
   comments: fromComments.State;
+  users: fromUsers.State;
 }
 
 export interface State extends fromRoot.State {
@@ -19,7 +21,8 @@ export interface State extends fromRoot.State {
 export const reducers = {
   holidays: fromHolidays.reducer,
   posts: fromPosts.reducer,
-  comments: fromComments.reducer
+  comments: fromComments.reducer,
+  users: fromUsers.reducer
 };
 
 export const getHolidayPlannerState = createFeatureSelector<HolidaysState>('holidayPlanner');

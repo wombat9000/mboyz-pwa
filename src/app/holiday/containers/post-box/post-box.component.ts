@@ -58,7 +58,7 @@ export class PostBoxComponent {
       id: uuid(),
       text: this.postInput,
       holidayId: this.holiday.id,
-      authorId: this.activeUser.uid,
+      authorId: this.activeUser.id,
       created: moment().toISOString()
     };
 

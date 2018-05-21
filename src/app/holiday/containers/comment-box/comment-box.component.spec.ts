@@ -43,7 +43,7 @@ describe('CommentBoxComponent', () => {
 
   const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
-    uid: 'someUid',
+    id: 'someUid',
     email: 'someMail',
     photoURL: null
   };
@@ -136,7 +136,7 @@ describe('CommentBoxComponent', () => {
     });
 
     it('should use currently logged in users name as someAuthor', () => {
-      expect(savedComment.authorId).toBe(someAuthor.uid);
+      expect(savedComment.authorId).toBe(someAuthor.id);
     });
   });
 

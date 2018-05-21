@@ -60,7 +60,7 @@ describe('User Menu', () => {
     store = TestBed.get(Store);
 
     const someUser: MtravelUser = {
-      uid: '',
+      id: '',
       email: '',
       displayName: null,
       photoURL: null

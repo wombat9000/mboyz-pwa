@@ -51,7 +51,7 @@ describe('Auth Effects', () => {
   });
 
   const someUser: MtravelUser = {
-    uid: '',
+    id: '',
     displayName: '',
     photoURL: '',
     email: ''

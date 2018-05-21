@@ -53,7 +53,7 @@ export class CommentBoxComponent implements OnInit {
         text: text,
         postId: this.post.id,
         holidayId: this.post.holidayId,
-        authorId: this.user.uid,
+        authorId: this.user.id,
         created: moment().toISOString()
       };
 

@@ -61,7 +61,7 @@ describe('AuthGuard', () => {
 
   it('should activate when user is authenticated', (done) => {
     const someUser: MtravelUser = {
-      uid: '',
+      id: '',
       displayName: '',
       email: '',
       photoURL: null

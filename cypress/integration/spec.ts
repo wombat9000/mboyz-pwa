@@ -35,13 +35,13 @@ describe('Holiday planner', () => {
         const rawUser: User = it.user!;
 
         const user: MtravelUser = {
-          uid: rawUser.uid,
+          id: rawUser.uid,
           email: rawUser.email!,
           photoURL: 'somePhoto',
           displayName: 'Max Muemmelmann'
         };
 
-        firestore.doc(`users/${user.uid}`).set(user);
+        firestore.doc(`users/${user.id}`).set(user);
       });
   });
 

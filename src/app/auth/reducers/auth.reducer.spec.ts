@@ -6,7 +6,7 @@ describe('AuthReducer', () => {
   describe('authorise', () => {
     it('should set state to the logged in user', () => {
       const someUser: MtravelUser = {
-        uid: 'someId',
+        id: 'someId',
         email: 'someMail',
         photoURL: null,
         displayName: null
@@ -27,7 +27,7 @@ describe('AuthReducer', () => {
   describe('login success', () => {
     it('should set state to the logged in user', () => {
       const someUser: MtravelUser = {
-        uid: 'someId',
+        id: 'someId',
         email: 'someMail',
         photoURL: null,
         displayName: null
@@ -52,7 +52,7 @@ describe('AuthReducer', () => {
       const state: State = {
         loggedIn: true,
         user: {
-          uid: 'someId',
+          id: 'someId',
           email: 'someMail',
           photoURL: null,
           displayName: null

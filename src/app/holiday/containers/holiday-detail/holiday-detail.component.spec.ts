@@ -45,7 +45,7 @@ describe('HolidayDetailComponent', () => {
     created: moment('2016-01-02').toISOString()
   };
   const activeUser: MtravelUser = {
-    uid: 'someUid',
+    id: 'someUid',
     email: null,
     displayName: null,
     photoURL: null

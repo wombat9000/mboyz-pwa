@@ -1,18 +1,19 @@
-import * as actions from '../actions/post.actions';
+import * as actions from '../actions/user.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Post} from '../models/post';
+import {MtravelUser} from '../../auth/services/auth.service';
+import {MtravelUserActions} from '../actions/user.actions';
 
-export interface State extends EntityState<Post> {
+export interface State extends EntityState<MtravelUser> {
 }
 
-export const adapter: EntityAdapter<Post> = createEntityAdapter<Post>({
+export const adapter: EntityAdapter<MtravelUser> = createEntityAdapter<MtravelUser>({
   sortComparer: false
 });
 
 export const initialState: State = adapter.getInitialState({});
 
 export function reducer(state: State = initialState,
-                        action: actions.PostActions) {
+                        action: MtravelUserActions) {
 
   switch (action.type) {
     case actions.CREATE:

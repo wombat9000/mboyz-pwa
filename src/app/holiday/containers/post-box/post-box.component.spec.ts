@@ -45,7 +45,7 @@ describe('PostBoxComponent', () => {
 
   const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
-    uid: 'someUid',
+    id: 'someUid',
     email: 'someMail',
     photoURL: null
   };
@@ -151,7 +151,7 @@ describe('PostBoxComponent', () => {
     });
 
     it('should use currently logged in users name as someAuthor', () => {
-      expect(post.authorId).toBe(someAuthor.uid);
+      expect(post.authorId).toBe(someAuthor.id);
     });
   });
 });

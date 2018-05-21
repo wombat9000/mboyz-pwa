@@ -7,18 +7,19 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import AuthProvider = firebase.auth.AuthProvider;
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import {DbRecord} from '../../holiday/models/DbRecord';
 
 
-export interface MtravelUser {
-  uid: string;
+export interface MtravelUser extends DbRecord {
+  id: string;
   email: string | null;
   photoURL: string | null;
   displayName: string | null;
 }
 
-export function newTestUser(id: string = 'someId') {
+export function newTestUser(id: string = 'someId'): MtravelUser {
   return {
-    uid: id,
+    id: id,
     email: 'someEmail',
     photoURL: 'somePhoto',
     displayName: 'someDisplayname'
@@ -68,7 +69,7 @@ export class AuthService {
     return fromPromise(this.afAuth.auth.signInWithPopup(provider)).pipe(
       map(credential => {
         return {
-          uid: credential.user.uid,
+          id: credential.user.uid,
           email: credential.user.email,
           displayName: credential.user.displayName,
           photoURL: credential.user.providerData[0].photoURL

@@ -19,10 +19,12 @@ import {CommentFieldComponent} from './components/comment-field/comment-field.co
 import {PostEffects} from './effects/post.effects';
 import {CommentEffects} from './effects/comment.effects';
 import {FirestoreService} from './services/firestore.service';
+import {UserEffects} from './effects/user.effects';
 
 
 const EFFECTS = [
   HolidayEffects,
+  UserEffects,
   PostEffects,
   CommentEffects
 ];

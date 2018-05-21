@@ -17,7 +17,7 @@ describe('PostComponent', () => {
   let userFS: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
-    uid: 'someAuthorId',
+    id: 'someAuthorId',
     displayName: 'someDisplayName',
     photoURL: 'somePhotoUrl',
     email: 'someEmail'

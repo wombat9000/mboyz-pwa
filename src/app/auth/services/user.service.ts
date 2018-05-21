@@ -18,7 +18,7 @@ export class UserService {
   }
 
   public save(user: MtravelUser): Observable<void> {
-    const updateUser: Promise<void> = this.afs.doc(`users/${user.uid}`).set(user);
+    const updateUser: Promise<void> = this.afs.doc(`users/${user.id}`).set(user);
     return fromPromise(updateUser);
   }
 }
