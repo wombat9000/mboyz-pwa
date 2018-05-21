@@ -10,12 +10,13 @@ import {Actions, Effect} from '@ngrx/effects';
 export abstract class DataEffects {
 
   abstract readonly createActionType: string;
+  abstract readonly collection: string;
   abstract readonly createSuccessAction: Type<Action>;
 
   @Effect()
   create$: Observable<Action> = this.actions$.pipe(
     filter((it) => this.createActionType === it.type),
-    map((it: dataActions.CreateAction) => this.firestoreService.save('comments', it.payload.record)),
+    map((it: dataActions.CreateAction) => this.firestoreService.save(this.collection, it.payload.record)),
     map(() => new this.createSuccessAction())
   );
 

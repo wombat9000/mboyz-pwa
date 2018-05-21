@@ -27,6 +27,7 @@ class TestCreateSuccess implements Action {
 @Injectable()
 class TestEffects extends DataEffects {
   readonly createActionType = '[Test] create';
+  readonly collection = 'someCollection';
   readonly createSuccessAction: Type<Action> = TestCreateSuccess;
 
   constructor(actions$: Actions, firestoreService: FirestoreService) {
@@ -71,7 +72,7 @@ describe('DataEffects', () => {
 
       expect(effects.create$).toBeObservable(expected);
 
-      expect(firestoreService.save).toHaveBeenCalledWith('comments', someRecord);
+      expect(firestoreService.save).toHaveBeenCalledWith('someCollection', someRecord);
     });
   });
 });

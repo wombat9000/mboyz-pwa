@@ -14,6 +14,14 @@ import {CREATE, CreateSuccess} from '../actions/comment.actions';
 @Injectable()
 export class CommentEffects extends DataEffects {
 
+  readonly createActionType: string = CREATE;
+  readonly createSuccessAction: Type<Action> = CreateSuccess;
+  readonly collection: string = 'comments';
+
+  constructor(actions$: Actions, firestoreService: FirestoreService) {
+    super(actions$, firestoreService);
+  }
+
   @Effect()
   query$: Observable<Action> = this.actions$.pipe(
     ofType(holidayActions.QUERY, holidayActions.QUERY_STOP),
@@ -25,13 +33,6 @@ export class CommentEffects extends DataEffects {
       }
     }),
   );
-
-  readonly createActionType: string = CREATE;
-  readonly createSuccessAction: Type<Action> = CreateSuccess;
-
-  constructor(actions$: Actions, firestoreService: FirestoreService) {
-    super(actions$, firestoreService);
-  }
 
   private getObservable(): Observable<Action> {
     return this.firestoreService.observeUpdates<Comment>('comments').pipe(
