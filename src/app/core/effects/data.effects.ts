@@ -11,9 +11,9 @@ import {DocumentChangeAction} from 'angularfire2/firestore';
 
 export abstract class DataEffects<T extends DbRecord> {
 
-  abstract readonly collection: string;
-  abstract readonly createActionType: string;
-  abstract readonly createSuccessAction: Type<Action>;
+  protected abstract collection: string;
+  protected abstract createActionType: string;
+  protected abstract createSuccessAction: Type<Action>;
 
   @Effect()
   create$: Observable<Action> = this.actions$.pipe(
@@ -27,7 +27,7 @@ export abstract class DataEffects<T extends DbRecord> {
     ofType(QUERY, QUERY_STOP),
     switchMap((action: DataActions) => {
       if (action.type === QUERY) {
-        return this.getObservable();
+        return this.observeUpdates();
       } else {
         return of(new QueryStopped());
       }
@@ -37,7 +37,7 @@ export abstract class DataEffects<T extends DbRecord> {
   protected constructor(protected actions$: Actions, protected firestoreService: FirestoreService) {
   }
 
-  private getObservable(): Observable<Action> {
+  private observeUpdates(): Observable<Action> {
     return this.firestoreService.observeUpdates<T>(this.collection).pipe(
       map((action: DocumentChangeAction<T>) => {
         const record: T = action.payload.doc.data();

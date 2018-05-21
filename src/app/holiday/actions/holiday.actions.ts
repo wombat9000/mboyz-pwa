@@ -4,6 +4,7 @@ import {CreateAction} from '../../core/actions/data.actions';
 
 
 export const CREATE = '[holidays Page] create';
+export const CREATE_SUCCESS = '[holidays] create success';
 export const SELECT = '[holidays Page] select';
 
 export const AF_ADDED = '[holidays Firestore] added';
@@ -15,6 +16,13 @@ export class Create implements CreateAction {
   readonly type = CREATE;
 
   constructor(readonly payload: { record: Holiday }) {
+  }
+}
+
+export class CreateSuccess implements Action {
+  readonly type = CREATE_SUCCESS;
+
+  constructor() {
   }
 }
 

@@ -6,15 +6,14 @@ import {Post} from '../models/post';
 import {FirestoreService} from '../services/firestore.service';
 import {DataEffects} from '../../core/effects/data.effects';
 
-
 @Injectable()
 export class PostEffects extends DataEffects<Post> {
 
-  createSuccessAction: Type<Action> = CreateSuccess;
-  createActionType = CREATE;
-  collection = 'posts';
+  protected collection = 'posts';
+  protected createActionType = CREATE;
+  protected createSuccessAction: Type<Action> = CreateSuccess;
 
-  constructor(actions$: Actions, firestore: FirestoreService) {
-    super(actions$, firestore);
+  constructor(actions$: Actions, firestoreService: FirestoreService) {
+    super(actions$, firestoreService);
   }
 }
