@@ -84,7 +84,7 @@ describe('HolidayCreateComponent', () => {
 
     it('should create the holiday when submitting the form', () => {
       const expectedHoliday = {id: 'someId', name: 'Nicer Skiurlaub'};
-      const actualHoliday: Holiday = store.dispatch.calls.argsFor(1)[0].holiday;
+      const actualHoliday: Holiday = store.dispatch.calls.argsFor(1)[0].payload.record;
 
       expect(actualHoliday.name).toBe(expectedHoliday.name);
       expect(actualHoliday.created).toBeDefined();

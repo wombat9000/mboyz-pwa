@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {environment} from '../../../environments/environment';
-import * as holidayActions from '../../holiday/actions/holiday.actions';
 import * as fromRoot from '../../reducers/index';
 import * as fromAuth from '../../auth/reducers/index';
 import {Store} from '@ngrx/store';
+import {Query, QueryStop} from '../actions/data.actions';
 
 
 @Component({
@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
     this.store.select(fromAuth.isLoggedIn)
       .subscribe((isLoggedIn: boolean) => {
         if (isLoggedIn) {
-          this.store.dispatch(new holidayActions.Query());
+          this.store.dispatch(new Query());
         } else {
-          this.store.dispatch(new holidayActions.QueryStop());
+          this.store.dispatch(new QueryStop());
         }
       });
   }

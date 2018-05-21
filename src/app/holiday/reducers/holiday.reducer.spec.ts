@@ -31,7 +31,7 @@ describe('holiday reducer', () => {
         created: 'someDate'
       };
 
-      const action = new actions.Create(createdHoliday);
+      const action = new actions.Create({record: createdHoliday});
       const result = reducer(undefined, action);
 
       expect(result.ids).toContain('someId');
@@ -47,7 +47,7 @@ describe('holiday reducer', () => {
         created: 'someDate'
       };
 
-      const action = new actions.AfAdded(addedHoliday);
+      const action = new actions.AfAdded({record: addedHoliday});
       const result = reducer(undefined, action);
 
       expect(result.ids).toContain('someId');
@@ -74,7 +74,7 @@ describe('holiday reducer', () => {
         name: 'modifiedName'
       };
 
-      const action = new actions.AfModified(modifications);
+      const action = new actions.AfModified({record: modifications});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('someId');
@@ -102,7 +102,7 @@ describe('holiday reducer', () => {
         entities: {someId: removedHoliday, anotherId: anotherHoliday}
       };
 
-      const action = new actions.AfRemoved(removedHoliday);
+      const action = new actions.AfRemoved({record: removedHoliday});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('anotherId');

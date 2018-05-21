@@ -7,8 +7,8 @@ import {PostEffects} from './post.effects';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {Post} from '../models/post';
 import {createChangeAction} from '../../test-support/functions';
-import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {FirestoreService} from '../services/firestore.service';
+import {CreateAction, Query, QueryStop, QueryStopped} from '../../core/actions/data.actions';
 
 describe('PostEffects', () => {
   let effects: PostEffects;
@@ -42,7 +42,7 @@ describe('PostEffects', () => {
       const action: Action = new Query();
       actions$.stream = hot('-a--', {a: action});
 
-      const addedAction: Action = new AfAdded({post: somePost});
+      const addedAction: CreateAction = new AfAdded({record: somePost});
       const postChanges = cold('-a-', {a: createChangeAction('added', somePost)});
       const expected = cold('--a-', {a: {...addedAction}});
 
@@ -57,7 +57,7 @@ describe('PostEffects', () => {
       const queryStop: Action = new QueryStop();
       actions$.stream = hot('-a-b-', {a: query, b: queryStop});
 
-      const addedAction: Action = new AfAdded({post: somePost});
+      const addedAction: CreateAction = new AfAdded({record: somePost});
       const postChanges = cold('-a-a-', {a: createChangeAction('added', somePost)});
 
       const queryStopped: Action = new QueryStopped();
@@ -72,7 +72,7 @@ describe('PostEffects', () => {
 
   describe('create', () => {
     beforeEach(() => {
-      const action: Action = new Create({post: somePost});
+      const action: CreateAction = new Create({record: somePost});
       actions$.stream = hot('-a--', {a: action});
     });
 

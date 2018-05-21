@@ -1,46 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Observable, of} from 'rxjs';
-import * as holidayActions from '../actions/holiday.actions';
-import {HolidayActions, QueryStopped} from '../actions/holiday.actions';
+import {Injectable, Type} from '@angular/core';
+import {Actions} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
-import {map, switchMap} from 'rxjs/operators';
 import {Holiday} from '../models/holiday';
 import {FirestoreService} from '../services/firestore.service';
+import {DataEffects} from '../../core/effects/data.effects';
+import {CREATE, Create} from '../actions/holiday.actions';
 
 @Injectable()
-export class HolidayEffects {
+export class HolidayEffects extends DataEffects<Holiday> {
 
-  @Effect({dispatch: false})
-  create$: Observable<void> = this.actions$.pipe(
-    ofType(holidayActions.CREATE),
-    switchMap((action: holidayActions.Create) => {
-      return this.firestore.save('holidays', action.holiday);
-    }));
+  createSuccessAction: Type<Action> = Create;
+  createActionType = CREATE;
+  collection = 'holidays';
 
-  @Effect()
-  query$: Observable<Action> = this.actions$
-    .pipe(
-      ofType(holidayActions.QUERY, holidayActions.QUERY_STOP),
-      switchMap((action: HolidayActions) => {
-        if (action.type === holidayActions.QUERY) {
-          return this.consumeUpdates();
-        } else {
-          return of(new QueryStopped());
-        }
-      })
-    );
-
-  constructor(private actions$: Actions, private firestore: FirestoreService) {
-  }
-
-  private consumeUpdates(): Observable<Action> {
-    return this.firestore.observeUpdates<Holiday>('holidays').pipe(
-      map(action => {
-        return {
-          type: `[Holiday Firestore] ${action.type}`,
-          holiday: {id: action.payload.doc.id, ...action.payload.doc.data()}
-        };
-      }));
+  constructor(actions$: Actions, firestore: FirestoreService) {
+    super(actions$, firestore);
   }
 }

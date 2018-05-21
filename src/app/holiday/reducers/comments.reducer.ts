@@ -21,14 +21,14 @@ export function reducer(state: State = initialState,
     }
 
     case actions.AF_REMOVED: {
-      return adapter.removeOne(action.payload.comment.id, state);
+      return adapter.removeOne(action.payload.record.id, state);
     }
 
     case actions.AF_MODIFIED: {
-      if (action.payload.comment.id) {
+      if (action.payload.record.id) {
         return adapter.updateOne({
-          id: action.payload.comment.id,
-          changes: action.payload.comment
+          id: action.payload.record.id,
+          changes: action.payload.record
         }, state);
       }
       return state;

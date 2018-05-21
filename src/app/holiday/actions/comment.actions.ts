@@ -4,6 +4,7 @@ import {CreateAction} from '../../core/actions/data.actions';
 
 export const CREATE         = '[comments CommentBox] create';
 export const CREATE_SUCCESS = '[comments] create success';
+
 export const AF_ADDED       = '[comments Firestore] added';
 export const AF_MODIFIED    = '[comments Firestore] modified';
 export const AF_REMOVED     = '[comments Firestore] removed';
@@ -23,7 +24,7 @@ export class CreateSuccess implements Action {
   }
 }
 
-export class AfAdded implements Action {
+export class AfAdded implements CreateAction {
   readonly type = AF_ADDED;
 
   constructor(readonly payload: { record: MbComment }) {
@@ -33,14 +34,14 @@ export class AfAdded implements Action {
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
 
-  constructor(readonly payload: { comment: Partial<MbComment> }) {
+  constructor(readonly payload: { record: Partial<MbComment> }) {
   }
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
 
-  constructor(readonly payload: { comment: MbComment }) {
+  constructor(readonly payload: { record: MbComment }) {
   }
 }
 

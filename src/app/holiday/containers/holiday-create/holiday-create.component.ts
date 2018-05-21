@@ -61,7 +61,7 @@ export class CreateHolidayPageComponent implements OnInit {
       created: moment().toISOString()
     };
 
-    this.store.dispatch(new actions.Create(newHoliday));
+    this.store.dispatch(new actions.Create({record: newHoliday}));
     this.router.navigate(['/']);
   }
 }

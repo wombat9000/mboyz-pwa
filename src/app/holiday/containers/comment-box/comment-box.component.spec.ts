@@ -58,7 +58,7 @@ describe('CommentBoxComponent', () => {
 
   beforeEach(() => {
     store = TestBed.get(Store);
-    store.dispatch(new post.Create({post: parentPost}));
+    store.dispatch(new post.Create({record: parentPost}));
 
     authService = TestBed.get(AuthService);
     authService.activeUser.and.returnValue(of(someAuthor));

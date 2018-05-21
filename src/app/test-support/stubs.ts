@@ -53,4 +53,4 @@ export const userFirestoreMocker: () => jasmine.SpyObj<UserService> =
   () => jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
 
 export const firestoreServiceMocker: () => jasmine.SpyObj<FirestoreService> =
-  () => jasmine.createSpyObj('CommentFirestore', ['save', 'observeUpdates']);
+  () => jasmine.createSpyObj('FirestoreService', ['save', 'observeUpdates']);

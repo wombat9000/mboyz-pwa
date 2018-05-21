@@ -17,18 +17,22 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case actions.CREATE:
     case actions.AF_ADDED: {
-      return adapter.addOne(action.payload.post, state);
+      return adapter.addOne(action.payload.record, state);
     }
 
     case actions.AF_REMOVED: {
-      return adapter.removeOne(action.payload.post.id, state);
+      return adapter.removeOne(action.payload.record.id, state);
     }
 
     case actions.AF_MODIFIED: {
-      return adapter.updateOne({
-        id: action.payload.post.id,
-        changes: action.payload.post
-      }, state);
+      if (action.payload.record.id) {
+
+        return adapter.updateOne({
+          id: action.payload.record.id,
+          changes: action.payload.record
+        }, state);
+      }
+      return state;
     }
 
     default: {

@@ -4,9 +4,9 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../../auth/reducers';
 import {HolidaysState} from '../../holiday/reducers';
-import * as actions from '../../holiday/actions/holiday.actions';
 import {LoginSuccess, Logout} from '../../auth/actions/auth.actions';
 import {newTestUser} from '../../auth/services/auth.service';
+import {Query, QueryStop} from '../actions/data.actions';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -37,7 +37,7 @@ describe('AppComponent', () => {
 
     fixture.componentInstance.ngOnInit();
 
-    expect(store.dispatch).toHaveBeenCalledWith(new actions.Query());
+    expect(store.dispatch).toHaveBeenCalledWith(new Query());
   });
 
   it('should stop querying when logged out', () => {
@@ -46,6 +46,6 @@ describe('AppComponent', () => {
 
     fixture.componentInstance.ngOnInit();
 
-    expect(store.dispatch).toHaveBeenCalledWith(new actions.QueryStop());
+    expect(store.dispatch).toHaveBeenCalledWith(new QueryStop());
   });
 });

@@ -26,7 +26,7 @@ describe('post reducer', () => {
         entities: {someId: removedPost, anotherId: anotherPost}
       };
 
-      const action = new actions.AfRemoved({post: removedPost});
+      const action = new actions.AfRemoved({record: removedPost});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('anotherId');
@@ -59,7 +59,7 @@ describe('post reducer', () => {
         entities: {someId: existingPost}
       };
 
-      const action = new actions.AfAdded({post: addedPost});
+      const action = new actions.AfAdded({record: addedPost});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('addedId');
@@ -90,7 +90,7 @@ describe('post reducer', () => {
         entities: {someId: existingPost}
       };
 
-      const action = new actions.Create({post: addedPost});
+      const action = new actions.Create({record: addedPost});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('addedId');
@@ -121,7 +121,7 @@ describe('post reducer', () => {
         entities: {someId: existingPost}
       };
 
-      const action = new actions.AfModified({post: updatedPost});
+      const action = new actions.AfModified({record: updatedPost});
       const result = reducer(state, action);
 
       expect(result.entities.someId).toEqual(updatedPost);

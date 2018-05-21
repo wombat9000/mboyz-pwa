@@ -13,7 +13,7 @@ describe('comment reducer', () => {
         entities: {removedId: removedComment, otherId: anotherComment}
       };
 
-      const action = new actions.AfRemoved({comment: removedComment});
+      const action = new actions.AfRemoved({record: removedComment});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('otherId');
@@ -73,7 +73,7 @@ describe('comment reducer', () => {
         entities: {existing: existingComment}
       };
 
-      const action = new actions.AfModified({comment: modification});
+      const action = new actions.AfModified({record: modification});
 
       const result = reducer(state, action);
 

@@ -47,8 +47,8 @@ describe('HolidayOverviewComponent', () => {
     router = TestBed.get(Router);
     store = TestBed.get(Store);
 
-    store.dispatch(new actions.Create(firstHoliday));
-    store.dispatch(new actions.Create(moreRecentHoliday));
+    store.dispatch(new actions.Create({record: firstHoliday}));
+    store.dispatch(new actions.Create({record: moreRecentHoliday}));
 
     fixture = TestBed.createComponent(HolidayOverviewPageComponent);
     component = fixture.componentInstance;

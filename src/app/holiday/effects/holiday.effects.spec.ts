@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {HolidayEffects} from './holiday.effects';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
-import {AfAdded, Create, Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
+import {AfAdded, Create} from '../actions/holiday.actions';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {Action} from '@ngrx/store';
@@ -9,6 +9,7 @@ import {cold, hot} from 'jasmine-marbles';
 import {Actions} from '@ngrx/effects';
 import {createChangeAction} from '../../test-support/functions';
 import {FirestoreService} from '../services/firestore.service';
+import {Query, QueryStop, QueryStopped} from '../../core/actions/data.actions';
 
 describe('Holiday Effects', () => {
   const actions = new ReplaySubject(1);
@@ -41,7 +42,7 @@ describe('Holiday Effects', () => {
 
   describe('create', () => {
     it('should save holiday with service', () => {
-      const action = new Create(someHoliday);
+      const action = new Create({record: someHoliday});
       firestoreService.save.and.returnValue(Promise.resolve());
       actions.next(action);
 
@@ -57,7 +58,7 @@ describe('Holiday Effects', () => {
       actions$.stream = hot('-a--', {a: action});
       const holidayChanges = cold('-a-', {a: createChangeAction('added', someHoliday)});
 
-      const addedAction: Action = new AfAdded(someHoliday);
+      const addedAction: Action = new AfAdded({record: someHoliday});
       const expected = cold('--a-', {a: {...addedAction}});
 
       firestoreService.observeUpdates.and.returnValue(holidayChanges);
@@ -72,7 +73,7 @@ describe('Holiday Effects', () => {
       actions$.stream = hot('-a-b-', {a: query, b: queryStop});
       const holidayChanges = cold('-a-a-', {a: createChangeAction('added', someHoliday)});
 
-      const addedAction: Action = new AfAdded(someHoliday);
+      const addedAction: Action = new AfAdded({record: someHoliday});
       const queryStopped: Action = new QueryStopped();
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 

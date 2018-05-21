@@ -83,9 +83,9 @@ describe('HolidayDetailComponent', () => {
   beforeEach(async () => {
     store = TestBed.get(Store);
 
-    store.dispatch(new post.Create({post: somePost}));
-    store.dispatch(new post.Create({post: moreRecentPost}));
-    store.dispatch(new holiday.Create(someHoliday));
+    store.dispatch(new post.Create({record: somePost}));
+    store.dispatch(new post.Create({record: moreRecentPost}));
+    store.dispatch(new holiday.Create({record: someHoliday}));
     store.dispatch(new holiday.Select({id: someHoliday.id}));
     store.dispatch(new auth.LoginSuccess({user: activeUser}));
 

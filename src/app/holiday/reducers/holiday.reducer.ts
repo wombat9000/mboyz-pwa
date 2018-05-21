@@ -22,14 +22,14 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case actions.AF_ADDED:
     case actions.CREATE: {
-      return adapter.addOne(action.holiday, state);
+      return adapter.addOne(action.payload.record, state);
     }
 
     case actions.AF_MODIFIED: {
-      if (action.holiday.id) {
+      if (action.payload.record.id) {
         return adapter.updateOne({
-          id: action.holiday.id,
-          changes: action.holiday
+          id: action.payload.record.id,
+          changes: action.payload.record
         }, state);
       }
       return state;
@@ -43,7 +43,7 @@ export function reducer(state: State = initialState,
     }
 
     case actions.AF_REMOVED: {
-      return adapter.removeOne(action.holiday.id, state);
+      return adapter.removeOne(action.payload.record.id, state);
     }
 
     default: {

@@ -62,7 +62,7 @@ export class PostBoxComponent {
       created: moment().toISOString()
     };
 
-    this.store.dispatch(new Create({post: post}));
+    this.store.dispatch(new Create({record: post}));
     this.postInput = '';
   }
 }

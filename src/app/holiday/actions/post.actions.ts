@@ -1,16 +1,17 @@
 import {Action} from '@ngrx/store';
 import {Post} from '../models/post';
+import {CreateAction} from '../../core/actions/data.actions';
 
-export const CREATE = '[Post PostboxComponent] create';
-export const CREATE_SUCCESS = '[Post App] create success';
-export const AF_ADDED = '[Post Firestore] added';
-export const AF_MODIFIED = '[Post Firestore] modified';
-export const AF_REMOVED = '[Post Firestore] removed';
+export const CREATE = '[posts PostboxComponent] create';
+export const CREATE_SUCCESS = '[posts App] create success';
+export const AF_ADDED = '[posts Firestore] added';
+export const AF_MODIFIED = '[posts Firestore] modified';
+export const AF_REMOVED = '[posts Firestore] removed';
 
-export class Create implements Action {
+export class Create implements CreateAction {
   readonly type = CREATE;
 
-  constructor(public readonly payload: { post: Post }) {
+  constructor(public readonly payload: { record: Post }) {
   }
 }
 
@@ -21,24 +22,24 @@ export class CreateSuccess implements Action {
   }
 }
 
-export class AfAdded implements Action {
+export class AfAdded implements CreateAction {
   readonly type = AF_ADDED;
 
-  constructor(public readonly payload: { post: Post }) {
+  constructor(public readonly payload: { record: Post }) {
   }
 }
 
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
 
-  constructor(public readonly payload: { post: Post }) {
+  constructor(public readonly payload: { record: Partial<Post> }) {
   }
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
 
-  constructor(public readonly payload: { post: Post }) {
+  constructor(public readonly payload: { record: Post }) {
   }
 }
 
