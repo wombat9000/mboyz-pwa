@@ -1,16 +1,25 @@
 import {Action} from '@ngrx/store';
 import {MbComment} from '../models/comment';
+import {CreateAction} from '../../core/actions/data.actions';
 
 export const CREATE         = '[comments CommentBox] create';
+export const CREATE_SUCCESS = '[comments] create success';
 export const AF_ADDED       = '[comments Firestore] added';
 export const AF_MODIFIED    = '[comments Firestore] modified';
 export const AF_REMOVED     = '[comments Firestore] removed';
 
 
-export class Create implements Action {
+export class Create implements CreateAction {
   readonly type = CREATE;
 
   constructor(public payload: { record: MbComment }) {
+  }
+}
+
+export class CreateSuccess implements Action {
+  readonly type = CREATE_SUCCESS;
+
+  constructor() {
   }
 }
 
@@ -37,6 +46,7 @@ export class AfRemoved implements Action {
 
 export type CommentActions =
   Create |
+  CreateSuccess |
   AfAdded |
   AfModified |
   AfRemoved;

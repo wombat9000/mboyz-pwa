@@ -9,7 +9,7 @@ import * as fromHoliday from '../../reducers/index';
 import * as uuid from 'uuid';
 import {Observable} from 'rxjs/index';
 import {map} from 'rxjs/operators';
-import {CreateRecord} from '../../../core/actions/firestore.actions';
+import {Create} from '../../actions/comment.actions';
 
 
 @Component({
@@ -57,7 +57,7 @@ export class CommentBoxComponent implements OnInit {
         created: moment().toISOString()
       };
 
-      this.store.dispatch(new CreateRecord('CommentBox', {collection: 'comments', record: comment}));
+      this.store.dispatch(new Create({record: comment}));
     }
   }
 }

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Type} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as holidayActions from '../actions/holiday.actions';
 import {HolidayActions, QueryStopped} from '../actions/holiday.actions';
@@ -7,10 +7,12 @@ import {Observable, of} from 'rxjs';
 import {asComment} from '../models/comment';
 import {map, switchMap} from 'rxjs/operators';
 import {FirestoreService} from '../services/firestore.service';
+import {DataEffects} from '../../core/effects/data.effects';
+import {CREATE, CreateSuccess} from '../actions/comment.actions';
 
 
 @Injectable()
-export class CommentEffects {
+export class CommentEffects extends DataEffects {
 
   @Effect()
   query$: Observable<Action> = this.actions$.pipe(
@@ -24,7 +26,11 @@ export class CommentEffects {
     }),
   );
 
-  constructor(private actions$: Actions, private firestoreService: FirestoreService) {
+  readonly createActionType: string = CREATE;
+  readonly createSuccessAction: Type<Action> = CreateSuccess;
+
+  constructor(actions$: Actions, firestoreService: FirestoreService) {
+    super(actions$, firestoreService);
   }
 
   private getObservable(): Observable<Action> {
