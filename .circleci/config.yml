@@ -71,7 +71,7 @@ jobs:
           command: npm run ci:e2e
 
       - store_artifacts:
-                path: /cypress/screenshots
+                path: /home/circleci/mboyz/cypress/screenshots/
 
   deploy-staging:
     docker:
