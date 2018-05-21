@@ -6,8 +6,9 @@ import {Actions} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {cold, hot} from 'jasmine-marbles';
 import {DataEffects} from './data.effects';
-import {CreateAction} from '../actions/data.actions';
+import {CreateAction, Query, QueryStop, QueryStopped} from '../actions/data.actions';
 import {Injectable, Type} from '@angular/core';
+import {createChangeAction} from '../../test-support/functions';
 
 
 class TestCreate implements CreateAction {
@@ -25,7 +26,7 @@ class TestCreateSuccess implements Action {
 }
 
 @Injectable()
-class TestEffects extends DataEffects {
+class TestEffects extends DataEffects<DbRecord> {
   readonly createActionType = '[Test] create';
   readonly collection = 'someCollection';
   readonly createSuccessAction: Type<Action> = TestCreateSuccess;
@@ -37,7 +38,7 @@ class TestEffects extends DataEffects {
 
 
 describe('DataEffects', () => {
-  let effects: DataEffects;
+  let effects: DataEffects<DbRecord>;
   let actions$: TestActions;
   let firestoreService: jasmine.SpyObj<FirestoreService>;
 
@@ -73,6 +74,46 @@ describe('DataEffects', () => {
       expect(effects.create$).toBeObservable(expected);
 
       expect(firestoreService.save).toHaveBeenCalledWith('someCollection', someRecord);
+    });
+  });
+
+  describe('query', () => {
+    it('should map state changes into corresponding actions', () => {
+      const startQuery: Action = new Query();
+      actions$.stream = hot('-a--', {a: startQuery});
+
+      const addedAction = {
+        type: '[someCollection Firestore] added',
+        payload: {record: someRecord}
+      };
+
+      const collectionUpdates = cold('-a-', {a: createChangeAction('added', someRecord)});
+      const expected = cold('--a-', {a: {...addedAction}});
+
+      firestoreService.observeUpdates.and.returnValue(collectionUpdates);
+
+      expect(effects.query$).toBeObservable(expected);
+    });
+
+    it('should stop querying again', () => {
+      const queryStart: Action = new Query();
+      const queryStop: Action = new QueryStop();
+      actions$.stream = hot('-a-b-', {a: queryStart, b: queryStop});
+
+      const addedAction = {
+        type: '[someCollection Firestore] added',
+        payload: {record: someRecord}
+      };
+
+      const collectionUpdates = cold('-a-a-', {a: createChangeAction('added', someRecord)});
+
+      const queryStopped: Action = new QueryStopped();
+
+      const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
+
+      firestoreService.observeUpdates.and.returnValue(collectionUpdates);
+
+      expect(effects.query$).toBeObservable(expected);
     });
   });
 });

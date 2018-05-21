@@ -7,8 +7,8 @@ import {firestoreServiceMocker, getActions, TestActions} from '../../test-suppor
 import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
 import {MbComment, newTestComment} from '../models/comment';
-import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {FirestoreService} from '../services/firestore.service';
+import {Query, QueryStop, QueryStopped} from '../../core/actions/data.actions';
 
 describe('CommentEffects', () => {
   let effects: CommentEffects;
