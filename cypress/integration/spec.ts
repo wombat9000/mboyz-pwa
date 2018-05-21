@@ -13,8 +13,7 @@ firebase.initializeApp({
 
 describe('Holiday planner', () => {
   before(() => {
-    // TODO: should this be in the test suite?
-
+    // TODO: should this be in the test suite? this takes a long time
     if (Cypress.env('ci') === true) {
       const token = Cypress.env('FIREBASE_TOKEN');
       cy.exec(`firebase --token=${token} --project=staging firestore:delete /holidays -r -y`);
