@@ -10,14 +10,14 @@ export const AF_REMOVED     = '[comments Firestore] removed';
 export class Create implements Action {
   readonly type = CREATE;
 
-  constructor(public payload: { comment: MbComment }) {
+  constructor(public payload: { record: MbComment }) {
   }
 }
 
 export class AfAdded implements Action {
   readonly type = AF_ADDED;
 
-  constructor(readonly payload: { comment: MbComment }) {
+  constructor(readonly payload: { record: MbComment }) {
   }
 }
 

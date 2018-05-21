@@ -17,7 +17,7 @@ export function reducer(state: State = initialState,
   switch (action.type) {
     case actions.CREATE:
     case actions.AF_ADDED: {
-      return adapter.addOne(action.payload.comment, state);
+      return adapter.addOne(action.payload.record, state);
     }
 
     case actions.AF_REMOVED: {

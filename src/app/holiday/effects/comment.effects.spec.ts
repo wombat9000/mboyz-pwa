@@ -2,14 +2,13 @@ import {cold, hot} from 'jasmine-marbles';
 import {Action} from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {TestBed} from '@angular/core/testing';
-import {AfAdded, Create} from '../actions/comment.actions';
+import {AfAdded} from '../actions/comment.actions';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
 import {MbComment, newTestComment} from '../models/comment';
 import {Query, QueryStop, QueryStopped} from '../actions/holiday.actions';
 import {FirestoreService} from '../services/firestore.service';
-import {PersistRecord} from '../../core/actions/firestore.actions';
 
 describe('CommentEffects', () => {
   let effects: CommentEffects;
@@ -36,7 +35,7 @@ describe('CommentEffects', () => {
     it('should map state changes into corresponding actions', () => {
       const action: Action = new Query();
       actions$.stream = hot('-a--', {a: action});
-      const addedAction: Action = new AfAdded({comment: someComment});
+      const addedAction: Action = new AfAdded({record: someComment});
       const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
       const expected = cold('--a-', {a: {...addedAction}});
 
@@ -50,7 +49,7 @@ describe('CommentEffects', () => {
       const queryStop: Action = new QueryStop();
       actions$.stream = hot('-a-b-', {a: query, b: queryStop});
 
-      const addedAction: Action = new AfAdded({comment: someComment});
+      const addedAction: Action = new AfAdded({record: someComment});
       const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
       const queryStopped: Action = new QueryStopped();
 
@@ -59,19 +58,6 @@ describe('CommentEffects', () => {
       firestoreService.observeUpdates.and.returnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
-    });
-  });
-
-  describe('create', () => {
-    beforeEach(() => {
-      const action: Action = new Create({comment: someComment});
-      actions$.stream = hot('-a--', {a: action});
-    });
-
-    it('should persist the comment in firstore and report success', () => {
-      const persistComment: Action = new PersistRecord({docPath: 'comments', record: someComment});
-      const expected = cold('-a-', {a: persistComment});
-      expect(effects.create$).toBeObservable(expected);
     });
   });
 });

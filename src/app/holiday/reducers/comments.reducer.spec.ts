@@ -33,7 +33,7 @@ describe('comment reducer', () => {
         entities: {existing: existingComment}
       };
 
-      const action = new actions.AfAdded({comment: addedComment});
+      const action = new actions.AfAdded({record: addedComment});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('added');
@@ -51,7 +51,7 @@ describe('comment reducer', () => {
         entities: {existing: existingComment}
       };
 
-      const action = new actions.Create({comment: addedComment});
+      const action = new actions.Create({record: addedComment});
       const result = reducer(state, action);
 
       expect(result.ids).toContain('added');

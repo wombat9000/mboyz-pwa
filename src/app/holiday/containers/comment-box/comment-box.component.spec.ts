@@ -89,8 +89,8 @@ describe('CommentBoxComponent', () => {
     };
 
     beforeEach(() => {
-      store.dispatch(new comment.Create({comment: moreRecentComment}));
-      store.dispatch(new comment.Create({comment: someComment}));
+      store.dispatch(new comment.Create({record: moreRecentComment}));
+      store.dispatch(new comment.Create({record: someComment}));
 
       fixture.detectChanges();
     });
@@ -120,7 +120,7 @@ describe('CommentBoxComponent', () => {
       fixture.detectChanges();
       createComment('new comment');
 
-      savedComment = spy.calls.first().args[0].payload.comment;
+      savedComment = spy.calls.first().args[0].payload.record;
     });
 
     it('should persist the new message', () => {

@@ -5,11 +5,11 @@ import {Post} from '../../models/post';
 import {MbComment} from '../../models/comment';
 import * as fromRoot from '../../../reducers/index';
 import {Store} from '@ngrx/store';
-import {Create} from '../../actions/comment.actions';
 import * as fromHoliday from '../../reducers/index';
 import * as uuid from 'uuid';
 import {Observable} from 'rxjs/index';
 import {map} from 'rxjs/operators';
+import {CreateRecord} from '../../../core/actions/firestore.actions';
 
 
 @Component({
@@ -57,7 +57,7 @@ export class CommentBoxComponent implements OnInit {
         created: moment().toISOString()
       };
 
-      this.store.dispatch(new Create({comment: comment}));
+      this.store.dispatch(new CreateRecord('CommentBox', {collection: 'comments', record: comment}));
     }
   }
 }

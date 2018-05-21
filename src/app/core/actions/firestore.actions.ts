@@ -1,23 +1,14 @@
 import {Action} from '@ngrx/store';
 import {DbRecord} from '../../holiday/models/DbRecord';
 
-export const PERSIST_RECORD = '[Firestore] create';
-export const PERSIST_SUCCESS = '[Firestore] create success';
+export const CREATE_RECORD = '[Firestore] create';
 
+export class CreateRecord implements Action {
+  type = CREATE_RECORD;
 
-export class PersistRecord implements Action {
-  type = PERSIST_RECORD;
-
-  constructor(readonly payload: { docPath: string, record: DbRecord }) {
-  }
-}
-
-export class PersistSuccess implements Action {
-  type = PERSIST_SUCCESS;
-
-  constructor() {
+  constructor(readonly origin: string, readonly payload: { collection: string, record: DbRecord }) {
   }
 }
 
 export type FirestoreActions =
-  PersistRecord;
+  CreateRecord;

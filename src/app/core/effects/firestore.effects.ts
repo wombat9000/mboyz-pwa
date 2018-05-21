@@ -11,9 +11,14 @@ export class FirestoreEffects {
 
   @Effect()
   create$: Observable<Action> = this.actions$.pipe(
-    ofType(firestoreActions.PERSIST_RECORD),
-    map((it: firestoreActions.PersistRecord) => this.firestoreService.save(it.payload.docPath, it.payload.record)),
-    map(() => new firestoreActions.PersistSuccess())
+    ofType(firestoreActions.CREATE_RECORD),
+    map((it: firestoreActions.CreateRecord) => {
+      this.firestoreService.save(it.payload.collection, it.payload.record);
+      return {
+        type: `[${it.payload.collection} ${it.origin}] create`,
+        payload: {record: it.payload.record}
+      };
+    }),
   );
 
   constructor(private actions$: Actions, private firestoreService: FirestoreService) {
