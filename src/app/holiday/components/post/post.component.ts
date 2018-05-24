@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {UserService} from '../../../auth/services/user.service';
-import {Post} from '../../models/post';
+import {PostDTO} from '../../models/post';
 
 @Component({
   selector: 'app-post',
@@ -26,7 +26,7 @@ import {Post} from '../../models/post';
 export class PostComponent implements OnInit {
 
   @Input()
-  post: Post;
+  post: PostDTO;
 
   user$: Observable<MtravelUser | undefined>;
 

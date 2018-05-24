@@ -8,8 +8,8 @@ import {By} from '@angular/platform-browser';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
 import {authServiceMocker} from '../../../test-support/stubs';
 import {CommentFieldComponent} from '../../components/comment-field/comment-field.component';
-import {Post} from '../../models/post';
-import {MbComment} from '../../models/comment';
+import {PostDTO} from '../../models/post';
+import {CommentDTO} from '../../models/comment';
 import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
@@ -48,7 +48,7 @@ describe('CommentBoxComponent', () => {
     photoURL: null
   };
 
-  const parentPost: Post = {
+  const parentPost: PostDTO = {
     id: 'somePostId',
     text: '',
     holidayId: 'someHolidayId',
@@ -70,7 +70,7 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('display comments', () => {
-    const someComment: MbComment = {
+    const someComment: CommentDTO = {
       id: 'someId',
       text: '',
       postId: parentPost.id,
@@ -79,7 +79,7 @@ describe('CommentBoxComponent', () => {
       created: moment('2016-01-02').toISOString()
     };
 
-    const moreRecentComment: MbComment = {
+    const moreRecentComment: CommentDTO = {
       id: 'anotherId',
       text: '',
       postId: parentPost.id,
@@ -113,7 +113,7 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('creating a comment', () => {
-    let savedComment: MbComment;
+    let savedComment: CommentDTO;
 
     beforeEach(async () => {
       const spy = spyOn(store, 'dispatch');

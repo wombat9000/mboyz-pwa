@@ -2,12 +2,12 @@ import {Injectable, Type} from '@angular/core';
 import {Actions} from '@ngrx/effects';
 import {CREATE, CreateSuccess} from '../actions/post.actions';
 import {Action} from '@ngrx/store';
-import {Post} from '../models/post';
+import {PostDTO} from '../models/post';
 import {FirestoreService} from '../services/firestore.service';
 import {DataEffects} from '../../core/effects/data.effects';
 
 @Injectable()
-export class PostEffects extends DataEffects<Post> {
+export class PostEffects extends DataEffects<PostDTO> {
 
   protected collection = 'posts';
   protected createActionType = CREATE;

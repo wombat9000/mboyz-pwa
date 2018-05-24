@@ -1,6 +1,6 @@
 import {DbRecord} from './DbRecord';
 
-export interface MbComment extends DbRecord {
+export interface CommentDTO extends DbRecord {
   readonly text: string;
   readonly postId: string;
   readonly holidayId: string;
@@ -8,7 +8,7 @@ export interface MbComment extends DbRecord {
   readonly created: string;
 }
 
-export function asComment(data: any): MbComment {
+export function asComment(data: any): CommentDTO {
   return {
     id: data.id,
     text: data.text,
@@ -19,7 +19,7 @@ export function asComment(data: any): MbComment {
   };
 }
 
-export function newTestComment(id: string): MbComment {
+export function newTestComment(id: string): CommentDTO {
   return {
     id: id,
     text: 'someText',

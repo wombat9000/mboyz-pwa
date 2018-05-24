@@ -1,11 +1,11 @@
 import * as actions from '../actions/comment.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {MbComment} from '../models/comment';
+import {CommentDTO} from '../models/comment';
 
-export interface State extends EntityState<MbComment> {
+export interface State extends EntityState<CommentDTO> {
 }
 
-export const adapter: EntityAdapter<MbComment> = createEntityAdapter<MbComment>({
+export const adapter: EntityAdapter<CommentDTO> = createEntityAdapter<CommentDTO>({
   sortComparer: false
 });
 

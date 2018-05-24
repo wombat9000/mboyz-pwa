@@ -1,4 +1,4 @@
-import {MbComment, newTestComment} from '../models/comment';
+import {CommentDTO, newTestComment} from '../models/comment';
 import {reducer, State} from './comments.reducer';
 import * as actions from '../actions/comment.actions';
 
@@ -63,7 +63,7 @@ describe('comment reducer', () => {
     it('should modify existing comment', () => {
       const existingComment = newTestComment('existing');
 
-      const modification: Partial<MbComment> = {
+      const modification: Partial<CommentDTO> = {
         id: 'existing',
         text: 'newText'
       };

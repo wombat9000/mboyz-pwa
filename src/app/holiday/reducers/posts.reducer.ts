@@ -1,11 +1,11 @@
 import * as actions from '../actions/post.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Post} from '../models/post';
+import {PostDTO} from '../models/post';
 
-export interface State extends EntityState<Post> {
+export interface State extends EntityState<PostDTO> {
 }
 
-export const adapter: EntityAdapter<Post> = createEntityAdapter<Post>({
+export const adapter: EntityAdapter<PostDTO> = createEntityAdapter<PostDTO>({
   sortComparer: false
 });
 

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
-import {MbComment} from '../../models/comment';
+import {CommentDTO} from '../../models/comment';
 import {UserService} from '../../../auth/services/user.service';
 import {Observable} from 'rxjs/index';
 
@@ -21,7 +21,7 @@ import {Observable} from 'rxjs/index';
 export class CommentComponent implements OnInit {
 
   @Input()
-  comment: MbComment;
+  comment: CommentDTO;
 
   user$: Observable<MtravelUser | undefined>;
 

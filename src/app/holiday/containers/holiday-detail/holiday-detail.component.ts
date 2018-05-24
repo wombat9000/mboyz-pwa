@@ -5,10 +5,10 @@ import * as fromAuth from '../../../auth/reducers';
 import * as fromHoliday from '../../reducers';
 import {Store} from '@ngrx/store';
 import {Select} from '../../actions/holiday.actions';
-import {Holiday} from '../../models/holiday';
+import {HolidayDTO} from '../../models/holiday';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {Observable} from 'rxjs';
-import {Post} from '../../models/post';
+import {PostDTO} from '../../models/post';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
 import {SetTitle} from '../../../core/actions/app-bar.actions';
@@ -34,9 +34,9 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
   `]
 })
 export class HolidayDetailPageComponent implements OnInit {
-  holiday$: Observable<Holiday | null> = this.store.select(fromHoliday.getSelectedHoliday);
+  holiday$: Observable<HolidayDTO | null> = this.store.select(fromHoliday.getSelectedHoliday);
   activeUser$: Observable<MtravelUser | null> = this.store.select(fromAuth.getUser);
-  posts$: Observable<Post[]> = this.store.select(fromHoliday.getSelectedPosts).pipe(
+  posts$: Observable<PostDTO[]> = this.store.select(fromHoliday.getSelectedPosts).pipe(
     map(it => {
       return it.sort((some, other) => {
         return moment(some.created).isAfter(moment(other.created)) ? 0 : 1;

@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Post} from '../models/post';
+import {PostDTO} from '../models/post';
 import {CreateAction} from '../../core/actions/data.actions';
 
 export const CREATE = '[posts PostboxComponent] create';
@@ -11,7 +11,7 @@ export const AF_REMOVED = '[posts Firestore] removed';
 export class Create implements CreateAction {
   readonly type = CREATE;
 
-  constructor(public readonly payload: { record: Post }) {
+  constructor(public readonly payload: { record: PostDTO }) {
   }
 }
 
@@ -25,21 +25,21 @@ export class CreateSuccess implements Action {
 export class AfAdded implements CreateAction {
   readonly type = AF_ADDED;
 
-  constructor(public readonly payload: { record: Post }) {
+  constructor(public readonly payload: { record: PostDTO }) {
   }
 }
 
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
 
-  constructor(public readonly payload: { record: Partial<Post> }) {
+  constructor(public readonly payload: { record: Partial<PostDTO> }) {
   }
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
 
-  constructor(public readonly payload: { record: Post }) {
+  constructor(public readonly payload: { record: PostDTO }) {
   }
 }
 

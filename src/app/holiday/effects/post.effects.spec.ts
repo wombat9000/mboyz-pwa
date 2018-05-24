@@ -5,7 +5,7 @@ import {TestBed} from '@angular/core/testing';
 import {AfAdded, Create, CreateSuccess} from '../actions/post.actions';
 import {PostEffects} from './post.effects';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
-import {Post} from '../models/post';
+import {PostDTO} from '../models/post';
 import {createChangeAction} from '../../test-support/functions';
 import {FirestoreService} from '../services/firestore.service';
 import {CreateAction, Query, QueryStop, QueryStopped} from '../../core/actions/data.actions';
@@ -15,7 +15,7 @@ describe('PostEffects', () => {
   let actions$: TestActions;
   let firestore: jasmine.SpyObj<FirestoreService>;
 
-  const somePost: Post = {
+  const somePost: PostDTO = {
     id: 'someId',
     text: 'some text',
     authorId: 'author1',

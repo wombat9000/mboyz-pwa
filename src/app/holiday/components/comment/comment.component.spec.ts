@@ -7,7 +7,7 @@ import {DebugElement} from '@angular/core';
 import moment = require('moment');
 import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
-import {MbComment} from '../../models/comment';
+import {CommentDTO} from '../../models/comment';
 import {userFirestoreMocker} from '../../../test-support/stubs';
 import {of} from 'rxjs/index';
 
@@ -24,7 +24,7 @@ describe('CommentComponent', () => {
     email: 'someEmail'
   };
 
-  const someComment: MbComment = {
+  const someComment: CommentDTO = {
     id: 'someId',
     postId: 'somePost',
     holidayId: 'someHolidayId',

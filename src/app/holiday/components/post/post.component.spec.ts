@@ -7,7 +7,7 @@ import moment = require('moment');
 import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {userFirestoreMocker} from '../../../test-support/stubs';
-import {Post} from '../../models/post';
+import {PostDTO} from '../../models/post';
 import {of} from 'rxjs/index';
 
 describe('PostComponent', () => {
@@ -31,7 +31,7 @@ describe('PostComponent', () => {
     })
       .compileComponents();
   }));
-  const somePost: Post = {
+  const somePost: PostDTO = {
     id: 'someId',
     authorId: 'someAuthorId',
     holidayId: 'holidayId',

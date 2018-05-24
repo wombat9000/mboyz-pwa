@@ -1,14 +1,14 @@
 import * as actions from '../actions/holiday.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Holiday} from '../models/holiday';
+import {HolidayDTO} from '../models/holiday';
 
 
-export interface State extends EntityState<Holiday> {
+export interface State extends EntityState<HolidayDTO> {
   selectedId: string | null;
 }
 
-export const adapter: EntityAdapter<Holiday> = createEntityAdapter<Holiday>({
-  selectId: (holiday: Holiday) => holiday.id,
+export const adapter: EntityAdapter<HolidayDTO> = createEntityAdapter<HolidayDTO>({
+  selectId: (holiday: HolidayDTO) => holiday.id,
   sortComparer: false
 });
 

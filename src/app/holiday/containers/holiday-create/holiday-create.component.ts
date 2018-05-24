@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/holiday.reducer';
 import * as actions from '../../actions/holiday.actions';
-import {Holiday} from '../../models/holiday';
+import {HolidayDTO} from '../../models/holiday';
 import * as moment from 'moment';
 import * as uuid from 'uuid';
 import {SetTitle} from '../../../core/actions/app-bar.actions';
@@ -55,7 +55,7 @@ export class CreateHolidayPageComponent implements OnInit {
   }
 
   onSubmit() {
-    const newHoliday: Holiday = {
+    const newHoliday: HolidayDTO = {
       id: uuid(),
       name: this.holidayName,
       created: moment().toISOString()

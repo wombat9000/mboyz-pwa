@@ -1,13 +1,13 @@
 import {Injectable, Type} from '@angular/core';
 import {Actions} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
-import {MbComment} from '../models/comment';
+import {CommentDTO} from '../models/comment';
 import {FirestoreService} from '../services/firestore.service';
 import {DataEffects} from '../../core/effects/data.effects';
 import {CREATE, CreateSuccess} from '../actions/comment.actions';
 
 @Injectable()
-export class CommentEffects extends DataEffects<MbComment> {
+export class CommentEffects extends DataEffects<CommentDTO> {
 
   protected collection = 'comments';
   protected createActionType = CREATE;

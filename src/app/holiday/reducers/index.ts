@@ -4,8 +4,8 @@ import * as fromPosts from './posts.reducer';
 import * as fromUsers from './users.reducer';
 import * as fromComments from './comments.reducer';
 import * as fromRoot from '../../reducers';
-import {Post} from '../models/post';
-import {MbComment} from '../models/comment';
+import {PostDTO} from '../models/post';
+import {CommentDTO} from '../models/comment';
 
 export interface HolidaysState {
   holidays: fromHolidays.State;
@@ -68,7 +68,7 @@ export const getAllComments = fromComments.adapter.getSelectors(getCommentsEntit
 export const getSelectedPosts = createSelector(
   getSelectedHolidayId,
   getAllPosts,
-  (holidayId: string, posts: Post[]) => {
+  (holidayId: string, posts: PostDTO[]) => {
     return posts.filter(it => it.holidayId === holidayId);
   }
 );
@@ -76,7 +76,7 @@ export const getSelectedPosts = createSelector(
 export function getCommentsForPostId(postId: string) {
   return createSelector(
     getAllComments,
-    (comments: MbComment[]) => {
+    (comments: CommentDTO[]) => {
       return comments.filter(comment => comment.postId === postId);
     }
   );

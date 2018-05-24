@@ -6,7 +6,7 @@ import {AfAdded} from '../actions/comment.actions';
 import {firestoreServiceMocker, getActions, TestActions} from '../../test-support/stubs';
 import {createChangeAction} from '../../test-support/functions';
 import {CommentEffects} from './comment.effects';
-import {MbComment, newTestComment} from '../models/comment';
+import {CommentDTO, newTestComment} from '../models/comment';
 import {FirestoreService} from '../services/firestore.service';
 import {Query, QueryStop, QueryStopped} from '../../core/actions/data.actions';
 
@@ -15,7 +15,7 @@ describe('CommentEffects', () => {
   let actions$: TestActions;
   let firestoreService: jasmine.SpyObj<FirestoreService>;
 
-  const someComment: MbComment = newTestComment('someId');
+  const someComment: CommentDTO = newTestComment('someId');
 
   beforeEach(() => {
     TestBed.configureTestingModule({

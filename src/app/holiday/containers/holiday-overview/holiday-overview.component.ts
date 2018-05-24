@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers';
-import {Holiday} from '../../models/holiday';
+import {HolidayDTO} from '../../models/holiday';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
 import {SetTitle} from '../../../core/actions/app-bar.actions';
@@ -40,7 +40,7 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
 })
 export class HolidayOverviewPageComponent implements OnInit {
 
-  holidays$: Observable<Holiday[]>;
+  holidays$: Observable<HolidayDTO[]>;
 
   constructor(private store: Store<fromHoliday.State>,
               private router: Router) {
@@ -67,7 +67,7 @@ export class HolidayOverviewPageComponent implements OnInit {
     return moment(isoString).format('LT');
   }
 
-  private sortByDate(holidays: Holiday[]) {
+  private sortByDate(holidays: HolidayDTO[]) {
     return holidays
       .filter(it => it.created !== undefined)
       .sort((some, other) => {

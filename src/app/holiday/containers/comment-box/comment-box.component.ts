@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
-import {Post} from '../../models/post';
-import {MbComment} from '../../models/comment';
+import {PostDTO} from '../../models/post';
+import {CommentDTO} from '../../models/comment';
 import * as fromRoot from '../../../reducers/index';
 import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
@@ -27,8 +27,8 @@ import {Create} from '../../actions/comment.actions';
 export class CommentBoxComponent implements OnInit {
 
   @Input()
-  post: Post;
-  comments$: Observable<MbComment[]>;
+  post: PostDTO;
+  comments$: Observable<CommentDTO[]>;
   user: MtravelUser | undefined;
 
   constructor(private store: Store<fromRoot.State>,
@@ -48,7 +48,7 @@ export class CommentBoxComponent implements OnInit {
 
   submitComment(text: string) {
     if (this.user !== undefined) {
-      const comment: MbComment = {
+      const comment: CommentDTO = {
         id: uuid(),
         text: text,
         postId: this.post.id,

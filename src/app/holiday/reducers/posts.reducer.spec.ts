@@ -1,11 +1,11 @@
 import * as actions from '../actions/post.actions';
 import {reducer, State} from './posts.reducer';
-import {Post} from '../models/post';
+import {PostDTO} from '../models/post';
 
 describe('post reducer', () => {
   describe('removed', () => {
     it('should remove existing post', () => {
-      const removedPost: Post = {
+      const removedPost: PostDTO = {
         id: 'someId',
         text: 'someText',
         holidayId: '',
@@ -13,7 +13,7 @@ describe('post reducer', () => {
         created: ''
       };
 
-      const anotherPost: Post = {
+      const anotherPost: PostDTO = {
         id: 'otherId',
         text: 'someText',
         holidayId: '',
@@ -38,7 +38,7 @@ describe('post reducer', () => {
 
   describe('added', () => {
     it('should add new posts', () => {
-      const existingPost: Post = {
+      const existingPost: PostDTO = {
         id: 'someId',
         text: 'someText',
         holidayId: '',
@@ -46,7 +46,7 @@ describe('post reducer', () => {
         created: ''
       };
 
-      const addedPost: Post = {
+      const addedPost: PostDTO = {
         id: 'addedId',
         text: 'someText',
         holidayId: '',
@@ -69,7 +69,7 @@ describe('post reducer', () => {
 
   describe('create', () => {
     it('should add new posts', () => {
-      const existingPost: Post = {
+      const existingPost: PostDTO = {
         id: 'someId',
         text: 'someText',
         holidayId: '',
@@ -77,7 +77,7 @@ describe('post reducer', () => {
         created: ''
       };
 
-      const addedPost: Post = {
+      const addedPost: PostDTO = {
         id: 'addedId',
         text: 'someText',
         holidayId: '',
@@ -100,7 +100,7 @@ describe('post reducer', () => {
 
   describe('updated', () => {
     it('should modify existing post', () => {
-      const existingPost: Post = {
+      const existingPost: PostDTO = {
         id: 'someId',
         text: 'someText',
         holidayId: '',
@@ -108,7 +108,7 @@ describe('post reducer', () => {
         created: ''
       };
 
-      const updatedPost: Post = {
+      const updatedPost: PostDTO = {
         id: 'someId',
         text: 'updatedText',
         holidayId: '',

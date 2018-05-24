@@ -7,8 +7,8 @@ import {Subject} from 'rxjs/Subject';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
 import {authServiceMocker} from '../../../test-support/stubs';
-import {Holiday} from '../../models/holiday';
-import {Post} from '../../models/post';
+import {HolidayDTO} from '../../models/holiday';
+import {PostDTO} from '../../models/post';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
@@ -17,9 +17,9 @@ import {of} from 'rxjs';
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<PostBoxComponent>,
-              holiday: Holiday,
+              holiday: HolidayDTO,
               activeUser: MtravelUser,
-              posts: Post[]) {
+              posts: PostDTO[]) {
     const component = fixture.componentInstance;
     component.holiday = holiday;
     component.activeUser = activeUser;
@@ -56,14 +56,14 @@ describe('PostBoxComponent', () => {
   let postBoxPO: PostBoxPO;
   let store: Store<HolidaysState>;
 
-  const holidayPostsSubject: Subject<Post[]> = new Subject<Post[]>();
+  const holidayPostsSubject: Subject<PostDTO[]> = new Subject<PostDTO[]>();
   const inputHoliday = {
     id: 'someId',
     name: 'someName',
     created: ''
   };
 
-  const somePost: Post = {
+  const somePost: PostDTO = {
     id: 'someId',
     text: 'first message',
     holidayId: 'holidayId',
@@ -71,7 +71,7 @@ describe('PostBoxComponent', () => {
     created: moment('2016-01-01').toISOString()
   };
 
-  const moreRecentPost: Post = {
+  const moreRecentPost: PostDTO = {
     id: 'anotherId',
     text: 'second message',
     holidayId: 'holidayId',
@@ -129,7 +129,7 @@ describe('PostBoxComponent', () => {
   });
 
   describe('creating a new post', () => {
-    let post: Post;
+    let post: PostDTO;
     const someMessage = 'someMessage';
 
     beforeEach(async () => {

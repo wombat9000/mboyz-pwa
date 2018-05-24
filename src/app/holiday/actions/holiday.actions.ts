@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Holiday} from '../models/holiday';
+import {HolidayDTO} from '../models/holiday';
 import {CreateAction} from '../../core/actions/data.actions';
 
 
@@ -15,7 +15,7 @@ export const AF_REMOVED = '[holidays Firestore] removed';
 export class Create implements CreateAction {
   readonly type = CREATE;
 
-  constructor(readonly payload: { record: Holiday }) {
+  constructor(readonly payload: { record: HolidayDTO }) {
   }
 }
 
@@ -36,21 +36,21 @@ export class Select implements Action {
 export class AfAdded implements CreateAction {
   readonly type = AF_ADDED;
 
-  constructor(readonly payload: { record: Holiday }) {
+  constructor(readonly payload: { record: HolidayDTO }) {
   }
 }
 
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
 
-  constructor(readonly payload: { record: Partial<Holiday> }) {
+  constructor(readonly payload: { record: Partial<HolidayDTO> }) {
   }
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
 
-  constructor(readonly payload: { record: Holiday }) {
+  constructor(readonly payload: { record: HolidayDTO }) {
   }
 }
 

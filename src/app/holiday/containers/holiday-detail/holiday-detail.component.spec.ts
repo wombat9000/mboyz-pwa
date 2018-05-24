@@ -4,7 +4,7 @@ import {HolidayDetailPageComponent} from './holiday-detail.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
-import {Holiday} from '../../models/holiday';
+import {HolidayDTO} from '../../models/holiday';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers';
 import {HolidaysState} from '../../reducers';
@@ -15,7 +15,7 @@ import * as fromRoot from '../../../reducers';
 import * as fromAuth from '../../../auth/reducers';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {DebugElement} from '@angular/core/src/debug/debug_node';
-import {Post} from '../../models/post';
+import {PostDTO} from '../../models/post';
 import moment = require('moment');
 
 describe('HolidayDetailComponent', () => {
@@ -23,13 +23,13 @@ describe('HolidayDetailComponent', () => {
   let fixture: ComponentFixture<HolidayDetailPageComponent>;
   let store: Store<HolidaysState>;
 
-  const someHoliday: Holiday = {
+  const someHoliday: HolidayDTO = {
     id: 'someId',
     name: 'someName',
     created: ''
   };
 
-  const somePost: Post = {
+  const somePost: PostDTO = {
     id: 'someId',
     text: 'first message',
     holidayId: someHoliday.id,
@@ -37,7 +37,7 @@ describe('HolidayDetailComponent', () => {
     created: moment('2016-01-01').toISOString()
   };
 
-  const moreRecentPost: Post = {
+  const moreRecentPost: PostDTO = {
     id: 'anotherId',
     text: 'second message',
     holidayId: someHoliday.id,

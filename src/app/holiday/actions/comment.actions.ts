@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {MbComment} from '../models/comment';
+import {CommentDTO} from '../models/comment';
 import {CreateAction} from '../../core/actions/data.actions';
 
 export const CREATE         = '[comments CommentBox] create';
@@ -13,7 +13,7 @@ export const AF_REMOVED     = '[comments Firestore] removed';
 export class Create implements CreateAction {
   readonly type = CREATE;
 
-  constructor(public payload: { record: MbComment }) {
+  constructor(public payload: { record: CommentDTO }) {
   }
 }
 
@@ -27,21 +27,21 @@ export class CreateSuccess implements Action {
 export class AfAdded implements CreateAction {
   readonly type = AF_ADDED;
 
-  constructor(readonly payload: { record: MbComment }) {
+  constructor(readonly payload: { record: CommentDTO }) {
   }
 }
 
 export class AfModified implements Action {
   readonly type = AF_MODIFIED;
 
-  constructor(readonly payload: { record: Partial<MbComment> }) {
+  constructor(readonly payload: { record: Partial<CommentDTO> }) {
   }
 }
 
 export class AfRemoved implements Action {
   readonly type = AF_REMOVED;
 
-  constructor(readonly payload: { record: MbComment }) {
+  constructor(readonly payload: { record: CommentDTO }) {
   }
 }
 

@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import {State} from '../../reducers/holiday.reducer';
-import {Holiday} from '../../models/holiday';
+import {HolidayDTO} from '../../models/holiday';
 import * as moment from 'moment';
 import {click} from '../../../test-support/functions';
 import {routerMocker} from '../../../test-support/stubs';
@@ -84,7 +84,7 @@ describe('HolidayCreateComponent', () => {
 
     it('should create the holiday when submitting the form', () => {
       const expectedHoliday = {id: 'someId', name: 'Nicer Skiurlaub'};
-      const actualHoliday: Holiday = store.dispatch.calls.argsFor(1)[0].payload.record;
+      const actualHoliday: HolidayDTO = store.dispatch.calls.argsFor(1)[0].payload.record;
 
       expect(actualHoliday.name).toBe(expectedHoliday.name);
       expect(actualHoliday.created).toBeDefined();
