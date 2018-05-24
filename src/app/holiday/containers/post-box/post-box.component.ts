@@ -57,6 +57,7 @@ export class PostBoxComponent {
     const post: PostDTO = {
       id: uuid(),
       text: this.postInput,
+      commentIds: [],
       holidayId: this.holiday.id,
       authorId: this.activeUser.id,
       created: moment().toISOString()

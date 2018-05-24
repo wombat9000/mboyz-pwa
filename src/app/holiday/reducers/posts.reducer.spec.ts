@@ -8,6 +8,7 @@ describe('post reducer', () => {
       const removedPost: PostDTO = {
         id: 'someId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -16,6 +17,7 @@ describe('post reducer', () => {
       const anotherPost: PostDTO = {
         id: 'otherId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -41,6 +43,7 @@ describe('post reducer', () => {
       const existingPost: PostDTO = {
         id: 'someId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -49,6 +52,7 @@ describe('post reducer', () => {
       const addedPost: PostDTO = {
         id: 'addedId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -72,6 +76,7 @@ describe('post reducer', () => {
       const existingPost: PostDTO = {
         id: 'someId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -80,6 +85,7 @@ describe('post reducer', () => {
       const addedPost: PostDTO = {
         id: 'addedId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -103,6 +109,7 @@ describe('post reducer', () => {
       const existingPost: PostDTO = {
         id: 'someId',
         text: 'someText',
+        commentIds: [],
         holidayId: '',
         authorId: '',
         created: ''
@@ -111,6 +118,7 @@ describe('post reducer', () => {
       const updatedPost: PostDTO = {
         id: 'someId',
         text: 'updatedText',
+        commentIds: ['someId'],
         holidayId: '',
         authorId: '',
         created: ''

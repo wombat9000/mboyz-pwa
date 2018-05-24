@@ -28,6 +28,7 @@ describe('holiday reducer', () => {
       const createdHoliday = {
         id: 'someId',
         name: 'someName',
+        postIds: [],
         created: 'someDate'
       };
 
@@ -44,6 +45,7 @@ describe('holiday reducer', () => {
       const addedHoliday = {
         id: 'someId',
         name: 'someName',
+        postIds: [],
         created: 'someDate'
       };
 
@@ -60,6 +62,7 @@ describe('holiday reducer', () => {
       const modifiedHoliday = {
         id: 'someId',
         name: 'someName',
+        postIds: [],
         created: 'someDate'
       };
 
@@ -86,12 +89,14 @@ describe('holiday reducer', () => {
     it('should remove existing hoiday', () => {
       const removedHoliday = {
         id: 'someId',
+        postIds: [],
         name: 'someName',
         created: 'someDate'
       };
 
       const anotherHoliday = {
         id: 'anotherId',
+        postIds: [],
         name: 'anotherName',
         created: 'someDate'
       };

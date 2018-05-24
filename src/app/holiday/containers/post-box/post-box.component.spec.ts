@@ -59,13 +59,15 @@ describe('PostBoxComponent', () => {
   const holidayPostsSubject: Subject<PostDTO[]> = new Subject<PostDTO[]>();
   const inputHoliday = {
     id: 'someId',
+    postIds: ['somePostId'],
     name: 'someName',
     created: ''
   };
 
   const somePost: PostDTO = {
-    id: 'someId',
+    id: 'somePostId',
     text: 'first message',
+    commentIds: [],
     holidayId: 'holidayId',
     authorId: 'someAuthor',
     created: moment('2016-01-01').toISOString()
@@ -74,6 +76,7 @@ describe('PostBoxComponent', () => {
   const moreRecentPost: PostDTO = {
     id: 'anotherId',
     text: 'second message',
+    commentIds: [],
     holidayId: 'holidayId',
     authorId: 'someAuthor',
     created: moment('2016-01-02').toISOString()
