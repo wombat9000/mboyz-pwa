@@ -58,7 +58,6 @@ export class CreateHolidayPageComponent implements OnInit {
     const newHoliday: HolidayDTO = {
       id: uuid(),
       name: this.holidayName,
-      postIds: [],
       created: moment().toISOString()
     };
 
