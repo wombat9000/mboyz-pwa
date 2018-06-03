@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
+import {MtravelUser} from '../../../auth/services/auth.service';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
 import * as fromRoot from '../../../reducers/index';
@@ -8,8 +8,9 @@ import {Store} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import * as uuid from 'uuid';
 import {Observable} from 'rxjs/index';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {Create} from '../../actions/comment.actions';
+import {getUserForId} from '../../reducers';
 
 
 @Component({
@@ -17,7 +18,9 @@ import {Create} from '../../actions/comment.actions';
   template: `
     <div class="comments-container">
       <div class="comment" *ngFor="let comment of comments$ | async">
-        <app-comment [comment]="comment"></app-comment>
+        <app-comment [comment]="comment"
+                     [author]="authorOf(comment.authorId) | async">
+        </app-comment>
       </div>
     </div>
     <app-comment-field (submitComment)="submitComment($event)"></app-comment-field>
@@ -28,16 +31,14 @@ export class CommentBoxComponent implements OnInit {
 
   @Input()
   post: PostDTO;
+  @Input()
+  activeUser: MtravelUser;
   comments$: Observable<CommentDTO[]>;
-  user: MtravelUser | undefined;
 
-  constructor(private store: Store<fromRoot.State>,
-              private auth: AuthService) {
+  constructor(private store: Store<fromRoot.State>) {
   }
 
   ngOnInit() {
-    this.auth.activeUser().subscribe(it => this.user = it);
-
     this.comments$ = this.store.select(fromHoliday.getCommentsForPostId(this.post.id)).pipe(
       map(it => {
         return it.sort((some, other) => {
@@ -47,17 +48,21 @@ export class CommentBoxComponent implements OnInit {
   }
 
   submitComment(text: string) {
-    if (this.user !== undefined) {
-      const comment: CommentDTO = {
-        id: uuid(),
-        text: text,
-        postId: this.post.id,
-        holidayId: this.post.holidayId,
-        authorId: this.user.id,
-        created: moment().toISOString()
-      };
+    const comment: CommentDTO = {
+      id: uuid(),
+      text: text,
+      postId: this.post.id,
+      holidayId: this.post.holidayId,
+      authorId: this.activeUser.id,
+      created: moment().toISOString()
+    };
 
-      this.store.dispatch(new Create({record: comment}));
-    }
+    this.store.dispatch(new Create({record: comment}));
+  }
+
+  authorOf(userId: string): Observable<MtravelUser> {
+    return this.store.select(getUserForId(userId)).pipe(
+      filter<MtravelUser>((it: MtravelUser | null) => it !== null)
+    );
   }
 }

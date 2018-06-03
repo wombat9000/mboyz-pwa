@@ -1,21 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CommentComponent} from './comment.component';
-import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import moment = require('moment');
-import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {CommentDTO} from '../../models/comment';
-import {userFirestoreMocker} from '../../../test-support/stubs';
-import {of} from 'rxjs/index';
+import moment = require('moment');
 
 describe('CommentComponent', () => {
   let component: CommentComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<CommentComponent>;
-  let userFS: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
     id: 'someAuthorId',
@@ -35,24 +30,17 @@ describe('CommentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: UserService,
-          useFactory: userFirestoreMocker
-        }
-      ],
       declarations: [CommentComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    userFS = TestBed.get(UserService);
-    userFS.observeById.and.returnValue(of(someUser));
     fixture = TestBed.createComponent(CommentComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     component.comment = someComment;
+    component.author = someUser;
     fixture.detectChanges();
   });
 
@@ -60,7 +48,6 @@ describe('CommentComponent', () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
-    expect(userFS.observeById).toHaveBeenCalledWith(someComment.authorId);
     expect(author).toBe(someUser.displayName + ' ');
   });
 

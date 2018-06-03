@@ -1,15 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {CommentDTO} from '../../models/comment';
-import {UserService} from '../../../auth/services/user.service';
-import {Observable} from 'rxjs/index';
 
 @Component({
   selector: 'app-comment',
   template: `
-    <div class="comment-body" *ngIf="user$ | async as user">
-      <span class="author">{{user.displayName}} </span>
+    <div class="comment-body">
+      <span class="author">{{authorName}} </span>
       <span class="message">{{text}}</span>
     </div>
     <div class="info">
@@ -18,14 +16,15 @@ import {Observable} from 'rxjs/index';
   `,
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
 
   @Input()
   comment: CommentDTO;
 
-  user$: Observable<MtravelUser | undefined>;
+  @Input()
+  author: MtravelUser;
 
-  constructor(private userFS: UserService) {
+  constructor() {
   }
 
   get text() {
@@ -40,7 +39,7 @@ export class CommentComponent implements OnInit {
     return moment(this.comment.created).format('LT');
   }
 
-  ngOnInit() {
-    this.user$ = this.userFS.observeById(this.comment.authorId);
+  get authorName() {
+    return this.author.displayName;
   }
 }

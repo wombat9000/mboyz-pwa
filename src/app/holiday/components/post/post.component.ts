@@ -18,7 +18,9 @@ import {PostDTO} from '../../models/post';
       </div>
     </div>
     <div class="comments">
-      <app-comment-box [post]="post"></app-comment-box>
+      <app-comment-box [post]="post"
+                       [activeUser]="activeUser">
+      </app-comment-box>
     </div>
   `,
   styleUrls: ['./post.component.scss']
@@ -27,6 +29,8 @@ export class PostComponent implements OnInit {
 
   @Input()
   post: PostDTO;
+  @Input()
+  activeUser: MtravelUser;
 
   user$: Observable<MtravelUser | undefined>;
 

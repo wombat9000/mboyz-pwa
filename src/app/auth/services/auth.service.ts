@@ -11,7 +11,6 @@ import {DbRecord} from '../../holiday/models/DbRecord';
 
 
 export interface MtravelUser extends DbRecord {
-  id: string;
   email: string | null;
   photoURL: string | null;
   displayName: string | null;

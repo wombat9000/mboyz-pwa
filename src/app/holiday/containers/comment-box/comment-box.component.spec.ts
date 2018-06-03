@@ -5,8 +5,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {By} from '@angular/platform-browser';
-import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
-import {authServiceMocker} from '../../../test-support/stubs';
+import {MtravelUser} from '../../../auth/services/auth.service';
 import {CommentFieldComponent} from '../../components/comment-field/comment-field.component';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
@@ -14,15 +13,12 @@ import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as comment from '../../actions/comment.actions';
-import * as post from '../../actions/post.actions';
-import {of} from 'rxjs';
 import moment = require('moment');
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
   let fixture: ComponentFixture<CommentBoxComponent>;
   let debugElement: DebugElement;
-  let authService: jasmine.SpyObj<AuthService>;
   let store: Store<HolidaysState>;
 
   beforeEach(async(() => {
@@ -31,9 +27,6 @@ describe('CommentBoxComponent', () => {
         StoreModule.forRoot({
           holidayPlanner: combineReducers(fromHoliday.reducers),
         })
-      ],
-      providers: [
-        {provide: AuthService, useFactory: authServiceMocker}
       ],
       declarations: [CommentBoxComponent, CommentFieldComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -58,14 +51,11 @@ describe('CommentBoxComponent', () => {
 
   beforeEach(() => {
     store = TestBed.get(Store);
-    store.dispatch(new post.Create({record: parentPost}));
-
-    authService = TestBed.get(AuthService);
-    authService.activeUser.and.returnValue(of(someAuthor));
 
     fixture = TestBed.createComponent(CommentBoxComponent);
     component = fixture.componentInstance;
     component.post = parentPost;
+    component.activeUser = someAuthor;
     debugElement = fixture.debugElement;
   });
 

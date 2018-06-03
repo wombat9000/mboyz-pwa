@@ -23,7 +23,9 @@ import * as uuid from 'uuid';
     </mat-form-field>
     <div class="posts-container">
       <div class="post" *ngFor="let post of posts" [@fadeIn]>
-        <app-post [post]="post"></app-post>
+        <app-post [post]="post"
+                  [activeUser]="activeUser">
+        </app-post>
       </div>
     </div>
   `,

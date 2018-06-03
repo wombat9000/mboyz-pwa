@@ -6,6 +6,7 @@ export interface State extends EntityState<CommentDTO> {
 }
 
 export const adapter: EntityAdapter<CommentDTO> = createEntityAdapter<CommentDTO>({
+  // TODO: sort by date
   sortComparer: false
 });
 

@@ -42,6 +42,11 @@ export const getCommentsEntitiesState = createSelector(
   (state: HolidaysState) => state.comments
 );
 
+export const getUsersEntitiesState = createSelector(
+  getHolidayPlannerState,
+  (state: HolidaysState) => state.users
+);
+
 export const getSelectedHolidayId = createSelector(
   getHolidayEntitiesState,
   fromHolidays.getSelectedId
@@ -64,6 +69,7 @@ export const getSelectedHoliday = createSelector(
 
 export const getAllPosts = fromPosts.adapter.getSelectors(getPostEntitiesState).selectAll;
 export const getAllComments = fromComments.adapter.getSelectors(getCommentsEntitiesState).selectAll;
+export const selectUserEntities = fromUsers.adapter.getSelectors(getUsersEntitiesState).selectEntities;
 
 export const getSelectedPosts = createSelector(
   getSelectedHolidayId,
@@ -72,6 +78,15 @@ export const getSelectedPosts = createSelector(
     return posts.filter(it => it.holidayId === holidayId);
   }
 );
+
+export function getUserForId(userId: string) {
+  return createSelector(
+    selectUserEntities,
+    (entities) => {
+      return userId ? entities[userId] : null;
+    }
+  );
+}
 
 export function getCommentsForPostId(postId: string) {
   return createSelector(
