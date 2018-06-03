@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {PostBoxComponent} from './post-box.component';
 import {Subject} from 'rxjs/Subject';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
@@ -14,9 +13,10 @@ import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
 import moment = require('moment');
 import {of} from 'rxjs';
+import {ForumComponent} from './forum.component';
 
 class PostBoxPO {
-  constructor(private fixture: ComponentFixture<PostBoxComponent>,
+  constructor(private fixture: ComponentFixture<ForumComponent>,
               holiday: HolidayDTO,
               activeUser: MtravelUser,
               posts: PostDTO[]) {
@@ -41,7 +41,7 @@ class PostBoxPO {
   }
 }
 
-describe('PostBoxComponent', () => {
+describe('ForumComponent', () => {
 
   const someAuthor: MtravelUser = {
     displayName: 'Pinky Floyd',
@@ -50,7 +50,7 @@ describe('PostBoxComponent', () => {
     photoURL: null
   };
 
-  let fixture: ComponentFixture<PostBoxComponent>;
+  let fixture: ComponentFixture<ForumComponent>;
   let debugElement: DebugElement;
   let authServiceMock: jasmine.SpyObj<AuthService>;
   let postBoxPO: PostBoxPO;
@@ -90,7 +90,7 @@ describe('PostBoxComponent', () => {
       providers: [
         {provide: AuthService, useFactory: authServiceMocker}
       ],
-      declarations: [PostBoxComponent],
+      declarations: [ForumComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -104,7 +104,7 @@ describe('PostBoxComponent', () => {
 
     authServiceMock.activeUser.and.returnValue(of(someAuthor));
 
-    fixture = TestBed.createComponent(PostBoxComponent);
+    fixture = TestBed.createComponent(ForumComponent);
     postBoxPO = new PostBoxPO(fixture, inputHoliday, someAuthor, [somePost, moreRecentPost]);
 
     debugElement = fixture.debugElement;

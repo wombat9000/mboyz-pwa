@@ -12,7 +12,7 @@ import {HolidayRoutingModule} from './holiday-routing.module';
 import {MaterialModule} from '../material';
 import {CommentBoxComponent} from './containers/comment-box/comment-box.component';
 import {HolidayDetailPageComponent} from './containers/holiday-detail/holiday-detail.component';
-import {PostBoxComponent} from './containers/post-box/post-box.component';
+import {ForumComponent} from './containers/forum/forum.component';
 import {PostComponent} from './components/post/post.component';
 import {CommentComponent} from './components/comment/comment.component';
 import {CommentFieldComponent} from './components/comment-field/comment-field.component';
@@ -35,7 +35,7 @@ const EFFECTS = [
     HolidayOverviewPageComponent,
     CreateHolidayPageComponent,
     HolidayDetailPageComponent,
-    PostBoxComponent,
+    ForumComponent,
     PostComponent,
     CommentBoxComponent,
     CommentComponent,

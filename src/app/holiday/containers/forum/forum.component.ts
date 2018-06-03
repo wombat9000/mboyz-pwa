@@ -11,7 +11,7 @@ import * as uuid from 'uuid';
 
 
 @Component({
-  selector: 'app-post-box',
+  selector: 'app-forum',
   template: `
     <mat-form-field class="message-input">
   <textarea matInput
@@ -27,7 +27,7 @@ import * as uuid from 'uuid';
       </div>
     </div>
   `,
-  styleUrls: ['./post-box.component.scss'],
+  styleUrls: ['./forum.component.scss'],
   animations: [
     trigger('fadeIn', [
       transition('void => *', [
@@ -39,7 +39,7 @@ import * as uuid from 'uuid';
     ])
   ]
 })
-export class PostBoxComponent {
+export class ForumComponent {
 
   @Input()
   holiday: HolidayDTO;

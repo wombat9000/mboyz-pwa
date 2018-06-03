@@ -8,16 +8,13 @@ import {HolidayDTO} from '../../models/holiday';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers';
 import {HolidaysState} from '../../reducers';
-import * as holiday from '../../actions/holiday.actions';
-import * as post from '../../actions/post.actions';
-import * as auth from '../../../auth/actions/auth.actions';
 import * as fromRoot from '../../../reducers';
 import * as fromAuth from '../../../auth/reducers';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {DebugElement} from '@angular/core/src/debug/debug_node';
 import {PostDTO} from '../../models/post';
-import moment = require('moment');
 import {SetTitle} from '../../../core/actions/app-bar.actions';
+import moment = require('moment');
 
 describe('HolidayDetailComponent', () => {
   let component: HolidayDetailPageComponent;
@@ -111,7 +108,7 @@ describe('HolidayDetailComponent', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const postBox: DebugElement = fixture.debugElement.query(By.css('app-post-box'));
+    const postBox: DebugElement = fixture.debugElement.query(By.css('app-forum'));
 
     expect(postBox.properties.activeUser).toBe(activeUser);
     expect(postBox.properties.holiday).toBe(someHoliday);

@@ -10,10 +10,10 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
   selector: 'app-holiday-detail',
   template: `
     <h1>{{holiday.name}}</h1>
-    <app-post-box [holiday]="holiday"
+    <app-forum [holiday]="holiday"
                   [activeUser]="activeUser"
                   [posts]="posts">
-    </app-post-box>
+    </app-forum>
   `,
   styles: [`
     :host {
