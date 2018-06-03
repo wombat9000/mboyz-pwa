@@ -20,6 +20,7 @@ import {PostEffects} from './effects/post.effects';
 import {CommentEffects} from './effects/comment.effects';
 import {FirestoreService} from './services/firestore.service';
 import {UserEffects} from './effects/user.effects';
+import {SelectedHolidayPageComponent} from './containers/selected-holiday-page/selected-holiday-page.component';
 
 
 const EFFECTS = [
@@ -38,7 +39,8 @@ const EFFECTS = [
     PostComponent,
     CommentBoxComponent,
     CommentComponent,
-    CommentFieldComponent
+    CommentFieldComponent,
+    SelectedHolidayPageComponent,
   ],
   imports: [
     MaterialModule,

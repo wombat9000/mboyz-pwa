@@ -17,6 +17,7 @@ import {MtravelUser} from '../../../auth/services/auth.service';
 import {DebugElement} from '@angular/core/src/debug/debug_node';
 import {PostDTO} from '../../models/post';
 import moment = require('moment');
+import {SetTitle} from '../../../core/actions/app-bar.actions';
 
 describe('HolidayDetailComponent', () => {
   let component: HolidayDetailPageComponent;
@@ -83,25 +84,24 @@ describe('HolidayDetailComponent', () => {
   beforeEach(async () => {
     store = TestBed.get(Store);
 
-    store.dispatch(new post.Create({record: somePost}));
-    store.dispatch(new post.Create({record: moreRecentPost}));
-    store.dispatch(new holiday.Create({record: someHoliday}));
-    store.dispatch(new holiday.Select({id: someHoliday.id}));
-    store.dispatch(new auth.LoginSuccess({user: activeUser}));
-
     spyOn(store, 'dispatch');
 
     fixture = TestBed.createComponent(HolidayDetailPageComponent);
+    fixture.componentInstance.posts = [moreRecentPost, somePost];
+    fixture.componentInstance.activeUser = activeUser;
+    fixture.componentInstance.holiday = someHoliday;
     component = fixture.componentInstance;
 
     fixture.detectChanges();
   });
 
+  it('should set title to overview', () => {
+    expect(store.dispatch).toHaveBeenCalledWith(new SetTitle({newTitle: 'overview'}));
+  });
+
   it('should show the holidays name', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
-
-    expect(store.dispatch).toHaveBeenCalledWith(new holiday.Select({id: someHoliday.id}));
 
     const heading = fixture.debugElement.query(By.css('h1')).nativeElement.textContent;
     expect(heading).toBe(someHoliday.name);
