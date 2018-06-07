@@ -3,11 +3,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PostComponent} from './post.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
-import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
-import {userFirestoreMocker} from '../../../test-support/stubs';
 import {PostDTO} from '../../models/post';
-import {of} from 'rxjs/index';
 import {combineReducers, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers';
 import moment = require('moment');
@@ -16,7 +13,6 @@ describe('PostComponent', () => {
   let component: PostComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<PostComponent>;
-  let userFS: jasmine.SpyObj<UserService>;
 
   const someUser: MtravelUser = {
     id: 'someAuthorId',
@@ -32,7 +28,6 @@ describe('PostComponent', () => {
           holidayPlanner: combineReducers(fromHoliday.reducers),
         })
       ],
-      providers: [{provide: UserService, useFactory: userFirestoreMocker}],
       declarations: [PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -47,12 +42,11 @@ describe('PostComponent', () => {
   };
 
   beforeEach(() => {
-    userFS = TestBed.get(UserService);
-    userFS.observeById.and.returnValue(of(someUser));
     fixture = TestBed.createComponent(PostComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     component.post = somePost;
+    component.author = someUser;
     fixture.detectChanges();
   });
 
@@ -67,7 +61,6 @@ describe('PostComponent', () => {
     await fixture.whenStable();
     const author = debugElement.query(By.css('.author')).nativeElement.textContent;
 
-    expect(userFS.observeById).toHaveBeenCalledWith(somePost.authorId);
     expect(author).toBe(someUser.displayName + ' ');
   });
 

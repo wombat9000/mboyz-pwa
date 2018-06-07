@@ -1,17 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
-import {UserService} from '../../../auth/services/user.service';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
 
 @Component({
   selector: 'app-post',
   template: `
-    <div class="post-body" *ngIf="user$ | async as user">
+    <div class="post-body">
       <div class="body">
-        <span class="author">{{user.displayName}} </span>
+        <span class="author">{{author.displayName}} </span>
         <span class="message">{{post.text}}</span>
       </div>
       <div class="info">
@@ -27,23 +25,16 @@ import {CommentDTO} from '../../models/comment';
   `,
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
 
   @Input()
   post: PostDTO;
   @Input()
-  activeUser: MtravelUser;
-  @Input()
   comments: CommentDTO[];
-
-  user$: Observable<MtravelUser | undefined>;
-
-  constructor(private userFS: UserService) {
-  }
-
-  ngOnInit() {
-    this.user$ = this.userFS.observeById(this.post.authorId);
-  }
+  @Input()
+  author: MtravelUser;
+  @Input()
+  activeUser: MtravelUser;
 
   formatDate(isoString: string): string {
     return moment(isoString).format('Do MMMM');

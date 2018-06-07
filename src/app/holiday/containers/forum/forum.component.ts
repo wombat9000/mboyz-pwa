@@ -9,9 +9,10 @@ import * as fromRoot from '../../../reducers/index';
 import {Create} from '../../actions/post.actions';
 import * as uuid from 'uuid';
 import {CommentDTO} from '../../models/comment';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {Observable} from 'rxjs/index';
 import * as fromHoliday from '../../reducers';
+import {getUserForId} from '../../reducers';
 
 
 @Component({
@@ -29,6 +30,7 @@ import * as fromHoliday from '../../reducers';
       <div class="post" *ngFor="let post of posts" [@fadeIn]>
         <app-post [post]="post"
                   [comments]="commentsForPost(post) | async"
+                  [author]="authorOf(post.authorId) | async"
                   [activeUser]="activeUser">
         </app-post>
       </div>
@@ -71,6 +73,12 @@ export class ForumComponent {
 
     this.store.dispatch(new Create({record: post}));
     this.postInput = '';
+  }
+
+  authorOf(userId: string): Observable<MtravelUser> {
+    return this.store.select(getUserForId(userId)).pipe(
+      filter<MtravelUser>((it: MtravelUser | null) => it !== null)
+    );
   }
 
   commentsForPost(post: PostDTO): Observable<CommentDTO[]> {
