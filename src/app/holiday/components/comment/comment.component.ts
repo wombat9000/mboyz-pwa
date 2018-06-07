@@ -24,9 +24,6 @@ export class CommentComponent {
   @Input()
   author: MtravelUser;
 
-  constructor() {
-  }
-
   get text() {
     return this.comment.text;
   }

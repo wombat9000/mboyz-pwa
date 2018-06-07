@@ -8,6 +8,10 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../reducers/index';
 import {Create} from '../../actions/post.actions';
 import * as uuid from 'uuid';
+import {CommentDTO} from '../../models/comment';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs/index';
+import * as fromHoliday from '../../reducers';
 
 
 @Component({
@@ -24,6 +28,7 @@ import * as uuid from 'uuid';
     <div class="posts-container">
       <div class="post" *ngFor="let post of posts" [@fadeIn]>
         <app-post [post]="post"
+                  [comments]="commentsForPost(post) | async"
                   [activeUser]="activeUser">
         </app-post>
       </div>
@@ -66,5 +71,14 @@ export class ForumComponent {
 
     this.store.dispatch(new Create({record: post}));
     this.postInput = '';
+  }
+
+  commentsForPost(post: PostDTO): Observable<CommentDTO[]> {
+    return this.store.select(fromHoliday.getCommentsForPostId(post.id)).pipe(
+      map(it => {
+        return it.sort((some, other) => {
+          return moment(some.created).isAfter(moment(other.created)) ? 1 : 0;
+        });
+      }));
   }
 }

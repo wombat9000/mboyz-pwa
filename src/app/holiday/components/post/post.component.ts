@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {UserService} from '../../../auth/services/user.service';
 import {PostDTO} from '../../models/post';
+import {CommentDTO} from '../../models/comment';
 
 @Component({
   selector: 'app-post',
@@ -19,6 +20,7 @@ import {PostDTO} from '../../models/post';
     </div>
     <div class="comments">
       <app-comment-box [post]="post"
+                       [comments]="comments"
                        [activeUser]="activeUser">
       </app-comment-box>
     </div>
@@ -31,6 +33,8 @@ export class PostComponent implements OnInit {
   post: PostDTO;
   @Input()
   activeUser: MtravelUser;
+  @Input()
+  comments: CommentDTO[];
 
   user$: Observable<MtravelUser | undefined>;
 

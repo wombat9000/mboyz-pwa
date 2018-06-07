@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService, MtravelUser} from '../../../auth/services/auth.service';
 import {authServiceMocker} from '../../../test-support/stubs';
@@ -11,9 +10,9 @@ import {PostDTO} from '../../models/post';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
-import moment = require('moment');
 import {of} from 'rxjs';
 import {ForumComponent} from './forum.component';
+import moment = require('moment');
 
 class PostBoxPO {
   constructor(private fixture: ComponentFixture<ForumComponent>,
@@ -56,7 +55,6 @@ describe('ForumComponent', () => {
   let postBoxPO: PostBoxPO;
   let store: Store<HolidaysState>;
 
-  const holidayPostsSubject: Subject<PostDTO[]> = new Subject<PostDTO[]>();
   const inputHoliday = {
     id: 'someId',
     name: 'someName',
@@ -100,7 +98,7 @@ describe('ForumComponent', () => {
     authServiceMock = TestBed.get(AuthService);
     store = TestBed.get(Store);
 
-    spyOn(store, 'select').and.returnValue(holidayPostsSubject);
+    // spyOn(store, 'select').and.returnValue(holidayPostsSubject);
 
     authServiceMock.activeUser.and.returnValue(of(someAuthor));
 

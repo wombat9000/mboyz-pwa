@@ -12,7 +12,6 @@ import {CommentDTO} from '../../models/comment';
 import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as comment from '../../actions/comment.actions';
 import moment = require('moment');
 
 describe('CommentBoxComponent', () => {
@@ -49,6 +48,24 @@ describe('CommentBoxComponent', () => {
     created: moment('2016-01-01').toISOString()
   };
 
+  const someComment: CommentDTO = {
+    id: 'someId',
+    text: '',
+    postId: parentPost.id,
+    holidayId: '',
+    authorId: '',
+    created: moment('2016-01-02').toISOString()
+  };
+
+  const moreRecentComment: CommentDTO = {
+    id: 'anotherId',
+    text: '',
+    postId: parentPost.id,
+    holidayId: '',
+    authorId: '',
+    created: moment('2016-01-03').toISOString()
+  };
+
   beforeEach(() => {
     store = TestBed.get(Store);
 
@@ -56,50 +73,8 @@ describe('CommentBoxComponent', () => {
     component = fixture.componentInstance;
     component.post = parentPost;
     component.activeUser = someAuthor;
+    component.comments = [someComment, moreRecentComment];
     debugElement = fixture.debugElement;
-  });
-
-  describe('display comments', () => {
-    const someComment: CommentDTO = {
-      id: 'someId',
-      text: '',
-      postId: parentPost.id,
-      holidayId: '',
-      authorId: '',
-      created: moment('2016-01-02').toISOString()
-    };
-
-    const moreRecentComment: CommentDTO = {
-      id: 'anotherId',
-      text: '',
-      postId: parentPost.id,
-      holidayId: '',
-      authorId: '',
-      created: moment('2016-01-03').toISOString()
-    };
-
-    beforeEach(() => {
-      store.dispatch(new comment.Create({record: moreRecentComment}));
-      store.dispatch(new comment.Create({record: someComment}));
-
-      fixture.detectChanges();
-    });
-
-    it('fetches comments for post', (done) => {
-      component.comments$.subscribe(comments => {
-        expect(comments).toEqual([someComment, moreRecentComment]);
-        done();
-      });
-    });
-
-    it('should show older comments first', () => {
-      const comments = debugElement.queryAll(By.css('app-comment'))
-        .map(it => it.properties.comment);
-      expect(comments).toContain(someComment);
-      expect(comments).toContain(moreRecentComment);
-
-      expect(comments.indexOf(someComment)).toBeLessThan(comments.indexOf(moreRecentComment));
-    });
   });
 
   describe('creating a comment', () => {

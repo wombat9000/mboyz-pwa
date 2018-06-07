@@ -3,12 +3,14 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PostComponent} from './post.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
-import moment = require('moment');
 import {UserService} from '../../../auth/services/user.service';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {userFirestoreMocker} from '../../../test-support/stubs';
 import {PostDTO} from '../../models/post';
 import {of} from 'rxjs/index';
+import {combineReducers, StoreModule} from '@ngrx/store';
+import * as fromHoliday from '../../reducers';
+import moment = require('moment');
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -25,6 +27,11 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          holidayPlanner: combineReducers(fromHoliday.reducers),
+        })
+      ],
       providers: [{provide: UserService, useFactory: userFirestoreMocker}],
       declarations: [PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
