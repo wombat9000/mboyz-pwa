@@ -1,14 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import * as moment from 'moment';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
 import * as fromRoot from '../../../reducers/index';
 import {Store} from '@ngrx/store';
-import * as uuid from 'uuid';
 import {Observable} from 'rxjs/index';
 import {filter} from 'rxjs/operators';
-import {Create} from '../../actions/comment.actions';
 import {getUserForId} from '../../reducers';
 
 
@@ -22,7 +19,7 @@ import {getUserForId} from '../../reducers';
         </app-comment>
       </div>
     </div>
-    <app-comment-field (submitComment)="submitComment($event)"></app-comment-field>
+    <app-comment-field (submitComment)="newComment.emit($event)"></app-comment-field>
   `,
   styleUrls: ['./comment-box.component.scss']
 })
@@ -34,21 +31,10 @@ export class CommentBoxComponent {
   activeUser: MtravelUser;
   @Input()
   comments: CommentDTO[];
+  @Output()
+  newComment = new EventEmitter<String>();
 
   constructor(private store: Store<fromRoot.State>) {
-  }
-
-  submitComment(text: string) {
-    const comment: CommentDTO = {
-      id: uuid(),
-      text: text,
-      postId: this.post.id,
-      holidayId: this.post.holidayId,
-      authorId: this.activeUser.id,
-      created: moment().toISOString()
-    };
-
-    this.store.dispatch(new Create({record: comment}));
   }
 
   authorOf(userId: string): Observable<MtravelUser> {

@@ -3,6 +3,10 @@ import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
+import * as uuid from 'uuid';
+import {Create} from '../../actions/comment.actions';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../../reducers';
 
 @Component({
   selector: 'app-post',
@@ -19,7 +23,8 @@ import {CommentDTO} from '../../models/comment';
     <div class="comments">
       <app-comment-box [post]="post"
                        [comments]="comments"
-                       [activeUser]="activeUser">
+                       [activeUser]="activeUser"
+                       (submitComment)="submitComment($event)">
       </app-comment-box>
     </div>
   `,
@@ -35,6 +40,22 @@ export class PostComponent {
   author: MtravelUser;
   @Input()
   activeUser: MtravelUser;
+
+  constructor(private store: Store<fromRoot.State>) {
+  }
+
+  submitComment(text: string) {
+    const comment: CommentDTO = {
+      id: uuid(),
+      text: text,
+      postId: this.post.id,
+      holidayId: this.post.holidayId,
+      authorId: this.activeUser.id,
+      created: moment().toISOString()
+    };
+
+    this.store.dispatch(new Create({record: comment}));
+  }
 
   formatDate(isoString: string): string {
     return moment(isoString).format('Do MMMM');

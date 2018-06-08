@@ -78,30 +78,16 @@ describe('CommentBoxComponent', () => {
   });
 
   describe('creating a comment', () => {
-    let savedComment: CommentDTO;
+    it('produces output when submitting a comment', async (done) => {
+      component.newComment.subscribe(async (it: string) => {
+        await fixture.whenStable();
+        expect(it).toBe('someComment');
+        done();
+      });
 
-    beforeEach(async () => {
-      const spy = spyOn(store, 'dispatch');
-      fixture.detectChanges();
-      createComment('new comment');
-
-      savedComment = spy.calls.first().args[0].payload.record;
-    });
-
-    it('should persist the new message', () => {
-      expect(savedComment.text).toBe('new comment');
-    });
-
-    it('should provide parent postId', () => {
-      expect(savedComment.postId).toBe(parentPost.id);
-    });
-
-    it('should provide parent holidayId', () => {
-      expect(savedComment.holidayId).toBe(parentPost.holidayId);
-    });
-
-    it('should use currently logged in users name as someAuthor', () => {
-      expect(savedComment.authorId).toBe(someAuthor.id);
+      const commentField = fixture.debugElement.query(By.directive(CommentFieldComponent));
+      const componentInstance: CommentFieldComponent = commentField.componentInstance;
+      componentInstance.submitComment.emit('someComment');
     });
   });
 
