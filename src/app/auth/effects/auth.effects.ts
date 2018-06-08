@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Observable, of, from as fromPromise} from 'rxjs';
+import {from as fromPromise, Observable, of} from 'rxjs';
 import {AuthActionTypes, Authorise, LoginFailure, LoginSuccess, NotAuthenticated, Unauthorised} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {catchError, map, switchMap} from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class AuthEffects {
   @Effect()
   unauthorised$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.UNAUTHORISED),
-    switchMap((action: Unauthorised) => {
+    switchMap<Action, Action>((action: Unauthorised) => {
       return this.authService.activeUser().pipe(map(afUser => {
         if (afUser) {
           return new Authorise({user: afUser, url: action.payload.url});

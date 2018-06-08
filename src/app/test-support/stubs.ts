@@ -6,7 +6,7 @@ import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Actions} from '@ngrx/effects';
-import {FirebaseAuth, IdTokenResult, User} from '@firebase/auth-types';
+import {IdTokenResult, User} from '@firebase/auth-types';
 import {EMPTY} from 'rxjs';
 import {NgZone} from '@angular/core';
 import {FirestoreService} from '../holiday/services/firestore.service';

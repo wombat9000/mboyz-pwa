@@ -2,7 +2,7 @@ import * as dataActions from '../actions/data.actions';
 import {DataActions, QUERY, QUERY_STOP, QueryStopped} from '../actions/data.actions';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {FirestoreService} from '../../holiday/services/firestore.service';
-import {Observable, of} from 'rxjs/index';
+import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {Type} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
@@ -39,7 +39,7 @@ export abstract class DataEffects<T extends DbRecord> {
 
   private observeUpdates(): Observable<Action> {
     return this.firestoreService.observeUpdates<T>(this.collection).pipe(
-      map((action: DocumentChangeAction<T>) => {
+      map<DocumentChangeAction<T>, Action>((action: DocumentChangeAction<T>) => {
         const record: T = action.payload.doc.data();
         return {
           type: `[${this.collection} Firestore] ${action.type}`,

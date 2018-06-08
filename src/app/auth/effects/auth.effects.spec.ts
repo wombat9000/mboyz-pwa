@@ -22,7 +22,7 @@ import {
   Unauthorised
 } from '../actions/auth.actions';
 import {UserService} from '../services/user.service';
-import {of} from 'rxjs/index';
+import {of} from 'rxjs';
 
 
 describe('Auth Effects', () => {
@@ -80,7 +80,7 @@ describe('Auth Effects', () => {
 
       actions$.stream = hot('-a--', {a: action});
 
-      effects.unauthorised$.subscribe((it) => {
+      effects.unauthorised$.subscribe((it: Action) => {
         expect(it).toEqual(new Authorise({user: someUser, url: 'someUrl'}));
       });
     });
@@ -92,7 +92,7 @@ describe('Auth Effects', () => {
 
       actions$.stream = hot('-a--', {a: action});
 
-      effects.unauthorised$.subscribe((it) => {
+      effects.unauthorised$.subscribe((it: Action) => {
         expect(it).toEqual(new NotAuthenticated());
       });
     });
@@ -175,7 +175,7 @@ describe('Auth Effects', () => {
     });
 
     it('should return logout success', () => {
-      effects.logout$.subscribe((it) => {
+      effects.logout$.subscribe((it: Action) => {
         expect(it).toEqual(new NotAuthenticated());
       });
     });

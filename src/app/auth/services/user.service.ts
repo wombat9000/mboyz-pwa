@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {MtravelUser} from './auth.service';
-import {from as fromPromise} from 'rxjs';
-import {Observable} from 'rxjs/index';
+import {from as fromPromise, Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 

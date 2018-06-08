@@ -4,7 +4,7 @@ import {AuthService, MtravelUser} from './auth.service';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {FireAuthStub, userFirestoreMocker} from '../../test-support/stubs';
 import {UserService} from './user.service';
-import {of} from 'rxjs/index';
+import {of} from 'rxjs';
 
 
 describe('Auth Service', () => {

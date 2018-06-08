@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {UserService} from './user.service';
-import {Observable, of} from 'rxjs/index';
-import {map, take, switchMap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {map, switchMap, take} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import {DbRecord} from '../../holiday/models/DbRecord';
 import AuthProvider = firebase.auth.AuthProvider;
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
-import {DbRecord} from '../../holiday/models/DbRecord';
+import {User} from 'firebase';
 
 
 export interface MtravelUser extends DbRecord {
@@ -56,7 +57,7 @@ export class AuthService {
 
   private authedUser(): Observable<MtravelUser | undefined> {
     return this.afAuth.authState.pipe(
-      switchMap(user => {
+      switchMap<User | null, MtravelUser | undefined>((user: User | null) => {
         if (user !== null) {
           return this.userService.observeById(user.uid);
         }

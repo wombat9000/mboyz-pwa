@@ -18,7 +18,7 @@ export class Unauthorised implements Action {
 
 export class Authorise implements Action {
   readonly type = AuthActionTypes.AUTHORISE;
-  constructor(public payload: { user: MtravelUser, url: string }) {}
+constructor(public payload: { user: MtravelUser, url: string }) {}
 }
 
 export class FacebookLogin implements Action {
