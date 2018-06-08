@@ -2,12 +2,11 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Observable, of} from 'rxjs';
+import {Observable, of, from as fromPromise} from 'rxjs';
 import {AuthActionTypes, Authorise, LoginFailure, LoginSuccess, NotAuthenticated, Unauthorised} from '../actions/auth.actions';
 import {Action} from '@ngrx/store';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {UserService} from '../services/user.service';
-import {fromPromise} from 'rxjs/observable/fromPromise';
 
 
 @Injectable()
