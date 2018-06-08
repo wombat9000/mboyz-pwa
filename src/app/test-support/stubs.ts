@@ -10,6 +10,8 @@ import {FirebaseAuth, IdTokenResult, User} from '@firebase/auth-types';
 import {EMPTY} from 'rxjs';
 import {NgZone} from '@angular/core';
 import {FirestoreService} from '../holiday/services/firestore.service';
+import * as firebase from 'firebase';
+import Auth = firebase.auth.Auth;
 
 
 export class TestActions extends Actions {
@@ -31,7 +33,7 @@ export class FireAuthStub extends AngularFireAuth {
     super({}, {}, {}, jasmine.createSpyObj<NgZone>(['runOutsideAngular']));
   }
   app: FirebaseApp = jasmine.createSpyObj('FireBaseApp', ['']);
-  auth: jasmine.SpyObj<FirebaseAuth> = jasmine.createSpyObj('FirebaseAuth', ['signOut', 'signInWithPopup']);
+  auth: jasmine.SpyObj<Auth> = jasmine.createSpyObj('FirebaseAuth', ['signOut', 'signInWithPopup']);
   authState: Observable<any | null>;
   idToken: Observable<string | null>;
   readonly idTokenResult: Observable<IdTokenResult | null>;
