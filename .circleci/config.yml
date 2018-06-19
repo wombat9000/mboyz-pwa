@@ -121,6 +121,7 @@ jobs:
 
     working_directory: ~/mboyz
     steps:
+      - checkout
       - run:
           name: delete holidays
           command: firebase --token=$CYPRESS_FIREBASE_TOKEN --project=staging firestore:delete /holidays -r -y
