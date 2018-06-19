@@ -115,6 +115,17 @@ jobs:
           name: deploy
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --project=prod
 
+  clear-test-data:
+    docker:
+      - image: cypress/base:8
+
+    working_directory: ~/mboyz
+    steps:
+      - run:
+          name: delete holidays
+          command: firebase --token=$FIREBASE_TOKEN --project=staging firestore:delete /holidays -r -y
+
+
 workflows:
   version: 2
   build_mboyz:
@@ -140,3 +151,10 @@ workflows:
           type: approval
           requires:
             - deploy-staging
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+    jobs:
+      - clear-test-data
