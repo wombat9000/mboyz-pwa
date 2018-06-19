@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import {MtravelUser} from '../../src/app/auth/services/auth.service';
 import {User, UserCredential} from '@firebase/auth-types';
+import uuid = require('uuid');
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAAPOOtTDNUlsJ2VsBXcRecEat8RTDX0NU',
@@ -13,19 +14,6 @@ firebase.initializeApp({
 
 describe('Holiday planner', () => {
   before(() => {
-    // TODO: should this be in the test suite? this takes a long time
-    if (Cypress.env('ci') === true) {
-      const token = Cypress.env('FIREBASE_TOKEN');
-      cy.exec(`firebase --token=${token} --project=staging firestore:delete /holidays -r -y`);
-      cy.exec(`firebase --token=${token} --project=staging firestore:delete /posts -r -y`);
-      cy.exec(`firebase --token=${token} --project=staging firestore:delete /comments -r -y`);
-    } else {
-      cy.exec('firebase -P staging firestore:delete /holidays -r -y');
-      cy.exec('firebase -P staging firestore:delete /posts -r -y');
-      cy.exec('firebase -P staging firestore:delete /comments -r -y');
-    }
-
-    // TODO: extract credentials into env variables
     const firestore = firebase.firestore();
     const settings = {/* your settings... */ timestampsInSnapshots: true};
     firestore.settings(settings);
@@ -51,8 +39,9 @@ describe('Holiday planner', () => {
     cy.get('.add-holiday').click();
     cy.get('.page-title').contains('create new');
 
-    cy.get('input').type('Test Holiday');
+    const randomId = uuid();
+    cy.get('input').type(`Test Holiday ${randomId}`);
     cy.get('[name="submit"]').click();
-    cy.get('.holiday-name').contains('Test Holiday');
+    cy.get('.holiday-name').contains(`Test Holiday ${randomId}`);
   });
 });
