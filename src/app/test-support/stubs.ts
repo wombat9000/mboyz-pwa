@@ -1,16 +1,9 @@
-import {UserService} from '../auth/services/user.service';
-import {AuthService} from '../auth/services/auth.service';
-import {Router} from '@angular/router';
-import {Store} from '@ngrx/store';
 import {FirebaseApp} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Actions} from '@ngrx/effects';
 import {IdTokenResult, User} from '@firebase/auth-types';
 import {EMPTY} from 'rxjs';
-import {NgZone} from '@angular/core';
-import {FirestoreService} from '../holiday/services/firestore.service';
-import * as firebase from 'firebase';
 import Auth = firebase.auth.Auth;
 
 
@@ -29,30 +22,51 @@ export function getActions() {
 }
 
 export class FireAuthStub extends AngularFireAuth {
-  constructor() {
-    super({}, {}, {}, jasmine.createSpyObj<NgZone>(['runOutsideAngular']));
-  }
-  app: FirebaseApp = jasmine.createSpyObj('FireBaseApp', ['']);
-  auth: jasmine.SpyObj<Auth> = jasmine.createSpyObj('FirebaseAuth', ['signOut', 'signInWithPopup']);
+  app: FirebaseApp = jest.fn();
+  auth: jasmine.SpyObj<Auth> = {
+    signOut: jest.fn(),
+    signInWithPopup: jest.fn()
+  };
   authState: Observable<any | null>;
   idToken: Observable<string | null>;
   readonly idTokenResult: Observable<IdTokenResult | null>;
   readonly user: Observable<User | null>;
+
+  constructor() {
+    super({}, {}, {}, {
+      runOutsideAngular: jest.fn()
+    });
+  }
 }
 
-export const storeMocker: <T>() => jasmine.SpyObj<Store<T>> =
-  () => jasmine.createSpyObj('Store', ['dispatch', 'select']);
-export const routerMocker: () => jasmine.SpyObj<Router> =
-  () => jasmine.createSpyObj('Router', ['navigate', 'navigateByUrl']);
-export const authServiceMocker: () => jasmine.SpyObj<AuthService> = () => jasmine.createSpyObj('AuthService', [
-  'isSignedIn',
-  'signOut',
-  'activeUser',
-  'facebookLogin',
-  'updateUserData'
-]);
-export const userFirestoreMocker: () => jasmine.SpyObj<UserService> =
-  () => jasmine.createSpyObj('UserFirestore', ['observeById', 'save']);
+export const routerMocker: () => any = () => {
+  return {
+    navigate: jest.fn(),
+    navigateByUrl: jest.fn()
+  };
+};
 
-export const firestoreServiceMocker: () => jasmine.SpyObj<FirestoreService> =
-  () => jasmine.createSpyObj('FirestoreService', ['save', 'observeUpdates']);
+export const authServiceMocker: () => any = () => {
+  return {
+    isSignedIn: jest.fn(),
+    signOut: jest.fn(),
+    activeUser: jest.fn(),
+    facebookLogin: jest.fn(),
+    updateUserData: jest.fn()
+  };
+};
+
+export const userFirestoreMocker: () => any =
+  () => {
+    return {
+      observeById: jest.fn(),
+      save: jest.fn()
+    };
+  };
+
+export const firestoreServiceMocker: () => any = () => {
+  return {
+    save: jest.fn(),
+    observeUpdates: jest.fn()
+  };
+};

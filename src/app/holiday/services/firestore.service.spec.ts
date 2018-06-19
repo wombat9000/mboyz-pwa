@@ -9,7 +9,7 @@ xdescribe('FirestoreService', () => {
     });
   });
 
-  it('should be created', inject([FirestoreService], (service: FirestoreService) => {
+  xit('should be created', inject([FirestoreService], (service: FirestoreService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HolidayOverviewComponent displays holidays should compile 1`] = `
+<app-holiday-overview
+  holidays$={[Function Store]}
+  router={[Function Object]}
+  store={[Function Store]}
+>
+  <button
+    class="add-holiday"
+    mat-fab=""
+    routerlink="/holiday/create"
+  >
+    <mat-icon>
+      add
+    </mat-icon>
+  </button><mat-list
+    role="list"
+  >
+    
+    <span>
+      <mat-list-item
+        role="listitem"
+      >
+        <div
+          class="holiday-item"
+        >
+          <div>
+            <span
+              class="holiday-name"
+            >
+              more recently created holiday
+            </span>
+          </div>
+          <div>
+            <span
+              class="created-text"
+            >
+              Erzeugt am 2nd December um 12:00 AM
+            </span>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-divider />
+    </span>
+    <span>
+      <mat-list-item
+        role="listitem"
+      >
+        <div
+          class="holiday-item"
+        >
+          <div>
+            <span
+              class="holiday-name"
+            >
+              first created holiday
+            </span>
+          </div>
+          <div>
+            <span
+              class="created-text"
+            >
+              Erzeugt am 1st December um 12:00 AM
+            </span>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-divider />
+    </span>
+  </mat-list>
+</app-holiday-overview>
+`;

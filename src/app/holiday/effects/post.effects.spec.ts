@@ -46,7 +46,7 @@ describe('PostEffects', () => {
       const postChanges = cold('-a-', {a: createChangeAction('added', somePost)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      firestore.observeUpdates.and.returnValue(postChanges);
+      firestore.observeUpdates.mockReturnValue(postChanges);
 
       expect(effects.query$).toBeObservable(expected);
       expect(firestore.observeUpdates).toHaveBeenCalledWith('posts');
@@ -64,7 +64,7 @@ describe('PostEffects', () => {
 
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      firestore.observeUpdates.and.returnValue(postChanges);
+      firestore.observeUpdates.mockReturnValue(postChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -86,7 +86,7 @@ describe('PostEffects', () => {
 
     it('should report failure on error', () => {
       const error = cold('-#-');
-      firestore.save.and.returnValue(error);
+      firestore.save.mockReturnValue(error);
 
       const createFail: Action = new CreateSuccess();
       const expected = cold('-a-', {a: createFail});

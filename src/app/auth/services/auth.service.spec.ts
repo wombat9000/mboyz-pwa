@@ -44,7 +44,7 @@ describe('Auth Service', () => {
   });
 
   it('current user is updated from auth state', (done) => {
-    userRepo.observeById.and.returnValue(of(someUser));
+    userRepo.observeById.mockReturnValue(of(someUser));
     fireAuth.authState = of(someUser);
 
     testee.activeUser().subscribe(it => {
@@ -56,7 +56,7 @@ describe('Auth Service', () => {
   describe('signOut', () => {
 
     beforeEach(async () => {
-      userRepo.observeById.and.returnValue(of(someUser));
+      userRepo.observeById.mockReturnValue(of(someUser));
       fireAuth.authState = of(someUser);
       await testee.signOut();
     });
@@ -77,7 +77,7 @@ describe('Auth Service', () => {
 
     beforeEach(async () => {
       fireAuth.authState = of(null);
-      fireAuth.auth.signInWithPopup.and.returnValue(credential);
+      fireAuth.auth.signInWithPopup.mockReturnValue(credential);
       await testee.facebookLogin();
     });
 

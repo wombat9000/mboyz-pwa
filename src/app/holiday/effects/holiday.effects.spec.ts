@@ -43,7 +43,7 @@ describe('Holiday Effects', () => {
   describe('create', () => {
     it('should save holiday with service', () => {
       const action = new Create({record: someHoliday});
-      firestoreService.save.and.returnValue(Promise.resolve());
+      firestoreService.save.mockReturnValue(Promise.resolve());
       actions.next(action);
 
       effects.create$.subscribe(() => {
@@ -61,7 +61,7 @@ describe('Holiday Effects', () => {
       const addedAction: Action = new AfAdded({record: someHoliday});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      firestoreService.observeUpdates.and.returnValue(holidayChanges);
+      firestoreService.observeUpdates.mockReturnValue(holidayChanges);
 
       expect(effects.query$).toBeObservable(expected);
       expect(firestoreService.observeUpdates).toHaveBeenCalledWith('holidays');
@@ -77,7 +77,7 @@ describe('Holiday Effects', () => {
       const queryStopped: Action = new QueryStopped();
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      firestoreService.observeUpdates.and.returnValue(holidayChanges);
+      firestoreService.observeUpdates.mockReturnValue(holidayChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });

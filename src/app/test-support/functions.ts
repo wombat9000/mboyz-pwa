@@ -17,8 +17,10 @@ export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClic
 
 export function createChangeAction<T>(changeType: DocumentChangeType, payload: T): DocumentChangeAction<T> {
   const data: T = payload;
-  const snapshot = jasmine.createSpyObj('QueryDocumentSnapshot', ['data']);
-  snapshot.data.and.returnValue(data);
+  const snapshot = {
+    data: jest.fn()
+  };
+  snapshot.data.mockReturnValue(data);
 
   const changePayload: DocumentChange<T> = {
     type: changeType,

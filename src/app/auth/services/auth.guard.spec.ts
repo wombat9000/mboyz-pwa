@@ -18,12 +18,8 @@ describe('AuthGuard', () => {
   let testee: AuthGuard;
   let store: Store<fromAuth.State>;
   let router: jasmine.SpyObj<Router>;
-  const activatedRouteSnapshot: jasmine.SpyObj<ActivatedRouteSnapshot> =
-    jasmine.createSpyObj('ActivatedRouteSnapshot', ['']);
-
-  const routerState: jasmine.SpyObj<RouterStateSnapshot> =
-    jasmine.createSpyObj('RouterStateSnapshot', ['']);
-
+  const activatedRouteSnapshot: any = jest.fn();
+  const routerState: any = jest.fn();
 
   beforeEach(() => {
     TestBed.configureTestingModule({

@@ -13,7 +13,7 @@ import {Query, QueryStop, QueryStopped} from '../../core/actions/data.actions';
 describe('CommentEffects', () => {
   let effects: CommentEffects;
   let actions$: TestActions;
-  let firestoreService: jasmine.SpyObj<FirestoreService>;
+  let firestoreService: any;
 
   const someComment: CommentDTO = newTestComment('someId');
 
@@ -39,7 +39,7 @@ describe('CommentEffects', () => {
       const commentChanges = cold('-a-', {a: createChangeAction('added', someComment)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      firestoreService.observeUpdates.and.returnValue(commentChanges);
+      firestoreService.observeUpdates.mockReturnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -55,7 +55,7 @@ describe('CommentEffects', () => {
 
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      firestoreService.observeUpdates.and.returnValue(commentChanges);
+      firestoreService.observeUpdates.mockReturnValue(commentChanges);
 
       expect(effects.query$).toBeObservable(expected);
     });

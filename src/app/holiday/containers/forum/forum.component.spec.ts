@@ -98,9 +98,7 @@ describe('ForumComponent', () => {
     authServiceMock = TestBed.get(AuthService);
     store = TestBed.get(Store);
 
-    // spyOn(store, 'select').and.returnValue(holidayPostsSubject);
-
-    authServiceMock.activeUser.and.returnValue(of(someAuthor));
+    authServiceMock.activeUser.mockReturnValue(of(someAuthor));
 
     fixture = TestBed.createComponent(ForumComponent);
     postBoxPO = new PostBoxPO(fixture, inputHoliday, someAuthor, [somePost, moreRecentPost]);
@@ -140,12 +138,12 @@ describe('ForumComponent', () => {
       post = dispatchSpy.calls.argsFor(0)[0].payload.record;
     });
 
-    it('should persist the new message', () => {
-      expect(post.text).toBe(someMessage);
+    it('should clear the input field after the message is sent', () => {
+      expect(fixture).toMatchSnapshot();
     });
 
-    it('should clear the input field after the message is sent', () => {
-      expect(postBoxPO.postInput().nativeElement.value).toBe('');
+    it('should persist the new message', () => {
+      expect(post.text).toBe(someMessage);
     });
 
     it('should use currently logged in users name as someAuthor', () => {

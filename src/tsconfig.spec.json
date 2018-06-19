@@ -12,7 +12,6 @@
   },
   "files": [
     "rxjs-imports.ts",
-    "test.ts",
     "polyfills.ts"
   ],
   "include": [

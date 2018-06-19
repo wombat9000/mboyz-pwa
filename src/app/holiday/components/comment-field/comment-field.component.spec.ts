@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {CommentFieldComponent} from './comment-field.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -9,19 +9,23 @@ describe('CommentFieldComponent', () => {
   let component: CommentFieldComponent;
   let fixture: ComponentFixture<CommentFieldComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, NoopAnimationsModule],
       declarations: [CommentFieldComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
-  }));
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CommentFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should compile', () => {
+    fixture.detectChanges();
+    expect(fixture).toMatchSnapshot();
   });
 
   it('produces output when submitting a comment', async (done) => {

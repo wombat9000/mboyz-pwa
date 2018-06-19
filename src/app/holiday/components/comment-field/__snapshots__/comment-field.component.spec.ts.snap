@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommentFieldComponent should compile 1`] = `
+<app-comment-field
+  submitComment={[Function EventEmitter]}
+  value=""
+>
+  <mat-form-field>
+    <textarea
+      class="ng-untouched ng-pristine ng-valid"
+      matinput=""
+      mattextareaautosize=""
+      ng-reflect-model=""
+      placeholder="Kommentieren ..."
+    />
+  </mat-form-field>
+</app-comment-field>
+`;

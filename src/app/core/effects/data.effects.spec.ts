@@ -61,7 +61,7 @@ describe('DataEffects', () => {
   describe('create', () => {
     beforeEach(() => {
       const action: Action = new TestCreate({record: someRecord});
-      firestoreService.save.and.returnValue(Promise.resolve());
+      firestoreService.save.mockReturnValue(Promise.resolve());
 
       actions$.stream = hot('-a--', {a: action});
     });
@@ -90,7 +90,7 @@ describe('DataEffects', () => {
       const collectionUpdates = cold('-a-', {a: createChangeAction('added', someRecord)});
       const expected = cold('--a-', {a: {...addedAction}});
 
-      firestoreService.observeUpdates.and.returnValue(collectionUpdates);
+      firestoreService.observeUpdates.mockReturnValue(collectionUpdates);
 
       expect(effects.query$).toBeObservable(expected);
     });
@@ -111,7 +111,7 @@ describe('DataEffects', () => {
 
       const expected = cold('--ab', {a: {...addedAction}, b: queryStopped});
 
-      firestoreService.observeUpdates.and.returnValue(collectionUpdates);
+      firestoreService.observeUpdates.mockReturnValue(collectionUpdates);
 
       expect(effects.query$).toBeObservable(expected);
     });

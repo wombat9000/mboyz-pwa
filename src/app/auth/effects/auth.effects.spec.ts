@@ -64,7 +64,7 @@ describe('Auth Effects', () => {
       const action: Action = new Authorise({user: someUser, url: someUrl});
 
       actions$.stream = hot('-a--', {a: action});
-      router.navigate.and.returnValue(Promise.resolve());
+      router.navigate.mockReturnValue(Promise.resolve());
 
       effects.authorise$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith([someUrl]);
@@ -74,7 +74,7 @@ describe('Auth Effects', () => {
 
   describe('unauthorised$', () => {
     it('should return authorise if authed', () => {
-      authService.activeUser.and.returnValue(of(someUser));
+      authService.activeUser.mockReturnValue(of(someUser));
 
       const action: Action = new Unauthorised({url: 'someUrl'});
 
@@ -86,7 +86,7 @@ describe('Auth Effects', () => {
     });
 
     it('should return notAuthenticated if auth fails', () => {
-      authService.activeUser.and.returnValue(of(null));
+      authService.activeUser.mockReturnValue(of(null));
 
       const action: Action = new Unauthorised({url: 'someUrl'});
 
@@ -108,8 +108,8 @@ describe('Auth Effects', () => {
       const saveSuccess = cold('-a|');
       const expected = cold('---b', {b: completion});
 
-      userFS.save.and.returnValue(saveSuccess);
-      authService.facebookLogin.and.returnValue(fbSuccess);
+      userFS.save.mockReturnValue(saveSuccess);
+      authService.facebookLogin.mockReturnValue(fbSuccess);
       expect(effects.fbLogin$).toBeObservable(expected);
       expect(userFS.save).toHaveBeenCalledWith(someUser);
     });
@@ -124,7 +124,7 @@ describe('Auth Effects', () => {
       const fbError = cold('-#|', {}, error);
       const expected = cold('--b', {b: completion});
 
-      authService.facebookLogin.and.returnValue(fbError);
+      authService.facebookLogin.mockReturnValue(fbError);
 
       expect(effects.fbLogin$).toBeObservable(expected);
     });
@@ -140,8 +140,8 @@ describe('Auth Effects', () => {
       const saveFail = cold('-#|', {}, error);
       const expected = cold('---b', {b: completion});
 
-      authService.facebookLogin.and.returnValue(fbSuccess);
-      userFS.save.and.returnValue(saveFail);
+      authService.facebookLogin.mockReturnValue(fbSuccess);
+      userFS.save.mockReturnValue(saveFail);
 
       expect(effects.fbLogin$).toBeObservable(expected);
     });
@@ -150,7 +150,7 @@ describe('Auth Effects', () => {
   describe('loginSuccess$', () => {
     beforeEach(() => {
       const action: Action = new LoginSuccess({user: someUser});
-      router.navigate.and.returnValue(Promise.resolve());
+      router.navigate.mockReturnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
     });
 
@@ -164,7 +164,7 @@ describe('Auth Effects', () => {
   describe('logout$', () => {
     beforeEach(() => {
       const action: Action = new Logout();
-      authService.signOut.and.returnValue(Promise.resolve());
+      authService.signOut.mockReturnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
     });
 
@@ -184,7 +184,7 @@ describe('Auth Effects', () => {
   describe('logoutSuccess$', () => {
     beforeEach(() => {
       const action: Action = new NotAuthenticated();
-      router.navigate.and.returnValue(Promise.resolve());
+      router.navigate.mockReturnValue(Promise.resolve());
       actions$.stream = hot('-a---', {a: action});
     });
 

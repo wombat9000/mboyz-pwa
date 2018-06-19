@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForumComponent creating a new post should clear the input field after the message is sent 1`] = `
+<app-forum
+  activeUser={[Function Object]}
+  holiday={[Function Object]}
+  postInput=""
+  posts={[Function Array]}
+  store={[Function Store]}
+>
+  <mat-form-field
+    class="message-input"
+  >
+    <textarea
+      class="ng-tns-c1-0 ng-untouched ng-valid ng-dirty"
+      data-qa="post-input"
+      matinput=""
+      mattextareaautosize=""
+      ng-reflect-model=""
+      placeholder="Neuer Beitrag ..."
+    />
+  </mat-form-field><div
+    class="posts-container"
+  >
+    
+    <div
+      class="post ng-tns-c1-0 ng-trigger ng-trigger-fadeIn ng-star-inserted"
+    >
+      <app-post
+        class="ng-tns-c1-0"
+      />
+    </div>
+    <div
+      class="post ng-tns-c1-0 ng-trigger ng-trigger-fadeIn ng-star-inserted"
+    >
+      <app-post
+        class="ng-tns-c1-0"
+      />
+    </div>
+  </div>
+</app-forum>
+`;

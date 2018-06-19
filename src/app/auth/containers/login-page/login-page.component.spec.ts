@@ -94,9 +94,7 @@ describe('Login Page', () => {
 
     it('should show error message', () => {
       fixture.detectChanges();
-
-      const errorInfo = loginPO.errorInfo();
-      expect(errorInfo.nativeElement.innerText).toContain('someError');
+      expect(fixture).toMatchSnapshot();
     });
   });
 });

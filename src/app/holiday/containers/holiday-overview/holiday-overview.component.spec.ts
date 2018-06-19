@@ -4,20 +4,20 @@ import {HolidayOverviewPageComponent} from './holiday-overview.component';
 import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {Router} from '@angular/router';
-import {routerMocker} from '../../../test-support/stubs';
 import {click} from '../../../test-support/functions';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 
 import * as fromHoliday from '../../reducers';
 import * as actions from '../../actions/holiday.actions';
 import * as moment from 'moment';
+import {routerMocker} from '../../../test-support/stubs';
 
 describe('HolidayOverviewComponent', () => {
   let component: HolidayOverviewPageComponent;
   let debugElement: DebugElement;
   let fixture: ComponentFixture<HolidayOverviewPageComponent>;
 
-  let router: jasmine.SpyObj<Router>;
+  let router: Router;
   let store: Store<fromHoliday.State>;
 
   const firstHoliday = {id: 'someId', name: 'first created holiday', created: moment('2018-12-01').toISOString()};
@@ -27,7 +27,6 @@ describe('HolidayOverviewComponent', () => {
     created: moment('2018-12-02').toISOString()
   };
 
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -36,7 +35,9 @@ describe('HolidayOverviewComponent', () => {
         })
       ],
       providers: [
-        {provide: Router, useFactory: routerMocker},
+        {
+          provide: Router, useFactory: routerMocker
+        },
       ],
       declarations: [HolidayOverviewPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -62,6 +63,10 @@ describe('HolidayOverviewComponent', () => {
       fixture.detectChanges();
     });
 
+    it('should compile', () => {
+      expect(fixture).toMatchSnapshot();
+    });
+
     it('should display all holidays, sorted by date', () => {
       const cards = debugElement.queryAll(By.css('.holiday-name'))
         .map(it => it.nativeElement.textContent);
@@ -76,7 +81,7 @@ describe('HolidayOverviewComponent', () => {
 
         if (someHolidayCard) {
           click(someHolidayCard.nativeElement);
-          const destinationURL = router.navigateByUrl.calls.first().args[0];
+          const destinationURL = router.navigateByUrl.mock.calls[0][0];
           expect(destinationURL).toBe(`/holiday/${firstHoliday.id}`);
         } else {
           fail();
@@ -100,8 +105,8 @@ describe('HolidayOverviewComponent', () => {
       const addButton = debugElement.query(By.css('.add-holiday'));
 
       click(addButton);
-      const destinationURL = router.navigateByUrl.calls.first().args[0];
-      expect(destinationURL).toBe('/holiday/create');
+      const destinationURL = router.navigateByUrl.mock.calls[0][0];
+      expect(destinationURL).toBe(`/holiday/create`);
     });
   });
 });
