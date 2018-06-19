@@ -130,6 +130,7 @@ workflows:
   version: 2
   build_mboyz:
     jobs:
+      - clear-test-data
       - npm-cache
       - lint:
           requires:
