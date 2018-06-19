@@ -117,7 +117,7 @@ jobs:
 
   clear-test-data:
     docker:
-      - image: mitelone/firebase-cli:latest
+      - image: devillex/docker-firebase:latest
 
     working_directory: ~/mboyz
     steps:
