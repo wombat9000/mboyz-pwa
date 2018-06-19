@@ -117,7 +117,7 @@ jobs:
 
   clear-test-data:
     docker:
-      - image: cypress/base:8
+      - image: mitelone/firebase-cli:latest
 
     working_directory: ~/mboyz
     steps:
