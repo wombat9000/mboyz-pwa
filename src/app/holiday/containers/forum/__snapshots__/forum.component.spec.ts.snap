@@ -28,14 +28,86 @@ exports[`ForumComponent creating a new post should clear the input field after t
     >
       <app-post
         class="ng-tns-c1-0"
-      />
+        ng-reflect-author="[object Object]"
+        ng-reflect-comments=""
+        ng-reflect-post="[object Object]"
+      >
+        <div
+          class="post-body"
+        >
+          <div
+            class="body"
+          >
+            <span
+              class="author"
+            >
+              Pinky Floyd 
+            </span>
+            <span
+              class="message"
+            >
+              first message
+            </span>
+          </div>
+          <div
+            class="info"
+          >
+            <span
+              class="created-text"
+            >
+              1st January um 12:00 AM
+            </span>
+          </div>
+        </div>
+        <div
+          class="comments"
+        >
+          <app-comment-box />
+        </div>
+      </app-post>
     </div>
     <div
       class="post ng-tns-c1-0 ng-trigger ng-trigger-fadeIn ng-star-inserted"
     >
       <app-post
         class="ng-tns-c1-0"
-      />
+        ng-reflect-author="[object Object]"
+        ng-reflect-comments=""
+        ng-reflect-post="[object Object]"
+      >
+        <div
+          class="post-body"
+        >
+          <div
+            class="body"
+          >
+            <span
+              class="author"
+            >
+              Pinky Floyd 
+            </span>
+            <span
+              class="message"
+            >
+              second message
+            </span>
+          </div>
+          <div
+            class="info"
+          >
+            <span
+              class="created-text"
+            >
+              2nd January um 12:00 AM
+            </span>
+          </div>
+        </div>
+        <div
+          class="comments"
+        >
+          <app-comment-box />
+        </div>
+      </app-post>
     </div>
   </div>
 </app-forum>

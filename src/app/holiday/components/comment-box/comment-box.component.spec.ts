@@ -5,12 +5,11 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {By} from '@angular/platform-browser';
-import {MtravelUser} from '../../../auth/services/auth.service';
-import {CommentFieldComponent} from '../../components/comment-field/comment-field.component';
+import {CommentFieldComponent} from '../comment-field/comment-field.component';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
 import * as fromHoliday from '../../reducers/index';
-import {HolidaysState} from '../../reducers';
+import {HolidaysState} from '../../reducers/index';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import moment = require('moment');
 
@@ -32,13 +31,6 @@ describe('CommentBoxComponent', () => {
     })
       .compileComponents();
   }));
-
-  const someAuthor: MtravelUser = {
-    displayName: 'Pinky Floyd',
-    id: 'someUid',
-    email: 'someMail',
-    photoURL: null
-  };
 
   const parentPost: PostDTO = {
     id: 'somePostId',
@@ -72,9 +64,13 @@ describe('CommentBoxComponent', () => {
     fixture = TestBed.createComponent(CommentBoxComponent);
     component = fixture.componentInstance;
     component.post = parentPost;
-    component.activeUser = someAuthor;
     component.comments = [someComment, moreRecentComment];
     debugElement = fixture.debugElement;
+  });
+
+  it('should match snapshot', () => {
+    fixture.detectChanges();
+    expect(fixture).toMatchSnapshot();
   });
 
   describe('creating a comment', () => {
@@ -90,14 +86,4 @@ describe('CommentBoxComponent', () => {
       componentInstance.submitComment.emit('someComment');
     });
   });
-
-  function createComment(inputText: string) {
-    const input = debugElement.query(By.css('textarea'));
-    input.nativeElement.value = inputText;
-    input.nativeElement.dispatchEvent(new Event('input'));
-    input.nativeElement.dispatchEvent(new KeyboardEvent('keyup', {
-      'key': 'Enter'
-    }));
-    fixture.detectChanges();
-  }
 });

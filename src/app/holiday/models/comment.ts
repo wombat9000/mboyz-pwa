@@ -1,4 +1,5 @@
 import {DbRecord} from './DbRecord';
+import moment = require('moment');
 
 export interface CommentDTO extends DbRecord {
   readonly text: string;
@@ -26,6 +27,6 @@ export function newTestComment(id: string): CommentDTO {
     authorId: 'someAuthor',
     postId: 'somePostId',
     holidayId: 'someHolidayId',
-    created: 'someCreatedDate'
+    created: moment().toISOString()
   };
 }

@@ -10,11 +10,14 @@ import {PostDTO} from '../../models/post';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromHoliday from '../../reducers/index';
 import {HolidaysState} from '../../reducers';
-import {of} from 'rxjs';
 import {ForumComponent} from './forum.component';
+import {CommentDTO} from '../../models/comment';
+import {PostComponent} from '../../components/post/post.component';
 import moment = require('moment');
+import * as userActions from '../../actions/user.actions';
+import * as commentActions from '../../actions/comment.actions';
 
-class PostBoxPO {
+class ForumPO {
   constructor(private fixture: ComponentFixture<ForumComponent>,
               holiday: HolidayDTO,
               activeUser: MtravelUser,
@@ -52,11 +55,11 @@ describe('ForumComponent', () => {
   let fixture: ComponentFixture<ForumComponent>;
   let debugElement: DebugElement;
   let authServiceMock: jasmine.SpyObj<AuthService>;
-  let postBoxPO: PostBoxPO;
+  let postBoxPO: ForumPO;
   let store: Store<HolidaysState>;
 
   const inputHoliday = {
-    id: 'someId',
+    id: 'holidayId',
     name: 'someName',
     created: ''
   };
@@ -65,7 +68,7 @@ describe('ForumComponent', () => {
     id: 'someId',
     text: 'first message',
     holidayId: 'holidayId',
-    authorId: 'someAuthor',
+    authorId: 'someUid',
     created: moment('2016-01-01').toISOString()
   };
 
@@ -73,7 +76,7 @@ describe('ForumComponent', () => {
     id: 'anotherId',
     text: 'second message',
     holidayId: 'holidayId',
-    authorId: 'someAuthor',
+    authorId: 'someUid',
     created: moment('2016-01-02').toISOString()
   };
 
@@ -88,7 +91,7 @@ describe('ForumComponent', () => {
       providers: [
         {provide: AuthService, useFactory: authServiceMocker}
       ],
-      declarations: [ForumComponent],
+      declarations: [ForumComponent, PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -98,10 +101,10 @@ describe('ForumComponent', () => {
     authServiceMock = TestBed.get(AuthService);
     store = TestBed.get(Store);
 
-    authServiceMock.activeUser.mockReturnValue(of(someAuthor));
+    store.dispatch(new userActions.Create({record: someAuthor}));
 
     fixture = TestBed.createComponent(ForumComponent);
-    postBoxPO = new PostBoxPO(fixture, inputHoliday, someAuthor, [somePost, moreRecentPost]);
+    postBoxPO = new ForumPO(fixture, inputHoliday, someAuthor, [somePost, moreRecentPost]);
 
     debugElement = fixture.debugElement;
     fixture.detectChanges();
@@ -115,7 +118,7 @@ describe('ForumComponent', () => {
       fixture.detectChanges();
 
       postedMessages = debugElement.queryAll(By.css('app-post'))
-        .map(it => it.properties.post.text);
+        .map(it => it.componentInstance.post.text);
     });
 
     it('posts should appear in the list', () => {
@@ -148,6 +151,22 @@ describe('ForumComponent', () => {
 
     it('should use currently logged in users name as someAuthor', () => {
       expect(post.authorId).toBe(someAuthor.id);
+    });
+  });
+
+  describe('creating a new comment', () => {
+    let comment: CommentDTO;
+    const someMessage = 'someMessage';
+
+    it('should match snapshot', () => {
+      const dispatchSpy = spyOn(store, 'dispatch');
+      const postComponent = fixture.debugElement.query(By.css('app-post'));
+      postComponent.componentInstance.newComment.emit(someMessage);
+      fixture.detectChanges();
+      const action = dispatchSpy.calls.argsFor(0)[0];
+      comment = action.payload.record;
+      expect(action.type).toBe(commentActions.CREATE);
+      expect(comment.holidayId).toBe(inputHoliday.id);
     });
   });
 });

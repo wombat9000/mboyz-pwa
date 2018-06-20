@@ -10,7 +10,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {HolidayEffects} from './effects/holiday.effects';
 import {HolidayRoutingModule} from './holiday-routing.module';
 import {MaterialModule} from '../material';
-import {CommentBoxComponent} from './containers/comment-box/comment-box.component';
+import {CommentBoxComponent} from './components/comment-box/comment-box.component';
 import {HolidayDetailPageComponent} from './containers/holiday-detail/holiday-detail.component';
 import {ForumComponent} from './containers/forum/forum.component';
 import {PostComponent} from './components/post/post.component';

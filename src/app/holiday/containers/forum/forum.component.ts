@@ -6,11 +6,12 @@ import {MtravelUser} from '../../../auth/services/auth.service';
 import {PostDTO} from '../../models/post';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../reducers/index';
-import {Create} from '../../actions/post.actions';
+import * as postActions from '../../actions/post.actions';
+import * as commentActions from '../../actions/comment.actions';
 import * as uuid from 'uuid';
 import {CommentDTO} from '../../models/comment';
-import {filter, map} from 'rxjs/operators';
-import {Observable} from 'rxjs/index';
+import {filter} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import * as fromHoliday from '../../reducers';
 import {getUserForId} from '../../reducers';
 
@@ -31,7 +32,7 @@ import {getUserForId} from '../../reducers';
         <app-post [post]="post"
                   [comments]="commentsForPost(post) | async"
                   [author]="authorOf(post.authorId) | async"
-                  [activeUser]="activeUser">
+                  (newComment)="submitComment($event, post.id)">
         </app-post>
       </div>
     </div>
@@ -71,8 +72,21 @@ export class ForumComponent {
       created: moment().toISOString()
     };
 
-    this.store.dispatch(new Create({record: post}));
+    this.store.dispatch(new postActions.Create({record: post}));
     this.postInput = '';
+  }
+
+  submitComment(text: string, postId: string) {
+    const comment: CommentDTO = {
+      id: uuid(),
+      text: text,
+      postId: postId,
+      holidayId: this.holiday.id,
+      authorId: this.activeUser.id,
+      created: moment().toISOString()
+    };
+
+    this.store.dispatch(new commentActions.Create({record: comment}));
   }
 
   authorOf(userId: string): Observable<MtravelUser> {
@@ -82,11 +96,6 @@ export class ForumComponent {
   }
 
   commentsForPost(post: PostDTO): Observable<CommentDTO[]> {
-    return this.store.select(fromHoliday.getCommentsForPostId(post.id)).pipe(
-      map(it => {
-        return it.sort((some, other) => {
-          return moment(some.created).isAfter(moment(other.created)) ? 1 : 0;
-        });
-      }));
+    return this.store.select(fromHoliday.getCommentsForPostId(post.id));
   }
 }

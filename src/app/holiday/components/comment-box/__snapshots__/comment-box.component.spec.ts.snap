@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommentBoxComponent should match snapshot 1`] = `
+<app-comment-box
+  comments={[Function Array]}
+  newComment={[Function EventEmitter]}
+  post={[Function Object]}
+  store={[Function Store]}
+>
+  <div
+    class="comments-container"
+  >
+    
+    <div
+      class="comment ng-star-inserted"
+    >
+      <app-comment />
+    </div>
+    <div
+      class="comment ng-star-inserted"
+    >
+      <app-comment />
+    </div>
+  </div><app-comment-field>
+    <mat-form-field
+      class="mat-form-field ng-tns-c0-0 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-legacy mat-form-field-can-float mat-form-field-hide-placeholder ng-untouched ng-pristine ng-valid _mat-animation-noopable"
+    >
+      <div
+        class="mat-form-field-wrapper"
+      >
+        <div
+          class="mat-form-field-flex"
+        >
+          
+          <div
+            class="mat-form-field-infix"
+          >
+            <textarea
+              aria-invalid="false"
+              aria-required="false"
+              class="mat-input-element mat-form-field-autofill-control cdk-textarea-autosize mat-autosize cdk-text-field-autofill-monitored ng-untouched ng-pristine ng-valid"
+              id="mat-input-0"
+              matinput=""
+              mattextareaautosize=""
+              ng-reflect-mat-textarea-autosize=""
+              ng-reflect-model=""
+              ng-reflect-placeholder="Kommentieren ..."
+              placeholder="Kommentieren ..."
+              rows="1"
+            />
+            <span
+              class="mat-form-field-label-wrapper"
+            >
+              
+              <label
+                aria-owns="mat-input-0"
+                class="mat-form-field-label ng-tns-c0-0 mat-empty mat-form-field-empty ng-star-inserted"
+                for="mat-input-0"
+                ng-reflect-ng-switch="false"
+              >
+                
+                
+                Kommentieren ...
+                
+                
+              </label>
+            </span>
+          </div>
+          
+        </div>
+        
+        <div
+          class="mat-form-field-underline ng-tns-c0-0 ng-star-inserted"
+        >
+          <span
+            class="mat-form-field-ripple"
+          />
+        </div>
+        
+        <div
+          class="mat-form-field-subscript-wrapper"
+          ng-reflect-ng-switch="hint"
+        >
+          
+          
+          <div
+            class="mat-form-field-hint-wrapper ng-tns-c0-0 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+            style="opacity: 1; transform: translateY(0%);"
+          >
+            
+            <div
+              class="mat-form-field-hint-spacer"
+            />
+          </div>
+        </div>
+      </div>
+    </mat-form-field>
+  </app-comment-field>
+</app-comment-box>
+`;

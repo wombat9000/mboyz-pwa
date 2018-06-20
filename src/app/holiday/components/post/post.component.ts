@@ -1,12 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import * as moment from 'moment';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
-import * as uuid from 'uuid';
-import {Create} from '../../actions/comment.actions';
-import {Store} from '@ngrx/store';
-import * as fromRoot from '../../../reducers';
 
 @Component({
   selector: 'app-post',
@@ -23,8 +19,7 @@ import * as fromRoot from '../../../reducers';
     <div class="comments">
       <app-comment-box [post]="post"
                        [comments]="comments"
-                       [activeUser]="activeUser"
-                       (submitComment)="submitComment($event)">
+                       (newComment)="newComment.emit($event)">
       </app-comment-box>
     </div>
   `,
@@ -38,23 +33,10 @@ export class PostComponent {
   comments: CommentDTO[];
   @Input()
   author: MtravelUser;
-  @Input()
-  activeUser: MtravelUser;
+  @Output()
+  newComment = new EventEmitter<String>();
 
-  constructor(private store: Store<fromRoot.State>) {
-  }
-
-  submitComment(text: string) {
-    const comment: CommentDTO = {
-      id: uuid(),
-      text: text,
-      postId: this.post.id,
-      holidayId: this.post.holidayId,
-      authorId: this.activeUser.id,
-      created: moment().toISOString()
-    };
-
-    this.store.dispatch(new Create({record: comment}));
+  constructor() {
   }
 
   formatDate(isoString: string): string {

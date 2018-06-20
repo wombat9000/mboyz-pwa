@@ -5,8 +5,6 @@ import {By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {MtravelUser} from '../../../auth/services/auth.service';
 import {PostDTO} from '../../models/post';
-import {combineReducers, StoreModule} from '@ngrx/store';
-import * as fromHoliday from '../../reducers';
 import moment = require('moment');
 
 describe('PostComponent', () => {
@@ -23,11 +21,6 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({
-          holidayPlanner: combineReducers(fromHoliday.reducers),
-        })
-      ],
       declarations: [PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

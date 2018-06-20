@@ -4,7 +4,7 @@ import {PostDTO} from '../../models/post';
 import {CommentDTO} from '../../models/comment';
 import * as fromRoot from '../../../reducers/index';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/index';
+import {Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {getUserForId} from '../../reducers';
 
@@ -27,8 +27,6 @@ export class CommentBoxComponent {
 
   @Input()
   post: PostDTO;
-  @Input()
-  activeUser: MtravelUser;
   @Input()
   comments: CommentDTO[];
   @Output()

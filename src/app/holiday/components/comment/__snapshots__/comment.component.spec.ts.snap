@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommentComponent should match snapshot 1`] = `
+<app-comment
+  author={[Function Object]}
+  comment={[Function Object]}
+>
+  <div
+    class="comment-body"
+  >
+    <span
+      class="author"
+    >
+      someDisplayName 
+    </span>
+    <span
+      class="message"
+    >
+      someMessage
+    </span>
+  </div><div
+    class="info"
+  >
+    <span
+      class="created-text"
+    >
+      1st January um 12:00 AM
+    </span>
+  </div>
+</app-comment>
+`;
