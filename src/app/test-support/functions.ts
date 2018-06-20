@@ -1,6 +1,6 @@
 import {DebugElement} from '@angular/core';
-import {DocumentChangeAction, DocumentChange} from 'angularfire2/firestore';
-import {DocumentChangeType, DocumentData} from '@firebase/firestore-types';
+import {DocumentChange, DocumentChangeAction} from 'angularfire2/firestore';
+import {DocumentChangeType} from '@firebase/firestore-types';
 
 const ButtonClickEvents = {
   left: {button: 0},

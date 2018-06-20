@@ -89,24 +89,4 @@ describe('HolidayOverviewComponent', () => {
       });
     });
   });
-
-  describe('add button', () => {
-    it('should show an add button', () => {
-      const addButton = debugElement.query(By.css('.add-holiday'));
-      expect(addButton).toBeTruthy();
-    });
-
-    it('should link to create page', () => {
-      const addButton = debugElement.query(By.css('.add-holiday'));
-      expect(addButton.attributes.routerLink).toBe('/holiday/create');
-    });
-
-    xit('should redirect to create holiday page onclick', () => {
-      const addButton = debugElement.query(By.css('.add-holiday'));
-
-      click(addButton);
-      const destinationURL = router.navigateByUrl.mock.calls[0][0];
-      expect(destinationURL).toBe(`/holiday/create`);
-    });
-  });
 });
