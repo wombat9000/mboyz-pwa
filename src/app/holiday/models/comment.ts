@@ -1,5 +1,5 @@
 import {DbRecord} from './DbRecord';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export interface CommentDTO extends DbRecord {
   readonly text: string;

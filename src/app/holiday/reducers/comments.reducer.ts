@@ -1,7 +1,7 @@
 import * as actions from '../actions/comment.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {CommentDTO} from '../models/comment';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export interface State extends EntityState<CommentDTO> {
 }

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {Actions, Effect, ofType} from '@ngrx/effects';
@@ -55,7 +55,10 @@ export class AuthEffects {
   loginSuccess$: Observable<boolean> = this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     switchMap(() => {
-      return fromPromise(this.router.navigate(['/']));
+      // We run this in the ngZone to reactivate change detection after coming back from
+      // third party login provider.
+      // https://github.com/angular/angular/issues/18254
+      return fromPromise(this.ngZone.run(() => this.router.navigate(['/'])));
     })
   );
 
@@ -77,6 +80,7 @@ export class AuthEffects {
   constructor(private actions$: Actions,
               private userService: UserService,
               private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private ngZone: NgZone) {
   }
 }
