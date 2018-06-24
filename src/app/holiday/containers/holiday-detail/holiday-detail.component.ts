@@ -9,7 +9,6 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
 @Component({
   selector: 'app-holiday-detail',
   template: `
-    <h1>{{holiday.name}}</h1>
     <app-forum [holiday]="holiday"
                   [activeUser]="activeUser"
                   [posts]="posts">
@@ -36,6 +35,6 @@ export class HolidayDetailPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new SetTitle({newTitle: 'overview'}));
+    this.store.dispatch(new SetTitle({newTitle: this.holiday.name}));
   }
 }

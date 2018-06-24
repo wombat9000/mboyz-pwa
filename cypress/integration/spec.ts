@@ -13,6 +13,8 @@ firebase.initializeApp({
 });
 
 describe('Holiday planner', () => {
+  const testId = uuid();
+
   before(() => {
     const firestore = firebase.firestore();
     const settings = {/* your settings... */ timestampsInSnapshots: true};
@@ -38,10 +40,10 @@ describe('Holiday planner', () => {
 
     cy.get('.add-holiday').click();
     cy.get('.page-title').contains('create new');
-
-    const randomId = uuid();
-    cy.get('input').type(`Test Holiday ${randomId}`);
+    cy.get('input').type(`Holiday ${testId}`);
     cy.get('[name="submit"]').click();
-    cy.get('.holiday-name').contains(`Test Holiday ${randomId}`);
+
+    cy.contains(`Holiday ${testId}`).click();
+    cy.get('.page-title').contains(`Holiday`);
   });
 });

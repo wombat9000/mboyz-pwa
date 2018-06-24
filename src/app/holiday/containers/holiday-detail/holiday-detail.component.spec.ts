@@ -92,16 +92,12 @@ describe('HolidayDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should set title to overview', () => {
-    expect(store.dispatch).toHaveBeenCalledWith(new SetTitle({newTitle: 'overview'}));
+  it('should match snapshot', () => {
+    expect(fixture).toMatchSnapshot('fixture');
   });
 
-  it('should show the holidays name', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
-
-    const heading = fixture.debugElement.query(By.css('h1')).nativeElement.textContent;
-    expect(heading).toBe(someHoliday.name);
+  it('should set title to holidays name', () => {
+    expect(store.dispatch).toHaveBeenCalledWith(new SetTitle({newTitle: someHoliday.name}));
   });
 
   it('should pass properties down to post box', async () => {

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HolidayDetailComponent should match snapshot: fixture 1`] = `
+<app-holiday-detail
+  activeUser={[Function Object]}
+  holiday={[Function Object]}
+  posts={[Function Array]}
+  store={[Function Store]}
+>
+  <app-forum
+    _ngcontent-c0=""
+  />
+</app-holiday-detail>
+`;
