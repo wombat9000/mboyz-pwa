@@ -21,6 +21,8 @@ import {CommentEffects} from './effects/comment.effects';
 import {FirestoreService} from './services/firestore.service';
 import {UserEffects} from './effects/user.effects';
 import {SelectedHolidayPageComponent} from './containers/selected-holiday-page/selected-holiday-page.component';
+import {DateSuggestComponent} from './containers/date-suggest/date-suggest.component';
+import {DatePlannerComponent} from './containers/date-planner/date-planner.component';
 
 
 const EFFECTS = [
@@ -41,6 +43,8 @@ const EFFECTS = [
     CommentComponent,
     CommentFieldComponent,
     SelectedHolidayPageComponent,
+    DateSuggestComponent,
+    DatePlannerComponent,
   ],
   imports: [
     MaterialModule,

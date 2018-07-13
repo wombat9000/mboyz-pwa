@@ -13,6 +13,7 @@ import {
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 
 const COMPONENTS = [
@@ -34,6 +35,7 @@ const COMPONENTS = [
   MatChipsModule,
   MatListModule,
   MatFormFieldModule,
+  MatMomentDateModule,
   MatButtonModule];
 
 @NgModule({

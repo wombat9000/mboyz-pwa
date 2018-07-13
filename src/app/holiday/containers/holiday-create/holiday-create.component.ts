@@ -12,8 +12,6 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
 @Component({
   selector: 'app-holiday-create',
   template: `
-    <h2>Neuen Urlaub vorschlagen:</h2>
-
     <form class="holiday-form"
           (ngSubmit)="onSubmit()"
           #holidayForm="ngForm">
@@ -22,7 +20,7 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
                [(ngModel)]="holidayName"
                name="name"
                required
-               placeholder="Name">
+               placeholder="name">
       </mat-form-field>
 
       <p>
@@ -50,8 +48,7 @@ export class CreateHolidayPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO: test
-    this.store.dispatch(new SetTitle({newTitle: 'create new'}));
+    this.store.dispatch(new SetTitle({newTitle: 'new holiday'}));
   }
 
   onSubmit() {

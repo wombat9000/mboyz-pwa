@@ -7,7 +7,9 @@ exports[`HolidayDetailComponent should match snapshot: fixture 1`] = `
   posts={[Function Array]}
   store={[Function Store]}
 >
-  <app-forum
+  <app-date-planner
+    _ngcontent-c0=""
+  /><app-forum
     _ngcontent-c0=""
   />
 </app-holiday-detail>

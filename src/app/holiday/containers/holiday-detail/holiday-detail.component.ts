@@ -9,9 +9,10 @@ import {SetTitle} from '../../../core/actions/app-bar.actions';
 @Component({
   selector: 'app-holiday-detail',
   template: `
+    <app-date-planner></app-date-planner>
     <app-forum [holiday]="holiday"
-                  [activeUser]="activeUser"
-                  [posts]="posts">
+               [activeUser]="activeUser"
+               [posts]="posts">
     </app-forum>
   `,
   styles: [`
